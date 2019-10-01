@@ -1,9 +1,9 @@
-"=================================================================
-" VIMRC SETUP BY AGUNG TUANANY
-"-----------------------------------------------------------------
-"SPECIAL THANKS : MILLER-MEDEIROS, DOUG-BLACK, AMIX
-"=================================================================
-
+" =============================================================================
+" Miller Medeiros .vimrc file
+" -----------------------------------------------------------------------------
+" heavily inspired by: @factorylabs, @scrooloose, @nvie, @gf3, @bit-theory.
+" =============================================================================
+"
 
 " -----------------------------------------------------------------------------
 " BEHAVIOR
@@ -12,8 +12,8 @@
 set nocompatible            " Disable vi compatibility
 
 filetype on                 " filetype must be 'on' before setting it 'off'
-                            "   otherwise it exits with a bad status and breaks
-                            "   git commit.
+"   otherwise it exits with a bad status and breaks
+"   git commit.
 filetype off                " force reloading *after* pathogen loaded
 
 " set the runtime path to include Vundle and initialize
@@ -53,7 +53,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'mhinz/vim-signify'
 Plugin 'int3/vim-extradite'
-
+" Plugin 'jaxbot/browserlink.vim'     " crashed with ubuntu
 " css
 Plugin 'ap/vim-css-color'
 Plugin 'hail2u/vim-css3-syntax'
@@ -75,6 +75,8 @@ Plugin 'millermedeiros/vim-statline'
 
 " colorschemes
 Plugin 'tomasr/molokai'
+Plugin 'rafi/awesome-vim-colorschemes'
+Plugin 'morhetz/gruvbox'
 
 " --- Plugin added from master ---
 Plugin 'itchyny/lightline.vim'
@@ -82,6 +84,10 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'shime/vim-livedown'
+Plugin 'vimwiki/vimwiki'
+Plugin 'leafgarland/typescript-vim'
+Plugin 'mustache/vim-mustache-handlebars'
+
 " required for vundle
 call vundle#end()
 
@@ -104,7 +110,7 @@ set encoding=utf-8 nobomb   " BOM often causes trouble, UTF-8 is awsum.
 
 " --- performance / buffer ---
 set hidden                  " can put buffer to the background without writing
-                            "   to disk, will remember history/marks.
+"   to disk, will remember history/marks.
 set lazyredraw              " don't update the display while executing macros
 set ttyfast                 " Send more characters at a given time.
 
@@ -128,7 +134,7 @@ set magic                   " Enable extended regexes.
 set hlsearch                " highlight searches
 set incsearch               " show the `best match so far' astyped
 set ignorecase smartcase    " make searches case-insensitive, unless they
-                            "   contain upper-case letters
+"   contain upper-case letters
 
 " --- keys ---
 set backspace=indent,eol,start  " allow backspacing over everything.
@@ -141,11 +147,11 @@ set ttimeoutlen=100             " faster timeout for escape key and others
 
 " Use a bar-shaped cursor for insert mode, even through tmux.
 if exists('$TMUX')
-    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 else
-    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
 
 
@@ -158,7 +164,7 @@ endif
 set t_Co=256                " 256 colors terminal
 
 let g:molokai_original=0
-colorscheme molokai
+colorscheme jellybeans
 " make 'var' keyword easier to spot
 hi link javascriptType Keyword
 " default ColorColumn is too distractive
@@ -173,22 +179,23 @@ hi link OverLength Error
 
 
 if has('gui_running')
-    "set guifont=Menlo:h13
-    set gfn:Monaco:h14
-    set transp=0
+  "set guifont=Menlo:h13
+  set gfn:Monaco:h14
+  set transp=0
 
-    " toolbar and scrollbars
-    set guioptions-=T       " remove toolbar
-    set guioptions-=L       " left scroll bar
-    set guioptions-=r       " right scroll bar
-    set guioptions-=b       " bottom scroll bar
-    set guioptions-=h      " only calculate bottom scroll size of current line
-    set shortmess=atI       " Don't show the intro message at start and
-                            "   truncate msgs (avoid press ENTER msgs).
+  " toolbar and scrollbars
+  set guioptions-=T       " remove toolbar
+  set guioptions-=L       " left scroll bar
+  set guioptions-=r       " right scroll bar
+  set guioptions-=b       " bottom scroll bar
+  set guioptions-=h      " only calculate bottom scroll size of current line
+  set shortmess=atI       " Don't show the intro message at start and
+  "   truncate msgs (avoid press ENTER msgs).
 endif
 
 
 set cursorline              " Highlight current line
+set cursorcolumn            " Highlight current column
 set laststatus=2            " Always show status line
 set number                  " Enable line numbers.
 set numberwidth=5           " width of numbers line (default on gvim is 4)
@@ -200,19 +207,19 @@ set splitbelow splitright   " how to split new windows.
 set title                   " Show the filename in the window title bar.
 
 set scrolloff=5             " Start scrolling n lines before horizontal
-                            "   border of window.
+"   border of window.
 set sidescrolloff=7         " Start scrolling n chars before end of screen.
 set sidescroll=1            " The minimal number of columns to scroll
-                            "   horizontally.
+"   horizontally.
 
 " add useful stuff to title bar (file name, flags, cwd)
 " based on @factorylabs
 if has('title') && (has('gui_running') || &title)
-    set titlestring=
-    set titlestring+=%f
-    set titlestring+=%h%m%r%w
-    set titlestring+=\ -\ %{v:progname}
-    set titlestring+=\ -\ %{substitute(getcwd(),\ $HOME,\ '~',\ '')}
+  set titlestring=
+  set titlestring+=%f
+  set titlestring+=%h%m%r%w
+  set titlestring+=\ -\ %{v:progname}
+  set titlestring+=\ -\ %{substitute(getcwd(),\ $HOME,\ '~',\ '')}
 endif
 
 " use relative line number by default
@@ -229,7 +236,7 @@ set wildignore+=*.DS_STORE,*.db,node_modules/**,*.jpg,*.png,*.gif
 
 " --- diff ---
 set diffopt=filler          " Add vertical spaces to keep right
-                            "   and left aligned.
+"   and left aligned.
 set diffopt+=iwhite         " Ignore whitespace changes.
 
 
@@ -258,26 +265,26 @@ set visualbell
 " INDENTATION AND TEXT-WRAP
 " -----------------------------------------------------------------------------
 
-set expandtab                   " Expand tabs to spaces
+"set expandtab                   " Expand tabs to spaces
 set autoindent smartindent      " auto/smart indent
 set copyindent                  " copy previous indentation on auto indent
-set softtabstop=2               " Tab key results in # spaces
-set tabstop=2                   " Tab is # spaces
-set shiftwidth=2                " The # of spaces for indenting.
+set softtabstop=2               " Tab key results in # spaces | not use tab 2
+set tabstop=4                   " Tab is # spaces
+set shiftwidth=4                " The # of spaces for indenting.
 set smarttab                    " At start of line, <Tab> inserts shift width
-                                "   spaces, <Bs> deletes shift width spaces.
+"   spaces, <Bs> deletes shift width spaces.
 
-set wrap                        " wrap lines
+set nowrap                        " wrap lines
 set textwidth=80
 "set colorcolumn=+1              " Show large lines
 set formatoptions=qrn1          " automatic formating.
 set formatoptions-=o            " don't start new lines w/ comment leader on
-                                "   pressing 'o'
+"   pressing 'o'
 
 set nomodeline                  " don't use modeline (security)
 
 set pastetoggle=<leader>p       " paste mode: avoid auto indent, treat chars
-                                "   as literal.
+"   as literal.
 
 
 
@@ -291,6 +298,7 @@ let NERDTreeShowBookmarks=0         "show bookmarks on startup
 let NERDTreeHighlightCursorline=1   "Highlight the selected entry in the tree
 let NERDTreeShowLineNumbers=0
 let NERDTreeMinimalUI=1
+let NERDTreeWinSize=20
 noremap <leader>nt :NERDTreeToggle<CR>
 
 
@@ -299,8 +307,8 @@ noremap <leader>nt :NERDTreeToggle<CR>
 let NERDSpaceDelims=1               " space around delimiters
 let NERDRemoveExtraSpaces=1
 let g:NERDCustomDelimiters = {
-    \ 'scss': { 'left': '//' }
-\ }
+      \ 'scss': { 'left': '//' }
+      \ }
 
 
 " --- Syntastic : Linting / Error check ---
@@ -345,11 +353,11 @@ let g:EasyMotion_mapping_F = '<leader>F'
 
 " --- Strip trailing whitespace ---
 function! StripWhitespace ()
-    let save_cursor = getpos(".")
-    let old_query = getreg('/')
-    :%s/\s\+$//e
-    call setpos('.', save_cursor)
-    call setreg('/', old_query)
+  let save_cursor = getpos(".")
+  let old_query = getreg('/')
+  :%s/\s\+$//e
+  call setpos('.', save_cursor)
+  call setreg('/', old_query)
 endfunction
 
 " Trailing white space (strip spaces)
@@ -398,11 +406,11 @@ let g:gundo_preview_bottom = 1
 " --- toggle indentation mode ---
 
 function! ToggleExpandTab()
-    if &et
-        set noet softtabstop=0
-    else
-        execute "set et softtabstop=". &tabstop
-    endif
+  if &et
+    set noet softtabstop=0
+  else
+    execute "set et softtabstop=". &tabstop
+  endif
 endfunction
 
 noremap <silent> <leader>et :call ToggleExpandTab()<CR>
@@ -443,7 +451,7 @@ noremap <silent> <leader>t\| :Tabularize /\|<CR>
 " borrowed from: http://vim.1045645.n5.nabble.com/vim-counterpart-for-persistent-includes-td4276915.html
 
 function! IncludeStatic()
- :g/<!-- #include "[^"]*" -->\_.\{-}<!-- end include -->/let fname = matchstr(getline('.'),'<!-- #include "\zs[^"]*\ze" -->')|exec '+,/<!-- end include -->/-!cat '.fnameescape(fname)
+  :g/<!-- #include "[^"]*" -->\_.\{-}<!-- end include -->/let fname = matchstr(getline('.'),'<!-- #include "\zs[^"]*\ze" -->')|exec '+,/<!-- end include -->/-!cat '.fnameescape(fname)
 endfunction
 
 noremap <silent> <leader>ic :call IncludeStatic()<CR>
@@ -454,10 +462,10 @@ noremap <silent> <leader>ic :call IncludeStatic()<CR>
 vnoremap <silent> <leader>md :! mdown<CR>
 
 function! SanitizeMdown()
-    %s/<\/\?p>//
-    %s/<br \?\/\?>/ /
-    %s/<pre><code>/<pre class="brush:js">\r/
-    %s/<\/code><\/pre>/<\/pre>/
+  %s/<\/\?p>//
+  %s/<br \?\/\?>/ /
+  %s/<pre><code>/<pre class="brush:js">\r/
+  %s/<\/code><\/pre>/<\/pre>/
 endfunc
 noremap <silent> <leader>mds :call SanitizeMdown()<CR>
 
@@ -473,11 +481,11 @@ vnoremap <silent> <leader>es :EsformatterVisual<CR>
 " --- toggle autocomplete behavior and word delimiters ---
 
 function! KeywordsAll()
-    setl iskeyword=@,48-57,192-255,\@,\$,%,-,_
+  setl iskeyword=@,48-57,192-255,\@,\$,%,-,_
 endfunc
 
 function! KeywordsBasic()
-    setl iskeyword=@,48-57,192-255
+  setl iskeyword=@,48-57,192-255
 endfunc
 
 
@@ -501,7 +509,7 @@ vmap <leader>ls :call ListTrans_toggle_format('visual')<CR>
 
 
 " -----------------------------------------------------------------------------
-            "----- PLUGIN ADDED FROM MASTER ---
+"----- PLUGIN ADDED FROM MASTER ---
 " -----------------------------------------------------------------------------
 
 " --- 'itchyny/lightline.vim' ---
@@ -519,6 +527,43 @@ let g:lightline = {
 
 " --- vim-instant-markdown ---
 let g:instant_markdown_autostart = 0
+
+" --- vimwiki ---
+" --- Run multiple wikis ---
+
+let g:vimwiki_list = [
+      \{'path': '~/Documents/Saskara/personal.wiki'},
+      \{'path': '~/Documents/Saskara/saskara.wiki'}
+      \]
+
+au BufRead, BufNewFile *.wiki set filetype=vimwiki
+:autocmd FileType vimwiki map d :VimwikiMakeDiaryNote
+function! ToggleCalendar()
+  execute ".Calendar"
+  if exist ("g:calendar_open")
+    if g:calendar_open == 1
+      execute "q"
+      unlet g:calendar_open
+    else
+      g:calendar_open = 1
+    end
+  else
+    let g:calendar_open = 1
+  end
+endfunction
+:autocmd FileType vimwiki map c :call ToggleCalendar()
+
+hi link VimwikiHeader1 pandocBlockQuoteLeader1
+hi link VimwikiHeader2 pandocBlockQuoteLeader2
+hi link VimwikiHeader3 pandocBlockQuoteLeader3
+hi link VimwikiHeader4 pandocBlockQuoteLeader4
+hi link VimwikiHeader5 pandocBlockQuoteLeader5
+hi link VimwikiHeader6 pandocBlockQuoteLeader6
+
+
+" --- leafgarland/typescript-vim
+
+"let g:typescript_indent_disable= 1
 
 
 
@@ -564,6 +609,7 @@ nnoremap <C-Tab> :tabn<CR>
 " automatic esc, really uncommon to type jj,jk
 inoremap jj <ESC>
 inoremap jk <Esc>
+inoremap kk <Esc>
 
 " Faster scrolling
 nnoremap <C-e> 3<C-e>
@@ -675,60 +721,60 @@ map <leader>( vi(xi  P
 
 " [autocommands] borrowed from @bit-theory vimfiles and edited
 augroup mm_buf_cmds
-    " clear commands before resetting
-    autocmd!
+  " clear commands before resetting
+  autocmd!
 
-    " when vimrc is edited, reload it
-    autocmd bufwritepost .gvimrc source %
-    autocmd bufwritepost .vimrc source %
+  " when vimrc is edited, reload it
+  autocmd bufwritepost .gvimrc source %
+  autocmd bufwritepost .vimrc source %
 
-    " Only show cursorline in the current window and in normal mode
-    au WinLeave,InsertEnter * set nocul
-    au WinEnter,InsertLeave * set cul
+  " Only show cursorline in the current window and in normal mode
+  au WinLeave,InsertEnter * set nocul
+  au WinEnter,InsertLeave * set cul
 
-    " filetype
-    autocmd BufNewFile,BufRead *.json setf json
-    autocmd BufNewFile,BufRead *.hx setf haxe
+  " filetype
+  autocmd BufNewFile,BufRead *.json setf json
+  autocmd BufNewFile,BufRead *.hx setf haxe
 
-    autocmd FileType mustache runtime! ftplugin/html/sparkup.vim
+  autocmd FileType mustache runtime! ftplugin/html/sparkup.vim
 
-    " Enable omnicomplete for supported filetypes
-    autocmd FileType css,scss setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    " autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    " jscomplete is a separate plugin
-    autocmd FileType javascript setlocal omnifunc=jscomplete#CompleteJS
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+  " Enable omnicomplete for supported filetypes
+  autocmd FileType css,scss setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  " autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  " jscomplete is a separate plugin
+  autocmd FileType javascript setlocal omnifunc=jscomplete#CompleteJS
+  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
-    " make `gf` search for .js files
-    autocmd FileType javascript setlocal suffixesadd=.js
-    autocmd FileType javascript setlocal path+=js,scripts
-
-
-    " make sure `complete` works as expected for CSS class names without
-    " messing with motions (eg. '.foo-bar__baz') and we make sure all
-    " delimiters (_,-,$,%,.) are treated as word separators outside insert mode
-    autocmd InsertEnter,BufLeave * :silent call KeywordsAll()
-    autocmd InsertLeave,BufEnter * :silent call KeywordsBasic()
-
-    " yes, we need to duplicate it on VimEnter for some weird reason
-    autocmd VimEnter * nnoremap * :silent call KeywordsAll()<CR> *
-    autocmd VimEnter * nnoremap # :silent call KeywordsAll()<CR> #
+  " make `gf` search for .js files
+  autocmd FileType javascript setlocal suffixesadd=.js
+  autocmd FileType javascript setlocal path+=js,scripts
 
 
-    " Toggle relative/absolute line numbers during edit
-    " if exists('+relativenumber')
-        " autocmd InsertEnter * setl nu
-        " autocmd InsertLeave,BufEnter * setl rnu
-    " endif
+  " make sure `complete` works as expected for CSS class names without
+  " messing with motions (eg. '.foo-bar__baz') and we make sure all
+  " delimiters (_,-,$,%,.) are treated as word separators outside insert mode
+  autocmd InsertEnter,BufLeave * :silent call KeywordsAll()
+  autocmd InsertLeave,BufEnter * :silent call KeywordsBasic()
 
-    " highlight char at column 81 (textwidth + 1)
-    autocmd BufEnter * match OverLength /\%81v/
+  " yes, we need to duplicate it on VimEnter for some weird reason
+  autocmd VimEnter * nnoremap * :silent call KeywordsAll()<CR> *
+  autocmd VimEnter * nnoremap # :silent call KeywordsAll()<CR> #
 
-    " Color Column (only on insert)
-    if exists("&colorcolumn")
-        autocmd InsertEnter * set colorcolumn=80
-        autocmd InsertLeave * set colorcolumn=""
-    endif
-  augroup END
+
+  " Toggle relative/absolute line numbers during edit
+  " if exists('+relativenumber')
+  " autocmd InsertEnter * setl nu
+  " autocmd InsertLeave,BufEnter * setl rnu
+  " endif
+
+  " highlight char at column 81 (textwidth + 1)
+  autocmd BufEnter * match OverLength /\%81v/
+
+  " Color Column (only on insert)
+  if exists("&colorcolumn")
+    autocmd InsertEnter * set colorcolumn=80
+    autocmd InsertLeave * set colorcolumn=""
+  endif
+augroup END
