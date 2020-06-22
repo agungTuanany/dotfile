@@ -5,7 +5,7 @@
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
-      *) return;;
+    *) return;;
 esac
 
 # don't put duplicate lines or lines starting with space in the history.
@@ -47,12 +47,12 @@ esac
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
+        # We have color support; assume it's compliant with Ecma-48
+        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+        # a case would tend to support setf rather than setaf.)
+        color_prompt=yes
     else
-	color_prompt=
+        color_prompt=
     fi
 fi
 
@@ -66,17 +66,18 @@ unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
+    xterm*|rxvt*)
+        PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+        ;;
+    *)
+        ;;
 esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
+    alias ls='exa -al --color=always --group-directories-first'
+    #alias ls='ls --color=auto'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
@@ -92,6 +93,7 @@ fi
 alias ll='ls -alF --group-directories-first'
 alias la='ls -A --group-directories-first'
 alias l='ls -lF --group-directories-first'
+alias lR='ll -alfhN --color=auto --group-directories-first | less '
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -110,11 +112,11 @@ fi
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+        . /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ]; then
+        . /etc/bash_completion
+    fi
 fi
 
 
@@ -122,7 +124,6 @@ fi
 # mk 18-Jul-2016
 
 LC_COLLATE="C"
-
 
 # info : http://ss64.com/bash/syntax-prompt.html
 # Reset
@@ -206,10 +207,9 @@ PROMPT="\[$Cyan\][\t]\[$Color_Off\] \[$BCyan\]\u\[$Color_Off\] => \w\[$Color_Off
 # set-title Foo
 ORIG_PS1=$PS1
 set-title(){
-  TITLE="\e]2;$@\a"
-  PS1="${ORIG_PS1}\[${TITLE}\]"
+TITLE="\e]2;$@\a"
+PS1="${ORIG_PS1}\[${TITLE}\]"
 }
-
 
 # mk 06-Feb-2018
 export GOROOT=/usr/local/go
@@ -217,3 +217,250 @@ export PATH=$PATH:/usr/local/go/bin
 export GOPATH=$HOME/go
 export PATH=$PATH:/$GOPATH/bin
 
+start_agent () {
+    #echo "initializing new SSH agent...----+++----...."
+    # spawn ssh-agent
+    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
+    #echo succeeded
+    chmod 600 "${SSH_ENV}"
+    . "${SSH_ENV}" > /dev/null
+    /usr/bin/ssh-add
+}
+
+if [ -f "${SSH_ENV}" ]; then
+    . "${SSH_ENV}" > /dev/null
+    ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
+        start_agent;
+    }
+else
+    start_agent;
+fi
+
+# rust config
+#export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.cargo/bin${PATH:+:${PATH}}"
+
+# Use some built-in bash
+PATH="$HOME/bin:$PATH"
+
+# FIXME PATH GO not included
+# Should all PATH in one area but I have much more paths.
+export PATH=$PATH:/usr/local/go/bin:/home/$HOME/go/bin
+
+#Sen Mar 16 02:33:54 WIB 2020
+############################# Edit Shortcuts #############################
+
+export EDITOR=vi
+export VISUAL=vi
+export EDITOR_PREFIX=vi
+
+export VIMSPELL=(~/.vim/spell/*.add)
+declare personalspell=(~/.vimpersonal/spell/*.add)
+[[ -n "$personalspell" ]] && VIMSPELL=$personalspell
+declare privatespell=(~/.vimprivate/spell/*.add)
+[[ -n $privatespell ]] && VIMSPELL=$privatespell
+
+# Commonly edited files.
+
+declare -A edits=(
+[bashrc]=~/.bashrc
+[personal]=~/.bash_personal
+[private]=~/.bash_private
+[profile]=~/.profile
+[spell]=$VIMSPELL
+)
+
+for cmd in "${!edits[@]}"; do
+    path=${edits[$cmd]}
+    case $PLATFORM in
+        *) alias $EDITOR_PREFIX$cmd="$EDITOR '$path';warnln 'Make sure you git commit your changes (if needed).'" ;;
+    esac
+done
+
+############################# Lynx with duck-duck-go  #############################
+
+urlencode () {
+    local str="$*"
+    local encoded=""
+    local i c x
+    for (( i=0; i<${#str}; i++ )); do
+        c=${str:$i:1}
+        case "$c" in
+            [-_.~a-zA-Z0-9] ) x="$c" ;;
+            # `'$c` see https://pubs.opengroup.org/onlinepubs/009695399/utilities/printf.html
+            * ) printf -v x '%%%02x' "'$c" ;;
+        esac
+        encoded+="$x"
+    done
+    echo "$encoded"
+}
+
+duck () {
+    local url=$(urlencode "$*")
+    lynx "https://duckduckgo.com/lite?q=$url"
+}
+alias "?"=duck
+
+############################# alias helper  #############################
+#Sen Mar 16 22:55:50 WIB 2020
+alias df='df -h'
+alias '??'='trans :id'
+alias reload='source ~/.bashrc'
+
+alias cd..='cd ..'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
+alias path='echo -e ${PATH//:/\\n}'
+
+alias untar='tar -xvzf'
+
+# prevent mv and cp from overriding
+alias mv='mv -i'
+alias cp='cp -i'
+
+
+############################# Directory shortcut  #############################
+# Directory (cd) shortcuts. Using associative arrays pointing to
+# environment variable names cuz names might not always match (otherwise
+# would just ${foo^^} them). Might want to use a different env variable
+# name at some point.
+
+declare -A directories=(
+[repos]=REPOS
+[config]=CONFIG
+[personal]=PERSONAL
+[private]=PRIVATE
+[tokens]=TOKENS
+[downloads]=DOWNLOADS
+[desktop]=DESKTOP
+[pictures]=PICTURES
+[videos]=VIDEOS
+[images]=DISKIMAGES
+[vmachines]=VMACHINES
+[readme]=README
+[documents]=DOCUMENTS
+[project]=PROJECT
+)
+
+for k in "${!directories[@]}"; do
+    v=${directories[$k]}
+    alias $k='\
+        if [[ -n "$'$v'" ]];\
+        then cd "$'$v'";\
+        else\
+            warnln "\`\$'$v'\` not set. Consider adding to ~/.bash_{personal,private}.";\
+            fi'
+        done
+
+# Detect reasonable defaults (override in .bash_private). You'll want to
+# set CONFIG in your PERSONAL or PRIVATE locations. See the following for
+# examples of how to do this:
+#
+#    https://github.com/<user-name>/config-personal-sample
+#    https://github.com/<user-name>/config-private-sample
+
+declare -A defaults=(
+[DOWNLOADS]=~/Downloads
+[REPOS]=~/Repos
+[DESKTOP]=~/Desktop
+[DOCUMENTS]=~/Documents
+[README]=~/Documents/README   # README WorldPress content
+[PICTURES]=~/Pictures
+[VIDEOS]=~/Videos
+[DISKIMAGES]=~/DiskImages     # linux, arch, raspberrian, etc.
+[VMACHINES]=~/VMachines       # vmware, virtual box, etc.
+[TRASH]=~/Trash               # trash (see trash)
+[PROJECT]=~/Project
+)
+
+for k in "${!defaults[@]}"; do
+    v=${defaults[$k]}
+    export $k=$v
+done
+
+# FIXME the sites not show up.
+#declare -A sites=(
+#	[github]=github.com
+#	[gitlab]=gitlab.com
+#	[protonmail]=protonmail.com
+#	[skilstak]=skilstak.io
+#	[dockhub]=hub.docker.com
+#	[twitter]=twitter.com
+#	[medium]=medium.com
+#	[reddit]=reddit.com
+#	[patreon]=patreon.com
+#	[paypal]=paypal.com
+#	[hackerone]=hackerone.com
+#	[youtube]=youtube.com
+#	[bugcrowd]=bugcrowd.com
+#	[synack]=synack.com
+#	[bls]=bls.gov
+#	[twitch]=twitch.com
+#	[vimeo]=vimeo.com
+#	[emojipedia]=emojipedia.com
+#	[netflix]=netflix.com
+#	[amazon]=amazon.com
+#)
+#
+#for shortcut in "${!sites[@]}"; do
+#	url=${sites[$shortcut]}
+#	alias $shortcut="open https://$url &>/dev/null"
+#done
+
+################### Simple Todo Utility Using Markdown ###################
+
+todo () {
+    #[[-z is Test string is non-empty
+    if [[ -z "${TODOFILE}" ]] ; then
+        echo 'var is unset'
+    else
+        echo "var is set to '$TODOFILE'";
+    fi
+    #[[-n is Test string is empty
+    if [[ -n "$TODOFILE" ]]; then
+        # FIXME $TODOFILE not detect
+        $EDITOR $TODOFILE
+    else
+        telln 'No `$TODOFILE` set.'
+    fi
+} && export -f todo
+
+################### temporary ###################
+setPrompt()
+{  # {{{
+    local TITLEBAR=''
+    local HOST_NAME='\h'
+
+    case ${TERM} in
+        xterm*)
+            TITLEBAR="\[\033]0;[\$(lastcmd)] (\$?) \w\007\]"
+            ;;
+    esac
+
+    [[ -s /etc/HOSTNAME ]] && HOST_NAME=$(</etc/HOSTNAME)
+
+    if [[ "x" != "x${GIT}" ]] ; then
+        export PS1="${TITLEBAR}\[\033[40m\]\[\033[33m\]${HOST_NAME/.*}\[\033[1;33m\][\t]\[\033[1;34m\](\$?)\[\033[1;35m\]\$(git_branch)\[\033[1;36m\]\w\[\033[31m\]\\$\\[\033[0m\] "
+    else
+        export PS1="${TITLEBAR}\[\033[40m\]\[\033[33m\]${HOST_NAME/.*}\[\033[1;33m\][\t]\[\033[1;34m\](\$?)\[\033[1;35m\]\[\033[1;36m\]\w\[\033[31m\]\\$\\[\033[0m\] "
+    fi
+
+        # "Ultimate" Bash debugging prompt, from
+        # http://wiki.bash-hackers.org/scripting/debuggingtips
+        # (also, ${BASH_LINENO[*]} has linenumbers in call stack
+        export PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
+
+        unset -f setPrompt
+    }  # setPrompt()  }}}
+
+PATH="$HOME/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
+
+#Sab Jun 13 05:26:20 WIB 2020
+# --- Tracks your most used directories, based on 'frecency' ---
+. ~/Repos/z/z.sh
