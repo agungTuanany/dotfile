@@ -1,0 +1,141 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" MANAGE PLUG
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nocompatible                        " required
+filetype off                            " required
+
+" Base runtime
+call plug#begin('~/.vim/plugged')
+
+" Core Plugins
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'itchyny/lightline.vim'                   " Lightline statusbar
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+"Plug 'tiagofumo/vim-nerdtree-syntax-highlight' "
+Plug 'godlygeek/tabular'
+
+" colorschemes
+Plug 'morhetz/gruvbox'
+
+call plug#end()
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" BEHAVIOR
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+syntax on
+filetype plugin indent on " enable detection, plugins and indent
+
+set path+=**              " Searches current directory recursively.
+set wildmenu              " Display all matches when tab complete.
+set incsearch
+set nobackup              " Handling E510
+set noswapfile            " Handling E510
+
+set spelllang=en_us       " spell checking
+set encoding=utf-8 nobomb " BOM often causes trouble, UTF-8 is awsum.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Base Remap keys
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" It easy to Escape rather Ctrl+c or Esc button
+:imap ii <Esc>
+au VimEnter * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
+au VimLeave * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
+
+" Your leader
+let mapleader=","
+let maplocalleader=";"
+
+
+
+
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" INDENTATION AND TEXT-WRAP
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Use spaces instead tabs
+set expandtab
+" Be smart when using tabs
+set smarttab
+set autoindent smartindent
+set copyindent
+"set softtabstop=4
+set tabstop=4
+set shiftwidth=4
+
+set nowrap
+set textwidth=80
+set formatoptions=qrn1      " automatic formatiing
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"  UI
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set t_Co=256
+colorscheme gruvbox
+set background=dark
+
+" make 'var' keyword easier to spot
+hi link javascriptType Keyword
+
+set number relativenumber
+let g:rehash256 = 1
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" KEY MAPPINGS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" PLUGINS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" --- NERDTree ----
+let NERDTreeIgnore=['.DS_Store']
+let NERDTreeShowBookmarks=0         "show bookmarks on startup
+let NERDTreeHighlightCursorline=1   "Highlight the selected entry in the tree
+let NERDTreeShowLineNumbers=0
+let NERDTreeMinimalUI=1
+let NERDTreeWinSize=20
+noremap <leader>nt :NERDTreeToggle<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+
+" --- NERDCommenter ---
+let NERDSpaceDelims=1               " space around delimiters
+let NERDRemoveExtraSpaces=1
+let g:NERDCustomDelimiters = {
+      \ 'scss': { 'left': '//' }
+      \ }
+
+
+" --- Plug 'godlygeek/tabular' ---
+noremap <silent> <leader>t: :Tabularize /:<CR>
+noremap <silent> <leader>t= :Tabularize /=<CR>
+noremap <silent> <leader>t, :Tabularize /,<CR>
+noremap <silent> <leader>t{ :Tabularize /{<CR>
+noremap <silent> <leader>t" :Tabularize /"<CR>
+noremap <silent> <leader>t' :Tabularize /'<CR>
+noremap <silent> <leader>t[ :Tabularize /[<CR>
+noremap <silent> <leader>t/ :Tabularize ///<CR>
+noremap <silent> <leader>t\| :Tabularize /\|<CR>
+
+
+
