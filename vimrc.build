@@ -8,14 +8,19 @@ filetype off                            " required
 call plug#begin('~/.vim/plugged')
 
 " Core Plugins
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/nerdcommenter'
-Plug 'godlygeek/tabular'
+Plug 'ctrlpvim/ctrlp.vim'               " Full path Fuzzy file, buffer, mru, tag .. Finder for vim
+Plug 'scrooloose/nerdtree'              " A File system explorer
+Plug 'scrooloose/nerdcommenter'         " Comments function
+Plug 'godlygeek/tabular'                " Line up text
+Plug 'tpope/vim-unimpaired'             " Pairs handy brackets. XXX@NOTE: Implemented with NVIM
+Plug 'jiangmiao/auto-pairs'             " Insert, or delete bracket, parens, quotes in pair
+Plug 'christoomey/vim-tmux-navigator'   " Seamless navigation between tmux panes and vim split
+
+""" TODO:
 
 
 " Lightline statusbar
-Plug 'itchyny/lightline.vim'                   
+Plug 'itchyny/lightline.vim'
 
 " colorschemes
 Plug 'morhetz/gruvbox'
@@ -26,47 +31,47 @@ call plug#end()
 " BEHAVIOR
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax on
-filetype plugin indent on        " enable detection, plugins and indent
+filetype plugin indent on      " enable detection, plugins and indent
 
-set path+=**                     " Searches current directory recursively.
-set wildmenu                     " Display all matches when tab complete.
-set incsearch
+set path+=**                   " Searches current directory recursively.
+set wildmenu                   " Display all matches when tab complete.
+set incsearch                  " Show the 'best math so far' as typed
 
-set spelllang=en_us              " spell checking
-set encoding=utf-8 nobomb        " BOM often causes trouble, UTF-8 is awsum.
+set spelllang=en_us            " spell checking
+set encoding=utf-8 nobomb      " BOM often causes trouble, UTF-8 is awsum.
 
 " --- Performance / buffer ---
-set hidden                       " canput buffer to the background without wiring to disk, will remember history/marks
-set lazyredraw                   " Do not update the display while executing macros
-set ttyfast                      " Send more characters at a given time
+set hidden                     " can put buffer to the background without wiring to disk, will remember history/marks
+set lazyredraw                 " Do not update the display while executing macros
+set ttyfast                    " Send more characters at a given time
 
 
 " --- History / file handling ---
-set history=999                  " Default -20
-set undolevels=999               " More undo
-set autoread                     " Reload file if changed externally
+set history=999                " Default -20
+set undolevels=999             " More undo
+set autoread                   " Reload file if changed externally
 
 
 " --- Backup and swap file ---
-set nobackup                     " Handling E510
-set noswapfile                   " Handling E510
-set nowritebackup                " Handling E510
+set nobackup                   " Handling E510
+set noswapfile                 " Handling E510
+set nowritebackup              " Handling E510
 
 " --- Search / regexp ---
-set gdefault                     " RegExp global by defaulrg
-set magic                        " Enable extended regexes
-set hlsearch                     " higlight searches
-set ignorecase smartcase         " make searches unsensitive, unless they contain upper-case letters
+set gdefault                   " RegExp global by defaulrg
+set magic                      " Enable extended regexes
+set hlsearch                   " higlight searches
+set ignorecase smartcase       " make searches unsensitive, unless they contain upper-case letters
 
 
 
 " --- Keys ---
-set backspace=indent,eol,start   " Allow backspacing over everything
-set esckeys                      " Allow cursor keys in insert mode
-set nostartofline                " Make j/k respect to columns
-set virtualedit=all
-set timeoutlen=500               " how log it wait for mapped commands
-set ttimeoutlen=100              " Faster timeout for escape key and others
+set backspace=indent,eol,start " Allow backspacing over everything
+"set esckeys                    " Allow cursor keys in insert mode
+set nostartofline              " Make j/k respect to columns
+"set virtualedit=all
+set timeoutlen=500             " Log it wait for mapped commands
+set ttimeoutlen=100            " Faster timeout for escape key and others
 
 
 
@@ -79,6 +84,8 @@ else
     let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
 
+" Information for open and close buffer
+set viminfo^=%
 
 
 
@@ -87,7 +94,8 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " It easy to Escape rather Ctrl+c or Esc button
 :imap ii <Esc>
-" TODO: move this as augroup
+" Two semicolons are easy to type
+imap ;; <Esc>
 
 " Your leader
 let mapleader=","
@@ -120,12 +128,47 @@ set formatoptions=qrn1      " automatic formatiing
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "  UI
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" --- General UI ---
 set t_Co=256
 colorscheme gruvbox
 set background=dark
 
-" make 'var' keyword easier to spot
+" Make 'var' keyword easier to spot
 hi link javascriptType Keyword
+
+" Default line number is too distract Ives
+hi clear ColorColumn
+hi link ColorColumn FoldColumn
+hi clear lineNr
+hi link LineNr Commnet
+hi link overLength Error
+
+if &term =~ '256'
+    " Disable background color erase
+    set t_ut=
+endif
+
+" --- UI settings ---
+
+if has('gui_running')
+    set gfn:Monaco:h14
+    set transp=0
+
+    " toolbar and scroll bars
+    set guioptions-=T       " Remove toolbar
+    set guioptions-=L       " Left scroll bar
+    set guioptions-=r       " Right scroll bar
+    set guioptions-=b       " Bottom scroll bar
+    set guioptions-=h       " Only calculate bottom scroll size of current line
+    set shortmess=atI       " Don't show the intro message at start and truncate messages (avoid press Enter messages)
+endif
+
+"set cursorline         " Highlight current line
+"set cursorcolumn       " Higlightk
+set laststatus=2        " Always show status line default value=1
+set numberwidth=5
+set report=0
 
 set number relativenumber
 let g:rehash256 = 1
@@ -178,6 +221,7 @@ noremap <C-j> <c-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 
+
 " Close window
 nnoremap <leader>q :clo<CR>
 
@@ -187,6 +231,48 @@ nnoremap <leader>i :split<cr>
 
 " Reformat code
 nnoremap <leader>rf gg=G
+
+" Toggle spelling hints
+nnoremap <silent> <leader>ts :set spell!<CR>
+
+" Visually  select the text that was last edited/pasted
+
+" Fast saving
+nmap <leader>w :w!<CR>
+
+" Set Explore Beside nerdtree options
+nnoremap <leader>ex :Lex<CR>
+
+" Bubble single lines, similar to Eclipse (requires unimpaired.vim)
+nmap <C-Up> [e
+nmap <C-Down> ]e
+
+" Bubble multiple lines, similar to Eclipse (requires unimpaired.vim)
+vmap <C-Down> ]egv
+vmap <C-Up> [egv
+
+" Duplicate lines. simliar to Eclipse
+"noremap <C-S-Up> YP
+"noremap <C-S-Down> YP
+
+""" TODO: Research what is C-S-Right and C-S-Left. Why when you press CTRL-LEFT button nothing happen?
+""" You still confusing about mapping on VIM.
+
+" Move windows around (only works on same row>
+" <C-S> equivalent into CTRL-SHIFT
+"noremap <C-S-Right> <C-w>r
+"noremap <C-S-Left> <C-w>R
+
+" --- COMMON STUFF / HELPERS ---
+
+" Toggle sohw tabs and trailing spaces
+nnoremap <leader>c :set nolist!<CR>
+
+" Clear the search higlight
+nnoremap <silent> \ :silent nohlsearch<CR>
+
+" Hard wrap paragraph text (similar to TextMate Ctrl+Q)
+nnoremap <leader>tw gqip
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -225,14 +311,19 @@ noremap <silent> <leader>t\| :Tabularize /\|<CR>
 
 
 " ---  Plug 'itchyny/lightline.vim' ---
-set laststatus=2
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FILE HANDLING IN GROUP
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup file_handling_group
+    " Clear commands before restting
+    autocmd!
 
+    " Change your ESC to use Caps_lock
     au VimEnter * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
     au VimLeave * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
+
+    " Automaticall removing all trailing whitespace
+    autocmd BufWritePre * %s/\s\+$//e
 augroup END
