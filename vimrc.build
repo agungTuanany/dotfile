@@ -9,11 +9,13 @@ call plug#begin('~/.vim/plugged')
 
 " Core Plugins
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'itchyny/lightline.vim'                   " Lightline statusbar
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
-"Plug 'tiagofumo/vim-nerdtree-syntax-highlight' "
 Plug 'godlygeek/tabular'
+
+
+" Lightline statusbar
+Plug 'itchyny/lightline.vim'                   
 
 " colorschemes
 Plug 'morhetz/gruvbox'
@@ -24,26 +26,58 @@ call plug#end()
 " BEHAVIOR
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax on
-filetype plugin indent on " enable detection, plugins and indent
+filetype plugin indent on        " enable detection, plugins and indent
 
-set path+=**              " Searches current directory recursively.
-set wildmenu              " Display all matches when tab complete.
+set path+=**                     " Searches current directory recursively.
+set wildmenu                     " Display all matches when tab complete.
 set incsearch
-set nobackup              " Handling E510
-set noswapfile            " Handling E510
 
-set spelllang=en_us       " spell checking
-set encoding=utf-8 nobomb " BOM often causes trouble, UTF-8 is awsum.
+set spelllang=en_us              " spell checking
+set encoding=utf-8 nobomb        " BOM often causes trouble, UTF-8 is awsum.
 
-
-
-
-
+" --- Performance / buffer ---
+set hidden                       " canput buffer to the background without wiring to disk, will remember history/marks
+set lazyredraw                   " Do not update the display while executing macros
+set ttyfast                      " Send more characters at a given time
 
 
+" --- History / file handling ---
+set history=999                  " Default -20
+set undolevels=999               " More undo
+set autoread                     " Reload file if changed externally
+
+
+" --- Backup and swap file ---
+set nobackup                     " Handling E510
+set noswapfile                   " Handling E510
+set nowritebackup                " Handling E510
+
+" --- Search / regexp ---
+set gdefault                     " RegExp global by defaulrg
+set magic                        " Enable extended regexes
+set hlsearch                     " higlight searches
+set ignorecase smartcase         " make searches unsensitive, unless they contain upper-case letters
 
 
 
+" --- Keys ---
+set backspace=indent,eol,start   " Allow backspacing over everything
+set esckeys                      " Allow cursor keys in insert mode
+set nostartofline                " Make j/k respect to columns
+set virtualedit=all
+set timeoutlen=500               " how log it wait for mapped commands
+set ttimeoutlen=100              " Faster timeout for escape key and others
+
+
+
+" Use a bar-shaped cursor for insert mode, even through tmux.
+if exists('$TMUX')
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
 
 
 
@@ -53,8 +87,7 @@ set encoding=utf-8 nobomb " BOM often causes trouble, UTF-8 is awsum.
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " It easy to Escape rather Ctrl+c or Esc button
 :imap ii <Esc>
-au VimEnter * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
-au VimLeave * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
+" TODO: move this as augroup
 
 " Your leader
 let mapleader=","
@@ -102,6 +135,58 @@ let g:rehash256 = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " KEY MAPPINGS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""nmap <leader>ls "call ListTrans_toggle_format()<CR>
+
+" Swap v and CTRL-V, because Block mode is more useful than Visual mode
+nnoremap v <c-V>
+nnoremap <c-V> v
+vnoremap v <c=V>
+vnoremap <c-V> v
+
+" Avoiding mistyping commands
+command! W w
+command! Wq wq
+command! Bd bd
+
+" Movement by scren line instead of file line (for text wrap)
+nnoremap j gj
+nnoremap <dowm> gj
+nnoremap k gk
+nnoremap <up> gk
+
+" Next tab
+nnoremap <C-tab> :tabn<CR>
+
+" automatic esc
+inoremap jj <Esc>
+inoremap jk <Esc>
+inoremap kk <esc>
+
+" Faster scrolling
+nnoremap <C-e> 5<C-e>
+nnoremap <C-y> 3<C-y>
+
+" Use damn hjkl keys
+nnoremap <up>    <nop>
+nnoremap <down>  <nop>
+nnoremap <left>  <nop>
+nnoremap <right> <nop>
+
+" Move between splits
+noremap <C-h> <C-w>h
+noremap <C-j> <c-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+
+" Close window
+nnoremap <leader>q :clo<CR>
+
+" Open currenct buffers in a new split
+nnoremap <leader>s :vsplit<cr>
+nnoremap <leader>i :split<cr>
+
+" Reformat code
+nnoremap <leader>rf gg=G
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -122,8 +207,8 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 let NERDSpaceDelims=1               " space around delimiters
 let NERDRemoveExtraSpaces=1
 let g:NERDCustomDelimiters = {
-      \ 'scss': { 'left': '//' }
-      \ }
+            \ 'scss': { 'left': '//' }
+            \ }
 
 
 " --- Plug 'godlygeek/tabular' ---
@@ -139,3 +224,15 @@ noremap <silent> <leader>t\| :Tabularize /\|<CR>
 
 
 
+" ---  Plug 'itchyny/lightline.vim' ---
+set laststatus=2
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" FILE HANDLING IN GROUP
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+augroup file_handling_group
+
+    au VimEnter * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
+    au VimLeave * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
+augroup END
