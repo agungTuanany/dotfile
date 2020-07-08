@@ -1,6 +1,13 @@
+##########################################################
 #
-# ~/.bashrc
+#---------------------------------------------------------
+# Agung Tuanany .bashrc file
+#---------------------------------------------------------
+# Last Edited       : Wed 08 Jul 2020 08:44:03 AM WIB
+#---------------------------------------------------------
 #
+##########################################################
+
 
 ##########################################################
 # DEFAULT BEHAVIORS
@@ -12,18 +19,20 @@
 complete -c man which
 
 if [ -f /etc/bash_completion ]; then
-	    . /etc/bash_completion
+	. /etc/bash_completion
 fi
+
+HISTCONTROL=ignoreboth
 
 ##########################################################
 # CUSTOM BEHAVIORS
 ##########################################################
 set bell-style none
 shopt -s checkwinsize
-shopt -s expand_aliases
-shopt -s nullglob
-shopt -s dotglob
-shopt -s extglob
+#shopt -s expand_aliases
+#shopt -s nullglob
+#shopt -s dotglob
+#shopt -s extglob
 shopt -s histappend
 HISTZISE=10000
 HISTFILESIZE=10000
@@ -32,7 +41,7 @@ HISTFILESIZE=10000
 export HRULEWIDTH=73
 
 case "$TERM" in
-    xtrem-color|*256color) color_prompt=yes;;
+	xtrem-color|*256color) color_prompt=yes;;
 esac
 
 # --- Some builtin path ---
@@ -64,8 +73,13 @@ export PATH=$PATH:/$GOPATH/bin
 # --- RUST ---
 export PATH="$HOME/.cargo/bin${PATH:+:${PATH}}"
 
+# --- NPM | NVM ---
+source /usr/share/nvm/init-nvm.sh
+
+
+
 # --- cd helpers ---
-. ~/.config/z/z.sh
+. $HOME/.config/z/z.sh
 
 ##########################################################
 # ALIASES
@@ -85,7 +99,7 @@ alias fgrep='fgrep --color=always'
 alias egrep='egrep --color=always'
 
 # --- Less ---
-alias more='less -R'
+alias more="less -R"
 
 # --- Vim ---
 alias vi=vim
@@ -95,39 +109,65 @@ alias nv=nvim
 alias "?"=duck
 
 # --- Transaltor ---
-alias "??"='trans :id'
+alias "??"="trans :id"
 
 # --- Tired to type source ~/.basrhc ---
-alias reload='source ~/.bashrc'
+alias reload="source ~/.bashrc"
 
 # --- NPM browser-sync ---
-alias serve='browse-sync start --serve --files .'
+alias serve="browse-sync start --serve --files ."
+
+# prevent mv and cp from overriding
+alias mv='mv -i'
+alias cp='cp -i'
 
 # --- You get bored on terminal really? ---
-alias clear='[ $[$RANDOM % 6] =6 ] && timeout 3 cmatrix || clear'
+alias clear="[ $[$RANDOM % 6] = 0 ] && timeout 4 cmatrix || clear"
+
 
 ##########################################################
 # FUNCTIONS
 ##########################################################
 
-# --- thanks to @gitlab/rwxrob ---
 urlencode () {
-    local str="$*"
-    local encoded=""
-    local i c x
-    for (( i=0; i<${#str}; i++)); do
-        c=${str:$i:1}
-        case "$c" in
-            [-_.~a-zA-Z0-9] ) x="$c" ;;
-            # `'$c` see https://pubs.opengroup.org/onlinepubs/009695399/utilities/printf.html
-            * ) printf -v x '%%%02x' "'$c" ;;
-        esac
-        enconded+="$x"
-    done
-    echo "$encoded"
+	local str="$*"
+	local encoded=""
+	local i c x
+	for (( i=0; i<${#str}; i++ )); do
+		c=${str:$i:1}
+		case "$c" in
+			[-_.~a-zA-Z0-9] ) x="$c" ;;
+			# `'$c` see https://pubs.opengroup.org/onlinepubs/009695399/utilities/printf.html
+			* ) printf -v x '%%%02x' "'$c" ;;
+		esac
+		encoded+="$x"
+	done
+	echo "$encoded"
 }
 
 duck () {
-    local url=$(urlencode "$*")
-    lynx "https://duckduckgo.com/lite?q=$url"
+	local url=$(urlencode "$*")
+	lynx "https://duckduckgo.com/lite?q=$url"
 }
+
+
+
+# Run 'nvm use' automatically every time there's
+# a .nvmrc file in the directory. Also, revert to default
+# version when entering a directory without .nvmrc
+
+enter_directory() {
+if [[ $PWD == $PREV_PWD ]]; then
+    return
+fi
+
+PREV_PWD=$PWD
+if [[ -f ".nvmrc" ]]; then
+    nvm use
+    NVM_DIRTY=true
+elif [[ $NVM_DIRTY = true ]]; then
+    nvm use default
+    NVM_DIRTY=false
+fi
+}
+
