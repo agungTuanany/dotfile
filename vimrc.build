@@ -1,50 +1,73 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" MANAGE PLUG
+" -----------------------------------------------------------------------------
+" Agung Tuanany .init.vim (nvim) file
+"
+" -----------------------------------------------------------------------------
+" Last Edited       : Wed 08 Jul 2020 06:37:39 AM WIB
+"
+" -----------------------------------------------------------------------------
+"  Heavily inspired by: @millermedeiros,
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set nocompatible                        " required
-filetype off                            " required
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" MANAGE PLUGINS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nocompatible " required
+filetype off     " required
 
 " Base runtime
 call plug#begin('~/.vim/plugged')
 
-" Core Plugins
-Plug 'ctrlpvim/ctrlp.vim'               " Full path Fuzzy file, buffer, mru, tag .. Finder for vim
-Plug 'scrooloose/nerdtree'              " A File system explorer
-Plug 'scrooloose/nerdcommenter'         " Comments function
-Plug 'godlygeek/tabular'                " Line up text
-Plug 'tpope/vim-unimpaired'             " Pairs handy brackets. XXX@NOTE: Implemented with NVIM
-Plug 'jiangmiao/auto-pairs'             " Insert, or delete bracket, parens, quotes in pair
-Plug 'christoomey/vim-tmux-navigator'   " Seamless navigation between tmux panes and vim split
-
-""" TODO:
+" Core Plugs
+Plug 'ctrlpvim/ctrlp.vim'             " Full path Fuzzy file, buffer, mru, tag .. Finder for vim
+Plug 'neoclide/coc.nvim'              " Make vim smart as VSCOde
+Plug 'scrooloose/nerdtree'            " A File system explorer
+Plug 'scrooloose/nerdcommenter'       " Comments function
+Plug 'godlygeek/tabular'              " Line up text
+Plug 'jiangmiao/auto-pairs'           " Insert, or delete bracket, parens, quotes in pair
+Plug 'christoomey/vim-tmux-navigator' " Seamless navigation between tmux panes and vim split
+Plug 'terryma/vim-multiple-cursors'   " Multiple selection
+Plug 'tpope/vim-surround'             " easy surrounding everything
+Plug 'tpope/vim-unimpaired'           " Pairs handy brackets. XXX@NOTE: Implemented with NVIM
+Plug 'junegunn/limelight.vim'         " Hyperfocus-writing in Vim
+Plug 'ervandew/supertab'              " Vim plugin which allow to use <Tab> for all insert completion needs (:help ins-completion)
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-markdown'
+Plug 'tpope/vim-speeddating'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-commentary'
 
 
 " Lightline statusbar
 Plug 'itchyny/lightline.vim'
+Plug 'millermedeiros/vim-statline'
 
 " colorschemes
 Plug 'morhetz/gruvbox'
+Plug 'tomasr/molokai'
+Plug 'rakr/vim-one'
+Plug 'vim-scripts/summerfruit256.vim'
 
 call plug#end()
+
+
+
+
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BEHAVIOR
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax on
-filetype plugin indent on      " enable detection, plugins and indent
+filetype plugin indent on
+set path+=**
+set wildmenu
+set incsearch
 
-set path+=**                   " Searches current directory recursively.
-set wildmenu                   " Display all matches when tab complete.
-set incsearch                  " Show the 'best math so far' as typed
-
-set spelllang=en_us            " spell checking
-set encoding=utf-8 nobomb      " BOM often causes trouble, UTF-8 is awsum.
-
-" --- Performance / buffer ---
-set hidden                     " can put buffer to the background without wiring to disk, will remember history/marks
-set lazyredraw                 " Do not update the display while executing macros
-set ttyfast                    " Send more characters at a given time
-
+set spelllang=en_us
+set encoding=utf-8 nobomb
 
 " --- History / file handling ---
 set history=999                " Default -20
@@ -63,16 +86,13 @@ set magic                      " Enable extended regexes
 set hlsearch                   " higlight searches
 set ignorecase smartcase       " make searches unsensitive, unless they contain upper-case letters
 
-
-
 " --- Keys ---
 set backspace=indent,eol,start " Allow backspacing over everything
-"set esckeys                    " Allow cursor keys in insert mode
+" set esckeys                  " Allow cursor keys in insert mode
 set nostartofline              " Make j/k respect to columns
-"set virtualedit=all
+                               " set virtualedit=all
 set timeoutlen=500             " Log it wait for mapped commands
 set ttimeoutlen=100            " Faster timeout for escape key and others
-
 
 
 " Use a bar-shaped cursor for insert mode, even through tmux.
@@ -90,20 +110,124 @@ set viminfo^=%
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" UI
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+set t_Co=256                " 256 colors terminal
+
+let g:molokai_original=0
+colorscheme molokai
+"colorscheme gruvbox "molokai
+
+" make 'var' keyword easier to spot
+hi link javascriptType Keyword
+" default ColorColumn is too distractive
+hi clear ColorColumn
+hi link ColorColumn FoldColumn
+" defaul line number is too distractive
+hi clear LineNr
+hi link LineNr Comment
+hi link OverLength Error
+
+
+" --- command completion ---
+set wildmenu                                                         " Hitting TAB in command mode will
+set wildchar=<TAB>                                                   " show possible completions.
+set wildmode=list:longest
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/node_modules/*
+set wildignore+=*.DS_STORE,*.db,node_modules/**,*.jpg,*.png,*.gif
+set wildignore+=*/coverage
+
+
+" --- diff ---
+set diffopt=filler                                                   " Add vertical spaces to keep right and left aligned
+set diffopt+=iwhite                                                  " Ignonre whitespace changes
+
+" --- folding---
+set foldmethod=manual                                                " manual fold
+set foldnestmax=3                                                    " deepest fold is 3 levels
+set nofoldenable                                                     " don't fold by default
+
+" --- remove sounds effects ---
+set noerrorbells
+set visualbell
+
+" --- list chars ---
+" list spaces and tabs to avoid trailing spaces and mixed indentation
+" see key mapping at the end of file to toggle `list`
+set listchars=tab:▹\ ,trail:·,nbsp:⚋
+set fillchars=fold:-
+set list
+
+set cursorline                                                       " Highlight current line
+" set laststatus=2                                                   " Always show status line
+set number                                                           " Enable line numbers.
+set numberwidth=5                                                    " width of numbers line (default on gvim is 4)
+set report=0                                                         " Show all changes.
+set showmode                                                         " Show the current mode.
+set showcmd                                                          " show partial command on last line of screen.
+set showmatch                                                        " show matching parenthesis
+set mat=2                                                            " Set how many tenths of a second blink
+set splitbelow splitright                                            " how to split new windows.
+set title                                                            " Show the filename in the window title bar.
+
+set scrolloff=5                                                      " Start scrolling n lines before horizontal
+set so=10                                                            " Set 7 lines to the cursor - when moving vertical border of window.
+set sidescrolloff=7                                                  " Start scrolling n chars before end of screen.
+set sidescroll=1                                                     " The minimal number of columns to scroll horizontally.
+
+" highlight conflicts
+match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
+
+
+" --- UI functions ---
+if &term =~ '256color'
+    " disable background color erase
+    set t_ut=
+endif
+
+if has('gui_running')
+    " set guifont=Menlo:h13
+    set gfn:Monaco:h14
+    set transp=0
+
+    " toolbar and scrollbars
+    set guioptions-=T  " remove toolbar
+    set guioptions-=L  " left scroll bar
+    set guioptions-=r  " right scroll bar
+    set guioptions-=b  " bottom scroll bar
+    set guioptions-=h  " only calculate bottom scroll size of current line
+    set shortmess=atI  " Don't show the intro message at start and truncate msgs (avoid press ENTER msgs).
+endif
+
+if has('title') && (has('gui_running') || &title)
+    set titlestring=
+    set titlestring+=%f
+    set titlestring+=%h%m%r%w
+    set titlestring+=\ -\ %{v:progname}
+    set titlestring+=\ -\ %{substitute(getcwd(),\ $HOME,\ '~',\ '')}
+endif
+
+" use relative line number by default
+if exists('+relativenumber')
+    set relativenumber
+endif
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Base Remap keys
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Your leader
+let mapleader=","
+let maplocalleader=";"
+
 " It easy to Escape rather Ctrl+c or Esc button
 :imap ii <Esc>
 " Two semicolons are easy to type
 imap ;; <Esc>
 
-" Your leader
-let mapleader=","
-let maplocalleader=";"
-
-
-
-
+" Fast saving
+nmap <leader>w :w!<cr>
 
 
 
@@ -126,59 +250,27 @@ set formatoptions=qrn1      " automatic formatiing
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"  UI
+" INDENTATION AND TEXT-WRAP
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" --- General UI ---
-set t_Co=256
-colorscheme gruvbox
-set background=dark
-
-" Make 'var' keyword easier to spot
-hi link javascriptType Keyword
-
-" Default line number is too distract Ives
-hi clear ColorColumn
-hi link ColorColumn FoldColumn
-hi clear lineNr
-hi link LineNr Commnet
-hi link overLength Error
-
-if &term =~ '256'
-    " Disable background color erase
-    set t_ut=
-endif
-
-" --- UI settings ---
-
-if has('gui_running')
-    set gfn:Monaco:h14
-    set transp=0
-
-    " toolbar and scroll bars
-    set guioptions-=T       " Remove toolbar
-    set guioptions-=L       " Left scroll bar
-    set guioptions-=r       " Right scroll bar
-    set guioptions-=b       " Bottom scroll bar
-    set guioptions-=h       " Only calculate bottom scroll size of current line
-    set shortmess=atI       " Don't show the intro message at start and truncate messages (avoid press Enter messages)
-endif
-
-"set cursorline         " Highlight current line
-"set cursorcolumn       " Higlightk
-set laststatus=2        " Always show status line default value=1
-set numberwidth=5
-set report=0
-
-set number relativenumber
-let g:rehash256 = 1
+" mapleader set at the top of the file to avoid conflicts
 
 
+" --- FIX/IMPROVE DEFAULT BEHAVIOR ---
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" KEY MAPPINGS
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""nmap <leader>ls "call ListTrans_toggle_format()<CR>
+" avoid mistyping commands
+command! W w
+command! Wq wq
+command! Bd bd
+
+" Split line (sister to [J]oin lines)
+" The normal use of S is covered by cc, so don't worry about shadowing
+nnoremap S i<cr><esc><right>
+
+" movement by screen line instead of file line (for text wrap)
+nnoremap j gj
+nnoremap <down> gj
+nnoremap k gk
+nnoremap <up> gk
 
 " Swap v and CTRL-V, because Block mode is more useful than Visual mode
 nnoremap v <c-V>
@@ -186,93 +278,140 @@ nnoremap <c-V> v
 vnoremap v <c=V>
 vnoremap <c-V> v
 
-" Avoiding mistyping commands
-command! W w
-command! Wq wq
-command! Bd bd
+" next tab
+nnoremap <C-Tab> :tabn<CR>
 
-" Movement by scren line instead of file line (for text wrap)
-nnoremap j gj
-nnoremap <dowm> gj
-nnoremap k gk
-nnoremap <up> gk
-
-" Next tab
-nnoremap <C-tab> :tabn<CR>
-
-" automatic esc
-inoremap jj <Esc>
+" automatic esc, really uncommon to type jj,jk
+inoremap jj <ESC>
 inoremap jk <Esc>
-inoremap kk <esc>
 
 " Faster scrolling
-nnoremap <C-e> 5<C-e>
+nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
-
-" Use damn hjkl keys
-nnoremap <up>    <nop>
-nnoremap <down>  <nop>
-nnoremap <left>  <nop>
-nnoremap <right> <nop>
-
-" Move between splits
-noremap <C-h> <C-w>h
-noremap <C-j> <c-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
-
-
-" Close window
-nnoremap <leader>q :clo<CR>
-
-" Open currenct buffers in a new split
-nnoremap <leader>s :vsplit<cr>
-nnoremap <leader>i :split<cr>
-
-" Reformat code
-nnoremap <leader>rf gg=G
-
-" Toggle spelling hints
-nnoremap <silent> <leader>ts :set spell!<CR>
-
-" Visually  select the text that was last edited/pasted
-
-" Fast saving
-nmap <leader>w :w!<CR>
-
-" Set Explore Beside nerdtree options
-nnoremap <leader>ex :Lex<CR>
 
 " Bubble single lines, similar to Eclipse (requires unimpaired.vim)
 nmap <C-Up> [e
 nmap <C-Down> ]e
 
 " Bubble multiple lines, similar to Eclipse (requires unimpaired.vim)
-vmap <C-Down> ]egv
 vmap <C-Up> [egv
+vmap <C-Down> ]egv
 
-" Duplicate lines. simliar to Eclipse
-"noremap <C-S-Up> YP
-"noremap <C-S-Down> YP
+" Duplicate lines, similar to Eclipse
+noremap <C-S-Up> YP
+noremap <C-S-Down> YP
 
-""" TODO: Research what is C-S-Right and C-S-Left. Why when you press CTRL-LEFT button nothing happen?
-""" You still confusing about mapping on VIM.
+" 'fix' search regexp to be compatible with Perl format
+" nmap / /\v
+" vmap / /\v
 
-" Move windows around (only works on same row>
-" <C-S> equivalent into CTRL-SHIFT
-"noremap <C-S-Right> <C-w>r
-"noremap <C-S-Left> <C-w>R
+" Use the damn hjkl keys
+noremap <up> <nop>
+noremap <down> <nop>
+noremap <left> <nop>
+noremap <right> <nop>
+
+" Improve the 'search word under cursor' behavior
+nnoremap * :silent call KeywordsAll()<CR> *
+nnoremap # :silent call KeywordsAll()<CR> #
 
 " --- COMMON STUFF / HELPERS ---
 
-" Toggle sohw tabs and trailing spaces
+" Toggle show tabs and trailing spaces
 nnoremap <leader>c :set nolist!<CR>
 
-" Clear the search higlight
+" Clear the search highlight
 nnoremap <silent> \ :silent nohlsearch<CR>
 
-" Hard wrap paragraph text (similar to TextMate Ctrl+Q)
+" text wrap: Hard wrap paragraph text (similar to TextMate Ctrl+Q)
 nnoremap <leader>tw gqip
+nnoremap <leader>nw :set nowrap<CR>
+
+" Open file (useful for HTML)
+noremap <silent> <leader>o :!open %<CR>
+
+" Reformat code
+nnoremap <leader>rf gg=G
+
+" I use retab too much and it's hard to type
+nnoremap <leader>rt :retab!<CR>
+
+" Pull word under cursor into LHS of a substitute (find and replace)
+nnoremap <leader>rr :silent call KeywordsAll()<CR> :%s#\<<C-r>=expand("<cword>")<CR>\>#
+
+" Insert/append a single character
+" noremap ,, i_<esc>r
+" noremap ;; a_<esc>r
+
+" Visually select the text that was last edited/pasted
+nnoremap <leader>v `[v`]
+
+" Fast Ack
+nnoremap <leader>a :tab split<CR>:Ack<Space>
+nnoremap <leader>aw :silent call KeywordsAll()<CR> :tab split<CR>:Ack<cword><CR> :silent call KeywordsBasic()<CR>
+
+" Toggle spelling hints
+nnoremap <silent> <leader>ts :set spell!<CR>
+
+" Move between splits (windows)
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+
+" Move windows around (only works on same row)
+noremap <C-S-Right> <C-w>r
+noremap <C-S-Left> <C-w>R
+
+" Open current buffer in a new split
+noremap <leader>s :vsplit<cr>
+noremap <leader>i :split<cr>
+
+" Close window
+noremap <leader>q :clo<CR>
+
+" Selete buffer but keep window open (requires bufkill.vim)
+map <leader>bd :Bd<CR>
+
+" Smarter next/prev buffer (requires bufkill.vim)
+map <leader>bn :BF<CR>
+map <leader>bp :BB<CR>
+
+" Resize splits (http://vim.wikia.com/wiki/Resize_splits_more_quickly)
+nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
+
+" Move between splits (windows)
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+
+" Move windows around (only works on same row)
+noremap <C-S-Right> <C-w>r
+noremap <C-S-Left> <C-w>R
+
+" Open current buffer in a new split
+noremap <leader>s :vsplit<cr>
+noremap <leader>i :split<cr>
+
+" Close window
+noremap <leader>q :clo<CR>
+
+" Selete buffer but keep window open (requires bufkill.vim)
+map <leader>bd :Bd<CR>
+
+" Smarter next/prev buffer (requires bufkill.vim)
+map <leader>bn :BF<CR>
+map <leader>bp :BB<CR>
+
+" Resize splits (http://vim.wikia.com/wiki/Resize_splits_more_quickly)
+nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
+
+
+
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -310,20 +449,54 @@ noremap <silent> <leader>t\| :Tabularize /\|<CR>
 
 
 
-" ---  Plug 'itchyny/lightline.vim' ---
+" --- Plug 'millermedeiros/vim-statline' ---
+" errors color
+hi User3 guifg=#FFFFFF guibg=#FF0000 gui=bold ctermfg=15 ctermbg=1 cterm=bold
+let g:statline_fugitive = 1
+let g:statline_filename_relative = 1
+let g:statline_mixed_indent_string = '[mix]'
+
+
+" --- limelight.vim ---
+" Color name (:help cterm-colors) or ANSI code
+let g:limelight_conceal_ctermfg = 'gray'
+let g:limelight_conceal_ctermfg = 240
+
+" Color name (:help gui-colors) or RGB color
+let g:limelight_conceal_guifg = 'DarkGray'
+let g:limelight_conceal_guifg = '#777777'
+
+" Default: 0.5
+let g:limelight_default_coefficient = 0.7
+
+" Number of preceding/following paragraphs to include (default: 0)
+let g:limelight_paragraph_span = 1
+
+" Beginning/end of paragraph
+"   When there's no empty line between the paragraphs
+"   and each paragraph starts with indentation
+let g:limelight_bop = '^\s'
+let g:limelight_eop = '\ze\n^\s'
+
+" Highlighting priority (default: 10)
+"   Set it to -1 not to overrule hlsearch
+let g:limelight_priority = -1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" FILE HANDLING IN GROUP
+" FILE HANDLING
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-augroup file_handling_group
-    " Clear commands before restting
+
+augroup mm_buf_cmds
+    " clear commands before resetting
     autocmd!
 
-    " Change your ESC to use Caps_lock
-    au VimEnter * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
-    au VimLeave * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
-
-    " Automaticall removing all trailing whitespace
+    " Automatically removing all trailing whitespace
     autocmd BufWritePre * %s/\s\+$//e
+
+
+    " Enable coc-highlight
+    autocmd CursorHold * silent call CocActionAsync('highlight')
+
 augroup END
+
