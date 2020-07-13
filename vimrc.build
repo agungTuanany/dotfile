@@ -1,9 +1,11 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " -----------------------------------------------------------------------------
+"
 " Agung Tuanany .init.vim (nvim) file
 "
 " -----------------------------------------------------------------------------
-" Last Edited       : Wed 08 Jul 2020 06:37:39 AM WIB
+"
+" Last Edited       : Tue 14 Jul 2020 12:31:55 AM WIB
 "
 " -----------------------------------------------------------------------------
 "  Heavily inspired by: @millermedeiros,
@@ -31,18 +33,38 @@ Plug 'tpope/vim-surround'             " easy surrounding everything
 Plug 'tpope/vim-unimpaired'           " Pairs handy brackets. XXX@NOTE: Implemented with NVIM
 Plug 'junegunn/limelight.vim'         " Hyperfocus-writing in Vim
 Plug 'ervandew/supertab'              " Vim plugin which allow to use <Tab> for all insert completion needs (:help ins-completion)
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-markdown'
-Plug 'tpope/vim-speeddating'
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-repeat'               " Enable repeating supported plugins maps with '.'
+Plug 'tpope/vim-abolish'              " Easily search for, substitute, and abbreviate multiple variants of word
+Plug 'tpope/vim-markdown'             " Vim Markdown runtime files
+Plug 'tpope/vim-speeddating'          " Use CTRL_A/CTR_X to increment dates, times, and more
+Plug 'tpope/vim-surround'             " Quoting / parenthesizing made simple
+Plug 'tpope/vim-unimpaired'           " Pairs of handy bracket mappings   XXX @note NVIM has implement this. Are you still need this? XXX
+Plug 'tpope/vim-commentary'           " Comment stuff out
+Plug 'tpope/vim-fugitive'             " A Git wrapper
+Plug 'int3/vim-extradite'             " A git commit browser for Vim. Extends fugitive.vim
+Plug 'mhinz/vim-signify'              " Show diff using Vim its sign columns
+Plug 'sjl/clam.vim'                   " Lightweight Vim plugin to easily run shell commands
+Plug 'junegunn/goyo.vim'              " Distraction-free writing in Vim
+Plug 'junegunn/limelight.vim'         " Hyperfocus-writing in Vim
 
 
 " Lightline statusbar
 Plug 'itchyny/lightline.vim'
 Plug 'millermedeiros/vim-statline'
+
+Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
+
+" HTML
+Plug 'othree/html5.vim'               " HTML5 + inline SVG omnicomplete function, indent and syntax for Vim, Based on the default htmlcomplete.vim
+
+" CSS
+Plug 'ap/vim-css-color'               " Preview colours in source code while editing
+Plug 'hail2u/vim-css3-syntax'         " CSS3 syntax (and syntax defined in some way foreign specification)
+Plug 'cakebaker/scss-syntax.vim'      " Vim syntax file for scss (Sassy CSS)
+Plug 'groenewege/vim-less'            " Vim syntax LESS (dynamic CSS)
+
+" Svelte
+Plug 'evanleck/vim-svelte'            " Svelte syntax colours
 
 " colorschemes
 Plug 'morhetz/gruvbox'
@@ -240,7 +262,7 @@ set expandtab
 set smarttab
 set autoindent smartindent
 set copyindent
-"set softtabstop=4
+set softtabstop=4
 set tabstop=4
 set shiftwidth=4
 
@@ -481,6 +503,10 @@ let g:limelight_eop = '\ze\n^\s'
 " Highlighting priority (default: 10)
 "   Set it to -1 not to overrule hlsearch
 let g:limelight_priority = -1
+
+" --- Plug 'suan/vim-instant-markdown' ---
+let g:instant_markdown_autostart = 0
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
