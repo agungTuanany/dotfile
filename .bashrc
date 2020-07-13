@@ -52,6 +52,12 @@ export EDITOR=vim
 export VISUAL=vim
 export EDITOR_PREFIX=vim
 
+# --- xmodmap use caps-lock either ESC
+#xmodmap ~/.local/bin/speedswapper
+
+# -- Init xrandr ---
+xrandr --output VGA-1-2 --left-of VGA-1 --auto
+
 
 ##########################################################
 # PS1
@@ -115,7 +121,7 @@ alias "??"="trans :id"
 alias reload="source ~/.bashrc"
 
 # --- NPM browser-sync ---
-alias serve="browse-sync start --serve --files ."
+alias serve="browser-sync start --server --files ."
 
 # prevent mv and cp from overriding
 alias mv='mv -i'
