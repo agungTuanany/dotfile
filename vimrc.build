@@ -5,7 +5,7 @@
 "
 " -----------------------------------------------------------------------------
 "
-" Last Edited       : Tue 14 Jul 2020 12:31:55 AM WIB
+" Last Edited       : Sun 09 Aug 2020 04:29:34 PM WIB
 "
 " -----------------------------------------------------------------------------
 "  Heavily inspired by: @millermedeiros,
@@ -45,7 +45,7 @@ Plug 'int3/vim-extradite'             " A git commit browser for Vim. Extends fu
 Plug 'mhinz/vim-signify'              " Show diff using Vim its sign columns
 Plug 'sjl/clam.vim'                   " Lightweight Vim plugin to easily run shell commands
 Plug 'junegunn/goyo.vim'              " Distraction-free writing in Vim
-Plug 'junegunn/limelight.vim'         " Hyperfocus-writing in Vim
+Plug 'sheerun/vim-polyglot'           " A collection of language packs for vim
 
 
 " Lightline statusbar
@@ -63,14 +63,20 @@ Plug 'hail2u/vim-css3-syntax'         " CSS3 syntax (and syntax defined in some 
 Plug 'cakebaker/scss-syntax.vim'      " Vim syntax file for scss (Sassy CSS)
 Plug 'groenewege/vim-less'            " Vim syntax LESS (dynamic CSS)
 
-" Svelte
+" JS
+Plug 'pangloss/vim-javascript'
 Plug 'evanleck/vim-svelte'            " Svelte syntax colours
+Plug 'prettier/vim-prettier'          "@FIXME need configuration: error failed to parse buffer
+Plug 'millermedeiros/vim-esformatter'
 
 " colorschemes
 Plug 'morhetz/gruvbox'
 Plug 'tomasr/molokai'
 Plug 'rakr/vim-one'
 Plug 'vim-scripts/summerfruit256.vim'
+
+" Typing exercise
+Plug 'devinceble/Tortoise-Typing'
 
 call plug#end()
 
@@ -432,7 +438,8 @@ nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
 
 
-
+" --- requires(vim-instant-markdown)  ---
+nmap <leader>mp :InstantMarkdownPreview<CR>
 
 
 
@@ -447,7 +454,7 @@ let NERDTreeShowLineNumbers=0
 let NERDTreeMinimalUI=1
 let NERDTreeWinSize=20
 noremap <leader>nt :NERDTreeToggle<CR>
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 
 " --- NERDCommenter ---
@@ -507,6 +514,12 @@ let g:limelight_priority = -1
 " --- Plug 'suan/vim-instant-markdown' ---
 let g:instant_markdown_autostart = 0
 
+" --- Plug 'evanleck/vim-svelte' ---
+let g:svelte_indent_script = 1
+let g:svelte_indent_style = 1
+
+" --- Plug 'pangloss/vim-javascript' ---
+let g:javascript_plugin_jsdoc = 1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -523,6 +536,8 @@ augroup mm_buf_cmds
 
     " Enable coc-highlight
     autocmd CursorHold * silent call CocActionAsync('highlight')
+
+    " Svelte indentation
 
 augroup END
 
