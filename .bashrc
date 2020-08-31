@@ -131,6 +131,9 @@ alias clear="[ $[$RANDOM % 6] = 0 ] && timeout 2 cmatrix || clear"
 # -- Change esc into caps-lock
 alias xmd="xmodmap ~/.local/bin/speedswapper"
 
+# -- Git log in single line
+alias gl="git log --pretty=oneline --abbrev-commit"
+
 ##########################################################
 # FUNCTIONS
 ##########################################################
