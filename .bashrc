@@ -3,8 +3,8 @@
 #---------------------------------------------------------
 # Agung Tuanany .bashrc file
 #---------------------------------------------------------
-# Last Edited       : Mon 27 Jul 2020 05:03:05 AM WIB
-#
+# Last Edited       : Sat Sep  5 09:49:58 PM WIB 2020
+
 #---------------------------------------------------------
 #
 ##########################################################
@@ -63,6 +63,19 @@ xrandr --output VGA-1-2 --left-of VGA-1 --auto
 # XXX FIXME: Give colors. I'm still research
 PS1='[\u@\h \W]\$ '
 
+# # PS1="\[\e[00;34m\]\h:[\W]-> \[\e[0m\]"
+# # Terminal colours (after installing GNU coreutils)
+# NM="\[\033[0;38m\]" #means no background and white lines
+# HI="\[\033[0;33m\]" #change this for letter colors
+# HII="\[\033[0;31m\]" #change this for letter colors
+# SI="\[\033[0;33m\]" #this is for the current directory
+# IN="\[\033[0m\]"
+
+# PS1='\[\033[01;34m\]\w\[\033[00m\]\$$IN '
+# export PS1="$HI\u $HI\h $HI\w$HI $IN"
+# export JEWELER_OPTS="--rspec --cucumber"
+
+
 
 ##########################################################
 # LANGUAGES
@@ -79,8 +92,6 @@ export PATH="$HOME/.cargo/bin${PATH:+:${PATH}}"
 
 # --- NPM | NVM ---
 source /usr/share/nvm/init-nvm.sh
-
-
 
 # --- cd helpers ---
 . $HOME/.config/z/z.sh
@@ -134,6 +145,24 @@ alias xmd="xmodmap ~/.local/bin/speedswapper"
 # -- Git log in single line
 alias gl="git log --pretty=oneline --abbrev-commit"
 
+# useful aliases
+alias s=ssh
+alias c=clear
+alias cx="chmod +x"
+alias more=less
+alias ps="ps auxf"
+alias psg='ps aux | grep -v grep | grep -i -e $USER -e'
+alias ..="cd .."
+alias myp='ps -fjH -u $USER'
+alias cleanup="rm -f *.tmp *.aux *.log"
+
+
+alias rtfm=rtfm
+alias mcd=mcd
+alias cdl=cdl
+alias backup=backup
+alias gfind=gfind
+alias lfind=lfind
 ##########################################################
 # FUNCTIONS
 ##########################################################
@@ -179,3 +208,10 @@ enter_directory() {
     fi
 }
 
+gfind() { find / -iname $@ 2>/dev/null; }
+lfind() { find . -iname $@ 2>/dev/null;}
+
+mcd() { mkdir -p $1; cd $1; }
+cdl() { cd $1; ls; }
+rtfm() { help $@ || man $@ || ? $@; }
+backup() { cp "$1" {grep "$1" ,.bak};} #test first
