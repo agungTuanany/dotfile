@@ -5,7 +5,7 @@
 "
 " -----------------------------------------------------------------------------
 "
-" Last Edited       : Sun 09 Aug 2020 04:29:34 PM WIB
+" Last Edited       : Sun Sep 13 06:49:25 PM WIB 2020
 "
 " -----------------------------------------------------------------------------
 "  Heavily inspired by: @millermedeiros,
@@ -46,6 +46,7 @@ Plug 'mhinz/vim-signify'              " Show diff using Vim its sign columns
 Plug 'sjl/clam.vim'                   " Lightweight Vim plugin to easily run shell commands
 Plug 'junegunn/goyo.vim'              " Distraction-free writing in Vim
 Plug 'sheerun/vim-polyglot'           " A collection of language packs for vim
+Plug 'vim-scripts/bufkill.vim'        " Unload/delete/wipe a buffer, keep its window(s), display last accessed buffer(s)
 
 
 " Lightline statusbar
@@ -65,8 +66,8 @@ Plug 'groenewege/vim-less'            " Vim syntax LESS (dynamic CSS)
 
 " JS
 Plug 'pangloss/vim-javascript'
-Plug 'evanleck/vim-svelte'            " Svelte syntax colours
-Plug 'prettier/vim-prettier'          "@FIXME need configuration: error failed to parse buffer
+Plug 'evanleck/vim-svelte', {'branch': 'main'} " Svelte syntax colours
+Plug 'prettier/vim-prettier', {'do': 'yarn install'}
 Plug 'millermedeiros/vim-esformatter'
 
 " colorschemes
@@ -77,6 +78,7 @@ Plug 'vim-scripts/summerfruit256.vim'
 
 " Typing exercise
 Plug 'devinceble/Tortoise-Typing'
+"Plug 'ThePrimeagen/vim-be-good'      " only for nvim
 
 call plug#end()
 
@@ -241,6 +243,7 @@ if exists('+relativenumber')
     set relativenumber
 endif
 
+set statusline^=%{coc#status()}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Base Remap keys
@@ -278,7 +281,7 @@ set formatoptions=qrn1      " automatic formatiing
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" INDENTATION AND TEXT-WRAP
+" KEY MAPPING
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " mapleader set at the top of the file to avoid conflicts
 
@@ -437,9 +440,12 @@ map <leader>bp :BB<CR>
 nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
 
-
 " --- requires(vim-instant-markdown)  ---
 nmap <leader>mp :InstantMarkdownPreview<CR>
+
+" set paste mode
+nnoremap <leader>ps :set paste<CR>
+nnoremap <leader>PS :set nopaste<CR>
 
 
 
@@ -537,7 +543,6 @@ augroup mm_buf_cmds
     " Enable coc-highlight
     autocmd CursorHold * silent call CocActionAsync('highlight')
 
-    " Svelte indentation
 
 augroup END
 
