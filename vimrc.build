@@ -5,7 +5,7 @@
 "
 " -----------------------------------------------------------------------------
 "
-" Last Edited       : Sun Sep 13 06:49:25 PM WIB 2020
+" Last Edited       : Sat Sep 26 12:21:31 AM WIB 2020
 "
 " -----------------------------------------------------------------------------
 "  Heavily inspired by: @millermedeiros,
@@ -92,7 +92,8 @@ call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax on
 filetype plugin indent on
-set path+=**
+"set path+=**
+set path=.,**
 set wildmenu
 set incsearch
 
@@ -543,6 +544,15 @@ augroup mm_buf_cmds
     " Enable coc-highlight
     autocmd CursorHold * silent call CocActionAsync('highlight')
 
-
 augroup END
+
+" FIXME: YAML setup
+" augroup yamlcmds
+"     autocmd BufReadPost *yaml,*yml colorscheme molokai
+"     autocmd BufWinLeave *yaml,*yml colorscheme molokai
+"     autocmd BufReadPost *.yaml,*.yml set sw=4 ts=4 sts=4 expandtab
+"     autocmd Bufwritepre *.yaml,*.yml silent! %s/\s\+$// " Remove trailing whitespace
+"     autocmd BufwritePre *.yaml,*yml silent! %s/^\(\s*\)#\(\S\)/\1# \2/g
+"     autocmd BufwritePre *.yaml,*yml silent! %s/^\(\s*\)#\(\w\)/\1- \2/g
+" augroup END
 

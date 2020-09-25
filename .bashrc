@@ -3,8 +3,8 @@
 #---------------------------------------------------------
 # Agung Tuanany .bashrc file
 #---------------------------------------------------------
-# Last Edited       : Sat Sep  5 09:49:58 PM WIB 2020
-
+# Last Edited   : Sat Sep 26 12:07:41 AM WIB 2020
+#
 #---------------------------------------------------------
 #
 ##########################################################
@@ -55,7 +55,6 @@ export EDITOR_PREFIX=vim
 
 # -- Init xrandr ---
 xrandr --output VGA-1-2 --left-of VGA-1 --auto
-
 
 ##########################################################
 # PS1
@@ -119,6 +118,8 @@ alias more="less -R"
 # --- Vim ---
 alias vi=vim
 alias nv=nvim
+alias ve='vim ~/.vim/~vimrc'
+alias be='vim ~/.bashrc'
 
 # --- Browser ---
 alias "?"=duck
@@ -127,27 +128,32 @@ alias "?"=duck
 alias "??"="trans :id"
 
 # --- Tired to type source ~/.basrhc ---
-alias reload="source ~/.bashrc && source ~/.bash_profile"
+alias rl="source ~/.bashrc && source ~/.bash_profile"
 
 # --- NPM browser-sync ---
 alias serve="browser-sync start --server --files ."
 
-# prevent mv and cp from overriding
+# --- prevent mv and cp from overriding ---
 alias mv="mv -i"
 alias cp="cp -i"
 
 # --- You get bored on terminal really? ---
-alias clear="[ $[$RANDOM % 6] = 0 ] && timeout 2 cmatrix || clear"
+alias c="[ $[$RANDOM % 6] = 0 ] && timeout 2 cmatrix || clear"
 
-# -- Change esc into caps-lock
-alias xmd="xmodmap ~/.local/bin/speedswapper"
+# --- Change esc into caps-lock ---
+alias xmp="xmodmap ~/.local/bin/speedswapper"
 
-# -- Git log in single line
-alias gl="git log --pretty=oneline --abbrev-commit"
+# --- Git aliases ---
+# alias gl="git log --pretty=oneline --abbrev-commit"
+alias gl="git log --graph --pretty=format:'%C(yellow)%h%Creset -%Cred%d%Creset %s %Cgreen| %cr %C(bold blue)| %an%Creset' --abbrev-commit --date=relative"
+alias gs="git status --branch --short --untracked-file=all --ahead-behind"
+alias gcm="git commit"
 
-# useful aliases
+# --- cat with syntax highlighting ---
+alias pcat='pygmentize -f terminal256 -O style=monokai -g'
+
+# --- useful aliases ---
 alias s=ssh
-alias c=clear
 alias cx="chmod +x"
 alias more=less
 alias ps="ps auxf"
