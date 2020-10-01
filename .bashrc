@@ -3,7 +3,7 @@
 #---------------------------------------------------------
 # Agung Tuanany .bashrc file
 #---------------------------------------------------------
-# Last Edited   : Sat Sep 26 12:07:41 AM WIB 2020
+# Last Edited   :   Thu Oct  1 08:48:46 AM WIB 2020
 #
 #---------------------------------------------------------
 #
@@ -55,6 +55,10 @@ export EDITOR_PREFIX=vim
 
 # -- Init xrandr ---
 xrandr --output VGA-1-2 --left-of VGA-1 --auto
+
+# https://raw.githubusercontent.com/docker/machine/v0.16.0/contrib/completion/bash/docker-machine.bash
+# -- docker-machine --
+. ~/.docker-machine-completion.sh
 
 ##########################################################
 # PS1
@@ -118,7 +122,7 @@ alias more="less -R"
 # --- Vim ---
 alias vi=vim
 alias nv=nvim
-alias ve='vim ~/.vim/~vimrc'
+alias ve='vim ~/.vim/vimrc'
 alias be='vim ~/.bashrc'
 
 # --- Browser ---
