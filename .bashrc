@@ -3,7 +3,7 @@
 #---------------------------------------------------------
 # Agung Tuanany .bashrc file
 #---------------------------------------------------------
-# Last Edited   :   Thu Oct  1 08:48:46 AM WIB 2020
+# Last Edited   :    Wed Dec 16 01:08:59 AM WIB 2020
 #
 #---------------------------------------------------------
 #
@@ -56,9 +56,16 @@ export EDITOR_PREFIX=vim
 # -- Init xrandr ---
 xrandr --output VGA-1-2 --left-of VGA-1 --auto
 
+##########################################################
+# DOCKER
+##########################################################
 # https://raw.githubusercontent.com/docker/machine/v0.16.0/contrib/completion/bash/docker-machine.bash
 # -- docker-machine --
 . ~/.docker-machine-completion.sh
+
+# https://raw.githubusercontent.com/docker/compose/1.27.4/contrib/completion/bash/docker-compose
+# -- docker-compose --
+. ~/.docker-compose-completion.sh
 
 ##########################################################
 # PS1
@@ -86,9 +93,11 @@ PS1='[\u@\h \W]\$ '
 
 # --- GO ----
 export GOROOT=/usr/local/go
-export PATH=$PATH:/usr/local/go/bin
-export GOPATH=$HOME/go
-export PATH=$PATH:/$GOPATH/bin
+export PATH=$PATH:$GOROOT/bin
+
+export GOPATH=$HOME/golib
+export PATH=$PATH:$GOPATH/bin
+export GOPATH=$GOPATH:$HOME/Project/go
 
 # --- RUST ---
 export PATH="$HOME/.cargo/bin${PATH:+:${PATH}}"
