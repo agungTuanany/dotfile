@@ -5,7 +5,7 @@
 "
 " -----------------------------------------------------------------------------
 "
-" Last Edited       : Wed Dec 16 01:09:44 AM WIB 2020
+" Last Edited       : Sun Dec 27 03:47:18 PM WIB 2020
 "
 "
 " -----------------------------------------------------------------------------
@@ -22,48 +22,48 @@ filetype off     " required
 call plug#begin('~/.vim/plugged')
 
 " Core Plugs
-Plug 'ctrlpvim/ctrlp.vim'             " Full path Fuzzy file, buffer, mru, tag .. Finder for vim
-Plug 'neoclide/coc.nvim'              " Make vim smart as VSCOde
-Plug 'scrooloose/nerdtree'            " A File system explorer
-Plug 'scrooloose/nerdcommenter'       " Comments function
-Plug 'godlygeek/tabular'              " Line up text
-Plug 'jiangmiao/auto-pairs'           " Insert, or delete bracket, parens, quotes in pair
-Plug 'christoomey/vim-tmux-navigator' " Seamless navigation between tmux panes and vim split
-Plug 'terryma/vim-multiple-cursors'   " Multiple selection
-Plug 'tpope/vim-surround'             " easy surrounding everything
-Plug 'tpope/vim-unimpaired'           " Pairs handy brackets. XXX@NOTE: Implemented with NVIM
-Plug 'junegunn/limelight.vim'         " Hyperfocus-writing in Vim
-Plug 'ervandew/supertab'              " Vim plugin which allow to use <Tab> for all insert completion needs (:help ins-completion)
-Plug 'tpope/vim-repeat'               " Enable repeating supported plugins maps with '.'
-Plug 'tpope/vim-abolish'              " Easily search for, substitute, and abbreviate multiple variants of word
-Plug 'tpope/vim-markdown'             " Vim Markdown runtime files
-Plug 'tpope/vim-speeddating'          " Use CTRL_A/CTR_X to increment dates, times, and more
-Plug 'tpope/vim-surround'             " Quoting / parenthesizing made simple
-Plug 'tpope/vim-unimpaired'           " Pairs of handy bracket mappings   XXX @note NVIM has implement this. Are you still need this? XXX
-Plug 'tpope/vim-commentary'           " Comment stuff out
-Plug 'tpope/vim-fugitive'             " A Git wrapper
-Plug 'int3/vim-extradite'             " A git commit browser for Vim. Extends fugitive.vim
-Plug 'mhinz/vim-signify'              " Show diff using Vim its sign columns
-Plug 'sjl/clam.vim'                   " Lightweight Vim plugin to easily run shell commands
-Plug 'junegunn/goyo.vim'              " Distraction-free writing in Vim
-Plug 'sheerun/vim-polyglot'           " A collection of language packs for vim
-Plug 'vim-scripts/bufkill.vim'        " Unload/delete/wipe a buffer, keep its window(s), display last accessed buffer(s)
-
+Plug 'ctrlpvim/ctrlp.vim'                                       " Full path Fuzzy file, buffer, mru, tag .. Finder for vim
+Plug 'neoclide/coc.nvim'                                        " Make vim smart as VSCOde
+Plug 'scrooloose/nerdtree'                                      " A File system explorer
+Plug 'scrooloose/nerdcommenter'                                 " Comments function
+Plug 'godlygeek/tabular'                                        " Line up text
+Plug 'jiangmiao/auto-pairs'                                     " Insert, or delete bracket, parens, quotes in pair
+Plug 'christoomey/vim-tmux-navigator'                           " Seamless navigation between tmux panes and vim split
+Plug 'terryma/vim-multiple-cursors'                             " Multiple selection
+Plug 'tpope/vim-surround'                                       " easy surrounding everything
+Plug 'tpope/vim-unimpaired'                                     " Pairs handy brackets. XXX@NOTE: Implemented with NVIM
+Plug 'junegunn/limelight.vim'                                   " Hyperfocus-writing in Vim
+Plug 'ervandew/supertab'                                        " Vim plugin which allow to use <Tab> for all insert completion needs (:help ins-completion)
+Plug 'tpope/vim-repeat'                                         " Enable repeating supported plugins maps with '.'
+Plug 'tpope/vim-abolish'                                        " Easily search for, substitute, and abbreviate multiple variants of word
+Plug 'tpope/vim-markdown'                                       " Vim Markdown runtime files
+Plug 'tpope/vim-speeddating'                                    " Use CTRL_A/CTR_X to increment dates, times, and more
+Plug 'tpope/vim-surround'                                       " Quoting / parenthesizing made simple
+Plug 'tpope/vim-unimpaired'                                     " Pairs of handy bracket mappings   XXX @note NVIM has implement this. Are you still need this? XXX
+Plug 'tpope/vim-commentary'                                     " Comment stuff out
+Plug 'tpope/vim-fugitive'                                       " A Git wrapper
+Plug 'int3/vim-extradite'                                       " A git commit browser for Vim. Extends fugitive.vim
+Plug 'mhinz/vim-signify'                                        " Show diff using Vim its sign columns
+Plug 'sjl/clam.vim'                                             " Lightweight Vim plugin to easily run shell commands
+Plug 'junegunn/goyo.vim'                                        " Distraction-free writing in Vim
+Plug 'sheerun/vim-polyglot'                                     " A collection of language packs for vim
+Plug 'vim-scripts/bufkill.vim'                                  " Unload/delete/wipe a buffer, keep its window(s), display last accessed buffer(s)
+Plug 'yggdroot/indentline'                                      " For displaying thin vertical lines at each indentation level for code indented with spaces
 
 " Lightline statusbar
 Plug 'itchyny/lightline.vim'
 Plug 'millermedeiros/vim-statline'
 
-Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
+Plug 'suan/vim-instant-markdown', {'for': 'markdown'}           " Markdown live preview
 
 " HTML
-Plug 'othree/html5.vim'               " HTML5 + inline SVG omnicomplete function, indent and syntax for Vim, Based on the default htmlcomplete.vim
+Plug 'othree/html5.vim'                                         " HTML5 + inline SVG omnicomplete function, indent and syntax for Vim, Based on the default htmlcomplete.vim
 
 " CSS
-Plug 'ap/vim-css-color'               " Preview colours in source code while editing
-Plug 'hail2u/vim-css3-syntax'         " CSS3 syntax (and syntax defined in some way foreign specification)
-Plug 'cakebaker/scss-syntax.vim'      " Vim syntax file for scss (Sassy CSS)
-Plug 'groenewege/vim-less'            " Vim syntax LESS (dynamic CSS)
+Plug 'ap/vim-css-color'                                         " Preview colours in source code while editing
+Plug 'hail2u/vim-css3-syntax'                                   " CSS3 syntax (and syntax defined in some way foreign specification)
+Plug 'cakebaker/scss-syntax.vim'                                " Vim syntax file for scss (Sassy CSS)
+Plug 'groenewege/vim-less'                                      " Vim syntax LESS (dynamic CSS)
 
 " JS
 Plug 'pangloss/vim-javascript'
@@ -73,7 +73,7 @@ Plug 'millermedeiros/vim-esformatter'
 
 "@NOTE: I included also coc-go installed; and I didn't know what the different yet
 " GOLANG
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries'  }         " Golang for vim,
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries'  }             " Golang for vim,
 
 " colorschemes
 Plug 'morhetz/gruvbox'
@@ -537,7 +537,6 @@ let g:svelte_indent_style = 1
 let g:javascript_plugin_jsdoc = 1
 
 " --- Plug 'fatih/vim-go' ---
-
 set autowrite
 
 "  Go syntax highlighting
@@ -572,6 +571,18 @@ augroup go_cmds
     autocmd FileType go nmap <leader>t  <Plug>(go-test)
 augroup END
 
+" --- Plug 'wlangstroth/vim-racket' ---
+if has("autocmd")
+    au BufReadPost *.rjtm *.rktl set filetype=racket
+    au filetype racket set lisp
+    au filetype racket set autoindent
+endif
+
+" --- Plug 'yggdroot/indentline' ---
+let g:indentLine_setColors = 1
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -600,4 +611,3 @@ augroup END
 "     autocmd BufwritePre *.yaml,*yml silent! %s/^\(\s*\)#\(\S\)/\1# \2/g
 "     autocmd BufwritePre *.yaml,*yml silent! %s/^\(\s*\)#\(\w\)/\1- \2/g
 " augroup END
-
