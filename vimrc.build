@@ -5,7 +5,8 @@
 "
 " -----------------------------------------------------------------------------
 "
-" Last Edited       : Sun Dec 27 03:47:18 PM WIB 2020
+" Last Edited       : Sun Dec 27 08:04:41 PM WIB 2020
+"
 "
 "
 " -----------------------------------------------------------------------------
@@ -582,6 +583,10 @@ endif
 let g:indentLine_setColors = 1
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 
+" Prevent conceal links
+let g:vim_json_syntax_conceal = 0
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_conceal_code_blocks = 0
 
 
 
