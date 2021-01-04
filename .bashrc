@@ -3,7 +3,7 @@
 #---------------------------------------------------------
 # Agung Tuanany .bashrc file
 #---------------------------------------------------------
-# Last Edited   :    Wed Dec 16 01:08:59 AM WIB 2020
+# Last Edited   :    Mon Jan  4 04:00:20 PM WIB 2021
 #
 #---------------------------------------------------------
 #
@@ -25,36 +25,6 @@ fi
 
 HISTCONTROL=ignoreboth
 
-##########################################################
-# CUSTOM BEHAVIORS
-##########################################################
-set bell-style none
-shopt -s checkwinsize
-#shopt -s expand_aliases
-#shopt -s nullglob
-#shopt -s dotglob
-#shopt -s extglob
-shopt -s histappend
-HISTZISE=10000
-HISTFILESIZE=10000
-
-# --- Horizontal alignment ---
-export HRULEWIDTH=73
-
-case "$TERM" in
-    xtrem-color|*256color) color_prompt=yes;;
-esac
-
-# --- Some builtin path ---
-PATH="$HOME/bin:$PATH"
-
-# --- EDITOR ---
-export EDITOR=vim
-export VISUAL=vim
-export EDITOR_PREFIX=vim
-
-# -- Init xrandr ---
-xrandr --output VGA-1-2 --left-of VGA-1 --auto
 
 ##########################################################
 # DOCKER
@@ -85,28 +55,6 @@ PS1='[\u@\h \W]\$ '
 # export PS1="$HI\u $HI\h $HI\w$HI $IN"
 # export JEWELER_OPTS="--rspec --cucumber"
 
-
-
-##########################################################
-# LANGUAGES
-##########################################################
-
-# --- GO ----
-export GOROOT=/usr/local/go
-export PATH=$PATH:$GOROOT/bin
-
-export GOPATH=$HOME/golib
-export PATH=$PATH:$GOPATH/bin
-export GOPATH=$GOPATH:$HOME/Project/go
-
-# --- RUST ---
-export PATH="$HOME/.cargo/bin${PATH:+:${PATH}}"
-
-# --- NPM | NVM ---
-source /usr/share/nvm/init-nvm.sh
-
-# --- cd helpers ---
-. $HOME/.config/z/z.sh
 
 ##########################################################
 # ALIASES
@@ -175,6 +123,8 @@ alias ..="cd .."
 alias myp='ps -fjH -u $USER'
 alias cleanup="rm -f *.tmp *.aux *.log"
 
+alias myip="echo $(ip a | grep "inet " | grep -Fv 127.0.0.1 | awk '{print $2}')"
+alias prettyjson='python -m json.tool'
 
 alias rtfm=rtfm
 alias mcd=mcd
@@ -182,6 +132,7 @@ alias cdl=cdl
 alias backup=backup
 alias gfind=gfind
 alias lfind=lfind
+
 ##########################################################
 # FUNCTIONS
 ##########################################################
@@ -234,3 +185,61 @@ mcd() { mkdir -p $1; cd $1; }
 cdl() { cd $1; ls; }
 rtfm() { help $@ || man $@ || ? $@; }
 backup() { cp "$1" {grep "$1" ,.bak};} #test first
+
+##########################################################
+# CUSTOM BEHAVIORS
+##########################################################
+set bell-style none
+shopt -s checkwinsize
+#shopt -s expand_aliases
+#shopt -s nullglob
+#shopt -s dotglob
+#shopt -s extglob
+shopt -s histappend
+HISTZISE=10000
+HISTFILESIZE=10000
+
+# --- Horizontal alignment ---
+export HRULEWIDTH=73
+
+case "$TERM" in
+    xtrem-color|*256color) color_prompt=yes;;
+esac
+
+# --- Some builtin path ---
+PATH="$HOME/bin:$PATH"
+
+# --- EDITOR ---
+export EDITOR=vim
+export VISUAL=vim
+export EDITOR_PREFIX=vim
+
+# -- Init xrandr ---
+xrandr --output VGA-1-2 --left-of VGA-1 --auto
+
+##########################################################
+# LANGUAGES
+##########################################################
+
+# --- GO ----
+export GOROOT=/usr/local/go
+export PATH=$PATH:$GOROOT/bin
+
+export GOPATH=$HOME/golib
+export PATH=$PATH:$GOPATH/bin
+export GOPATH=$GOPATH:$HOME/Project/go
+
+# --- RUST ---
+export PATH="$HOME/.cargo/bin${PATH:+:${PATH}}"
+
+# --- NPM | NVM ---
+source /usr/share/nvm/init-nvm.sh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+# --- cd helpers ---
+. $HOME/.config/z/z.sh
+
