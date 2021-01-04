@@ -5,7 +5,7 @@
 "
 " -----------------------------------------------------------------------------
 "
-" Last Edited       : Sun Dec 27 08:04:41 PM WIB 2020
+" Last Edited       : Mon Jan  4 10:32:13 PM WIB 2021
 "
 "
 "
@@ -59,6 +59,7 @@ Plug 'suan/vim-instant-markdown', {'for': 'markdown'}           " Markdown live 
 
 " HTML
 Plug 'othree/html5.vim'                                         " HTML5 + inline SVG omnicomplete function, indent and syntax for Vim, Based on the default htmlcomplete.vim
+Plug 'alvan/vim-closetag'                                       " Auto close (X)HTML tags
 
 " CSS
 Plug 'ap/vim-css-color'                                         " Preview colours in source code while editing
@@ -436,16 +437,6 @@ noremap <C-S-Left> <C-w>R
 noremap <leader>s :vsplit<cr>
 noremap <leader>i :split<cr>
 
-" Close window
-noremap <leader>q :clo<CR>
-
-" Selete buffer but keep window open (requires bufkill.vim)
-map <leader>bd :Bd<CR>
-
-" Smarter next/prev buffer (requires bufkill.vim)
-map <leader>bn :BF<CR>
-map <leader>bp :BB<CR>
-
 " Resize splits (http://vim.wikia.com/wiki/Resize_splits_more_quickly)
 nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
@@ -589,6 +580,18 @@ let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
 
 
+" --- Plug 'alvan/vim-closetag' ---
+let g:closetag_filenames = '*.html, *.xhtml, *.phtml, *svelte, *js, *.tsx'
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
+let g:closetag_filetypes = 'html,xhtml,phtml'
+let g:closetag_xhtml_filetypes = 'xhtml,jsx'
+let g:closetag_emptyTags_caseSensitive = 1
+let g:closetag_regions = {
+    \ 'typescript.tsx': 'jsxRegion,tsxRegion',
+    \ 'javascript.jsx': 'jsxRegion',
+    \ }
+let g:closetag_shortcut = '>'
+let g:closetag_close_shortcut = '<leader>>'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FILE HANDLING
