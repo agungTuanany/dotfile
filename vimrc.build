@@ -1,17 +1,14 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " -----------------------------------------------------------------------------
-"
 " Agung Tuanany .init.vim (nvim) file
-"
 " -----------------------------------------------------------------------------
 "
-" Last Edited       : Mon Jan  4 10:32:13 PM WIB 2021
-"
-"
+" Last Edited       : Tue Jan  5 05:46:22 AM WIB 2021
 "
 " -----------------------------------------------------------------------------
-"  Heavily inspired by: @millermedeiros,
+"  Heavily inspired by: @millermedeiros
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MANAGE PLUGINS
@@ -23,59 +20,58 @@ filetype off     " required
 call plug#begin('~/.vim/plugged')
 
 " Core Plugs
-Plug 'ctrlpvim/ctrlp.vim'                                       " Full path Fuzzy file, buffer, mru, tag .. Finder for vim
-Plug 'neoclide/coc.nvim'                                        " Make vim smart as VSCOde
-Plug 'scrooloose/nerdtree'                                      " A File system explorer
-Plug 'scrooloose/nerdcommenter'                                 " Comments function
-Plug 'godlygeek/tabular'                                        " Line up text
-Plug 'jiangmiao/auto-pairs'                                     " Insert, or delete bracket, parens, quotes in pair
-Plug 'christoomey/vim-tmux-navigator'                           " Seamless navigation between tmux panes and vim split
-Plug 'terryma/vim-multiple-cursors'                             " Multiple selection
-Plug 'tpope/vim-surround'                                       " easy surrounding everything
-Plug 'tpope/vim-unimpaired'                                     " Pairs handy brackets. XXX@NOTE: Implemented with NVIM
-Plug 'junegunn/limelight.vim'                                   " Hyperfocus-writing in Vim
-Plug 'ervandew/supertab'                                        " Vim plugin which allow to use <Tab> for all insert completion needs (:help ins-completion)
-Plug 'tpope/vim-repeat'                                         " Enable repeating supported plugins maps with '.'
-Plug 'tpope/vim-abolish'                                        " Easily search for, substitute, and abbreviate multiple variants of word
-Plug 'tpope/vim-markdown'                                       " Vim Markdown runtime files
-Plug 'tpope/vim-speeddating'                                    " Use CTRL_A/CTR_X to increment dates, times, and more
-Plug 'tpope/vim-surround'                                       " Quoting / parenthesizing made simple
-Plug 'tpope/vim-unimpaired'                                     " Pairs of handy bracket mappings   XXX @note NVIM has implement this. Are you still need this? XXX
-Plug 'tpope/vim-commentary'                                     " Comment stuff out
-Plug 'tpope/vim-fugitive'                                       " A Git wrapper
-Plug 'int3/vim-extradite'                                       " A git commit browser for Vim. Extends fugitive.vim
-Plug 'mhinz/vim-signify'                                        " Show diff using Vim its sign columns
-Plug 'sjl/clam.vim'                                             " Lightweight Vim plugin to easily run shell commands
-Plug 'junegunn/goyo.vim'                                        " Distraction-free writing in Vim
-Plug 'sheerun/vim-polyglot'                                     " A collection of language packs for vim
-Plug 'vim-scripts/bufkill.vim'                                  " Unload/delete/wipe a buffer, keep its window(s), display last accessed buffer(s)
-Plug 'yggdroot/indentline'                                      " For displaying thin vertical lines at each indentation level for code indented with spaces
+Plug 'ctrlpvim/ctrlp.vim'                             " Full path Fuzzy file, buffer, mru, tag .. Finder for vim
+Plug 'neoclide/coc.nvim'                              " Make vim smart as VSCOde
+Plug 'scrooloose/nerdtree'                            " A File system explorer
+Plug 'scrooloose/nerdcommenter'                       " Comments function
+Plug 'godlygeek/tabular'                              " Line up text
+Plug 'jiangmiao/auto-pairs'                           " Insert, or delete bracket, parens, quotes in pair
+Plug 'christoomey/vim-tmux-navigator'                 " Seamless navigation between tmux panes and vim split
+Plug 'terryma/vim-multiple-cursors'                   " Multiple selection
+Plug 'tpope/vim-surround'                             " easy surrounding everything
+Plug 'tpope/vim-unimpaired'                           " Pairs handy brackets. XXX@NOTE: Implemented with NVIM
+Plug 'junegunn/limelight.vim'                         " Hyperfocus-writing in Vim
+Plug 'ervandew/supertab'                              " Vim plugin which allow to use <Tab> for all insert completion needs (:help ins-completion)
+Plug 'tpope/vim-repeat'                               " Enable repeating supported plugins maps with '.'
+Plug 'tpope/vim-abolish'                              " Easily search for, substitute, and abbreviate multiple variants of word
+Plug 'tpope/vim-markdown'                             " Vim Markdown runtime files
+Plug 'tpope/vim-speeddating'                          " Use CTRL_A/CTR_X to increment dates, times, and more
+Plug 'tpope/vim-surround'                             " Quoting / parenthesizing made simple
+Plug 'tpope/vim-unimpaired'                           " Pairs of handy bracket mappings   XXX @note NVIM has implement this. Are you still need this? XXX
+Plug 'tpope/vim-commentary'                           " Comment stuff out
+Plug 'tpope/vim-fugitive'                             " A Git wrapper
+Plug 'int3/vim-extradite'                             " A git commit browser for Vim. Extends fugitive.vim
+Plug 'mhinz/vim-signify'                              " Show diff using Vim its sign columns
+Plug 'sjl/clam.vim'                                   " Lightweight Vim plugin to easily run shell commands
+Plug 'junegunn/goyo.vim'                              " Distraction-free writing in Vim
+Plug 'sheerun/vim-polyglot'                           " A collection of language packs for vim
+Plug 'vim-scripts/bufkill.vim'                        " Unload/delete/wipe a buffer, keep its window(s), display last accessed buffer(s)
+Plug 'yggdroot/indentline'                            " For displaying thin vertical lines at each indentation level for code indented with spaces
 
 " Lightline statusbar
 Plug 'itchyny/lightline.vim'
 Plug 'millermedeiros/vim-statline'
 
-Plug 'suan/vim-instant-markdown', {'for': 'markdown'}           " Markdown live preview
+Plug 'suan/vim-instant-markdown', {'for': 'markdown'} " Markdown live preview
 
 " HTML
-Plug 'othree/html5.vim'                                         " HTML5 + inline SVG omnicomplete function, indent and syntax for Vim, Based on the default htmlcomplete.vim
-Plug 'alvan/vim-closetag'                                       " Auto close (X)HTML tags
+Plug 'othree/html5.vim'                               " HTML5 + inline SVG omnicomplete function, indent and syntax for Vim, Based on the default htmlcomplete.vim
+Plug 'alvan/vim-closetag'                             " Auto close (X)HTML tags
 
 " CSS
-Plug 'ap/vim-css-color'                                         " Preview colours in source code while editing
-Plug 'hail2u/vim-css3-syntax'                                   " CSS3 syntax (and syntax defined in some way foreign specification)
-Plug 'cakebaker/scss-syntax.vim'                                " Vim syntax file for scss (Sassy CSS)
-Plug 'groenewege/vim-less'                                      " Vim syntax LESS (dynamic CSS)
+Plug 'ap/vim-css-color'                               " Preview colours in source code while editing
+Plug 'hail2u/vim-css3-syntax'                         " CSS3 syntax (and syntax defined in some way foreign specification)
+Plug 'cakebaker/scss-syntax.vim'                      " Vim syntax file for scss (Sassy CSS)
+Plug 'groenewege/vim-less'                            " Vim syntax LESS (dynamic CSS)
 
 " JS
 Plug 'pangloss/vim-javascript'
-Plug 'evanleck/vim-svelte', {'branch': 'main'} " Svelte syntax colours
+Plug 'leafoftree/vim-svelte-plugin'
 Plug 'prettier/vim-prettier', {'do': 'yarn install'}
 Plug 'millermedeiros/vim-esformatter'
 
-"@NOTE: I included also coc-go installed; and I didn't know what the different yet
 " GOLANG
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries'  }             " Golang for vim,
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries'  }   " Golang for vim,
 
 " colorschemes
 Plug 'morhetz/gruvbox'
@@ -104,61 +100,59 @@ syntax on
 filetype plugin indent on
 "set path+=**
 set path=.,**
-set wildmenu
 set incsearch
 
 set spelllang=en_us
 set encoding=utf-8 nobomb
 
 " --- History / file handling ---
-set history=999                " Default -20
-set undolevels=999             " More undo
-set autoread                   " Reload file if changed externally
+set history=999                                 " Default -20
+set undolevels=999                              " More undo
+set autoread                                    " Reload file if changed externally
 
 
 " --- Backup and swap file ---
-set nobackup                   " Handling E510
-set noswapfile                 " Handling E510
-set nowritebackup              " Handling E510
+set nobackup                                    " Handling E510
+set noswapfile                                  " Handling E510
+set nowritebackup                               " Handling E510
 
 " --- Search / regexp ---
-set gdefault                   " RegExp global by defaulrg
-set magic                      " Enable extended regexes
-set hlsearch                   " higlight searches
-set ignorecase smartcase       " make searches unsensitive, unless they contain upper-case letters
+set gdefault                                    " RegExp global by defaulrg
+set magic                                       " Enable extended regexes
+set hlsearch                                    " higlight searches
+set ignorecase smartcase                        " make searches unsensitive, unless they contain upper-case letters
 
 " --- Keys ---
-set backspace=indent,eol,start " Allow backspacing over everything
-" set esckeys                  " Allow cursor keys in insert mode
-set nostartofline              " Make j/k respect to columns
-                               " set virtualedit=all
-set timeoutlen=500             " Log it wait for mapped commands
-set ttimeoutlen=100            " Faster timeout for escape key and others
+set backspace=indent,eol,start                  " Allow backspacing over everything
+" set esckeys                                   " Allow cursor keys in insert mode
+set nostartofline                               " Make j/k respect to columns
+" set virtualedit=all
+set timeoutlen=500                              " Log it wait for mapped commands
+set ttimeoutlen=100                             " Faster timeout for escape key and others
 
 
 " Use a bar-shaped cursor for insert mode, even through tmux.
 if exists('$TMUX')
-    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+    let &t_SI ="\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+    let &t_EI ="\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 else
-    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+    let &t_SI ="\<Esc>]50;CursorShape=1\x7"
+    let &t_EI ="\<Esc>]50;CursorShape=0\x7"
 endif
 
 " Information for open and close buffer
 set viminfo^=%
 
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " UI
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set t_Co=256                " 256 colors terminal
+set t_Co=256                                                         " 256 colors terminal
 
 let g:molokai_original=0
 colorscheme molokai
-"colorscheme gruvbox "molokai
+" colorscheme gruvbox                                                " molokai
 
 " make 'var' keyword easier to spot
 hi link javascriptType Keyword
@@ -172,7 +166,8 @@ hi link OverLength Error
 
 
 " --- command completion ---
-set wildmenu                                                         " Hitting TAB in command mode will
+set wildmenu
+set wildmenu wildmode=longest:full,full                              " Hitting TAB in command mode will
 set wildchar=<TAB>                                                   " show possible completions.
 set wildmode=list:longest
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/node_modules/*
@@ -201,7 +196,7 @@ set fillchars=fold:-
 set list
 
 set cursorline                                                       " Highlight current line
-" set laststatus=2                                                   " Always show status line
+set laststatus=2                                                     " Always show status line
 set number                                                           " Enable line numbers.
 set numberwidth=5                                                    " width of numbers line (default on gvim is 4)
 set report=0                                                         " Show all changes.
@@ -223,22 +218,21 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
 " --- UI functions ---
 if &term =~ '256color'
-    " disable background color erase
+" disable background color erase
     set t_ut=
 endif
 
 if has('gui_running')
-    " set guifont=Menlo:h13
+" set guifont=Menlo:h13
     set gfn:Monaco:h14
     set transp=0
-
-    " toolbar and scrollbars
-    set guioptions-=T  " remove toolbar
-    set guioptions-=L  " left scroll bar
-    set guioptions-=r  " right scroll bar
-    set guioptions-=b  " bottom scroll bar
-    set guioptions-=h  " only calculate bottom scroll size of current line
-    set shortmess=atI  " Don't show the intro message at start and truncate msgs (avoid press ENTER msgs).
+" toolbar and scrollbars
+    set guioptions-=T                                                " remove toolbar
+    set guioptions-=L                                                " left scroll bar
+    set guioptions-=r                                                " right scroll bar
+    set guioptions-=b                                                " bottom scroll bar
+    set guioptions-=h                                                " only calculate bottom scroll size of current line
+    set shortmess=atI                                                " Don't show the intro message at start and truncate msgs (avoid press ENTER msgs).
 endif
 
 if has('title') && (has('gui_running') || &title)
@@ -356,6 +350,7 @@ noremap <right> <nop>
 " Improve the 'search word under cursor' behavior
 nnoremap * :silent call KeywordsAll()<CR> *
 nnoremap # :silent call KeywordsAll()<CR> #
+
 
 " --- COMMON STUFF / HELPERS ---
 
@@ -484,7 +479,6 @@ noremap <silent> <leader>t/ :Tabularize ///<CR>
 noremap <silent> <leader>t\| :Tabularize /\|<CR>
 
 
-
 " --- Plug 'millermedeiros/vim-statline' ---
 " errors color
 hi User3 guifg=#FFFFFF guibg=#FF0000 gui=bold ctermfg=15 ctermbg=1 cterm=bold
@@ -518,18 +512,18 @@ let g:limelight_eop = '\ze\n^\s'
 "   Set it to -1 not to overrule hlsearch
 let g:limelight_priority = -1
 
+
 " --- Plug 'suan/vim-instant-markdown' ---
 let g:instant_markdown_autostart = 0
 
-" --- Plug 'evanleck/vim-svelte' ---
-let g:svelte_indent_script = 1
-let g:svelte_indent_style = 1
 
 " --- Plug 'pangloss/vim-javascript' ---
 let g:javascript_plugin_jsdoc = 1
 
+
 " --- Plug 'fatih/vim-go' ---
 set autowrite
+
 
 "  Go syntax highlighting
 let g:go_highlight_fields = 1
@@ -563,6 +557,7 @@ augroup go_cmds
     autocmd FileType go nmap <leader>t  <Plug>(go-test)
 augroup END
 
+
 " --- Plug 'wlangstroth/vim-racket' ---
 if has("autocmd")
     au BufReadPost *.rjtm *.rktl set filetype=racket
@@ -570,9 +565,11 @@ if has("autocmd")
     au filetype racket set autoindent
 endif
 
+
 " --- Plug 'yggdroot/indentline' ---
 let g:indentLine_setColors = 1
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+
 
 " Prevent conceal links
 let g:vim_json_syntax_conceal = 0
@@ -592,6 +589,7 @@ let g:closetag_regions = {
     \ }
 let g:closetag_shortcut = '>'
 let g:closetag_close_shortcut = '<leader>>'
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FILE HANDLING
