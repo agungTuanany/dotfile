@@ -3,7 +3,8 @@
 #---------------------------------------------------------
 # Agung Tuanany .bashrc file
 #---------------------------------------------------------
-# Last Edited   :    Mon Jan  4 04:00:20 PM WIB 2021
+# Last Edited       : Wed Jan 27 12:04:29 AM WIB 2021
+#
 #
 #---------------------------------------------------------
 #
@@ -217,6 +218,8 @@ export EDITOR_PREFIX=vim
 # -- Init xrandr ---
 xrandr --output VGA-1-2 --left-of VGA-1 --auto
 
+export BAT_THEME="Sublime Snazzy"
+
 ##########################################################
 # LANGUAGES
 ##########################################################
@@ -239,7 +242,11 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+# --- PYTHON ---
+export PATH=/Library/Frameworks/Python.framework/Versions/3.8/bin$PATH
 
-# --- cd helpers ---
+
+ #--- cd helpers ---
 . $HOME/.config/z/z.sh
+
 

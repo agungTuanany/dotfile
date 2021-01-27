@@ -79,6 +79,9 @@ Plug 'vim-pandoc/vim-pandoc'                                    " Pandoc integra
 Plug 'vim-pandoc/vim-pandoc-syntax'                             " pandoc markdown syntax, to be installed alongside vim-pandoc
 Plug 'vim-pandoc/vim-rmarkdown'                                 " Rmarkdown support for vim
 
+" --- ASCIDOCTOR ---
+Plug 'habamax/vim-asciidoctor'                                  "Asciidoctor plugin for vim
+
 
 " --- HTML ---
 Plug 'othree/html5.vim'                                         " HTML5 + inline SVG omnicomplete function, indent and syntax for Vim, Based on the default htmlcomplete.vim
@@ -495,7 +498,7 @@ map <leader>bp :BB<CR>
 nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
 
-" --- requires(markdwon-preview.nvim)  ---
+" --- requires(markdown-preview.nvim)  ---
 nmap <leader>mp :MarkdownPreview<CR>
 nmap <leader>MP :MarkdownPreviewStop<CR>
 
@@ -518,12 +521,21 @@ let NERDTreeWinSize=20
 noremap <leader>nt :NERDTreeToggle<CR>
 "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-
 " " --- NERDCommenter ---
 " let NERDSpaceDelims=1               " space around delimiters
 " let NERDRemoveExtraSpaces=1
 " let g:NERDCustomDelimiters = { 'scss': { 'left': '//' } }
 
+" --- Plug 'junegunn/fzf.vim' ---
+map <leader>f <Esc><Esc>:Files!<CR>
+inoremap <C-f> <Esc><Esc>:BLines!<CR>
+map <C-g> <Esc><Esc>:BCommits!<CR>
+" let $FZF_DEFAULT_COMMAND='find . -not -path "*/\.git*" -type f -print'
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9  }  }
+command! -bang -nargs=? -complete=dir Files
+        \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
 
 " --- Plug 'godlygeek/tabular' ---
 noremap <silent> <leader>t: :Tabularize /:<CR>
@@ -632,13 +644,10 @@ let g:vim_json_syntax_conceal = 0
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
 
-" --- Plug 'junegunn/fzf.vim' ---
-map <leader>f <Esc><Esc>:Files!<CR>
-inoremap <C-f> <Esc><Esc>:BLines!<CR>
-map <C-g> <Esc><Esc>:BCommits!<CR>
-let $FZF_DEFAULT_COMMAND='find . -not -path "*/\.git*" -type f -print'
-
-
+" --- Plug 'iamcco/markdown-preview.nvim' ---
+let g:mkdp_auto_close = 0
+let g:mkdp_refresh_slow = 1
+let g:mkdp_markdown_css="home/daun/.local/lib/github-markdown-css/github-markdown.css"
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -662,8 +671,13 @@ augroup mm_buf_cmds
     " some file types override it
     autocmd FileType * set cindent
 
+    " Pandoc highlight markdown
     au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
     autocmd! FileType vimwiki set syntax=markdown
+
+    autocmd FileType markdown let b:sleuth_automatic=0
+    autocmd FileType markdown set conceallevel=0
+    autocmd FileType markdown normal zR
 
 augroup END
 
