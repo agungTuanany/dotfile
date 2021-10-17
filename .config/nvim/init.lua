@@ -1,4 +1,4 @@
-require'agung'
+require 'agung'
 
 ------------------------------------------------------------------------------------
 --  Author:                     Agung Tuanany
@@ -13,9 +13,9 @@ require'agung'
 ------------------------------------------------------------------------------------
 
 local home = vim.env.HOME
-local config = home .. "/.config/nvim"
+local config = home .. '/.config/nvim'
 
-vim.opt.autoindent     = true                              -- maintain indent of current line
+vim.opt.autoindent     = true                              -- maintain indent of current line from previous line
 vim.opt.backspace      = 'indent,start,eol'                -- allow unrestricted backspacing in insert mode
 vim.opt.backup         = false                             -- don't make backups before writing
 vim.opt.backupcopy     = 'yes'                             -- overwrite files to update, instead of renaming + rewriting
@@ -25,7 +25,7 @@ vim.opt.backupskip     = vim.opt.backupskip + '*.re,*.rei' -- prevent bsb's watc
 vim.opt.belloff        = 'all'                             -- never ring the bell for any reason
 vim.opt.completeopt    = 'menuone'                         -- show menu even if there is only one candidate (for nvim-compe)
 vim.opt.completeopt    = vim.opt.completeopt + 'noselect'  -- don't automatically select canditate (for nvim-compe)
-vim.opt.cursorline     = true                              -- highlight current line
+vim.opt.cursorline     = false                             -- highlight current line
 vim.opt.diffopt        = vim.opt.diffopt + 'foldcolumn:0'  -- don't show fold column in diff view
 vim.opt.directory      = config .. '/nvim/swap//'          -- keep swap files out of the way
 vim.opt.directory      = vim.opt.directory + '.'           -- fallback
@@ -38,7 +38,7 @@ vim.opt.fillchars      = {
     vert                 = '┃',                              -- BOX DRAWINGS HEAVY VERTICAL (U+2503, UTF-8: E2 94 83)
 }
 vim.opt.foldlevelstart = 99                                -- start unfolded
-vim.opt.foldmethod     = 'manual'                          -- not as cool as syntax, but faster
+vim.opt.foldmethod     = 'marker'                          -- not as cool as syntax, but faster
 vim.opt.foldtext       = 'v:lua.agung.foldtext()'
 vim.opt.formatoptions  = vim.opt.formatoptions + 'j'       -- remove comment leader when joining comment lines
 vim.opt.formatoptions  = vim.opt.formatoptions + 'n'       -- smart auto-indenting inside numbered lists
@@ -89,7 +89,7 @@ else
 -- - f0 don't store file marks
 -- - n: store in ~/.config/nvim/
 --
-vim.opt.shada = "'0,<0,f0,n~/.config/nvim/shada"
+vim.opt.shada = ''0,<0,f0,n~/.config/nvim/shada'
 end
 --]]
 
@@ -106,7 +106,7 @@ vim.opt.shortmess     = vim.opt.shortmess + 'c' -- completion messages
 vim.opt.shortmess     = vim.opt.shortmess + 'o' -- overwrite file-written messages
 vim.opt.shortmess     = vim.opt.shortmess + 't' -- truncate file messages at start
 vim.opt.showbreak     = '↳ '                    -- DOWNWARDS ARROW WITH TIP RIGHTWARDS (U+21B3, UTF-8: E2 86 B3)
-vim.opt.showcmd       = false                   -- don't show extra info at end of command line
+vim.opt.showcmd       = true                    -- don't show extra info at end of command line
 vim.opt.sidescroll    = 0                       -- sidescroll in jumps because terminals are slow
 vim.opt.sidescrolloff = 3                       -- same as scrolloff, but for columns
 vim.opt.smarttab      = true                    -- <tab>/<BS> indent/dedent in leading whitespace
@@ -150,7 +150,7 @@ vim.opt.wrap        = false                                 -- swictch off the d
 vim.opt.writebackup = false                                 -- don't keep backups after writing
 
 -- TODO: move this to autocmd
-vim.cmd(":hi Folded guibg=none")
+vim.cmd(':hi Folded guibg=none')
 
 
 -- Highlight up to 255 columns (this is the current Vim max) beyond 'textwidth'
@@ -169,7 +169,7 @@ vim.cmd(":hi Folded guibg=none")
 ------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------
--- pluggin {{{1
+-- PLUGGIN {{{1
 ------------------------------------------------------------------------------------
 --todo: MV INTO SEPARATE FILE IN ~/.config/nvim/lua/agung/pluggin/
 
@@ -180,112 +180,166 @@ vim.cmd(":hi Folded guibg=none")
 -- MAPS {{{1
 ------------------------------------------------------------------------------------
 --TODO: mv into separate file in ~/.config/nvim/lua/agung/mapping.lua
-vim.g.mapleader = ","
-vim.g.maplocalleader = ";"
+vim.g.mapleader = ','
+vim.g.maplocalleader = ';'
 
 --vim.api.nvim_command('W' w)
 
 -- ## movement mapping
 -- Navigate Windows with '<Ctrl-hjkl>' instead of '<Ctrl-w>' followed by 'hjkl'
-vim.api.nvim_set_keymap("n", "<c-h>", "<c-w><c-h>", { nowait = true, noremap = true })
-vim.api.nvim_set_keymap("n", "<c-j>", "<c-w><c-j>", { nowait = true, noremap = true })
-vim.api.nvim_set_keymap("n", "<c-k>", "<c-w><c-k>", { nowait = true, noremap = true })
-vim.api.nvim_set_keymap("n", "<c-l>", "<c-w><c-l>", { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<c-h>', '<c-w><c-h>', { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<c-j>', '<c-w><c-j>', { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<c-k>', '<c-w><c-k>', { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<c-l>', '<c-w><c-l>', { nowait = true, noremap = true })
 
 -- respect 'hjkl' keys
-vim.api.nvim_set_keymap("n", "<Up>", "<nop>", { nowait = true, noremap = true })
-vim.api.nvim_set_keymap("n", "<Down>", "<nop>", { nowait = true, noremap = true })
-vim.api.nvim_set_keymap("n", "<Left>", "<nop>", { nowait = true, noremap = true })
-vim.api.nvim_set_keymap("n", "<Right>", "<nop>", { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<Up>', '<nop>', { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<Down>', '<nop>', { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<Left>', '<nop>', { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<Right>', '<nop>', { nowait = true, noremap = true })
 
 -- movement by screen line instead of file line (for text wrap)
-vim.api.nvim_set_keymap("n", "j", "gj", { nowait = true, noremap = true })
-vim.api.nvim_set_keymap("v", "j", "gj", { nowait = true, noremap = true })
-vim.api.nvim_set_keymap("n", "k", "gk", { nowait = true, noremap = true })
-vim.api.nvim_set_keymap("v", "k", "gk", { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('n', 'j', 'gj', { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('v', 'j', 'gj', { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('n', 'k', 'gk', { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('v', 'k', 'gk', { nowait = true, noremap = true })
 
--- automatically "ESC". really uncommon to type 'jj', 'jk', etc
-vim.api.nvim_set_keymap("i", "jj", "<ESC>", { nowait = true, noremap = true })
-vim.api.nvim_set_keymap("i", "jk", "<ESC>", { nowait = true, noremap = true })
-vim.api.nvim_set_keymap("i", "kk", "<ESC>", { nowait = true, noremap = true })
-vim.api.nvim_set_keymap("i", "hh", "<ESC>", { nowait = true, noremap = true })
---vim.api.nvim_set_keymap("i", "ll", "<ESC>", { nowait = true, noremap = true })
+-- automatically 'ESC'. really uncommon to type 'jj', 'jk', etc
+vim.api.nvim_set_keymap('i', 'jj', '<ESC>', { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('i', 'jk', '<ESC>', { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('i', 'kk', '<ESC>', { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('i', 'hh', '<ESC>', { nowait = true, noremap = true })
+--vim.api.nvim_set_keymap('i', 'll', '<ESC>', { nowait = true, noremap = true })
 
 -- faster scrolling
-vim.api.nvim_set_keymap("n", "<C-e>", "3<C-e>", { nowait = true, noremap = true })
-vim.api.nvim_set_keymap("n", "<C-y>", "3<C-y>", { nowait = true, noremap = true })
-
+vim.api.nvim_set_keymap('n', '<C-e>', '3<C-e>', { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<C-y>', '3<C-y>', { nowait = true, noremap = true })
 
 -- ## visual mapping
 -- most often
-vim.api.nvim_set_keymap("n", "v", "<C-v>", { nowait = true, noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<C-v>", "v", { nowait = true, noremap = true, silent = true })
-vim.api.nvim_set_keymap("v", "v", "<C-v>", { nowait = true, noremap = true, silent = true })
-vim.api.nvim_set_keymap("v", "<C-v>", "v", { nowait = true, noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'v', '<C-v>', { nowait = true, noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-v>', 'v', { nowait = true, noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', 'v', '<C-v>', { nowait = true, noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<C-v>', 'v', { nowait = true, noremap = true, silent = true })
 
-
--- ## effectiveness
+-- ## EFFECTIVENESS
 -- Duplicate lines, similar to Eclipse
-vim.api.nvim_set_keymap("n", "<C-S-Up>", "YP", { nowait = true, noremap = true })
-vim.api.nvim_set_keymap("n", "<C-S-Down>", "YP", { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<C-S-Up>', 'YP', { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<C-S-Down>', 'YP', { nowait = true, noremap = true })
 
--- saving file
-vim.api.nvim_set_keymap("n", "<leader>w", ":w<CR>", { nowait = true, noremap = true })
-vim.api.nvim_set_keymap("n", "<leader>q", ":q<CR>", { nowait = true, noremap = true })
+-- saving file and quit
+vim.api.nvim_set_keymap('n', '<leader>w', ':write<CR>', { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>q', ':quit<CR>', { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('n', 'W', ':write<CR>', { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('n', 'Q', ':quit<CR>', { nowait = true, noremap = true })
 
--- split
-vim.api.nvim_set_keymap("n", "<leader>sr", ":vsplit<CR>", { nowait = true, noremap = true }) -- split right
-vim.api.nvim_set_keymap("n", "<leader>sb", ":split<CR>", { nowait = true, noremap = true }) -- split bottom
+-- ## SPLIT
+-- split right
+vim.api.nvim_set_keymap('n', '<leader>sr', ':vsplit<CR>', { nowait = true, noremap = true })
+-- split bottom
+vim.api.nvim_set_keymap('n', '<leader>sb', ':split<CR>', { nowait = true, noremap = true })
 
+-- ## TOGGLE
 -- toggle highlight search
-vim.api.nvim_set_keymap("n", "\\", ":set hlsearch!<CR>", { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('n', '\\', ':set hlsearch!<CR>', { nowait = true, noremap = true })
 
 -- toggle showing 'tabs' and trailing spaces
-vim.api.nvim_set_keymap("n", "<leader>\\", ":set nolist!<CR>", { nowait = true, noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>\\', ':set nolist!<CR>', { nowait = true, noremap = true, silent = true })
 
 -- toggle spell check
-vim.api.nvim_set_keymap("n", "<leader>ts", ":set spell!<CR>", { nowait = true, noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>sp', ':set spell!<CR>', { nowait = true, noremap = true, silent = true })
 
 -- toggle wrap
-vim.api.nvim_set_keymap("n", "<leader>tw", ":set wrap!<CR>", { nowait = true, noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>tw', ':set wrap!<CR>', { nowait = true, noremap = true, silent = true })
 
 -- wrapping text; hard wrap paragraph text (similar to TextMate ^Q)
---vim.api.nvim_set_keymap("n", "<leader>hw", "gqip", { nowait = true, noremap = true })
+--vim.api.nvim_set_keymap('n', '<leader>hw', 'gqip', { nowait = true, noremap = true })
 
 -- toggle paste
-vim.api.nvim_set_keymap("n", "<leader>ps", ":set paste!<CR>", { nowait = true, noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>ps', ':set paste!<CR>', { nowait = true, noremap = true, silent = true })
 
--- reformat code
-vim.api.nvim_set_keymap("n", "<leader>rf", "gg=G", { nowait = true, noremap = true })
+-- toggle cursorline
+vim.api.nvim_set_keymap('n', '<leader>cl', ':set cursorline!<CR>', { nowait = true, noremap = true, silent = true })
+
+-- toggle cursorcolumn
+vim.api.nvim_set_keymap('n', '<leader>cc', ':set cursorcolumn!<CR>', { nowait = true, noremap = true, silent = true })
+
+-- reindent code
+vim.api.nvim_set_keymap('n', '<leader>ri', 'gg=G', { nowait = true, noremap = true })
 
 -- source the code
-vim.api.nvim_set_keymap("n", "<leader>so", ":source ~/.config/nvim/init.lua<CR>", { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>so', ':source ~/.config/nvim/init.lua<CR>', { nowait = true, noremap = true })
 
 -- change all 'tabs' to 'space'
-vim.api.nvim_set_keymap("n", "<leader>rt", ":retab!<CR>", { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>rt', ':retab!<CR>', { nowait = true, noremap = true })
 
 -- visually select the text was last edited/pasted
-vim.api.nvim_set_keymap("n", "<leader>v", "`[v`]", { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>v', '`[v`]', { nowait = true, noremap = true })
 
 -- Move windows around (only work on same row)
-vim.api.nvim_set_keymap("n", "<C-S-Right>", "<C-w>r", { nowait = true, noremap = true })
-vim.api.nvim_set_keymap("n", "<C-S-Left>", "<C-w>R", { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<C-S-Right>', '<C-w>r', { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<C-S-Left>', '<C-w>R', { nowait = true, noremap = true })
 
 -- Bubble single lines
-vim.api.nvim_set_keymap("n", "<C-Up>", "ddkP", { nowait = true, noremap = true })
-vim.api.nvim_set_keymap("n", "<C-Down>", "ddp", { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<C-Up>', 'ddkP', { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<C-Down>', 'ddp', { nowait = true, noremap = true })
 
 -- Bubble multiple lines
-vim.api.nvim_set_keymap("v", "<C-Up>", "xkP`[V`]", { nowait = true, noremap = true })
-vim.api.nvim_set_keymap("v", "<C-Down>", "xp`[V`]", { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('v', '<C-Up>', 'xkP`[V`]', { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('v', '<C-Down>', 'xp`[V`]', { nowait = true, noremap = true })
 
 -- resize splits (http://vim.wikia.com/wiki/Resize_splits_more_quickly)
-vim.api.nvim_set_keymap("n", "<leader>+", ":exe 'resize ' . (winheight(0) * 3/2)<CR> ", { nowait = true, noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>-", ":exe 'resize ' . (winheight(0) * 2/3)<CR> ", { nowait = true, noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>+', ':exe "resize " . (winheight(0) * 3/2)<CR> ', { nowait = true, noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>-', ':exe "resize " . (winheight(0) * 2/3)<CR> ', { nowait = true, noremap = true, silent = true })
 
--- add space inside current parenthesis
-vim.api.nvim_set_keymap("n", "<leader>)", "vi(xi P", { nowait = true })
+-- PARENTHESIS
+-- add space inside curly braces
+vim.api.nvim_set_keymap('n', '<leader>)', 'vi(xi <Esc>pa <Esc>', { nowait = true })
+-- add space inside current brackets
+vim.api.nvim_set_keymap('n', '<leader>}', 'vi{xi <Esc>pa <Esc>', { nowait = true })
+-- add space inside current <>
+vim.api.nvim_set_keymap('n', '<leader>>', 'vi<xi <Esc>pa <Esc>', { nowait = true })
+
+-- ROUNDING WORD
+-- Put brackets around word
+--vim.api.nvim_set_keymap('n', '<leader>{', 'vexi{<Esc>pea}<Esc>', { nowait = true })
+vim.api.nvim_set_keymap('n', '<leader>{', 'i{<Esc>ea}<Esc>', { nowait = true })
+-- Put curly braces around word
+--vim.api.nvim_set_keymap('n', '<leader>(', 'vexi(<Esc>pea)<Esc>', { nowait = true })
+vim.api.nvim_set_keymap('n', '<leader>(', 'i(<Esc>ea)<Esc>', { nowait = true })
+-- Put <> around word
+--vim.api.nvim_set_keymap('n', '<leader><', 'vexi<<Esc>pea><Esc>', { nowait = true })
+vim.api.nvim_set_keymap('n', '<leader><', 'i<<Esc>ea><Esc>', { nowait = true })
+
+-- DELETE BRACKETS
+-- delete brackets around word
+vim.api.nvim_set_keymap('n', '<leader>{{', 'di{pF{xx<Esc>', { nowait = true })
+-- delete curly braces around word
+vim.api.nvim_set_keymap('n', '<leader>((', 'di(pF(xx<Esc>', { nowait = true })
+-- delete <> around word
+vim.api.nvim_set_keymap('n', '<leader><<', 'di<pF<xx<Esc>', { nowait = true })
 
 -- }}}
 ------------------------------------------------------------------------------------
 
+------------------------------------------------------------------------------------
+-- HELPER FUNCTIONS {{{1
+------------------------------------------------------------------------------------
+--todo: MV INTO SEPARATE FILE IN ~/.config/nvim/lua/agung/helper/
+
+local inspect = function (func)
+    local inspect = vim.inspect(func)
+    if func == nil then
+        print ("'func' is:", func)
+        return
+    else
+        print("inspect value:\n", inspect)
+        return
+    end
+end
+
+-- }}}
+------------------------------------------------------------------------------------
+
+--[[
+--]]
