@@ -57,7 +57,6 @@ vim.opt.listchars      = {
     trail                = '•',                             -- BULLET (U+2022, UTF-8: E2 80 A2)
 }
 
-
 if vi then
     vim.opt.loadplugins = false
 end
@@ -337,9 +336,9 @@ end
 ------------------------------------------------------------------------------------
 -- TODO: mv into separate file in ~/.config/nvim/lua/agung/pluggin/
 --[[
-- make some research for file searching on nvim 'fzf.vim' vs 'ack.vim' vs
-'vim-greeper' vs 'ctrlP' vs 'leaderF'
-- of course I need 'LSP'
+    -- make some research for file searching on nvim 'fzf.vim' vs 'ack.vim' vs
+    'vim-greeper' vs 'ctrlP' vs 'leaderF'
+    - of course I need 'LSP' [x]
 --]]
 
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
@@ -361,39 +360,65 @@ vim.api.nvim_exec(
 local use = require('packer').use
 require('packer').startup({
     function()
-        use 'wbthomason/packer.nvim'
-        use 'neovim/nvim-lspconfig'         -- Collection of configurations for built-in LSP client
+        use 'wbthomason/packer.nvim'        -- backbone Package manager
+        -- LSP CONFIG
+        use 'neovim/nvim-lspconfig'         -- collection of configurations for built-in LSP client
+        --use 'hrsh7th/nvim-cmp'               -- autocompletion plugin
+        --use 'hrsh7th/cmp-nvim-lsp'           -- LSP source for 'nvim-cmp'
+        --use 'saadparwaiz1/cmp_luasnip'      -- snippets source for nvim-cmp
+        --use 'L3MON4D3/LuaSnip'              -- snippet plugin
+
+        -- TODO: TREESITTER
     end,
     config = {
         display = {
-            open_fn = require('packer.util').float,
+            --open_fn = require('packer.util').float,
         }
     }
 })
 
-local custom_lsp_attach  = function (client)
-    -- See `:help nvim_buf_set_keymap()` for more information
-    vim.api.nvim_buf_set_keymap(0, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', {noremap = true})
-    vim.api.nvim_buf_set_keymap(0, 'n', '<C-]>', '<cmd>lua vim.lsp.buf.definition()<CR>', {noremap = true})
-    -- ... and other keymappings for LSP
+-- SETUP LSP SERVER -- {{{2
+-- TODO: mv into separate file in ~/.config/nvim/lua/agung/lspconfig/
+
+local nvim_lsp = require('lspconfig')
+local on_attach  = function(_, bufnr)
 
     -- Use LSP as the handler for omnifunc.
-    --    See `:help omnifunc` and `:help ins-completion` for more information.
-    vim.api.nvim_buf_set_option(0, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    -- See `:help omnifunc` and `:help ins-completion` for more information.
+    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-    -- For plugins with an `on_attach` callback, call them here. For example:
+    local opts = { noremap = true, silent = true }
+
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts )
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts )
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostic()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>dl', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+    -- FIXME: Need to install 'telescope'
+    --vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ld', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
+
+    vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
+
+    -- ## NOTE: For plugins with an `on_attach` callback, call them here. For example:
     -- require('completion').on_attach()
 end
-
--- SETUP LSP SERVER -- {{{2
--- TODO: MV INTO SEPARATE FILE IN ~/.config/nvim/lua/agung/lspconfig/
 
 -- ## LUA LANGUAGE SERVER ## -- {{{3
 
 -- set the path to the sumneko installation
 local sumneko_root_path = vim.fn.getenv 'HOME' .. '/.local/bin/vim-sumneko_lua'
 local sumneko_binary = sumneko_root_path .. '/bin/Linux/lua-language-server'
-
 -- Make runtime files discoverable to the server
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, 'lua/?.lua')
@@ -402,8 +427,6 @@ table.insert(runtime_path, 'lua/?/init.lua')
 -- lsp server setup
 require('lspconfig').sumneko_lua.setup({
     cmd = {sumneko_binary, '-E', sumneko_root_path .. '/main.lua'},
-    --on_attach = on_attach,
-    --capabilities = capabilities
     settings = {
         Lua = {
             runtime = {
@@ -425,7 +448,8 @@ require('lspconfig').sumneko_lua.setup({
             },
         },
     },
-    on_attach = custom_lsp_attach
+    on_attach =  on_attach
+
 })
 
 -- ## END LUA LANGUAGE SERVER ## }}}
