@@ -2,11 +2,9 @@ require 'agung'
 
 ------------------------------------------------------------------------------------
 --  Author:                     Agung Tuanany
---  Last Date Modified:         Thu Oct 14 09:34:10 AM WIB 2021
+--  Last Date Modified:         Mon Oct 18 09:52:54 PM WIB 2021
 --  Credit:                     #wincent
 ------------------------------------------------------------------------------------
-
-
 
 ------------------------------------------------------------------------------------
 -- OPTIONS {{{1
@@ -58,6 +56,7 @@ vim.opt.listchars      = {
     tab                  = '▷⋯',                            -- WHITE RIGHT-POINTING TRIANGLE (U+25B7, UTF-8: E2 96 B7) + MIDLINE HORIZONTAL ELLIPSIS (U+22EF, UTF-8: E2 8B AF)
     trail                = '•',                             -- BULLET (U+2022, UTF-8: E2 80 A2)
 }
+
 
 if vi then
     vim.opt.loadplugins = false
@@ -169,17 +168,9 @@ vim.cmd(':hi Folded guibg=none')
 ------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------
--- PLUGGIN {{{1
-------------------------------------------------------------------------------------
---todo: MV INTO SEPARATE FILE IN ~/.config/nvim/lua/agung/pluggin/
-
--- }}}
-------------------------------------------------------------------------------------
-
-------------------------------------------------------------------------------------
 -- MAPS {{{1
 ------------------------------------------------------------------------------------
---TODO: mv into separate file in ~/.config/nvim/lua/agung/mapping.lua
+-- TODO: mv into separate file in ~/.config/nvim/lua/agung/mapping.lua
 vim.g.mapleader = ','
 vim.g.maplocalleader = ';'
 
@@ -264,8 +255,14 @@ vim.api.nvim_set_keymap('n', '<leader>cl', ':set cursorline!<CR>', { nowait = tr
 -- toggle cursorcolumn
 vim.api.nvim_set_keymap('n', '<leader>cc', ':set cursorcolumn!<CR>', { nowait = true, noremap = true, silent = true })
 
+-- toggle number
+vim.api.nvim_set_keymap('n', '<leader>n', ':set number!<CR>', { nowait = true, noremap = true, silent = true })
+
+-- toggle relativenumber
+vim.api.nvim_set_keymap('n', '<leader>rn', ':set relativenumber!<CR>', { nowait = true, noremap = true, silent = true })
+
 -- reindent code
-vim.api.nvim_set_keymap('n', '<leader>ri', 'gg=G', { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>rf', 'gg=G', { nowait = true, noremap = true })
 
 -- source the code
 vim.api.nvim_set_keymap('n', '<leader>so', ':source ~/.config/nvim/init.lua<CR>', { nowait = true, noremap = true })
@@ -325,21 +322,115 @@ vim.api.nvim_set_keymap('n', '<leader><<', 'di<pF<xx<Esc>', { nowait = true })
 ------------------------------------------------------------------------------------
 -- HELPER FUNCTIONS {{{1
 ------------------------------------------------------------------------------------
---todo: MV INTO SEPARATE FILE IN ~/.config/nvim/lua/agung/helper/
+-- TODO: mv into separate file in ~/.config/nvim/lua/agung/helper/
 
-local inspect = function (func)
-    local inspect = vim.inspect(func)
-    if func == nil then
-        print ("'func' is:", func)
-        return
-    else
-        print("inspect value:\n", inspect)
-        return
-    end
+Inspect = function (v)
+    print (vim.inspect(v))
+    return v
 end
 
 -- }}}
 ------------------------------------------------------------------------------------
 
+------------------------------------------------------------------------------------
+-- PLUGGIN {{{1
+------------------------------------------------------------------------------------
+-- TODO: mv into separate file in ~/.config/nvim/lua/agung/pluggin/
 --[[
+- make some research for file searching on nvim 'fzf.vim' vs 'ack.vim' vs
+'vim-greeper' vs 'ctrlP' vs 'leaderF'
+- of course I need 'LSP'
 --]]
+
+local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
+
+if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+    vim.fn.execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
+end
+
+vim.api.nvim_exec(
+    [[
+    augroup Packer
+        autocmd!
+        autocmd BufWritePost init.lua PackerCompile
+    augroup end
+    ]],
+    false
+)
+
+local use = require('packer').use
+require('packer').startup({
+    function()
+        use 'wbthomason/packer.nvim'
+        use 'neovim/nvim-lspconfig'         -- Collection of configurations for built-in LSP client
+    end,
+    config = {
+        display = {
+            open_fn = require('packer.util').float,
+        }
+    }
+})
+
+local custom_lsp_attach  = function (client)
+    -- See `:help nvim_buf_set_keymap()` for more information
+    vim.api.nvim_buf_set_keymap(0, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', {noremap = true})
+    vim.api.nvim_buf_set_keymap(0, 'n', '<C-]>', '<cmd>lua vim.lsp.buf.definition()<CR>', {noremap = true})
+    -- ... and other keymappings for LSP
+
+    -- Use LSP as the handler for omnifunc.
+    --    See `:help omnifunc` and `:help ins-completion` for more information.
+    vim.api.nvim_buf_set_option(0, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+    -- For plugins with an `on_attach` callback, call them here. For example:
+    -- require('completion').on_attach()
+end
+
+-- SETUP LSP SERVER -- {{{2
+-- TODO: MV INTO SEPARATE FILE IN ~/.config/nvim/lua/agung/lspconfig/
+
+-- ## LUA LANGUAGE SERVER ## -- {{{3
+
+-- set the path to the sumneko installation
+local sumneko_root_path = vim.fn.getenv 'HOME' .. '/.local/bin/vim-sumneko_lua'
+local sumneko_binary = sumneko_root_path .. '/bin/Linux/lua-language-server'
+
+-- Make runtime files discoverable to the server
+local runtime_path = vim.split(package.path, ';')
+table.insert(runtime_path, 'lua/?.lua')
+table.insert(runtime_path, 'lua/?/init.lua')
+
+-- lsp server setup
+require('lspconfig').sumneko_lua.setup({
+    cmd = {sumneko_binary, '-E', sumneko_root_path .. '/main.lua'},
+    --on_attach = on_attach,
+    --capabilities = capabilities
+    settings = {
+        Lua = {
+            runtime = {
+                -- Tell the langauge server which version of Lua you're using (most
+                -- likely LuaJIT in the case of Neovim)
+                version = 'LuaJIT',
+                -- Setup your lua path
+                path = runtime_path,
+            },
+            diagnostics = {
+                -- Get the language server to recognise the 'vim' global
+                globals = { 'vim' },
+            },
+            workspace = {
+                -- Make the server aware of Neovim runtime files
+                library = {
+                    vim.api.nvim_get_runtime_file("", true),
+                },
+            },
+        },
+    },
+    on_attach = custom_lsp_attach
+})
+
+-- ## END LUA LANGUAGE SERVER ## }}}
+
+-- END SETUP LSP SERVER 2}}}
+
+-- 1}}}
+------------------------------------------------------------------------------------
