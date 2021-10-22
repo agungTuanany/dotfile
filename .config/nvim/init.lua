@@ -2,8 +2,8 @@ require 'agung'
 
 ------------------------------------------------------------------------------------
 --  Author:                     Agung Tuanany
---  Last Date Modified:         Mon Oct 18 09:52:54 PM WIB 2021
---  Credit:                     #wincent
+--  Last Date Modified:         Fri Oct 22 09:17:31 AM WIB 2021
+--  Credit:                     #wincent, #ThePrimeagen
 ------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------
@@ -23,6 +23,7 @@ vim.opt.backupskip     = vim.opt.backupskip + '*.re,*.rei' -- prevent bsb's watc
 vim.opt.belloff        = 'all'                             -- never ring the bell for any reason
 vim.opt.completeopt    = 'menuone'                         -- show menu even if there is only one candidate (for nvim-compe)
 vim.opt.completeopt    = vim.opt.completeopt + 'noselect'  -- don't automatically select canditate (for nvim-compe)
+vim.opt.completeopt    = vim.opt.completeopt + 'noinsert'  -- don't automatically insert canditate (for nvim-compe)
 vim.opt.cursorline     = false                             -- highlight current line
 vim.opt.diffopt        = vim.opt.diffopt + 'foldcolumn:0'  -- don't show fold column in diff view
 vim.opt.directory      = config .. '/nvim/swap//'          -- keep swap files out of the way
@@ -35,7 +36,7 @@ vim.opt.fillchars      = {
     fold                 = '·',                              -- MIDDLE DOT (U+00B7, UTF-8: C2 B7)
     vert                 = '┃',                              -- BOX DRAWINGS HEAVY VERTICAL (U+2503, UTF-8: E2 94 83)
 }
-vim.opt.foldlevelstart = 99                                -- start unfolded
+vim.opt.foldlevelstart = -1                                -- start folded
 vim.opt.foldmethod     = 'marker'                          -- not as cool as syntax, but faster
 vim.opt.foldtext       = 'v:lua.agung.foldtext()'
 vim.opt.formatoptions  = vim.opt.formatoptions + 'j'       -- remove comment leader when joining comment lines
@@ -132,20 +133,27 @@ else
     vim.opt.undofile = true                  -- actually use undo files
 end
 
-vim.opt.updatetime  = 2000                                  -- CursorHold interval
-vim.opt.updatecount = 0                                     -- update swapfiles every 80 typed chars
-vim.opt.viewdir     = config .. '/view'                     -- where to store files for :mkview
-vim.opt.viewoptions = 'cursor,folds'                        -- save/restore just these (with `:{mk,load}view`)
-vim.opt.virtualedit = 'block'                               -- allow cursor to move where there is no text in visual block mode
-vim.opt.visualbell  = true                                  -- stop annoying beeping for non-error errors
-vim.opt.whichwrap   = 'b,h,l,s,<,>,[,],~'                   -- allow <BS>/h/l/<Left>/<Right>/<Space>, ~ to cross line boundaries
-vim.opt.wildcharm   = 26                                    -- ('<C-z>') substitute for 'wildchar' (<Tab>) in macros
-vim.opt.wildignore  = vim.opt.wildignore + '*.o,*.rej,*.so' -- patterns to ignore during file-navigation
-vim.opt.wildmenu    = true                                  -- show options as list when switching buffers etc
-vim.opt.wildmode    = 'longest:full,full'                   -- shell-like autocomplete to unambiguous portion
-vim.opt.winblend    = 10                                    -- psuedo-transparency for floating windows
-vim.opt.wrap        = false                                 -- swictch off the default wrap
-vim.opt.writebackup = false                                 -- don't keep backups after writing
+vim.opt.updatetime  = 2000                                      -- CursorHold interval
+vim.opt.updatecount = 0                                         -- update swapfiles every 80 typed chars
+vim.opt.viewdir     = config .. '/view'                         -- where to store files for :mkview
+vim.opt.viewoptions = 'cursor,folds'                            -- save/restore just these (with `:{mk,load}view`)
+vim.opt.virtualedit = 'block'                                   -- allow cursor to move where there is no text in visual block mode
+vim.opt.visualbell  = true                                      -- stop annoying beeping for non-error errors
+vim.opt.whichwrap   = 'b,h,l,s,<,>,[,],~'                       -- allow <BS>/h/l/<Left>/<Right>/<Space>, ~ to cross line boundaries
+vim.opt.wildcharm   = 26                                        -- ('<C-z>') substitute for 'wildchar' (<Tab>) in macros
+vim.opt.wildignore  = vim.opt.wildignore + '*.o,*.rej,*.so'     -- patterns to ignore during file-navigation
+vim.opt.wildignore  = vim.opt.wildignore + '*.pyc'              -- patterns to ignore during file-navigation
+vim.opt.wildignore  = vim.opt.wildignore + '*_build/*'          -- patterns to ignore during file-navigation
+vim.opt.wildignore  = vim.opt.wildignore + '**/coverage/*'      -- patterns to ignore during file-navigation
+vim.opt.wildignore  = vim.opt.wildignore + '**/node_modules'    -- patterns to ignore during file-navigation
+vim.opt.wildignore  = vim.opt.wildignore + '**/android/*'       -- patterns to ignore during file-navigation
+vim.opt.wildignore  = vim.opt.wildignore + '**/ios/*'           -- patterns to ignore during file-navigation
+vim.opt.wildignore  = vim.opt.wildignore + '**/.git/*'          -- patterns to ignore during file-navigation
+vim.opt.wildmenu    = true                                      -- show options as list when switching buffers etc
+vim.opt.wildmode    = 'longest:full,full'                       -- shell-like autocomplete to unambiguous portion
+vim.opt.winblend    = 10                                        -- psuedo-transparency for floating windows
+vim.opt.wrap        = false                                     -- swictch off the default wrap
+vim.opt.writebackup = false                                     -- don't keep backups after writing
 
 -- TODO: move this to autocmd
 vim.cmd(':hi Folded guibg=none')
@@ -221,6 +229,9 @@ vim.api.nvim_set_keymap('n', '<C-S-Down>', 'YP', { nowait = true, noremap = true
 vim.api.nvim_set_keymap('n', '<leader>w', ':write<CR>', { nowait = true, noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>q', ':quit<CR>', { nowait = true, noremap = true })
 vim.api.nvim_set_keymap('n', 'W', ':write<CR>', { nowait = true, noremap = true })
+
+-- do not allow to 'Ex mode'
+vim.api.nvim_set_keymap('n', 'Q', '<nop>', { nowait = true, noremap = true })
 vim.api.nvim_set_keymap('n', 'Q', ':quit<CR>', { nowait = true, noremap = true })
 
 -- ## SPLIT
@@ -323,6 +334,7 @@ vim.api.nvim_set_keymap('n', '<leader><<', 'di<pF<xx<Esc>', { nowait = true })
 ------------------------------------------------------------------------------------
 -- TODO: mv into separate file in ~/.config/nvim/lua/agung/helper/
 
+-- fast script to use, either to write ':lua print(vim.inspect(...))
 Inspect = function (v)
     print (vim.inspect(v))
     return v
@@ -336,9 +348,12 @@ end
 ------------------------------------------------------------------------------------
 -- TODO: mv into separate file in ~/.config/nvim/lua/agung/pluggin/
 --[[
-    -- make some research for file searching on nvim 'fzf.vim' vs 'ack.vim' vs
+    -- [] make some research for file searching on nvim 'fzf.vim' vs 'ack.vim' vs
     'vim-greeper' vs 'ctrlP' vs 'leaderF'
-    - of course I need 'LSP' [x]
+    -- [x]  of course I need 'LSP'
+    -- [] treesitter
+    -- [] git-plugin
+    -- [] vim-commentary
 --]]
 
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
@@ -347,32 +362,34 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
     vim.fn.execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
 end
 
-vim.api.nvim_exec(
-    [[
-    augroup Packer
-        autocmd!
-        autocmd BufWritePost init.lua PackerCompile
-    augroup end
-    ]],
-    false
-)
+-- vim.api.nvim_exec(
+--     [[
+--     augroup Packer
+--         autocmd!
+--         autocmd BufWritePost init.lua PackerCompile
+--     augroup end
+--     ]],
+--     false
+-- )
 
 local use = require('packer').use
 require('packer').startup({
     function()
-        use 'wbthomason/packer.nvim'        -- backbone Package manager
+        use 'wbthomason/packer.nvim'            -- backbone Package manager
         -- LSP CONFIG
-        use 'neovim/nvim-lspconfig'         -- collection of configurations for built-in LSP client
-        --use 'hrsh7th/nvim-cmp'               -- autocompletion plugin
-        --use 'hrsh7th/cmp-nvim-lsp'           -- LSP source for 'nvim-cmp'
-        --use 'saadparwaiz1/cmp_luasnip'      -- snippets source for nvim-cmp
-        --use 'L3MON4D3/LuaSnip'              -- snippet plugin
+        use 'neovim/nvim-lspconfig'             -- collection of configurations for built-in LSP client
+        -- use 'hrsh7th/nvim-cmp'                  -- autocompletion plugin
+        -- use 'hrsh7th/cmp-nvim-lsp'              -- LSP source for 'nvim-cmp'
+        -- use 'saadparwaiz1/cmp_luasnip'          -- snippets source for nvim-cmp
+        -- use 'L3MON4D3/LuaSnip'                  -- snippet plugin
 
         -- TODO: TREESITTER
+
+        use 'tpope/vim-commentary'             -- comment stuff out
     end,
     config = {
         display = {
-            --open_fn = require('packer.util').float,
+            -- open_fn = require('packer.util').float,
         }
     }
 })
@@ -415,7 +432,6 @@ local on_attach  = function(_, bufnr)
 end
 
 -- ## LUA LANGUAGE SERVER ## -- {{{3
-
 -- set the path to the sumneko installation
 local sumneko_root_path = vim.fn.getenv 'HOME' .. '/.local/bin/vim-sumneko_lua'
 local sumneko_binary = sumneko_root_path .. '/bin/Linux/lua-language-server'
@@ -425,7 +441,7 @@ table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
 
 -- lsp server setup
-require('lspconfig').sumneko_lua.setup({
+nvim_lsp.sumneko_lua.setup({
     cmd = {sumneko_binary, '-E', sumneko_root_path .. '/main.lua'},
     settings = {
         Lua = {
@@ -451,10 +467,15 @@ require('lspconfig').sumneko_lua.setup({
     on_attach =  on_attach
 
 })
+-- 3}}}
 
--- ## END LUA LANGUAGE SERVER ## }}}
+-- ## VIML LANGUAGE SERVER ## {{{3
+nvim_lsp.vimls.setup({
+    on_attach = on_attach
+})
+-- 3}}}
 
--- END SETUP LSP SERVER 2}}}
+-- 2}}}
 
 -- 1}}}
 ------------------------------------------------------------------------------------
