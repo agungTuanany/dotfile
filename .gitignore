@@ -2,9 +2,12 @@
 *.swp
 ~*
 *~
+*.tmp
 
 ## FISH
 *_
 _*
 
-*.tmp
+## nvim
+shada
+ctags

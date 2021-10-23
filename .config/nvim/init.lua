@@ -3,7 +3,7 @@ require 'agung'
 ------------------------------------------------------------------------------------
 --  Author:                     Agung Tuanany
 --  Last Date Modified:         Fri Oct 22 09:17:31 AM WIB 2021
---  Credit:                     #wincent, #ThePrimeagen
+--  Credit:                     #wincent, #ThePrimeagen #tjdevries
 ------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------
@@ -23,7 +23,7 @@ vim.opt.backupskip     = vim.opt.backupskip + '*.re,*.rei' -- prevent bsb's watc
 vim.opt.belloff        = 'all'                             -- never ring the bell for any reason
 vim.opt.completeopt    = 'menuone'                         -- show menu even if there is only one candidate (for nvim-compe)
 vim.opt.completeopt    = vim.opt.completeopt + 'noselect'  -- don't automatically select canditate (for nvim-compe)
-vim.opt.completeopt    = vim.opt.completeopt + 'noinsert'  -- don't automatically insert canditate (for nvim-compe)
+--vim.opt.completeopt    = vim.opt.completeopt + 'noinsert'  -- don't automatically insert canditate (for nvim-compe)
 vim.opt.cursorline     = false                             -- highlight current line
 vim.opt.diffopt        = vim.opt.diffopt + 'foldcolumn:0'  -- don't show fold column in diff view
 vim.opt.directory      = config .. '/nvim/swap//'          -- keep swap files out of the way
@@ -327,7 +327,7 @@ vim.api.nvim_set_keymap('n', '<leader>((', 'di(pF(xx<Esc>', { nowait = true })
 vim.api.nvim_set_keymap('n', '<leader><<', 'di<pF<xx<Esc>', { nowait = true })
 
 -- }}}
-------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------
 -- HELPER FUNCTIONS {{{1
@@ -346,7 +346,7 @@ end
 ------------------------------------------------------------------------------------
 -- PLUGGIN {{{1
 ------------------------------------------------------------------------------------
--- TODO: mv into separate file in ~/.config/nvim/lua/agung/pluggin/
+-- TODO: mv into separate file in ~/.config/nvim/lua/agung/pluggin.lua
 --[[
     -- [] make some research for file searching on nvim 'fzf.vim' vs 'ack.vim' vs
     'vim-greeper' vs 'ctrlP' vs 'leaderF'
@@ -362,30 +362,27 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
     vim.fn.execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
 end
 
--- vim.api.nvim_exec(
---     [[
---     augroup Packer
---         autocmd!
---         autocmd BufWritePost init.lua PackerCompile
---     augroup end
---     ]],
---     false
--- )
-
 local use = require('packer').use
 require('packer').startup({
     function()
         use 'wbthomason/packer.nvim'            -- backbone Package manager
         -- LSP CONFIG
         use 'neovim/nvim-lspconfig'             -- collection of configurations for built-in LSP client
-        -- use 'hrsh7th/nvim-cmp'                  -- autocompletion plugin
-        -- use 'hrsh7th/cmp-nvim-lsp'              -- LSP source for 'nvim-cmp'
-        -- use 'saadparwaiz1/cmp_luasnip'          -- snippets source for nvim-cmp
-        -- use 'L3MON4D3/LuaSnip'                  -- snippet plugin
+        use 'hrsh7th/nvim-cmp'                  -- autocompletion plugin
+        use 'hrsh7th/cmp-buffer'                -- nvim-cmp source for buffer words
+        use 'hrsh7th/cmp-path'                  -- nvim-cmp source for path
+        use 'hrsh7th/cmp-nvim-lua'              -- nvim-cmp source for neovim LUA API
+        use 'hrsh7th/cmp-nvim-lsp'              -- nvim-cmp source for neovim builtin LSP client
 
-        -- TODO: TREESITTER
+        use 'onsails/lspkind-nvim'              -- vscode-like pictograms for neovim lsp completion items
+
+        -- Snippets
+        use 'saadparwaiz1/cmp_luasnip'          -- snippets source for nvim-cmp
+        use 'L3MON4D3/LuaSnip'                  -- snippet plugin
 
         use 'tpope/vim-commentary'             -- comment stuff out
+
+        -- TODO: TREESITTER
     end,
     config = {
         display = {
@@ -394,8 +391,66 @@ require('packer').startup({
     }
 })
 
+
+-- SETUP NVIM-CMP SERVER -- {{{2
+local lspkind = require "lspkind"
+lspkind.init()
+
+
+local cmp = require "cmp"
+
+
+cmp.setup {
+    mapping = {
+        ['<C-n>'] = cmp.select_next_item(),
+        ['<C-p>'] = cmp.select_prev_item(),
+        -- ['<M-d>'] = cmp.mapping.scroll_docs(-4),
+        -- ['<M-f>'] = cmp.mapping.scroll_docs(4),
+        -- ['<C-e>'] = cmp.mapping.close(),
+        ['<C-y>'] = cmp.mapping.confirm {
+            behaviour = cmp.ConfirmBehavior.Insert,
+            select = true
+        },
+        ['<c-space>'] = cmp.mapping.complete(),
+    },
+    sources = {
+        -- tjdevries setup
+        -- { name = 'gh_issues' },
+        { name = 'nvim_lua' },
+        { name = 'nvim_lsp' },
+        { name = 'path' },
+        { name = 'luasnip' },
+        { name = 'buffer', keyword_length = 5 },
+    },
+    snippet = {
+        expand = function(args)
+            require('luasnip').lsp_expand(args.body)
+        end,
+    },
+
+    formatting = {
+        format = lspkind.cmp_format {
+            with_text = true,
+            menu = {
+                buffer = "[buf]",
+                nvim_lsp = "[LSP]",
+                nvim_lua = "[api]",
+                path = "[path]",
+                luasnip = "[snip]",
+                gh_issues = "[issues]",
+            },
+        },
+    },
+    experimental = {
+        native_menu = false,
+        ghost_text = true,
+    },
+}
+
+-- 2}}}
+
 -- SETUP LSP SERVER -- {{{2
--- TODO: mv into separate file in ~/.config/nvim/lua/agung/lspconfig/
+-- TODO: mv into separate file in ~/.config/nvim/lua/agung/lsp/init.lua
 
 local nvim_lsp = require('lspconfig')
 local on_attach  = function(_, bufnr)
@@ -410,7 +465,7 @@ local on_attach  = function(_, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts )
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>k', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
@@ -446,8 +501,7 @@ nvim_lsp.sumneko_lua.setup({
     settings = {
         Lua = {
             runtime = {
-                -- Tell the langauge server which version of Lua you're using (most
-                -- likely LuaJIT in the case of Neovim)
+                -- Tell the langauge server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
                 version = 'LuaJIT',
                 -- Setup your lua path
                 path = runtime_path,
@@ -479,3 +533,7 @@ nvim_lsp.vimls.setup({
 
 -- 1}}}
 ------------------------------------------------------------------------------------
+
+
+
+
