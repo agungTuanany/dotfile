@@ -13,49 +13,50 @@ require 'agung'
 local home = vim.env.HOME
 local config = home .. '/.config/nvim'
 
-vim.opt.autoindent     = true                              -- maintain indent of current line from previous line
-vim.opt.backspace      = 'indent,start,eol'                -- allow unrestricted backspacing in insert mode
-vim.opt.backup         = false                             -- don't make backups before writing
-vim.opt.backupcopy     = 'yes'                             -- overwrite files to update, instead of renaming + rewriting
-vim.opt.backupdir      = config .. '/backup//'             -- keep backup files out of the way (ie. if 'backup' is ever set)
-vim.opt.backupdir      = vim.opt.backupdir + '.'           -- fallback
-vim.opt.backupskip     = vim.opt.backupskip + '*.re,*.rei' -- prevent bsb's watch mode from getting confused (if 'backup' is ever set)
-vim.opt.belloff        = 'all'                             -- never ring the bell for any reason
-vim.opt.completeopt    = 'menuone'                         -- show menu even if there is only one candidate (for nvim-compe)
-vim.opt.completeopt    = vim.opt.completeopt + 'noselect'  -- don't automatically select canditate (for nvim-compe)
---vim.opt.completeopt    = vim.opt.completeopt + 'noinsert'  -- don't automatically insert canditate (for nvim-compe)
-vim.opt.cursorline     = false                             -- highlight current line
-vim.opt.diffopt        = vim.opt.diffopt + 'foldcolumn:0'  -- don't show fold column in diff view
-vim.opt.directory      = config .. '/nvim/swap//'          -- keep swap files out of the way
-vim.opt.directory      = vim.opt.directory + '.'           -- fallback
-vim.opt.emoji          = false                             -- don't assume all emoji are double width
-vim.opt.expandtab      = true                              -- always use spaces instead of tabs
+vim.opt.autoindent     = true                               -- maintain indent of current line from previous line
+vim.opt.backspace      = 'indent,start,eol'                 -- allow unrestricted backspacing in insert mode
+vim.opt.backup         = false                              -- don't make backups before writing
+vim.opt.backupcopy     = 'yes'                              -- overwrite files to update, instead of renaming + rewriting
+vim.opt.backupdir      = config .. '/backup//'              -- keep backup files out of the way (ie. if 'backup' is ever set)
+vim.opt.backupdir      = vim.opt.backupdir + '.'            -- fallback
+vim.opt.backupskip     = vim.opt.backupskip + '*.re,*.rei'  -- prevent bsb's watch mode from getting confused (if 'backup' is ever set)
+vim.opt.belloff        = 'all'                              -- never ring the bell for any reason
+vim.opt.completeopt    = 'menu'                             -- change defaault value do not use 'preview' (for nvim-compe)
+vim.opt.completeopt    = vim.opt.completeopt + 'menuone'    -- show menu even if there is only one candidate (for nvim-compe)
+vim.opt.completeopt    = vim.opt.completeopt + 'noselect'   -- don't automatically select canditate (for nvim-compe)
+--vim.opt.completeopt    = vim.opt.completeopt + 'noinsert'  -- don't automatically insert canditate
+vim.opt.cursorline     = false                              -- highlight current line
+vim.opt.diffopt        = vim.opt.diffopt + 'foldcolumn:0'   -- don't show fold column in diff view
+vim.opt.directory      = config .. '/nvim/swap//'           -- keep swap files out of the way
+vim.opt.directory      = vim.opt.directory + '.'            -- fallback
+vim.opt.emoji          = false                              -- don't assume all emoji are double width
+vim.opt.expandtab      = true                               -- always use spaces instead of tabs
 vim.opt.fillchars      = {
     diff                 = '∙',                              -- BULLET OPERATOR (U+2219, UTF-8: E2 88 99)
     eob                  = ' ',                              -- NO-BREAK SPACE (U+00A0, UTF-8: C2 A0) to suppress ~ at EndOfBuffer
     fold                 = '·',                              -- MIDDLE DOT (U+00B7, UTF-8: C2 B7)
     vert                 = '┃',                              -- BOX DRAWINGS HEAVY VERTICAL (U+2503, UTF-8: E2 94 83)
 }
-vim.opt.foldlevelstart = -1                                -- start folded
-vim.opt.foldmethod     = 'marker'                          -- not as cool as syntax, but faster
+vim.opt.foldlevelstart = -1                                 -- start folded
+vim.opt.foldmethod     = 'marker'                           -- not as cool as syntax, but faster
 vim.opt.foldtext       = 'v:lua.agung.foldtext()'
-vim.opt.formatoptions  = vim.opt.formatoptions + 'j'       -- remove comment leader when joining comment lines
-vim.opt.formatoptions  = vim.opt.formatoptions + 'n'       -- smart auto-indenting inside numbered lists
+vim.opt.formatoptions  = vim.opt.formatoptions + 'j'        -- remove comment leader when joining comment lines
+vim.opt.formatoptions  = vim.opt.formatoptions + 'n'        -- smart auto-indenting inside numbered lists
 vim.opt.guifont        = 'Source Code Pro Light:h13'
-vim.opt.guicursor      = 'a:blinkon0'                      -- disable blink on cursor
-vim.opt.hidden         = true                              -- allows you to hide buffers with unsaved changes without being prompted
-vim.opt.inccommand     = 'split'                           -- live preview of :s results
-vim.opt.joinspaces     = false                             -- don't autoinsert two spaces after '.', '?', '!' for join command
-vim.opt.laststatus     = 2                                 -- always show status line
-vim.opt.lazyredraw     = true                              -- don't bother updating screen during macro playback
-vim.opt.linebreak      = true                              -- wrap long lines at characters in 'breakat'
-vim.opt.list           = true                              -- show whitespace
+vim.opt.guicursor      = 'a:blinkon0'                       -- disable blink on cursor
+vim.opt.hidden         = true                               -- allows you to hide buffers with unsaved changes without being prompted
+vim.opt.inccommand     = 'split'                            -- live preview of :s results
+vim.opt.joinspaces     = false                              -- don't autoinsert two spaces after '.', '?', '!' for join command
+vim.opt.laststatus     = 2                                  -- always show status line
+vim.opt.lazyredraw     = true                               -- don't bother updating screen during macro playback
+vim.opt.linebreak      = true                               -- wrap long lines at characters in 'breakat'
+vim.opt.list           = true                               -- show whitespace
 vim.opt.listchars      = {
-    nbsp                 = '⦸',                             -- CIRCLED REVERSE SOLIDUS (U+29B8, UTF-8: E2 A6 B8)
-    extends              = '»',                             -- RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK (U+00BB, UTF-8: C2 BB)
-    precedes             = '«',                             -- LEFT-POINTING DOUBLE ANGLE QUOTATION MARK (U+00AB, UTF-8: C2 AB)
-    tab                  = '▷⋯',                            -- WHITE RIGHT-POINTING TRIANGLE (U+25B7, UTF-8: E2 96 B7) + MIDLINE HORIZONTAL ELLIPSIS (U+22EF, UTF-8: E2 8B AF)
-    trail                = '•',                             -- BULLET (U+2022, UTF-8: E2 80 A2)
+    nbsp                 = '⦸',                              -- CIRCLED REVERSE SOLIDUS (U+29B8, UTF-8: E2 A6 B8)
+    extends              = '»',                              -- RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK (U+00BB, UTF-8: C2 BB)
+    precedes             = '«',                              -- LEFT-POINTING DOUBLE ANGLE QUOTATION MARK (U+00AB, UTF-8: C2 AB)
+    tab                  = '▷⋯',                             -- WHITE RIGHT-POINTING TRIANGLE (U+25B7, UTF-8: E2 96 B7) + MIDLINE HORIZONTAL ELLIPSIS (U+22EF, UTF-8: E2 8B AF)
+    trail                = '•',                              -- BULLET (U+2022, UTF-8: E2 80 A2)
 }
 
 if vi then
@@ -369,10 +370,10 @@ require('packer').startup({
         -- LSP CONFIG
         use 'neovim/nvim-lspconfig'             -- collection of configurations for built-in LSP client
         use 'hrsh7th/nvim-cmp'                  -- autocompletion plugin
-        use 'hrsh7th/cmp-buffer'                -- nvim-cmp source for buffer words
-        use 'hrsh7th/cmp-path'                  -- nvim-cmp source for path
-        use 'hrsh7th/cmp-nvim-lua'              -- nvim-cmp source for neovim LUA API
-        use 'hrsh7th/cmp-nvim-lsp'              -- nvim-cmp source for neovim builtin LSP client
+        -- use 'hrsh7th/cmp-buffer'                -- nvim-cmp source for buffer words
+        -- use 'hrsh7th/cmp-path'                  -- nvim-cmp source for path
+        -- use 'hrsh7th/cmp-nvim-lua'              -- nvim-cmp source for neovim LUA API
+        -- use 'hrsh7th/cmp-nvim-lsp'              -- nvim-cmp source for neovim builtin LSP client
 
         use 'onsails/lspkind-nvim'              -- vscode-like pictograms for neovim lsp completion items
 
@@ -380,75 +381,48 @@ require('packer').startup({
         use 'saadparwaiz1/cmp_luasnip'          -- snippets source for nvim-cmp
         use 'L3MON4D3/LuaSnip'                  -- snippet plugin
 
-        use 'tpope/vim-commentary'             -- comment stuff out
+        use 'tpope/vim-commentary'              -- comment stuff out
+        use 'tpope/vim-unimpaired'              -- pairs of handy bracket mappings
+        use 'tpope/vim-vinegar'                 -- combine netrw
 
         -- TODO: TREESITTER
     end,
-    config = {
         display = {
+    config = {
             -- open_fn = require('packer.util').float,
         }
     }
 })
+-- 1}}}
+------------------------------------------------------------------------------------
 
-
+------------------------------------------------------------------------------------
 -- SETUP NVIM-CMP SERVER -- {{{2
 local lspkind = require "lspkind"
 lspkind.init()
 
 
 local cmp = require "cmp"
-
-
 cmp.setup {
     mapping = {
-        ['<C-n>'] = cmp.select_next_item(),
-        ['<C-p>'] = cmp.select_prev_item(),
-        -- ['<M-d>'] = cmp.mapping.scroll_docs(-4),
-        -- ['<M-f>'] = cmp.mapping.scroll_docs(4),
-        -- ['<C-e>'] = cmp.mapping.close(),
-        ['<C-y>'] = cmp.mapping.confirm {
-            behaviour = cmp.ConfirmBehavior.Insert,
-            select = true
-        },
-        ['<c-space>'] = cmp.mapping.complete(),
+        -- ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+        -- ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-space>'] = cmp.mapping.complete(),
     },
-    sources = {
-        -- tjdevries setup
-        -- { name = 'gh_issues' },
-        { name = 'nvim_lua' },
-        { name = 'nvim_lsp' },
-        { name = 'path' },
-        { name = 'luasnip' },
-        { name = 'buffer', keyword_length = 5 },
-    },
-    snippet = {
-        expand = function(args)
-            require('luasnip').lsp_expand(args.body)
-        end,
-    },
+    -- sources = {
+    --
+    -- },
+    -- snippet {
 
-    formatting = {
-        format = lspkind.cmp_format {
-            with_text = true,
-            menu = {
-                buffer = "[buf]",
-                nvim_lsp = "[LSP]",
-                nvim_lua = "[api]",
-                path = "[path]",
-                luasnip = "[snip]",
-                gh_issues = "[issues]",
-            },
-        },
-    },
-    experimental = {
-        native_menu = false,
-        ghost_text = true,
-    },
+    -- },
+    -- formatting = {
+    -- }
 }
 
 -- 2}}}
+------------------------------------------------------------------------------------
 
+------------------------------------------------------------------------------------
 -- SETUP LSP SERVER -- {{{2
 -- TODO: mv into separate file in ~/.config/nvim/lua/agung/lsp/init.lua
 
@@ -519,7 +493,6 @@ nvim_lsp.sumneko_lua.setup({
         },
     },
     on_attach =  on_attach
-
 })
 -- 3}}}
 
@@ -530,10 +503,6 @@ nvim_lsp.vimls.setup({
 -- 3}}}
 
 -- 2}}}
-
--- 1}}}
 ------------------------------------------------------------------------------------
-
-
 
 
