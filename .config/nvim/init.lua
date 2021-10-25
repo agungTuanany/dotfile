@@ -2,7 +2,7 @@ require 'agung'
 
 ------------------------------------------------------------------------------------
 --  Author:                     Agung Tuanany
---  Last Date Modified:         Fri Oct 22 09:17:31 AM WIB 2021
+--  Last Date Modified:         Mon Oct 25 09:40:04 PM WIB 2021
 --  Credit:                     #wincent, #ThePrimeagen #tjdevries
 ------------------------------------------------------------------------------------
 
@@ -367,13 +367,14 @@ local use = require('packer').use
 require('packer').startup({
     function()
         use 'wbthomason/packer.nvim'            -- backbone Package manager
+
         -- LSP CONFIG
         use 'neovim/nvim-lspconfig'             -- collection of configurations for built-in LSP client
         use 'hrsh7th/nvim-cmp'                  -- autocompletion plugin
-        -- use 'hrsh7th/cmp-buffer'                -- nvim-cmp source for buffer words
-        -- use 'hrsh7th/cmp-path'                  -- nvim-cmp source for path
-        -- use 'hrsh7th/cmp-nvim-lua'              -- nvim-cmp source for neovim LUA API
-        -- use 'hrsh7th/cmp-nvim-lsp'              -- nvim-cmp source for neovim builtin LSP client
+        use 'hrsh7th/cmp-buffer'                -- nvim-cmp source for buffer words
+        use 'hrsh7th/cmp-path'                  -- nvim-cmp source for path
+        use 'hrsh7th/cmp-nvim-lua'              -- nvim-cmp source for neovim LUA API
+        use 'hrsh7th/cmp-nvim-lsp'              -- nvim-cmp source for neovim builtin LSP client
 
         use 'onsails/lspkind-nvim'              -- vscode-like pictograms for neovim lsp completion items
 
@@ -384,6 +385,7 @@ require('packer').startup({
         use 'tpope/vim-commentary'              -- comment stuff out
         use 'tpope/vim-unimpaired'              -- pairs of handy bracket mappings
         use 'tpope/vim-vinegar'                 -- combine netrw
+        use 'tpope/vim-surround'                -- delete/change/add parentheses
 
         -- TODO: TREESITTER
     end,
@@ -397,7 +399,7 @@ require('packer').startup({
 ------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------
--- SETUP NVIM-CMP SERVER -- {{{2
+-- SETUP NVIM-CMP SERVER {{{1
 local lspkind = require "lspkind"
 lspkind.init()
 
@@ -405,25 +407,59 @@ lspkind.init()
 local cmp = require "cmp"
 cmp.setup {
     mapping = {
-        -- ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-        -- ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-space>'] = cmp.mapping.complete(),
+        ['<C-x><C-d>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-x><C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-e>'] = cmp.mapping.close(),
+        ['<C-y>'] = cmp.mapping.confirm(),
+
+        -- --you can switch to tabs instead, <C-n> or <C-p>
+        -- ['<Tab>'] = function(fallback)
+        --     if cmp.visible() then
+        --         cmp.select_next_item()
+        --     else
+        --         fallback()
+        --     end
+        -- end,
+        -- ['<S-Tab>'] = function(fallback)
+        --     if cmp.visible() then
+        --         cmp.select_prev_item()
+        --     else
+        --         fallback()
+        --     end
+        -- end,
     },
-    -- sources = {
-    --
-    -- },
-    -- snippet {
+    snippet = {
+        -- expand = function(args)
+        --     require("luasnip").lsp_expand(args.body)
+        -- end,
+    },
+     sources = {
+         -- { name = 'luasnip' },
+         -- { name = 'nvim_lua' },
+         -- { name = 'nvim_lsp' },
+         -- { name = 'path' },
+         { name = 'buffer',keyword_length = 5 },
+     },
 
-    -- },
-    -- formatting = {
-    -- }
+    formatting = {
+        format = lspkind.cmp_format {
+            with_text = true,
+            menu = {
+                luasnip = '[snip]',
+                buffer = '[buf]',
+                nvim_lsp = '[LSP]',
+                nvim_lua = '[api]',
+                path = '[path]',
+            },
+        },
+    },
 }
-
--- 2}}}
+-- }}}
 ------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------
--- SETUP LSP SERVER -- {{{2
+-- SETUP LSP SERVER {{{1
 -- TODO: mv into separate file in ~/.config/nvim/lua/agung/lsp/init.lua
 
 local nvim_lsp = require('lspconfig')
@@ -435,17 +471,17 @@ local on_attach  = function(_, bufnr)
 
     local opts = { noremap = true, silent = true }
 
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts )
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts )
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'lD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts )
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'ld', '<cmd>lua vim.lsp.buf.definition()<CR>', opts )
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'lr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'li', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>k', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostic()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
@@ -459,8 +495,11 @@ local on_attach  = function(_, bufnr)
     -- ## NOTE: For plugins with an `on_attach` callback, call them here. For example:
     -- require('completion').on_attach()
 end
+---}}}
+------------------------------------------------------------------------------------
 
--- ## LUA LANGUAGE SERVER ## -- {{{3
+------------------------------------------------------------------------------------
+-- ## LUA LANGUAGE SERVER ## {{{1
 -- set the path to the sumneko installation
 local sumneko_root_path = vim.fn.getenv 'HOME' .. '/.local/bin/vim-sumneko_lua'
 local sumneko_binary = sumneko_root_path .. '/bin/Linux/lua-language-server'
@@ -494,15 +533,12 @@ nvim_lsp.sumneko_lua.setup({
     },
     on_attach =  on_attach
 })
--- 3}}}
 
--- ## VIML LANGUAGE SERVER ## {{{3
+
+-- ## VIML LANGUAGE SERVER ## {{{1
 nvim_lsp.vimls.setup({
     on_attach = on_attach
 })
--- 3}}}
-
--- 2}}}
+-- }}}
 ------------------------------------------------------------------------------------
-
 
