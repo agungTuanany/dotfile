@@ -386,8 +386,18 @@ require('packer').startup({
         use 'tpope/vim-unimpaired'              -- pairs of handy bracket mappings
         use 'tpope/vim-vinegar'                 -- combine netrw
         use 'tpope/vim-surround'                -- delete/change/add parentheses
+        use 'tpope/vim-fugitive'                -- Git command in vim ":G"
+
 
         -- TODO: TREESITTER
+        use 'nvim-treesitter/nvim-treesitter'   -- nvim Treesitter configurations and abstraction layer
+        use 'kyazdani42/nvim-web-devicons'      -- lua 'fork' of vim-web-devicons for neovim for 'nvim-treesitter'
+
+        -- TODO: TELESCOPE
+        use {
+            'nvim-telescope/telescope.nvim',    -- find, filter, preview, pick, all lua, all the time
+            requires = { {'nvim-lua/plenary.nvim'} }
+            }
     end,
         display = {
     config = {
@@ -395,6 +405,7 @@ require('packer').startup({
         }
     }
 })
+
 -- 1}}}
 ------------------------------------------------------------------------------------
 
@@ -487,8 +498,9 @@ local on_attach  = function(_, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>dl', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+
     -- FIXME: Need to install 'telescope'
-    --vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ld', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ld', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
 
     vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
 
@@ -496,6 +508,20 @@ local on_attach  = function(_, bufnr)
     -- require('completion').on_attach()
 end
 ---}}}
+------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------
+-- SETUP TELESCOPE {{{
+
+local tele_opts = { noremap = true, nowait = true }
+vim.api.nvim_buf_set_keymap(0, 'n', 'ff', '<cmd>lua require("telescope.builtin").find_files()<CR>', tele_opts )
+vim.api.nvim_buf_set_keymap(0, 'n', 'fg', '<cmd>lua require("telescope.builtin").live_grep()<CR>', tele_opts )
+vim.api.nvim_buf_set_keymap(0, 'n', 'fb', '<cmd>lua require("telescope.builtin").buffers()<CR>', tele_opts )
+vim.api.nvim_buf_set_keymap(0, 'n', 'fh', '<cmd>lua require("telescope.builtin").help_tags()<CR>', tele_opts )
+
+-- Search string with grep
+vim.api.nvim_buf_set_keymap(0, 'n', '<space>gw', '<cmd>lua require("telescope.builtin").grep_string()<CR>', tele_opts )
+-- }}}
 ------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------
