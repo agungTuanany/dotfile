@@ -389,15 +389,19 @@ require('packer').startup({
         use 'tpope/vim-fugitive'                -- Git command in vim ":G"
 
 
-        -- TODO: TREESITTER
+        -- TREESITTER
         use 'nvim-treesitter/nvim-treesitter'   -- nvim Treesitter configurations and abstraction layer
         use 'kyazdani42/nvim-web-devicons'      -- lua 'fork' of vim-web-devicons for neovim for 'nvim-treesitter'
 
-        -- TODO: TELESCOPE
+        -- TELESCOPE
         use {
             'nvim-telescope/telescope.nvim',    -- find, filter, preview, pick, all lua, all the time
-            requires = { {'nvim-lua/plenary.nvim'} }
+            requires = {
+                { 'nvim-lua/plenary.nvim' },    -- full; complete; entire; absolute; unqualified. all the lua functions
+                { 'nvim-lua/popup.nvim' },      -- an implementation of the Popup API from vim in Neovim
+        }
             }
+        use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     end,
         display = {
     config = {
@@ -499,7 +503,6 @@ local on_attach  = function(_, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>dl', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 
-    -- FIXME: Need to install 'telescope'
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ld', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
 
     vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
