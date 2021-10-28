@@ -179,10 +179,11 @@ vim.cmd(':hi Folded guibg=none')
 -- MAPS {{{1
 ------------------------------------------------------------------------------------
 -- TODO: mv into separate file in ~/.config/nvim/lua/agung/mapping.lua
+
 vim.g.mapleader = ','
 vim.g.maplocalleader = ';'
 
---vim.api.nvim_command('W' w)
+-- require "agung.mapping"
 
 -- ## movement mapping
 -- Navigate Windows with '<Ctrl-hjkl>' instead of '<Ctrl-w>' followed by 'hjkl'
@@ -243,34 +244,34 @@ vim.api.nvim_set_keymap('n', '<leader>sb', ':split<CR>', { nowait = true, norema
 
 -- ## TOGGLE
 -- toggle highlight search
-vim.api.nvim_set_keymap('n', '\\', ':set hlsearch!<CR>', { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('n', '\\', ':setlocal hlsearch!<CR>', { nowait = true, noremap = true })
 
 -- toggle showing 'tabs' and trailing spaces
-vim.api.nvim_set_keymap('n', '<leader>\\', ':set nolist!<CR>', { nowait = true, noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>\\', ':setlocal nolist!<CR>', { nowait = true, noremap = true, silent = true })
 
 -- toggle spell check
-vim.api.nvim_set_keymap('n', '<leader>sp', ':set spell!<CR>', { nowait = true, noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>sp', ':setlocal spell!<CR>', { nowait = true, noremap = true, silent = true })
 
 -- toggle wrap
-vim.api.nvim_set_keymap('n', '<leader>tw', ':set wrap!<CR>', { nowait = true, noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>tw', ':setlocal wrap!<CR>', { nowait = true, noremap = true, silent = true })
 
 -- wrapping text; hard wrap paragraph text (similar to TextMate ^Q)
 --vim.api.nvim_set_keymap('n', '<leader>hw', 'gqip', { nowait = true, noremap = true })
 
 -- toggle paste
-vim.api.nvim_set_keymap('n', '<leader>ps', ':set paste!<CR>', { nowait = true, noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>ps', ':setlocal paste!<CR>', { nowait = true, noremap = true, silent = true })
 
 -- toggle cursorline
-vim.api.nvim_set_keymap('n', '<leader>cl', ':set cursorline!<CR>', { nowait = true, noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>cl', ':setlocal cursorline!<CR>', { nowait = true, noremap = true, silent = true })
 
 -- toggle cursorcolumn
-vim.api.nvim_set_keymap('n', '<leader>cc', ':set cursorcolumn!<CR>', { nowait = true, noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>cc', ':setlocal cursorcolumn!<CR>', { nowait = true, noremap = true, silent = true })
 
 -- toggle number
-vim.api.nvim_set_keymap('n', '<leader>n', ':set number!<CR>', { nowait = true, noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>n', ':setlocal number!<CR>', { nowait = true, noremap = true, silent = true })
 
 -- toggle relativenumber
-vim.api.nvim_set_keymap('n', '<leader>rn', ':set relativenumber!<CR>', { nowait = true, noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>rn', ':setlocal relativenumber!<CR>', { nowait = true, noremap = true, silent = true })
 
 -- reindent code
 vim.api.nvim_set_keymap('n', '<leader>rf', 'gg=G', { nowait = true, noremap = true })
@@ -345,17 +346,19 @@ end
 ------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------
--- PLUGGIN {{{1
+-- PLUGIN {{{1
 ------------------------------------------------------------------------------------
--- TODO: mv into separate file in ~/.config/nvim/lua/agung/pluggin.lua
+-- TODO: mv into separate file in ~/.config/nvim/lua/agung/plugin.lua
 --[[
-    -- [] make some research for file searching on nvim 'fzf.vim' vs 'ack.vim' vs
+    -- [x] make some research for file searching on nvim 'fzf.vim' vs 'ack.vim' vs
     'vim-greeper' vs 'ctrlP' vs 'leaderF'
     -- [x]  of course I need 'LSP'
     -- [] treesitter
-    -- [] git-plugin
-    -- [] vim-commentary
+    -- [x] git-plugin
+    -- [x] vim-commentary
 --]]
+
+-- require 'agung.plugin'
 
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 
@@ -394,13 +397,12 @@ require('packer').startup({
         use 'kyazdani42/nvim-web-devicons'      -- lua 'fork' of vim-web-devicons for neovim for 'nvim-treesitter'
 
         -- TELESCOPE
-        use {
-            'nvim-telescope/telescope.nvim',    -- find, filter, preview, pick, all lua, all the time
-            requires = {
-                { 'nvim-lua/plenary.nvim' },    -- full; complete; entire; absolute; unqualified. all the lua functions
-                { 'nvim-lua/popup.nvim' },      -- an implementation of the Popup API from vim in Neovim
-        }
-            }
+        use
+            'nvim-telescope/telescope.nvim'    -- find, filter, preview, pick, all lua, all the time
+
+        use  'nvim-lua/plenary.nvim'            -- full; complete; entire; absolute; unqualified. all the lua functions
+        use  'nvim-lua/popup.nvim'              -- an implementation of the Popup API from vim in Neovim
+
         use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     end,
         display = {
@@ -415,9 +417,10 @@ require('packer').startup({
 
 ------------------------------------------------------------------------------------
 -- SETUP NVIM-CMP SERVER {{{1
+-- TODO: mv into separate file in ~/.config/nvim/lua/agung/cmp/init.lua
+
 local lspkind = require "lspkind"
 lspkind.init()
-
 
 local cmp = require "cmp"
 cmp.setup {
@@ -515,15 +518,21 @@ end
 
 ------------------------------------------------------------------------------------
 -- SETUP TELESCOPE {{{
+-- TODO: mv into separate file in ~/.config/nvim/lua/agung/telescope/init.lua
 
+require "agung.telescope"
+-- :luafile %r'
+
+-- FIXME: if I move this into 'telescope/init.lua' keybindings didn't work on other
+-- opened buffers
 local tele_opts = { noremap = true, nowait = true }
-vim.api.nvim_buf_set_keymap(0, 'n', 'ff', '<cmd>lua require("telescope.builtin").find_files()<CR>', tele_opts )
-vim.api.nvim_buf_set_keymap(0, 'n', 'fg', '<cmd>lua require("telescope.builtin").live_grep()<CR>', tele_opts )
-vim.api.nvim_buf_set_keymap(0, 'n', 'fb', '<cmd>lua require("telescope.builtin").buffers()<CR>', tele_opts )
-vim.api.nvim_buf_set_keymap(0, 'n', 'fh', '<cmd>lua require("telescope.builtin").help_tags()<CR>', tele_opts )
-
--- Search string with grep
-vim.api.nvim_buf_set_keymap(0, 'n', '<space>gw', '<cmd>lua require("telescope.builtin").grep_string()<CR>', tele_opts )
+vim.api.nvim_buf_set_keymap(0, 'n', 'tf', '<cmd>lua require("telescope.builtin").find_files()<CR>', tele_opts )
+vim.api.nvim_buf_set_keymap(0, 'n', 'tb', '<cmd>lua require("telescope.builtin").buffers()<CR>', tele_opts )
+vim.api.nvim_buf_set_keymap(0, 'n', 'th', '<cmd>lua require("telescope.builtin").help_tags()<CR>', tele_opts )
+vim.api.nvim_buf_set_keymap(0, 'n', 'tlg', '<cmd>lua require("telescope.builtin").live_grep()<CR>', tele_opts )
+vim.api.nvim_buf_set_keymap(0, 'n', 'tgs', '<cmd>lua require("telescope.builtin").grep_string()<CR>', tele_opts )
+vim.api.nvim_buf_set_keymap(0, 'n', 'tcf', '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find()<CR>', tele_opts )
+vim.api.nvim_buf_set_keymap(0, 'n', 'tct', '<cmd>lua require("telescope.builtin").current_buffer_tags()<CR>', tele_opts )
 -- }}}
 ------------------------------------------------------------------------------------
 
@@ -570,4 +579,3 @@ nvim_lsp.vimls.setup({
 })
 -- }}}
 ------------------------------------------------------------------------------------
-
