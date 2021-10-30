@@ -129,9 +129,9 @@ vim.opt.textwidth     = 85                      -- automatically hard wrap at 85
 if root then
     vim.opt.undofile = false -- don't create root-owned files
 else
-    vim.opt.undodir  = config .. '/undo//'   -- keep undo files out of the way
-    vim.opt.undodir  = vim.opt.undodir + '.' -- fallback
-    vim.opt.undofile = true                  -- actually use undo files
+    vim.opt.undodir  = config .. '/undo//'      -- keep undo files out of the way
+    vim.opt.undodir  = vim.opt.undodir + '.'    -- fallback
+    vim.opt.undofile = true                     -- actually use undo files
 end
 
 vim.opt.updatetime  = 2000                                      -- CursorHold interval
@@ -489,10 +489,10 @@ local on_attach  = function(_, bufnr)
 
     local opts = { noremap = true, silent = true }
 
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'lD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts )
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'ld', '<cmd>lua vim.lsp.buf.definition()<CR>', opts )
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'lr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'li', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts )
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts )
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>li', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>k', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
@@ -529,9 +529,20 @@ local tele_opts = { noremap = true, nowait = true }
 vim.api.nvim_buf_set_keymap(0, 'n', 'tf', '<cmd>lua require("telescope.builtin").find_files()<CR>', tele_opts )
 vim.api.nvim_buf_set_keymap(0, 'n', 'tb', '<cmd>lua require("telescope.builtin").buffers()<CR>', tele_opts )
 vim.api.nvim_buf_set_keymap(0, 'n', 'th', '<cmd>lua require("telescope.builtin").help_tags()<CR>', tele_opts )
-vim.api.nvim_buf_set_keymap(0, 'n', 'tlg', '<cmd>lua require("telescope.builtin").live_grep()<CR>', tele_opts )
-vim.api.nvim_buf_set_keymap(0, 'n', 'tgs', '<cmd>lua require("telescope.builtin").grep_string()<CR>', tele_opts )
-vim.api.nvim_buf_set_keymap(0, 'n', 'tcf', '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find()<CR>', tele_opts )
+vim.api.nvim_buf_set_keymap(0, 'n', 'tlg', '<cmd>lua require("telescope.builtin").live_grep({sorting_strategy = "ascending"})<CR>', tele_opts )
+vim.api.nvim_buf_set_keymap(0, 'n', 'tgs', '<cmd>lua require("telescope.builtin").grep_string({sorting_strategy = "ascending"})<CR>', tele_opts )
+
+-- vim.api.nvim_buf_set_keymap(0, 'n', 'tcf', '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find({sorting_strategy = "ascending"})<CR>', tele_opts )
+
+vim.api.nvim_buf_set_keymap(0, 'n', 'tcf','<cmd>lua require("agung.telescope.init").curr_buf() <CR>', tele_opts)
+
+-- XXXX EXAMPLE REMAPPING KEYMAP TO INCLUDE SOME BUILTIN OPTIONS XXXX
+-- OR if you want to config 'prompt_position' you'll use
+-- vim.api.nvim_buf_set_keymap(0, 'n', 'tcf', '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find({sorting_strategy = "ascending",layout_config = { prompt_position = "top"}})<CR>', tele_opts )
+
+-- OR if you want to use 'themes.get_ivy()'
+-- vim.api.nvim_buf_set_keymap(0, 'n', 'tcf', '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_ivy())<CR>', tele_opts )
+
 vim.api.nvim_buf_set_keymap(0, 'n', 'tct', '<cmd>lua require("telescope.builtin").current_buffer_tags()<CR>', tele_opts )
 -- }}}
 ------------------------------------------------------------------------------------
