@@ -518,32 +518,8 @@ end
 
 ------------------------------------------------------------------------------------
 -- SETUP TELESCOPE {{{
--- TODO: mv into separate file in ~/.config/nvim/lua/agung/telescope/init.lua
-
 require "agung.telescope"
 -- :luafile %r'
-
--- FIXME: if I move this into 'telescope/init.lua' keybindings didn't work on other
--- opened buffers
-local tele_opts = { noremap = true, nowait = true }
-vim.api.nvim_buf_set_keymap(0, 'n', 'tf', '<cmd>lua require("telescope.builtin").find_files()<CR>', tele_opts )
-vim.api.nvim_buf_set_keymap(0, 'n', 'tb', '<cmd>lua require("telescope.builtin").buffers()<CR>', tele_opts )
-vim.api.nvim_buf_set_keymap(0, 'n', 'th', '<cmd>lua require("telescope.builtin").help_tags()<CR>', tele_opts )
-vim.api.nvim_buf_set_keymap(0, 'n', 'tlg', '<cmd>lua require("telescope.builtin").live_grep({sorting_strategy = "ascending"})<CR>', tele_opts )
-vim.api.nvim_buf_set_keymap(0, 'n', 'tgs', '<cmd>lua require("telescope.builtin").grep_string({sorting_strategy = "ascending"})<CR>', tele_opts )
-
--- vim.api.nvim_buf_set_keymap(0, 'n', 'tcf', '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find({sorting_strategy = "ascending"})<CR>', tele_opts )
-
-vim.api.nvim_buf_set_keymap(0, 'n', 'tcf','<cmd>lua require("agung.telescope.init").curr_buf() <CR>', tele_opts)
-
--- XXXX EXAMPLE REMAPPING KEYMAP TO INCLUDE SOME BUILTIN OPTIONS XXXX
--- OR if you want to config 'prompt_position' you'll use
--- vim.api.nvim_buf_set_keymap(0, 'n', 'tcf', '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find({sorting_strategy = "ascending",layout_config = { prompt_position = "top"}})<CR>', tele_opts )
-
--- OR if you want to use 'themes.get_ivy()'
--- vim.api.nvim_buf_set_keymap(0, 'n', 'tcf', '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_ivy())<CR>', tele_opts )
-
-vim.api.nvim_buf_set_keymap(0, 'n', 'tct', '<cmd>lua require("telescope.builtin").current_buffer_tags()<CR>', tele_opts )
 -- }}}
 ------------------------------------------------------------------------------------
 
