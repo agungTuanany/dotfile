@@ -157,7 +157,8 @@ vim.opt.wrap        = false                                     -- swictch off t
 vim.opt.writebackup = false                                     -- don't keep backups after writing
 
 -- TODO: move this to autocmd
-vim.cmd(':hi Folded guibg=none')
+vim.cmd(':highlight Folded guibg=none')
+vim.cmd(':highlight NormalFloat guibg=none')
 
 
 -- Highlight up to 255 columns (this is the current Vim max) beyond 'textwidth'
@@ -193,10 +194,10 @@ vim.api.nvim_set_keymap('n', '<c-k>', '<c-w><c-k>', { nowait = true, noremap = t
 vim.api.nvim_set_keymap('n', '<c-l>', '<c-w><c-l>', { nowait = true, noremap = true })
 
 -- respect 'hjkl' keys
-vim.api.nvim_set_keymap('n', '<Up>', '<nop>', { nowait = true, noremap = true })
-vim.api.nvim_set_keymap('n', '<Down>', '<nop>', { nowait = true, noremap = true })
-vim.api.nvim_set_keymap('n', '<Left>', '<nop>', { nowait = true, noremap = true })
-vim.api.nvim_set_keymap('n', '<Right>', '<nop>', { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<Up>', '<Nop>', { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<Down>', '<Nop>', { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<Left>', '<Nop>', { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<Right>', '<Nop>', { nowait = true, noremap = true })
 
 -- movement by screen line instead of file line (for text wrap)
 vim.api.nvim_set_keymap('n', 'j', 'gj', { nowait = true, noremap = true })
@@ -233,7 +234,7 @@ vim.api.nvim_set_keymap('n', '<leader>q', ':quit<CR>', { nowait = true, noremap 
 vim.api.nvim_set_keymap('n', 'W', ':write<CR>', { nowait = true, noremap = true })
 
 -- do not allow to 'Ex mode'
-vim.api.nvim_set_keymap('n', 'Q', '<nop>', { nowait = true, noremap = true })
+vim.api.nvim_set_keymap('n', 'Q', '<Nop>', { nowait = true, noremap = true })
 vim.api.nvim_set_keymap('n', 'Q', ':quit<CR>', { nowait = true, noremap = true })
 
 -- ## SPLIT
@@ -520,6 +521,11 @@ end
 -- SETUP TELESCOPE {{{
 require "agung.telescope"
 -- :luafile %r'
+
+vim.api.nvim_buf_set_keymap(0, 'n', '<F4>', ':lua package.loaded.agung.telescope = nil <CR>:source ~/.config/nvim/init.lua <CR>', { noremap = true, nowait = true })
+
+
+
 -- }}}
 ------------------------------------------------------------------------------------
 
