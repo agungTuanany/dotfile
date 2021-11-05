@@ -3,7 +3,7 @@
 #---------------------------------------------------------
 # Agung Tuanany .bashrc file
 #---------------------------------------------------------
-# Last Edited       : Sat Oct 16 10:24:20 AM WIB 2021
+# Last Edited       : Fri Nov  5 11:11:40 PM WIB 2021
 #
 #---------------------------------------------------------
 #
@@ -35,6 +35,16 @@ POWERLINE_BASH_CONTINUATION=1
 POWERLINE_BASH_SELECT=1
 source /usr/lib/python3.9/site-packages/powerline/bindings/bash/powerline.sh
 
+# Powerline configuration
+#if [ -f /usr/lib/python3.9/site-packages/powerline/bindings/bash/powerline.sh ]; then
+#	#powerline-daemon -q
+#	#POWERLINE_BASH_CONTINUATION=1
+#	#POWERLINE_BASH_SELECT=1
+#	#source /usr/share/powerline/bindings/bash/powerline.sh
+#	echo "powerline defined";
+#else
+#	echo "powerline not defined"
+#fi
 
 ##########################################################
 # PS1
@@ -90,6 +100,7 @@ alias ls='exa -h --color=always'
 alias ll='ls -alF --color=always --group-directories-first'
 alias l='ls -lF --color=always --group-directories-first'
 
+
 # --- Grep stuff ---
 #alias grep='rg --color=always'
 alias fgrep='fgrep --color=always'
@@ -101,10 +112,10 @@ alias more="less -R"
 # --- Vim ---
 alias vi=nvim
 alias nv=nvim
-alias ve='nv ~/.vim/vimrc'
-alias ne='nv ~/.config/nvim/init.lua'
-alias be='nv ~/.bashrc'
-alias te='nv ~/.tmux.conf'
+alias vimrc='nv ~/.vim/vimrc'
+alias nvimrc='nv ~/.config/nvim/init.lua'
+alias bashrc='nv ~/.bashrc'
+alias tmuxrc='nv ~/.tmux.conf'
 alias vprofile="python <(curl -sSL https://raw.githubusercontent.com/hyiltiz/vim-plugins-profile/master/vim-plugins-profile.py)"
 
 # --- Browser ---
@@ -149,14 +160,15 @@ alias psg='ps aux | grep -v grep | grep -i -e $USER -e'
 alias ..="cd .."
 alias myp='ps -fjH -u $USER'
 alias cleanup="rm -f *.tmp *.aux *.log"
-alias igrep="grep -i"
+alias igrep="grep -i --color=always"
 
 alias myip="echo $(ip a | grep "inet " | grep -Fv 127.0.0.1 | awk '{print $2}')"
 alias prettyjson='python -m json.tool'
 
 alias resolv="sudo vim /etc/resolv.conf"
 alias mountsdb="sudo mount /dev/sdb1 /mnt"
-alias pacclean="sudo pacman -Qtdq | sudo pacman -Rns -"
+alias pacsearch="pacman -Qn"
+alias pacclean="sudo pacman -Qtdq | sudo pacman -Rns"
 alias pacupdate="sudo pacman -Syu"
 
 
@@ -262,8 +274,12 @@ export EDITOR_PREFIX=nvim
 #xrandr --output VGA-1-1 --auto --output DVI-I-0 --left-of VGA-1-1
 #~/.local/bin/xprofile
 
-
 export BAT_THEME="Sublime Snazzy"
+
+#--- cheat.sh ---
+export CHEATSH="$HOME/.local/bin/chtsh"
+export PATH="$PATH:$CHEATSH"
+. ~/.bash.d/cht.sh
 
 ##########################################################
 # LANGUAGES
@@ -304,3 +320,4 @@ PERL5LIB="/home/daun/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
 PERL_LOCAL_LIB_ROOT="/home/daun/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"/home/daun/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/daun/perl5"; export PERL_MM_OPT;
+
