@@ -121,6 +121,8 @@ vim.api.nvim_set_keymap('n', '<leader>)', 'vi(xi <Esc>pa <Esc>', { nowait = true
 vim.api.nvim_set_keymap('n', '<leader>}', 'vi{xi <Esc>pa <Esc>', { nowait = true })
 -- add space inside current <>
 vim.api.nvim_set_keymap('n', '<leader>>', 'vi<xi <Esc>pa <Esc>', { nowait = true })
+-- add space inside current []
+vim.api.nvim_set_keymap('n', '<leader>]', 'vi[xi <Esc>pa <Esc>', { nowait = true })
 
 -- ROUNDING WORD
 -- Put brackets around word
@@ -132,6 +134,8 @@ vim.api.nvim_set_keymap('n', '<leader>(', 'i(<Esc>ea)<Esc>', { nowait = true })
 -- Put <> around word
 --vim.api.nvim_set_keymap('n', '<leader><', 'vexi<<Esc>pea><Esc>', { nowait = true })
 vim.api.nvim_set_keymap('n', '<leader><', 'i<<Esc>ea><Esc>', { nowait = true })
+-- Put [] around word
+vim.api.nvim_set_keymap('n', '<leader>[', 'i[<Esc>ea]<Esc>', { nowait = true })
 
 -- DELETE BRACKETS
 -- delete brackets around word
@@ -140,3 +144,5 @@ vim.api.nvim_set_keymap('n', '<leader>{{', 'di{pF{xx<Esc>', { nowait = true })
 vim.api.nvim_set_keymap('n', '<leader>((', 'di(pF(xx<Esc>', { nowait = true })
 -- delete <> around word
 vim.api.nvim_set_keymap('n', '<leader><<', 'di<pF<xx<Esc>', { nowait = true })
+-- delete [] around word
+vim.api.nvim_set_keymap('n', '<leader>[[', 'di[pF[xx<Esc>', { nowait = true })
