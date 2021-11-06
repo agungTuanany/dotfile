@@ -168,9 +168,11 @@ alias prettyjson='python -m json.tool'
 alias resolv="sudo vim /etc/resolv.conf"
 alias mountsdb="sudo mount /dev/sdb1 /mnt"
 alias pacsearch="pacman -Qn"
-alias pacclean="sudo pacman -Qtdq | sudo pacman -Rns"
+alias pacclean="sudo pacman -Rns $(pacman -Qtdq)"
 alias pacupdate="sudo pacman -Syu"
 
+alias cheat="cht.sh $*"
+alias cheats="cheat --shell $*"
 
 # for my second monitor
 alias monitor="~/.local/bin/xrandr-DVI_D"
@@ -263,6 +265,7 @@ esac
 
 # --- Some builtin path ---
 PATH="$HOME/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 # --- EDITOR ---
 export EDITOR=nvim
@@ -277,8 +280,6 @@ export EDITOR_PREFIX=nvim
 export BAT_THEME="Sublime Snazzy"
 
 #--- cheat.sh ---
-export CHEATSH="$HOME/.local/bin/chtsh"
-export PATH="$PATH:$CHEATSH"
 . ~/.bash.d/cht.sh
 
 ##########################################################

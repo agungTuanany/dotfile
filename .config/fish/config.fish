@@ -52,7 +52,8 @@ alias rgrep "igrep -R --color=always"
 alias myip "ip a | grep "inet" | igrep -Fv 127.0.0.1 | awk '{print $2}'"
 alias pacsearch "pacman -Qn"
 alias pacupdate "sudo pacman -Syu"
-alias pacclean "sudo pacman -Qtdq | sudo pacman -Rns "
+alias pacclean "sudo pacman -Rns (pacman -Qtdq)"
+alias pacremove "sudo pacman -Rns /argv"
 
 ## -- docker stuff --
 #alias "docker-ps" "docker ps -a"
@@ -72,6 +73,9 @@ alias gs "git status --branch --short --untracked-file=all --ahead-behind"
 alias gcm "git commit"
 
 alias rl "source ~/.config/fish/config.fish"
+
+alias cheat "cht.sh $argv"
+alias cheats "cht.sh --shell $argv"
 
 #set -gx PATH bin $PATH
 #set -gx PATH ~/.local/bin $PATH
