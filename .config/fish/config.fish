@@ -53,7 +53,7 @@ alias myip "ip a | grep "inet" | igrep -Fv 127.0.0.1 | awk '{print $2}'"
 alias pacsearch "pacman -Qn"
 alias pacupdate "sudo pacman -Syu"
 alias pacclean "sudo pacman -Rns (pacman -Qtdq)"
-alias pacremove "sudo pacman -Rns /argv"
+alias pacremove "sudo pacman -Rns $argv"
 
 ## -- docker stuff --
 #alias "docker-ps" "docker ps -a"
