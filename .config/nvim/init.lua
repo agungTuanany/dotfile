@@ -159,7 +159,9 @@ vim.opt.writebackup = false                                     -- don't keep ba
 
 -- TODO: move this to autocmd
 vim.cmd(':highlight Folded guibg=none')
--- vim.cmd(':highlight NormalFloat guibg=cygan')
+vim.cmd(':highlight Pmenu cterm=italic ctermfg=121 gui=bold guibg=None guifg=#ff80ff')
+
+
 
 
 -- Highlight up to 255 columns (this is the current Vim max) beyond 'textwidth'
