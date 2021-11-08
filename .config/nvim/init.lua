@@ -1,4 +1,4 @@
-require 'agung'
+require "agung"
 
 ------------------------------------------------------------------------------------
 --  Author:                     Agung Tuanany
@@ -159,7 +159,7 @@ vim.opt.writebackup = false                                     -- don't keep ba
 
 -- TODO: move this to autocmd
 vim.cmd(':highlight Folded guibg=none')
-vim.cmd(':highlight NormalFloat guibg=none')
+-- vim.cmd(':highlight NormalFloat guibg=cygan')
 
 
 -- Highlight up to 255 columns (this is the current Vim max) beyond 'textwidth'
@@ -172,169 +172,18 @@ vim.cmd(':highlight NormalFloat guibg=none')
 ------------------------------------------------------------------------------------
 
 -- load mapping
-vim.g.mapleader = ','
-vim.g.maplocalleader = ';'
+vim.g.mapleader = ","
+vim.g.maplocalleader = ";"
 require "agung.mapping"
 
 -- load helpers function
 require "agung.globals"
 
 -- load plugins
-require 'agung.plugins'
+require "agung.plugins"
 
-------------------------------------------------------------------------------------
--- SETUP NVIM-CMP SERVER {{{1
--- TODO: mv into separate file in ~/.config/nvim/lua/agung/cmp/init.lua
+-- load lsp config
+require "agung.lsp"
 
-local lspkind = require "lspkind"
-lspkind.init()
-
-local cmp = require "cmp"
-cmp.setup {
-    mapping = {
-        ['<C-x><C-d>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-x><C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-e>'] = cmp.mapping.close(),
-        ['<C-y>'] = cmp.mapping.confirm(),
-
-        -- --you can switch to tabs instead, <C-n> or <C-p>
-        -- ['<Tab>'] = function(fallback)
-        --     if cmp.visible() then
-        --         cmp.select_next_item()
-        --     else
-        --         fallback()
-        --     end
-        -- end,
-        -- ['<S-Tab>'] = function(fallback)
-        --     if cmp.visible() then
-        --         cmp.select_prev_item()
-        --     else
-        --         fallback()
-        --     end
-        -- end,
-    },
-    snippet = {
-        -- expand = function(args)
-        --     require("luasnip").lsp_expand(args.body)
-        -- end,
-    },
-     sources = {
-         -- { name = 'luasnip' },
-         -- { name = 'nvim_lua' },
-         -- { name = 'nvim_lsp' },
-         -- { name = 'path' },
-         { name = 'buffer',keyword_length = 5 },
-     },
-
-    formatting = {
-        format = lspkind.cmp_format {
-            with_text = true,
-            menu = {
-                luasnip = '[snip]',
-                buffer = '[buf]',
-                nvim_lsp = '[LSP]',
-                nvim_lua = '[api]',
-                path = '[path]',
-            },
-        },
-    },
-}
--- }}}
-------------------------------------------------------------------------------------
-
-------------------------------------------------------------------------------------
--- SETUP LSP SERVER {{{1
--- TODO: mv into separate file in ~/.config/nvim/lua/agung/lsp/init.lua
-
-local nvim_lsp = require('lspconfig')
-local on_attach  = function(_, bufnr)
-
-    -- Use LSP as the handler for omnifunc.
-    -- See `:help omnifunc` and `:help ins-completion` for more information.
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-    local opts = { noremap = true, silent = true }
-
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts )
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts )
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>li', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>k', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostic()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>dl', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ld', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
-
-    vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
-
-    -- ## NOTE: For plugins with an `on_attach` callback, call them here. For example:
-    -- require('completion').on_attach()
-end
----}}}
-------------------------------------------------------------------------------------
-
-------------------------------------------------------------------------------------
--- SETUP TELESCOPE {{{
+-- load telescope config
 require "agung.telescope"
--- :luafile %r'
-
-vim.api.nvim_buf_set_keymap(0, 'n', '<F4>', ':lua package.loaded.agung.telescope = nil <CR>:source ~/.config/nvim/init.lua <CR>', { noremap = true, nowait = true })
-
-
-
--- }}}
-------------------------------------------------------------------------------------
-
-------------------------------------------------------------------------------------
--- ## LUA LANGUAGE SERVER ## {{{1
--- set the path to the sumneko installation
-local sumneko_root_path = vim.fn.getenv 'HOME' .. '/.local/bin/vim-sumneko_lua'
-local sumneko_binary = sumneko_root_path .. '/bin/Linux/lua-language-server'
--- Make runtime files discoverable to the server
-local runtime_path = vim.split(package.path, ';')
-table.insert(runtime_path, 'lua/?.lua')
-table.insert(runtime_path, 'lua/?/init.lua')
-
--- lsp server setup
-nvim_lsp.sumneko_lua.setup({
-    cmd = {sumneko_binary, '-E', sumneko_root_path .. '/main.lua'},
-    settings = {
-        Lua = {
-            runtime = {
-                -- Tell the langauge server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                version = 'LuaJIT',
-                -- Setup your lua path
-                path = runtime_path,
-            },
-            diagnostics = {
-                -- Get the language server to recognise the 'vim' global
-                globals = { 'vim' },
-            },
-            workspace = {
-                -- Make the server aware of Neovim runtime files
-                library = {
-                    vim.api.nvim_get_runtime_file("", true),
-                },
-            },
-        },
-    },
-    on_attach =  on_attach
-})
-
-
--- ## VIML LANGUAGE SERVER ## {{{1
-nvim_lsp.vimls.setup({
-    on_attach = on_attach
-})
--- }}}
-------------------------------------------------------------------------------------
