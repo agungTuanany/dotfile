@@ -158,14 +158,18 @@ vim.opt.wrap        = false                                     -- swictch off t
 vim.opt.writebackup = false                                     -- don't keep backups after writing
 
 -- TODO: move this to autocmd
-vim.cmd(':highlight Folded guibg=none')
-vim.cmd(':highlight Pmenu cterm=italic ctermfg=121 gui=bold guibg=None guifg=#ff80ff')
-
-
-
+vim.api.nvim_exec([[
+    augroup new_highlight
+        autocmd!
+        highlight Folded guibg=none
+        highlight Pmenu cterm=italic ctermfg=121 gui=bold guibg=None guifg=#ff80ff
+        highlight SignColumn guibg=None
+    augroup end
+]], false)
 
 -- Highlight up to 255 columns (this is the current Vim max) beyond 'textwidth'
---[[agung.vim.setlocal(
+--[[
+agung.vim.setlocal(
 'colorcolumn',
 '+' .. agung.util.join(agung.util.range(0, 254), ',+')
 )
