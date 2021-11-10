@@ -4,12 +4,12 @@ local nvim_lsp = require "lspconfig"
 local on_attach = function (_, bufnr)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-    local opts = { noremap = true }
+    local opts = { noremap = true, nowait = true }
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<M-S-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
@@ -41,7 +41,6 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities,
   }
 end
-
 
 -- Custom server
 local sumneko_root_path = vim.fn.getenv 'HOME' .. '/.local/bin/vim-sumneko_lua'
@@ -122,7 +121,6 @@ cmp.setup {
             else
                 fallback()
             end
-
         end,
     },
     sources = {
@@ -130,9 +128,8 @@ cmp.setup {
         { name = 'nvim_lua' },
         { name = 'nvim_lsp' },
         { name = 'path' },
-        { name = 'buffer',keyword_length = 5 },
+        { name = 'buffer', keyword_length = 5 },
     },
-
     formatting = {
         format = lspkind.cmp_format {
             with_text = true,
@@ -141,8 +138,8 @@ cmp.setup {
             nvim_lsp = '[LSP]',
             nvim_lua = '[api]',
             path = '[path]',
-            menu = {
-            },
+            -- menu = {
+            -- },
         },
     },
 }
