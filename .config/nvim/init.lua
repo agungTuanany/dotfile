@@ -193,3 +193,6 @@ require "agung.lsp"
 
 -- load telescope config
 require "agung.telescope"
+
+-- load gitsigns
+require "agung.gitsigns"

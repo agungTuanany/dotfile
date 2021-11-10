@@ -29,7 +29,6 @@ require('packer').startup({
         use 'tpope/vim-surround'                -- delete/change/add parentheses
         use 'tpope/vim-fugitive'                -- Git command in vim ":G"
 
-
         -- TREESITTER
         use 'nvim-treesitter/nvim-treesitter'   -- nvim Treesitter configurations and abstraction layer
         use 'kyazdani42/nvim-web-devicons'      -- lua 'fork' of vim-web-devicons for neovim for 'nvim-treesitter'
@@ -41,6 +40,8 @@ require('packer').startup({
         use 'nvim-lua/popup.nvim'               -- an implementation of the Popup API from vim in Neovim
 
         use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+
+        use 'lewis6991/gitsigns.nvim'           -- git integration for buffers
     end,
         display = {
     config = {
