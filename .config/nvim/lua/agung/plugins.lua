@@ -30,8 +30,11 @@ require('packer').startup({
         use 'tpope/vim-fugitive'                -- Git command in vim ":G"
 
         -- TREESITTER
-        use 'nvim-treesitter/nvim-treesitter'   -- nvim Treesitter configurations and abstraction layer
-        use 'kyazdani42/nvim-web-devicons'      -- lua 'fork' of vim-web-devicons for neovim for 'nvim-treesitter'
+        use 'nvim-treesitter/nvim-treesitter'               -- nvim Treesitter configurations and abstraction layer
+        use 'nvim-treesitter/nvim-treesitter-textobjects'   -- Collection of configurations for built-in LSP client
+        use 'nvim-treesitter/playground'                    -- view treesitter information directly in Neovim
+
+        use 'kyazdani42/nvim-web-devicons'                  -- lua 'fork' of vim-web-devicons for neovim for 'nvim-treesitter'
 
         -- TELESCOPE
         use 'nvim-telescope/telescope.nvim'     -- find, filter, preview, pick, all lua, all the time
