@@ -1,12 +1,12 @@
 -- LSP settings
 local nvim_lsp = require "lspconfig"
 
-local on_attach = function (_, bufnr)
+local on_attach = function (_, bufnr) -- {{{
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
     local opts = { noremap = true, nowait = true }
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<M-S-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
@@ -24,7 +24,7 @@ local on_attach = function (_, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
     -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>so', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
     vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
-end
+end --}}}
 
 local lspkind = require "lspkind"
 lspkind.init()
@@ -34,7 +34,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 -- Enable the following language servers
-local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver' }
+local servers = { 'rust_analyzer', 'pyright', 'tsserver', 'vimls' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -42,7 +42,7 @@ for _, lsp in ipairs(servers) do
   }
 end
 
--- Custom server
+-- Custom server {{{
 local sumneko_root_path = vim.fn.getenv 'HOME' .. '/.local/bin/vim-sumneko_lua'
 local sumneko_binary = sumneko_root_path .. '/bin/Linux/lua-language-server'
 -- Make runtime files discoverable to the server
@@ -77,15 +77,20 @@ nvim_lsp.sumneko_lua.setup({
     on_attach =  on_attach
 })
 
--- viml-lsp server setup
-nvim_lsp.vimls.setup({
-    on_attach = on_attach
-})
+-- -- viml-lsp server setup
+-- nvim_lsp.vimls.setup({
+--     on_attach = on_attach
+-- })
+
+-- nvim_lsp.pyright.setup({
+--     on_attach = on_attach
+-- })
+-- }}}
 
 -- luasnip setup
 local luasnip = require "luasnip"
 
--- nvim-cmp setup
+-- nvim-cmp setup {{{
 local cmp = require "cmp"
 cmp.setup {
     snippet = {
@@ -143,3 +148,4 @@ cmp.setup {
         },
     },
 }
+-- }}}
