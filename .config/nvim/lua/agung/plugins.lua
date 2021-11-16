@@ -19,7 +19,7 @@ require('packer').startup({
 
         use 'onsails/lspkind-nvim'              -- vscode-like pictograms for neovim lsp completion items
 
-        -- Snippets
+        -- SNIPPETS
         use 'saadparwaiz1/cmp_luasnip'          -- snippets source for nvim-cmp
         use 'L3MON4D3/LuaSnip'                  -- snippet plugin
 
@@ -37,17 +37,28 @@ require('packer').startup({
         use 'kyazdani42/nvim-web-devicons'                  -- lua 'fork' of vim-web-devicons for neovim for 'nvim-treesitter'
 
         -- TELESCOPE
-        use 'nvim-telescope/telescope.nvim'     -- find, filter, preview, pick, all lua, all the time
+        use {
+            "nvim-telescope/telescope.nvim",                -- find, filter, preview, pick, all lua, all the time
+            requires = {
+                "nvim-lua/plenary.nvim",
+                "nvim-telescope/telescope-project.nvim",
+                { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
+            },
+        }
 
-        use 'nvim-lua/plenary.nvim'             -- full; complete; entire; absolute; unqualified. all the lua functions
         use 'nvim-lua/popup.nvim'               -- an implementation of the Popup API from vim in Neovim
 
-        use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-
-        use 'lewis6991/gitsigns.nvim'           -- git integration for buffers
+        -- GIT
+        use {
+            "lewis6991/gitsigns.nvim",
+            requires = { "nvim-lua/plenary.nvim" },
+            config = function()
+                require('agung.gitsigns').setup()
+            end
+        }
     end,
-        display = {
-    config = {
+    display = {
+        config = {
             -- open_fn = require('packer.util').float,
         }
     }

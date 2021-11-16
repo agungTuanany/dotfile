@@ -192,10 +192,10 @@ require "agung.plugins"
 require "agung.lsp"
 
 -- load telescope config
-require "agung.telescope"
+-- require "agung.telescope"
 
 -- load treesitter config
 -- require "agung.treesitter"
 
 -- load gitsigns
-require "agung.gitsigns"
+-- require "agung.gitsigns"
