@@ -10,31 +10,38 @@ require('packer').startup({
         use 'wbthomason/packer.nvim'            -- backbone Package manager
 
         -- LSP CONFIG
-        use 'neovim/nvim-lspconfig'             -- collection of configurations for built-in LSP client
-        use 'hrsh7th/nvim-cmp'                  -- autocompletion plugin
-        use 'hrsh7th/cmp-buffer'                -- nvim-cmp source for buffer words
-        use 'hrsh7th/cmp-path'                  -- nvim-cmp source for path
-        use 'hrsh7th/cmp-nvim-lua'              -- nvim-cmp source for neovim LUA API
-        use 'hrsh7th/cmp-nvim-lsp'              -- nvim-cmp source for neovim builtin LSP client
+        use {
+            'neovim/nvim-lspconfig',            -- collection of configurations for built-in LSP client
+            'hrsh7th/nvim-cmp',                 -- autocompletion plugin
+            'hrsh7th/cmp-buffer',               -- nvim-cmp source for buffer words
+            'hrsh7th/cmp-path',                 -- nvim-cmp source for path
+            'hrsh7th/cmp-nvim-lua',             -- nvim-cmp source for neovim LUA API
+            'hrsh7th/cmp-nvim-lsp',             -- nvim-cmp source for neovim builtin LSP client
 
-        use 'onsails/lspkind-nvim'              -- vscode-like pictograms for neovim lsp completion items
+            'onsails/lspkind-nvim',             -- vscode-like pictograms for neovim lsp completion items
 
-        -- SNIPPETS
-        use 'saadparwaiz1/cmp_luasnip'          -- snippets source for nvim-cmp
-        use 'L3MON4D3/LuaSnip'                  -- snippet plugin
+            -- SNIPPETS
+            'saadparwaiz1/cmp_luasnip',         -- snippets source for nvim-cmp
+            'L3MON4D3/LuaSnip',                 -- snippet plugin
+    }
 
-        use 'tpope/vim-commentary'              -- comment stuff out
-        use 'tpope/vim-unimpaired'              -- pairs of handy bracket mappings
-        use 'tpope/vim-vinegar'                 -- combine netrw
-        use 'tpope/vim-surround'                -- delete/change/add parentheses
-        use 'tpope/vim-fugitive'                -- Git command in vim ":G"
+
+        use {
+            'tpope/vim-commentary',             -- comment stuff out
+            'tpope/vim-unimpaired',             -- pairs of handy bracket mappings
+            'tpope/vim-vinegar',                -- combine netrw
+            'tpope/vim-surround',               -- delete/change/add parentheses
+            'tpope/vim-fugitive',               -- Git command in vim ":G"
+    }
 
         -- TREESITTER
-        use 'nvim-treesitter/nvim-treesitter'               -- nvim Treesitter configurations and abstraction layer
-        use 'nvim-treesitter/nvim-treesitter-textobjects'   -- Collection of configurations for built-in LSP client
-        use 'nvim-treesitter/playground'                    -- view treesitter information directly in Neovim
+        use {
+            'nvim-treesitter/nvim-treesitter',               -- nvim Treesitter configurations and abstraction layer
+            'nvim-treesitter/nvim-treesitter-textobjects',   -- Collection of configurations for built-in LSP client
+            'nvim-treesitter/playground',                    -- view treesitter information directly in Neovim
 
-        use 'kyazdani42/nvim-web-devicons'                  -- lua 'fork' of vim-web-devicons for neovim for 'nvim-treesitter'
+            'kyazdani42/nvim-web-devicons',                  -- lua 'fork' of vim-web-devicons for neovim for 'nvim-treesitter'
+    }
 
         -- TELESCOPE
         use {
@@ -46,7 +53,10 @@ require('packer').startup({
             },
         }
 
-        use 'nvim-lua/popup.nvim'               -- an implementation of the Popup API from vim in Neovim
+        -- MISCELLANEOUS
+        use {
+            'nvim-lua/popup.nvim'               -- an implementation of the Popup API from vim in Neovim
+        }
 
         -- GIT
         use {
