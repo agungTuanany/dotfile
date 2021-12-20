@@ -239,6 +239,16 @@
 ;; 'evil-magit' package was removed from MELPA
 ;; instead use 'evil-collection' that had installed already
 
+;; Pull down all the information from git repository like 'issue', 'pull-request', and respond them
+(use-package forge)
+
+;; XXX changing tab-faces XXX
+;; inherit the face of 'doom-modeline-panel' for better appearance
+(set-face-attribute 'tab-bar-tab nil :inherit 'doom-modeline-panel :foreground nil :background nil)
+
+;; only show the 'tab-bar' if there are 2 or more tabs
+(setq tab-bar-show 1)
+
 ;; XXX Added by SYSTEM XXX
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -246,7 +256,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(evil-magit counsel-projectile which-key use-package rainbow-delimiters projectile ivy-rich hydra helpful general evil-collection doom-themes doom-modeline diminish-buffer diminish counsel command-log-mode)))
+   '(forge evil-magit counsel-projectile which-key use-package rainbow-delimiters projectile ivy-rich hydra helpful general evil-collection doom-themes doom-modeline diminish-buffer diminish counsel command-log-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
