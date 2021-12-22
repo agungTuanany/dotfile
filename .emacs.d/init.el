@@ -16,6 +16,12 @@
 ;;(set-face-attribute 'default nil :font "Source Code Pro" :pixelsize=13)
 (set-face-attribute 'default nil :font "Source Code Pro" :height 90)
 
+;; Set the fixed pitch face
+(set-face-attribute 'fixed-pitch nil :font "Source Code Pro" :height 90)
+
+;; Set the variables pitch face
+(set-face-attribute 'variable-pitch nil :font "Source Code Pro" :height 90 :weight 'regular)
+
 ;; set theme-colors
 ;;(load-theme 'tango-dark)
 ;;(load-theme 'wombat)
@@ -52,16 +58,16 @@
 ;;===============================================================
 
 ;; Disable line numbers for some modes
-(dolist (mode '(org-mode-hook
-		term-mode-hook
+;;org-mode-hook
+(dolist (mode '(term-mode-hook
 		shell-mode-hook
 		eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
 			 ("Org" . "https://orgmode.org/elpa/")))
-					;("elpa" . "https://elpa.gnu.org/
-					;("melpa-stable" . "https://stable.melpa.org//pakages/")
+;;("elpa" . "https://elpa.gnu.org/
+;;("melpa-stable" . "https://stable.melpa.org//pakages/")
 
 (package-initialize)
 (unless package-archive-contents
@@ -86,9 +92,9 @@
   :ensure t)
 
 ;; use Ivfy setup and Counsel for completion
-;; NOTE: I'm not installing Counsel
 (use-package ivy
   :diminish
+  :demand
   :bind (;;("C-s" . swiper)
 	 :map ivy-minibuffer-map
 	 ("TAB" . ivy-alt-done)
@@ -136,7 +142,7 @@
   (setq which-key-idle-delay 0.3))
 
 (use-package counsel
-  :bind (("C-M-j" . 'counsel-switch-buffer)  ;; move into (use-package general)
+  :bind (("C-M-j" . 'counsel-switch-buffer)
 	 ("M-x" . counsel-M-x)
 	 ("C-x b" . counsel-ibuffer)
 	 ("C-x C-f" . counsel-find-file)
@@ -202,6 +208,11 @@
   :config
   (evil-collection-init))
 
+(use-package evil-surround
+  :after evil
+  :config
+  (global-evil-surround-mode 1))
+
 (use-package hydra)
 
 (defhydra hydra-text-scale (:timeout 4)
@@ -239,15 +250,71 @@
 ;; 'evil-magit' package was removed from MELPA
 ;; instead use 'evil-collection' that had installed already
 
-;; Pull down all the information from git repository like 'issue', 'pull-request', and respond them
+;; Pull down all the information from git repository like 'issue',
+;; 'pull-request', and respond them
 (use-package forge)
 
-;; XXX changing tab-faces XXX
+;; XXX  ===================================================================== XXX
+;; XXX CHANGING TAB-FACES XXX
 ;; inherit the face of 'doom-modeline-panel' for better appearance
 (set-face-attribute 'tab-bar-tab nil :inherit 'doom-modeline-panel :foreground nil :background nil)
 
 ;; only show the 'tab-bar' if there are 2 or more tabs
 (setq tab-bar-show 1)
+;; XXX  ===================================================================== XXX
+
+;; 'efs': emacs_from_scratch
+(defun efs/org-mode-setup ()
+  (org-indent-mode)
+  (variable-pitch-mode 1)
+  (visual-line-mode 1))
+
+(use-package org
+  :hook (org-mode . efs/org-mode-setup)
+  :config
+  (setq org-ellipsis " ▾" ))
+
+(use-package org-bullets
+  :after org
+  :hook (org-mode . org-bullets-mode)
+  :custom
+  (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+
+;; Replace list hyphen with dot
+(font-lock-add-keywords 'org-mode
+			'(("^ *\\([-]\\) "
+			   (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+
+;; fix width fonts
+(dolist (face '((org-level-1 . 1.2)
+		(org-level-2 . 1.1)
+		(org-level-3 . 1.05)
+		(org-level-4 . 1.0)
+		(org-level-5 . 1.1)
+		(org-level-6 . 1.1)
+		(org-level-7 . 1.1)
+		(org-level-8 . 1.1)))
+  (set-face-attribute (car face) nil :font "Source Code Pro" :weight 'regular :height (cdr face)))
+
+;;(require 'org-indent)
+
+;; Ensure that anything that should be fixed-pitch in Org files appears that way
+(set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
+(set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
+;;(set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))
+(set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+(set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+(set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+(set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
+
+(defun efs/org-mode-visual-fill ()
+  ;;visual-fill-column-center-text t
+  (setq visual-fill-column-width 120)
+  (visual-fill-column-mode 1))
+
+(use-package visual-fill-column
+  :hook (org-mode . efs/org-mode-visual-fill))
+
 
 ;; XXX Added by SYSTEM XXX
 (custom-set-variables
@@ -256,7 +323,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(forge evil-magit counsel-projectile which-key use-package rainbow-delimiters projectile ivy-rich hydra helpful general evil-collection doom-themes doom-modeline diminish-buffer diminish counsel command-log-mode)))
+   '(visual-fill visual-fill-mode visual-fill-column visual-fill-column-mode org-bullets evil-surround forge evil-magit counsel-projectile which-key use-package rainbow-delimiters projectile ivy-rich hydra helpful general evil-collection doom-themes doom-modeline diminish-buffer diminish counsel command-log-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
