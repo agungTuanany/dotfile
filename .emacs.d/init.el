@@ -12,7 +12,7 @@
 ;; launch emacs as full screen
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
-;; set my fonts
+;; FONT CONFIGURATION ------------------------------------------------------------
 ;;(set-face-attribute 'default nil :font "Source Code Pro" :pixelsize=13)
 (set-face-attribute 'default nil :font "Source Code Pro" :height 90)
 
@@ -26,10 +26,31 @@
 ;;(load-theme 'tango-dark)
 ;;(load-theme 'wombat)
 
+
+;;XXX TODO: if the split buffer is '*Warning*', *Bcaktrace*' or
+;;'*Messages' just split the window below with 'height > 15' XXX
+;;(defun test-split ()
+  ;;(interactive)
+  ;;(split-window-below 45)
+  ;;(save-selected-window
+    ;;(select-window (next-window))
+    ;;(beginning-of-buffer)
+    ;;(re-search-forward "defun test-fun ")))
+
 ;; Make ESC quit prompts either to 'C-g'
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
-;; Initialize
+;; XXX  ===================================================================== XXX
+;; XXX CHANGING TAB-FACES XXX
+;; inherit the face of 'doom-modeline-panel' for better appearance
+(set-face-attribute 'tab-bar-tab nil :inherit 'doom-modeline-panel :foreground nil :background nil)
+
+;; only show the 'tab-bar' if there are 2 or more tabs
+(setq tab-bar-show 1)
+;; XXX  ===================================================================== XXX
+
+;; PACKAGE MANAGER CONFIGURATION -------------------------------------------------
+;; Initialize package sources
 (require 'package)
 
 ;; enable line numbers as relative numbers
@@ -66,8 +87,8 @@
 
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
 			 ("Org" . "https://orgmode.org/elpa/")))
-;;("elpa" . "https://elpa.gnu.org/
-;;("melpa-stable" . "https://stable.melpa.org//pakages/")
+			;;("elpa" . "https://elpa.gnu.org/
+			;;("melpa-stable" . "https://stable.melpa.org//pakages/")
 
 (package-initialize)
 (unless package-archive-contents
@@ -192,10 +213,6 @@
   (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
   (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
 
-  ;; binding from insert mode to normal mode by "jj"
-  ;;(define-key evil-insert-state-map (kbd "jj") 'evil-normal-state)
-  ;;(define-key evil-insert-state-map (kbd "vv") 'evil-normal-state)
-
   ;; Use visual line motions even outside of visual-line-mode buffers
   (evil-global-set-key 'motion "j" 'evil-next-visual-line)
   (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
@@ -254,14 +271,6 @@
 ;; 'pull-request', and respond them
 (use-package forge)
 
-;; XXX  ===================================================================== XXX
-;; XXX CHANGING TAB-FACES XXX
-;; inherit the face of 'doom-modeline-panel' for better appearance
-(set-face-attribute 'tab-bar-tab nil :inherit 'doom-modeline-panel :foreground nil :background nil)
-
-;; only show the 'tab-bar' if there are 2 or more tabs
-(setq tab-bar-show 1)
-;; XXX  ===================================================================== XXX
 
 ;; 'efs': emacs_from_scratch
 (defun efs/org-mode-setup ()
@@ -269,43 +278,58 @@
   (variable-pitch-mode 1)
   (visual-line-mode 1))
 
+(defun efs/org-font-setup ()
+  ;; Replace list hyphen with dot
+  (font-lock-add-keywords 'org-mode
+                          '(("^ *\\([-]\\) "
+                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+
+  ;; Set faces for heading levels
+  (dolist (face '((org-level-1 . 1.2)
+                  (org-level-2 . 1.1)
+                  (org-level-3 . 1.05)
+                  (org-level-4 . 1.0)
+                  (org-level-5 . 1.1)
+                  (org-level-6 . 1.1)
+                  (org-level-7 . 1.1)
+                  (org-level-8 . 1.1)))
+    (set-face-attribute (car face) nil :font "Cantarell" :weight 'regular :height (cdr face)))
+
+  ;; Ensure that anything that should be fixed-pitch in Org files appears that way
+  (set-face-attribute 'org-block nil    :foreground nil :inherit 'fixed-pitch)
+  (set-face-attribute 'org-table nil    :inherit 'fixed-pitch)
+  (set-face-attribute 'org-formula nil  :inherit 'fixed-pitch)
+  (set-face-attribute 'org-code nil     :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-table nil    :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-checkbox nil  :inherit 'fixed-pitch)
+  (set-face-attribute 'line-number nil :inherit 'fixed-pitch)
+  (set-face-attribute 'line-number-current-line nil :inherit 'fixed-pitch))
+
 (use-package org
   :hook (org-mode . efs/org-mode-setup)
   :config
-  (setq org-ellipsis " ▾" ))
+  (setq org-ellipsis " ▾" )
+
+  (setq org-agenda-start-with-log-mode t)
+  (setq org-log-done 'time)
+  (setq org-log-into-drawer t)
+
+  ;; NOTE: in LISP (') a single quote treat as a "list" not a "function call".
+  ;; scheduling an agenda on 'org-agenda'
+  (setq org-agenda-files
+	'("~/.emacs.d/OrgFiles/Task.org"))
+
+  (efs/org-font-setup)
+  )
 
 (use-package org-bullets
   :after org
   :hook (org-mode . org-bullets-mode)
   :custom
   (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
-
-;; Replace list hyphen with dot
-(font-lock-add-keywords 'org-mode
-			'(("^ *\\([-]\\) "
-			   (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
-
-;; fix width fonts
-(dolist (face '((org-level-1 . 1.2)
-		(org-level-2 . 1.1)
-		(org-level-3 . 1.05)
-		(org-level-4 . 1.0)
-		(org-level-5 . 1.1)
-		(org-level-6 . 1.1)
-		(org-level-7 . 1.1)
-		(org-level-8 . 1.1)))
-  (set-face-attribute (car face) nil :font "Source Code Pro" :weight 'regular :height (cdr face)))
-
-;;(require 'org-indent)
-
-;; Ensure that anything that should be fixed-pitch in Org files appears that way
-(set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
-(set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
-;;(set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))
-(set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
-(set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
-(set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
-(set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
 
 (defun efs/org-mode-visual-fill ()
   ;;visual-fill-column-center-text t

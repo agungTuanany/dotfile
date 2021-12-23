@@ -6,6 +6,7 @@ packages/
 var/
 transient/
 var/
+OrgFiles/
 
 *.#
 .#*
@@ -15,3 +16,4 @@ var/
 *~
 projectile-bookmarks.eld
 forge-database.sqlite
+Hello.org
