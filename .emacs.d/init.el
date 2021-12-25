@@ -401,6 +401,7 @@
 		  ((org-agenda-overriding-header "Cancelled Projects")
 		   (org-agenda-files org-agenda-files)))))))
 
+  (setq org-clock-sound "~/Downloads/ding.wav")
   (efs/org-font-setup))
 
 (use-package org-bullets
