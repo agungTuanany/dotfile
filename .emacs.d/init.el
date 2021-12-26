@@ -312,7 +312,12 @@
   ;; Repeated Tasks - https://orgmode.org/manual/Repeated-tasks.html#Repeated-tasks
   (setq org-agenda-files
 	'("~/.emacs.d/OrgFiles/Task.org"
-	  "~/.emacs.d/OrgFiles/Birthdays.org"))
+	  "~/.emacs.d/OrgFiles/Birthdays.org"
+	  "~/.emacs.d/OrgFiles/Habits.org"))
+
+  (require 'org-habit)
+  (add-to-list 'org-modules 'org-habit)
+  (setq org-habit-graph-column 60)
 
   (setq org-refile-targets
 	'(("Archive.org" :maxlevel . 1)
@@ -419,6 +424,11 @@
 	  ("m" "Metrics Capture")
 	  ("mw" "Weight" table-line (file+headline "~/.emacs.d/OrgFiles/Metrics.org" "Weight")
 	   "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)))
+
+
+  ;; Bindings straight to 'org-capture' - journal templates
+  (define-key global-map (kbd "C-c j")
+    (lambda () (interactive) (org-capture nil "jj")))
 
   (setq org-clock-sound "~/Downloads/ding.wav")
 
