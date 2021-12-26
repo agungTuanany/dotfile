@@ -12,15 +12,6 @@
 ;; launch emacs as full screen
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
-;; XXX  ===================================================================== XXX
-;; XXX CHANGING TAB-FACES XXX
-;; inherit the face of 'doom-modeline-panel' for better appearance
-(set-face-attribute 'tab-bar-tab nil :inherit 'doom-modeline-panel :foreground nil :background nil)
-
-;; only show the 'tab-bar' if there are 2 or more tabs
-(setq tab-bar-show 1)
-;; XXX  ===================================================================== XXX
-
 ;; FONT CONFIGURATION ------------------------------------------------------------
 ;;(set-face-attribute 'default nil :font "Source Code Pro" :pixelsize=13)
 (set-face-attribute 'default nil :font "Source Code Pro" :height 90)
@@ -48,7 +39,6 @@
 
 ;; Make ESC quit prompts either to 'C-g'
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-
 
 ;; PACKAGE MANAGER CONFIGURATION -------------------------------------------------
 ;; Initialize package sources
@@ -325,8 +315,8 @@
 	  "~/.emacs.d/OrgFiles/Birthdays.org"))
 
   (setq org-refile-targets
-    '(("Archive.org" :maxlevel . 1)
-      ("Task.org" :maxlevel . 1)))
+	'(("Archive.org" :maxlevel . 1)
+	  ("Task.org" :maxlevel . 1)))
 
   ;; Save Org buffers after refiling!
   (advice-add 'org-refile :after 'org-save-all-org-buffers)
@@ -401,7 +391,37 @@
 		  ((org-agenda-overriding-header "Cancelled Projects")
 		   (org-agenda-files org-agenda-files)))))))
 
+  (setq org-capture-templates
+	`(("t" "Tasks / Projects")
+	  ("tt" "Task" entry (file+olp "~/.emacs.d/OrgFiles/Task.org" "Inbox")
+	   "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
+	  ;;("ts" "Clocked Entry Subtask" entry (clock)
+	   ;;"* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
+
+	  ("j" "Journal Entries")
+	  ("jj" "Journal" entry
+	   (file+olp+datetree "~/.emacs.d/OrgFiles/Journal.org")
+	   "\n* %<%I:%M %p> - Journal :journal:\n\n%?\n\n"
+	   ;; ,(dw/read-file-as-string "~/Notes/Templates/Daily.org")
+	   :clock-in :clock-resume
+	   :empty-lines 1)
+	  ("jm" "Meeting" entry
+	   (file+olp+datetree "~/.emacs.d/OrgFiles/Journal.org")
+	   "* %<%I:%M %p> - %a :meetings:\n\n%?\n\n"
+	   :clock-in :clock-resume
+	   :empty-lines 1)
+
+	  ("w" "Workflows")
+	  ;;("we" "Checking Email" entry (file+olp+datetree ,(dw/get-todays-journal-file-name))
+	  ("we" "Checking Email" entry (file+olp+datetree "~/.emacs.d/OrgFiles/Journal.org")
+	   "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
+
+	  ("m" "Metrics Capture")
+	  ("mw" "Weight" table-line (file+headline "~/.emacs.d/OrgFiles/Metrics.org" "Weight")
+	   "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)))
+
   (setq org-clock-sound "~/Downloads/ding.wav")
+
   (efs/org-font-setup))
 
 (use-package org-bullets
@@ -433,3 +453,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+;; XXX CHANGING TAB-FACES XXX
+;; inherit the face of 'doom-modeline-panel' for better appearance
+(set-face-attribute 'tab-bar-tab nil :inherit 'doom-modeline-panel :foreground nil :background nil)
+
+;; only show the 'tab-bar' if there are 2 or more tabs
+(setq tab-bar-show 1)
