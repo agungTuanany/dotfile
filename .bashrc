@@ -33,7 +33,7 @@ HISTCONTROL=ignoreboth
 powerline-daemon -q
 POWERLINE_BASH_CONTINUATION=1
 POWERLINE_BASH_SELECT=1
-source /usr/lib/python3.9/site-packages/powerline/bindings/bash/powerline.sh
+source /usr/lib/python3.10/site-packages/powerline/bindings/bash/powerline.sh
 
 # Powerline configuration
 #if [ -f /usr/lib/python3.9/site-packages/powerline/bindings/bash/powerline.sh ]; then
