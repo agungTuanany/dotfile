@@ -6,6 +6,11 @@
 (menu-bar-mode -1)      ; disabnle menu bar
 (set-fringe-mode 10)    ; give some breathing
 
+(electric-pair-mode 1)  ; auto-closing brackets
+
+;; inhibit cl (Common Lisp) warning
+;;(setq byte-compile-warnings '(cl-functions))
+
 ;; set up the visible bell
 (setq visible-bell t)
 
@@ -40,10 +45,6 @@
 ;; Make ESC quit prompts either to 'C-g'
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
-;; PACKAGE MANAGER CONFIGURATION -------------------------------------------------
-;; Initialize package sources
-(require 'package)
-
 ;; enable line numbers as relative numbers
 (column-number-mode)
 (setq display-line-numbers-type 'relative)
@@ -76,12 +77,16 @@
 		eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
+;; PACKAGE MANAGER CONFIGURATION -------------------------------------------------
+;; Initialize package sources
+(require 'package)
+
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
+			("melpa-stable" . "https://stable.melpa.org//pakages/")
 			 ("Org" . "https://orgmode.org/elpa/")))
 			;;("elpa" . "https://elpa.gnu.org/
-			;;("melpa-stable" . "https://stable.melpa.org//pakages/")
-
 (package-initialize)
+
 (unless package-archive-contents
   (package-refresh-contents))
 
@@ -313,6 +318,7 @@
   (setq org-agenda-files
 	'("~/.emacs.d/OrgFiles/Task.org"
 	  "~/.emacs.d/OrgFiles/Birthdays.org"
+	  "~/.emacs.d/OrgFiles/Notes.org"
 	  "~/.emacs.d/OrgFiles/Habits.org"))
 
   (require 'org-habit)

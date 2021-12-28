@@ -1,0 +1,47 @@
+#+title Emacs from scracth configuration
+
+* Basic UI
+#+begin_src emacs-lisp :tangle ./init-new.el
+
+  (setq inhibit-startup-message t)
+
+  (scroll-bar-mode -1)    ; disable visible scroolbal
+  (tool-bar-mode -1)      ; disable the toolbar
+  (tooltip-mode -1)       ; disable tooltips
+  (menu-bar-mode -1)      ; disabnle menu bar
+  (set-fringe-mode 10)    ; give some breathing
+
+  (electric-pair-mode 1)  ; auto-closing brackets
+
+  ;; inhibit cl (Common Lisp) warning
+  ;;(setq byte-compile-warnings '(cl-functions))
+
+  ;; set up the visible bell
+  (setq visible-bell t)
+
+  ;; launch emacs as full screen
+  (add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+  ;; Disable line numbers for some modes
+  ;;org-mode-hook
+  (dolist (mode '(term-mode-hook
+                  shell-mode-hook
+                  eshell-mode-hook))
+    (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+#+end_src
+
+** Font Configuration
+#+begin_src emacs-lisp :tangle ./init-new.el
+
+  ;; FONT CONFIGURATION ------------------------------------------------------------
+  ;;(set-face-attribute 'default nil :font "Source Code Pro" :pixelsize=13)
+  (set-face-attribute 'default nil :font "Source Code Pro" :height 90)
+
+  ;; Set the fixed pitch face
+  (set-face-attribute 'fixed-pitch nil :font "Source Code Pro" :height 90)
+
+  ;; Set the variables pitch face
+  (set-face-attribute 'variable-pitch nil :font "Source Code Pro" :height 90 :weight 'regular)
+
+#+end_src
