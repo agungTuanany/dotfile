@@ -1,7 +1,8 @@
 #+title Emacs from scracth configuration
+#+PROPERTY: header-args:emacs-lisp :tangle ./init-new.el
 
 * Basic UI
-#+begin_src emacs-lisp :tangle ./init-new.el
+#+begin_src emacs-lisp
 
   (setq inhibit-startup-message t)
 
@@ -12,6 +13,8 @@
   (set-fringe-mode 10)    ; give some breathing
 
   (electric-pair-mode 1)  ; auto-closing brackets
+  ;;(auto-revert-mode 1)    ; refresh the file if has changed
+
 
   ;; inhibit cl (Common Lisp) warning
   ;;(setq byte-compile-warnings '(cl-functions))
@@ -32,7 +35,7 @@
 #+end_src
 
 ** Font Configuration
-#+begin_src emacs-lisp :tangle ./init-new.el
+#+begin_src emacs-lisp
 
   ;; FONT CONFIGURATION ------------------------------------------------------------
   ;;(set-face-attribute 'default nil :font "Source Code Pro" :pixelsize=13)
@@ -43,5 +46,39 @@
 
   ;; Set the variables pitch face
   (set-face-attribute 'variable-pitch nil :font "Source Code Pro" :height 90 :weight 'regular)
+
+#+end_src
+
+* Org Mode
+
+** Auto-tangle Configuration Files
+
+#+begin_src emacs-lisp
+
+  ;; ORG MODE CONFIGURATION ------------------------------------------------------------
+  ;; Automatically tangle our Emacs.org config file when we save it
+  (defun efs/org-babel-tangle-config ()
+    (when (string-equal (buffer-file-name)
+                        ;;"/home/daun/.emacs.d/Emacs.org"
+                        (expand-file-name "~/.emacs.d/Emacs.org"))
+      ;; Dynamic scoping to the rescue
+      (let ((org-confirm-babel-evaluate nil))
+        (org-babel-tangle))))
+
+  (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'efs/org-babel-tangle-config)))
+
+#+end_src
+
+** Configure Babel Languages
+
+#+begin_src emacs-lisp
+
+  (with-eval-after-load 'org
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((emacs-lisp . t)
+       (python . t)))
+
+    (push '("conf-unix" . conf-unix) org-src-lang-modes))
 
 #+end_src
