@@ -82,3 +82,21 @@
     (push '("conf-unix" . conf-unix) org-src-lang-modes))
 
 #+end_src
+
+* Applications
+** Some Apps
+
+*NOTE*: The thing about /'conf'/ is
+#+begin_src conf :tangle .config/some-app/config :mkdirp yes
+	value = 42
+
+#+end_src
+
+This is an example of configuring another non-Emacs application using org-mode. Not only do we write out the configuration at =.config/some-app/config=, we also compute the value that gets stored in this configuration from the Emacs Lisp block above it.
+
+#+NAME: the-value
+#+begin_src emacs-lisp
+
+  ;; This is an example of configuring another non-Emacs application using org-mode.
+  (+ 55 100)
+#+end_src
