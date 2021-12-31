@@ -1,5 +1,5 @@
 #+title Emacs from scracth configuration
-#+PROPERTY: header-args:emacs-lisp :tangle ./init-new.el
+#+PROPERTY: header-args:emacs-lisp :tangle ./init-new.el :mkdirp yes
 
 * Basic UI
 #+begin_src emacs-lisp
@@ -13,7 +13,7 @@
   (set-fringe-mode 10)    ; give some breathing
 
   (electric-pair-mode 1)  ; auto-closing brackets
-  ;;(auto-revert-mode 1)    ; refresh the file if has changed
+  (auto-revert-mode 1)    ; refresh the file if has changed
 
 
   ;; inhibit cl (Common Lisp) warning
@@ -69,6 +69,26 @@
 
 #+end_src
 
+** Structure Templates
+
+#+begin_src emacs-lisp
+
+  ;; This is needed as of Org 9.2
+  (require 'org-tempo)
+
+  (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
+  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+  (add-to-list 'org-structure-template-alist '("py" . "src python"))
+  (add-to-list 'org-structure-template-alist '("js" . "src js"))
+
+#+end_src
+
+#+begin_src js value
+const foo = "foo";
+
+  console.log(foo);
+#+end_src
+
 ** Configure Babel Languages
 
 #+begin_src emacs-lisp
@@ -86,17 +106,26 @@
 * Applications
 ** Some Apps
 
-*NOTE*: The thing about /'conf'/ is
-#+begin_src conf :tangle .config/some-app/config :mkdirp yes
-	value = 42
-
-#+end_src
-
 This is an example of configuring another non-Emacs application using org-mode. Not only do we write out the configuration at =.config/some-app/config=, we also compute the value that gets stored in this configuration from the Emacs Lisp block above it.
 
-#+NAME: the-value
+#+NAME: the-value1
 #+begin_src emacs-lisp
-
-  ;; This is an example of configuring another non-Emacs application using org-mode.
-  (+ 55 100)
+  55
 #+end_src
+
+#+NAME: the-value2
+#+begin_src emacs-lisp
+(+ 55 100)
+#+end_src
+
+Add =:noweb yes=!
+
+#+begin_src conf :tangle .config/some-app/config :noweb yes
+
+  the-value1 = <<the-value1>>
+
+  the-value2 = <<the-value2()>>
+
+#+end_src
+
+
