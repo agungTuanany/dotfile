@@ -24,7 +24,7 @@
   (require 'use-package)
   (setq use-package-always-ensure t)
 
-  #+end_src
+#+end_src
 
 * Basic UI Configuration
 
@@ -47,7 +47,9 @@
   ;; set up the visible bell
   (setq visible-bell t)
 
+  ;; enable line numbers as relative numbers
   (column-number-mode)
+  (setq display-line-numbers-type 'relative)
   (global-display-line-numbers-mode t)
 
   ;; launch emacs as full screen
@@ -90,8 +92,8 @@
       :global-prefix "C-SPC")
 
     (efs/leader-keys
-     "t" '(:ignore t :which-key "toggles")
-     "tt" '(counsel-load-theme :which-key "choose theme")))
+      "t" '(:ignore t :which-key "toggles")
+      "tt" '(counsel-load-theme :which-key "choose theme")))
 
   (use-package evil
     :init
@@ -133,6 +135,42 @@
 
 #+end_src
 
+** Color Theme
+
+#+begin_src emacs-lisp
+
+  (use-package doom-themes
+    :config
+    (load-theme 'doom-palenight t))
+
+#+end_src
+
+** Better Modeline
+
+#+begin_src emacs-lisp
+
+  (use-package all-the-icons
+    :if (display-graphic-p))
+
+  (use-package doom-modeline
+    :ensure t
+    :init (doom-modeline-mode 1)
+    :custom ((doom-modeline-height 12)))
+
+#+end_src
+
+** Which Key
+
+#+begin_src emacs-lisp
+
+  (use-package which-key
+    :init (which-key-mode)
+    :diminish which-key-mode
+    :config
+    (setq which-key-idle-delay 0.3))
+
+#+end_src
+
 ** Ivy and Counsel
 
 #+begin_src emacs-lisp
@@ -140,7 +178,7 @@
   (use-package ivy
     :diminish
     :demand
-    :bind (;;("C-s" . swiper)
+    :bind (("C-s" . swiper)
            :map ivy-minibuffer-map
            ("TAB" . ivy-alt-done)
            ("C-l" . ivy-alt-done)
@@ -160,6 +198,19 @@
     :init
     (ivy-rich-mode 1))
 
+  (use-package counsel
+    :bind (("C-M-j" . 'counsel-switch-buffer)
+           ("M-x" . counsel-M-x)
+           ("C-x b" . counsel-ibuffer)
+           ("C-x C-f" . counsel-find-file)
+           ("C-s" . counsel-grep-or-swiper)
+           :map minibuffer-local-map
+           ("C-r" . 'counsel-minibuffer-history))
+    :custom
+    (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
+    :config
+    (counsel-mode 1))
+
 #+end_src
 
 ** Helpful Help Commands
@@ -175,11 +226,6 @@
     ([remap describe-command] . helpful-command)
     ([remap describe-variable] . counsel-describe-variable)
     ([remap describe-key] . helpful-key))
-
-  ;; EXAMPLE:
-  ;; "C-s" 'counsel-grep-or-swiper)
-  ;;(general-define-key
-  ;;"C-M-j" 'counsel-switch-buffer)
 
 #+end_src
 
@@ -197,11 +243,59 @@
     ("f" nil "finished" :exit t))
 
   (efs/leader-keys
-    "ts" '(hydra-text-scale/body :which-key "scale text"))
+    "ts" '(hydra-text-scale/body :lexical which-key "scale text"))
+
+#+end_src
+
+** Tab Configuration
+
+#+begin_src emacs-lisp
+
+  ;; inherit the face of 'doom-modeline-panel' for better appearance
+  (set-face-attribute 'tab-bar-tab nil :inherit 'doom-modeline-panel :foreground nil :background nil)
+
+  ;; only show the 'tab-bar' if there are 2 or more tabs
+  (setq tab-bar-show 1)
 
 #+end_src
 
 * Org Mode
+** Better Font Faces
+
+#+begin_src emacs-lisp
+
+  (defun efs/org-font-setup ()
+    ;; Replace list hyphen with dot
+    (font-lock-add-keywords 'org-mode
+                            '(("^ *\\([-]\\) "
+                               (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+
+    ;; Set faces for heading levels
+    (dolist (face '((org-level-1 . 1.2)
+                    (org-level-2 . 1.1)
+                    (org-level-3 . 1.05)
+                    (org-level-4 . 1.0)
+                    (org-level-5 . 1.1)
+                    (org-level-6 . 1.1)
+                    (org-level-7 . 1.1)
+                    (org-level-8 . 1.1)))
+      (set-face-attribute (car face) nil :font "Cantarell" :weight 'regular :height (cdr face)))
+
+    ;; Ensure that anything that should be fixed-pitch in Org files appears that way
+    (set-face-attribute 'org-block nil    :foreground nil :inherit 'fixed-pitch)
+    (set-face-attribute 'org-table nil    :inherit 'fixed-pitch)
+    (set-face-attribute 'org-formula nil  :inherit 'fixed-pitch)
+    (set-face-attribute 'org-code nil     :inherit '(shadow fixed-pitch))
+    (set-face-attribute 'org-table nil    :inherit '(shadow fixed-pitch))
+    (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+    (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+    (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+    (set-face-attribute 'org-checkbox nil  :inherit 'fixed-pitch)
+    (set-face-attribute 'line-number nil :inherit 'fixed-pitch)
+    (set-face-attribute 'line-number-current-line nil :inherit 'fixed-pitch))
+
+#+end_src
+
 ** Basic Config
 #+begin_src emacs-lisp
   (defun efs/org-mode-setup ()
