@@ -2,13 +2,17 @@
 (require 'package)
 
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                         ("melpa-stable" . "https://stable.melpa.org/packages/")
-                         ("Org" . "https://orgmode.org/elpa/")
-                         ("elpa" . "https://elpa.gnu.org/")))
+                         ("org" . "https://orgmode.org/elpa/")
+                         ("elpa" . "https://elpa.gnu.org/packages/")))
 
 (package-initialize)
-(unless package-archive-contents
+(when (not package-archive-contents)
   (package-refresh-contents))
+
+;;(unless package-archive-contents
+;;(package-refresh-contents))
+
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 
 ;; Initialize use-package on non-Linux platforms
 (unless (package-installed-p 'use-package)
@@ -381,6 +385,13 @@
       (org-babel-tangle))))
 
 (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'efs/org-babel-tangle-config)))
+
+(use-package lsp-mode
+  ;;:commands (lsp lsp-deferred)
+  :init
+  (setq lsp-keymap-prefix "C-c l") ;; or 'C-l', 's-l'
+  :config
+  (lsp-enable-which-key-integration))
 
 (use-package projectile
   :diminish projectile-mode
