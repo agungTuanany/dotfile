@@ -63,6 +63,9 @@
 ;; Set the variables pitch face
 (set-face-attribute 'variable-pitch nil :font "Source Code Pro" :height 90 :weight 'regular)
 
+;; Make ESC quit prompts
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+
 (use-package general
   :config
   (general-create-definer efs/leader-keys
@@ -387,11 +390,36 @@
 (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'efs/org-babel-tangle-config)))
 
 (use-package lsp-mode
-  ;;:commands (lsp lsp-deferred)
+  :commands (lsp lsp-deferred)
   :init
   (setq lsp-keymap-prefix "C-c l") ;; or 'C-l', 's-l'
   :config
-  (lsp-enable-which-key-integration))
+  (lsp-enable-which-key-integration t))
+
+(use-package js2-mode)
+;;(require 'js2-mode)
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+
+;; Better imenu
+(add-hook 'js2-mode-hook #'js2-imenu-extras-mode)
+
+(use-package js2-refactor)
+(use-package xref-js2)
+
+(add-hook 'js2-mode-hook #'js2-refactor-mode)
+(js2r-add-keybindings-with-prefix "C-c C-r")
+(define-key js2-mode-map (kbd "C-k") #'js2r-kill)
+
+;; js-mode (which js2 is based on) binds "M-." which conflicts with xref
+;; unbind it
+(define-key js-mode-map (kbd "M-.") nil)
+
+(add-hook 'js2-mode-hook (lambda ()
+                           (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
+
+;; binding 'js2r-kill' to 'C-k'
+;; it's similar to killing in 'paredit:'
+(define-key js2-mode-map (kbd "C-k") #'js2r-kill)
 
 (use-package projectile
   :diminish projectile-mode
@@ -422,7 +450,3 @@
 ;; - https://magit.vc/manual/ghub/Getting-Started.html#Getting-Started
 (use-package forge
   :after magit)
-
-55
-
-(+ 55 100)
