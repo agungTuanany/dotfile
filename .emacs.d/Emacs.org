@@ -512,13 +512,33 @@
 
 #+end_src
 
-**** TypeScript
+*** TypeScript
 
-**** JavaScript
+#+begin_src emacs-lisp
+        (use-package typescript-mode
+          :mode "\\.ts\\'"
+          :hook (typescript-mode . lsp-deferred)
+          :config
+          (setq typescript-indent-level 2))
+
+#+end_src
+
+*Important note!*  For =lsp-mode= to work with TypeScript (and JavaScript) you will need to install a language server on your machine.  If you have Node.js installed, the easiest way to do that is by running the following command:
+
+#+begin_src shell :tangle no
+
+npm install -g typescript-language-server typescript
+
+#+end_src
+
+This will install the [[https://github.com/theia-ide/typescript-language-server][typescript-language-server]] and the TypeScript compiler package.
+
+*** JavaScript
+
 #+begin_src emacs-lisp
 
   (use-package js2-mode)
-  ;;(require 'js2-mode)
+  (require 'js2-mode)
   (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 
   ;; Better imenu
@@ -530,11 +550,7 @@
 and =xref-js2= makes it easy to jump to function reference or definition.
 I'm also using =expand-region= as recommended dependencies for 'js2-refactor'.
 
-Note: see 'expand-region' explanation in 'package-list'.
-
-;;(require 'js2-refactor)
-;;(add-hook 'js2-mode-hook #'js2-refactor-mode)
-;;(js2r-add-keybindings-with-prefix "C-c C-m")
+Note: see =expand-region= explanation in 'package-list'.
 
 ref: https://emacs.cafe/emacs/javascript/setup/2017/04/23/emacs-setup-javascript.html
 
