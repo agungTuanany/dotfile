@@ -503,8 +503,13 @@
 
 #+begin_src emacs-lisp
 
+  (defun efs/lsp-mode-setup ()
+    (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
+    (lsp-headerline-breadcrumb-mode))
+
   (use-package lsp-mode
     :commands (lsp lsp-deferred)
+    :hook (lsp-mode . efs/lsp-mode-setup)
     :init
     (setq lsp-keymap-prefix "C-c l") ;; or 'C-l', 's-l'
     :config
@@ -515,11 +520,11 @@
 *** TypeScript
 
 #+begin_src emacs-lisp
-        (use-package typescript-mode
-          :mode "\\.ts\\'"
-          :hook (typescript-mode . lsp-deferred)
-          :config
-          (setq typescript-indent-level 2))
+  (use-package typescript-mode
+    :mode "\\.ts\\'"
+    :hook (typescript-mode . lsp-deferred)
+    :config
+    (setq typescript-indent-level 2))
 
 #+end_src
 
@@ -527,7 +532,7 @@
 
 #+begin_src shell :tangle no
 
-npm install -g typescript-language-server typescript
+  npm install -g typescript-language-server typescript
 
 #+end_src
 
@@ -546,7 +551,7 @@ This will install the [[https://github.com/theia-ide/typescript-language-server]
 
 #+end_src
 
-=js2-refactor= ads powerfull refactoring based on the AST gernated by js2-mode,
+=js2-refactor= adds powerfull refactoring based on the AST gernated by js2-mode,
 and =xref-js2= makes it easy to jump to function reference or definition.
 I'm also using =expand-region= as recommended dependencies for 'js2-refactor'.
 
