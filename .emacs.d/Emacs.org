@@ -496,7 +496,6 @@
 * Development
 
 ** Languages
-
 *** IDE Features with lsp-mode
 
 **** lsp-mode
@@ -581,6 +580,30 @@ ref: https://emacs.cafe/emacs/javascript/setup/2017/04/23/emacs-setup-javascript
 
 #+end_src
 
+** Company Mode
+
+[[http://company-mode.github.io/][Company Mode]] provides a nicer in-buffer completion interface than =completion-at-point= which is more reminiscent of what you would expect from an IDE.  We add a simple configuration to make the keybindings a little more useful (=TAB= now completes the selection and initiates completion at the current location if needed).
+
+We also use [[https://github.com/sebastiencs/company-box][company-box]] to further enhance the look of the completions with icons and better overall presentation.
+
+#+begin_src emacs-lisp
+
+  (use-package company
+    :after lsp-mode
+    :hook (lsp-mode . company-mode)
+    :bind (:map company-active-map
+           ("<tab>" . company-complete-selection))
+          (:map lsp-mode-map
+           ("<tab>" . company-indent-or-complete-common))
+    :custom
+    (company-minimum-prefix-length 1)
+    (company-idle-delay 0.0))
+
+  (use-package company-box
+    :hook (company-mode . company-box-mode))
+
+#+end_src
+
 ** Projectile
 
 #+begin_src emacs-lisp
@@ -614,12 +637,12 @@ ref: https://emacs.cafe/emacs/javascript/setup/2017/04/23/emacs-setup-javascript
     :custom
     (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
-
   ;; NOTE: Make sure to configure a GitHub token before using this package!
   ;; - https://magit.vc/manual/forge/Token-Creation.html#Token-Creation
   ;; - https://magit.vc/manual/ghub/Getting-Started.html#Getting-Started
   (use-package forge
     :after magit)
+
 #+end_src
 
 * Applications
