@@ -12,7 +12,7 @@
 ;;(unless package-archive-contents
 ;;(package-refresh-contents))
 
-(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+;(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 
 ;; Initialize use-package on non-Linux platforms
 (unless (package-installed-p 'use-package)
@@ -50,6 +50,7 @@
 ;;org-mode-hook
 (dolist (mode '(term-mode-hook
                 shell-mode-hook
+                treemacs-mode-hook
                 eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
@@ -401,6 +402,17 @@
   :config
   (lsp-enable-which-key-integration t))
 
+(use-package lsp-ui
+  :hook (lsp-mode . lsp-ui-mode)
+  :custom
+  (lsp-ui-doc-position 'bottom))
+
+(use-package lsp-treemacs
+  :after lsp)
+
+(use-package lsp-ivy
+  :after lsp)
+
 (use-package typescript-mode
   :mode "\\.ts\\'"
   :hook (typescript-mode . lsp-deferred)
@@ -474,3 +486,16 @@
 ;; - https://magit.vc/manual/ghub/Getting-Started.html#Getting-Started
 (use-package forge
   :after magit)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(lsp-ivy lsp-treemacs xref-js2 which-key use-package typescript-mode lsp-ui js2-refactor ivy-rich hydra helpful general forge evil-surround evil-collection doom-themes doom-modeline counsel-projectile company-box command-log-mode)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
