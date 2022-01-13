@@ -49,6 +49,7 @@
 ;; Disable line numbers for some modes
 ;;org-mode-hook
 (dolist (mode '(term-mode-hook
+                vterm-mode-hook
                 shell-mode-hook
                 treemacs-mode-hook
                 eshell-mode-hook))
@@ -504,13 +505,20 @@
 
 (use-package eterm-256color
   :hook (term-mode . eterm-256color-mode))
+
+(use-package vterm
+  :commands vterm
+  :config
+  ;;(setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *")  ;; Set this to match your custom shell prompt
+  ;;(setq vterm-shell "zsh")                       ;; Set this to customize the shell to launch
+  (setq vterm-max-scrollback 10000))
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(eterm-256color rainbow-delimiters xref-js2 which-key use-package typescript-mode lsp-ui lsp-treemacs lsp-ivy js2-refactor ivy-rich helpful general forge evil-surround evil-nerd-commenter evil-collection doom-themes doom-modeline counsel-projectile company-box command-log-mode)))
+   '(vterm eterm-256color rainbow-delimiters xref-js2 which-key use-package typescript-mode lsp-ui lsp-treemacs lsp-ivy js2-refactor ivy-rich helpful general forge evil-surround evil-nerd-commenter evil-collection doom-themes doom-modeline counsel-projectile company-box command-log-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
