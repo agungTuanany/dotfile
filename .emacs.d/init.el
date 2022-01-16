@@ -12,7 +12,7 @@
 ;;(unless package-archive-contents
 ;;(package-refresh-contents))
 
-;(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+;;(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 
 ;; Initialize use-package on non-Linux platforms
 (unless (package-installed-p 'use-package)
@@ -23,14 +23,14 @@
 
 (setq inhibit-startup-message t)
 
-(scroll-bar-mode -1)    ; disable visible scroolbal
-(tool-bar-mode -1)      ; disable the toolbar
-(tooltip-mode -1)       ; disable tooltips
-(menu-bar-mode -1)      ; disabnle menu bar
-(set-fringe-mode 10)    ; give some breathing
+(scroll-bar-mode -1)      ; disable visible scroolbal
+(tool-bar-mode -1)        ; disable the toolbar
+(tooltip-mode -1)         ; disable tooltips
+(menu-bar-mode -1)        ; disabnle menu bar
+(set-fringe-mode 10)      ; give some breathing
 
-(electric-pair-mode 1)  ; auto-closing brackets
-(auto-revert-mode 1)    ; refresh the file if has changed
+(electric-pair-mode 1)    ; auto-closing brackets
+(auto-revert-mode 1)      ; refresh the file if has changed
 
 ;; inhibit cl (Common Lisp) warning
 ;;(setq byte-compile-warnings '(cl-functions))
@@ -55,7 +55,18 @@
                 eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
-;; FONT CONFIGURATION ------------------------------------------------------------
+(setq-default indent-tabs-mode nil)
+(setq tab-width 4) ; or any other preferred value, I used to use "4"
+
+(global-whitespace-mode)
+(setq whitespace-style '(face tabs tab-mark trailing))
+(custom-set-faces
+ '(whitespace-tab ((t (:foreground "#636363")))))
+
+(setq whitespace-display-mappings
+      '((tab-mark 9 [124 9] [92 9])))
+
+;; FONT CONFIGURATION
 ;;(set-face-attribute 'default nil :font "Source Code Pro" :pixelsize=13)
 (set-face-attribute 'default nil :font "Source Code Pro" :height 90)
 
@@ -219,7 +230,7 @@
   (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
   (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
   (set-face-attribute 'org-checkbox nil  :inherit 'fixed-pitch)
-  (set-face-attribute 'line-number nil :inherit 'fixed-pitch)
+  (set-face-attribute 'line-number nil   :inherit 'fixed-pitch)
   (set-face-attribute 'line-number-current-line nil :inherit 'fixed-pitch))
 
 (defun efs/org-mode-setup ()
@@ -329,9 +340,9 @@
   (setq org-capture-templates
         `(("t" "Tasks / Projects")
           ("tt" "Task" entry (file+olp "~/.emacs.d/OrgFiles/Task.org" "Inbox")
-           "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
+           "* TODO %?\n %U\n %a\n  %i" :empty-lines 1)
           ;;("ts" "Clocked Entry Subtask" entry (clock)
-          ;;"* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
+          ;;"* TODO %?\n %U\n %a\n %i" :empty-lines 1)
 
           ("j" "Journal Entries")
           ("jj" "Journal" entry
@@ -449,9 +460,9 @@
   :after lsp-mode
   :hook (lsp-mode . company-mode)
   :bind (:map company-active-map
-         ("<tab>" . company-complete-selection))
-        (:map lsp-mode-map
-         ("<tab>" . company-indent-or-complete-common))
+              ("<tab>" . company-complete-selection))
+  (:map lsp-mode-map
+        ("<tab>" . company-indent-or-complete-common))
   :custom
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.0))
@@ -498,9 +509,9 @@
   :commands term
   :config
   (setq explicit-shell-file-name "bash") ;; Change this to zsh, etc
-  ;;(setq explicit-zsh-args '())         ;; Use 'explicit-<shell>-args for shell-specific args
+  ;;(setq explicit-zsh-args '()) ;; Use 'explicit-<shell>-args for shell-specific args
 
-  ;; Match the default Bash shell prompt.  Update this if you have a custom prompt
+  ;; Match the default Bash shell prompt. Update this if you have a custom prompt
   (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *"))
 
 (use-package eterm-256color
@@ -510,7 +521,7 @@
   :commands vterm
   :config
   ;;(setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *")  ;; Set this to match your custom shell prompt
-  ;;(setq vterm-shell "zsh")                       ;; Set this to customize the shell to launch
+  ;;(setq vterm-shell "zsh") ;; Set this to customize the shell to launch
   (setq vterm-max-scrollback 10000))
 
 (defun efs/configure-eshell ()
@@ -525,7 +536,7 @@
   (evil-define-key '(normal insert visual) eshell-mode-map (kbd "<home>") 'eshell-bol)
   (evil-normalize-keymaps)
 
-  (setq eshell-history-size         10000
+  (setq eshell-history-size 10000
         eshell-buffer-maximum-lines 10000
         eshell-hist-ignoredups t
         eshell-scroll-to-bottom-on-input t))
@@ -552,3 +563,7 @@
   (evil-collection-define-key 'normal 'dired-mode-map
     "h" 'dired-up-directory
     "l" 'dired-find-file))
+
+;; Inside `use-package dired`
+(use-package dired-single
+  :commands (dired dired-jump))
