@@ -32,8 +32,7 @@ abbr mv "mv -i"
 abbr "docker-ps" "docker ps -a"
 abbr "docker-img" "docker images --all"
 
-
-# aliases
+# ALIASES
 ## --- ls stuff ---
 alias ls "exa -h --color=always"
 alias ll "ls -alF --color=always --group-directories-first"
@@ -74,11 +73,12 @@ alias gcm "git commit"
 
 alias rl "source ~/.config/fish/config.fish"
 
-alias cheat "cht.sh $argv"
-alias cheats "cht.sh --shell $argv"
+alias cheat "cheat.sh $argv"
+alias cheats "cheat.sh --shell $argv"
 
 #set -gx PATH bin $PATH
 #set -gx PATH ~/.local/bin $PATH
+
 
 ## -- function calls --
 
@@ -93,3 +93,10 @@ end
 function tr-en -d "translate bahasa into english"
     trans id:en
 end
+
+function cheat.sh
+    curl cheat.sh/$argv
+end
+
+# register completions (on-the-fly, non-cached, because the actual command won't be cached anyway)
+complete -c cheat.sh -xa '(curl -s cheat.sh/:list)'
