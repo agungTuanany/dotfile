@@ -11,3 +11,17 @@ _*
 ## nvim
 shada
 ctags
+
+## all in .config/
+Thunar
+VirtualBox
+chromium
+htop
+neofetch
+pavucontrol.ini
+pulse
+transmission
+vlc
+xfce4
+menus
+dconf
