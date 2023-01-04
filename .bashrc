@@ -1,6 +1,20 @@
+##
 #
-# ~/.bashrc
+# Author               : Agung Tuanany
+# Last Modified        : Wed Jan 4 11:06:19 AM WIB 2023
 #
+# RECOMMEND USE:
+#
+# - Use symbolic links from this repo.
+# if you want to use symbolic links, make sure to create them first:
+#
+# ln -sf $HOME/Repo/agung_dotfile/.xinitrc $HOME/.xinitrc
+#
+# - Plan:
+# copy this file into your home directory.
+#
+# REPO: https://github.com/agungTuanany/dotfile.git
+##
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -31,10 +45,10 @@ alias pacupdate='sudo pacman -Syu'
 
 #alias nvimrc='cd ~/.config/nvim && nvim ~/.config/nvim'
 alias nvimrc='nvim ~/.config/nvim'
-alias tmuxrc='nvim ~/.config/.tmux.conf'
+alias tmuxrc='nvim ~/.tmux.conf'
 
 alias duck='lynx duckduckgo.com'
-alias arch='lynx wiki.archlinux.org'
+alias archwiki='lynx wiki.archlinux.org'
 
 alias rl='source ~/.bashrc'
 
@@ -44,22 +58,34 @@ alias gl="git log --graph --pretty=format:'%C(yellow)%h%Creset -%Cred%d%Creset %
 alias gs="git status --branch --short --untracked-file=all --ahead-behind"
 alias gcm="git commit"
 
+## dwm setup
 alias dwmrc='nvim ~/.config/dwm-6.4/config.def.h'
 alias dwmcp='sudo cp -rf ~/.config/dwm-6.4/config.def.h  ~/.config/dwm-6.4/config.h'
-alias dwmake='cd ~/.config/dwm-6.4 && sudo make install clean'
+alias dwmake='cd ~/.config/dwm-6.4 && sudo make install clean && cd -'
 
+## dmenu setup
+alias dmenurc='nvim ~/.config/dmenu/config.def.h'
+alias dmenucp='sudo cp -rf ~/.config/dmenu/config.def.h ~/.config/dmenu/config.h'
+alias dmenumake='cd ~/.config/dmenu && sudo make install clean && cd -'
+
+## st setup
+alias strc='nvim ~/.config/st/config.def.h'
+alias strcp='sudo cp -rf ~/.config/st/config.def.h ~/.config/st/config.h'
+alias strmake='cd ~/.config/st && sudo make install clean && cd -'
+
+
+## translate-shell
 alias trid='trans en:id'
 alias tren='trans id:en'
 
 ## TEMPORARY
 ##alias aml_flash='./home/daun/.local/bin/aml-flash'
 
-# rupa/z - jump around
-. $HOME/Repo/z/z.sh
-
 VBOX_USB=usbfs
 
 ## RUST SETUP
 . "$HOME/.cargo/env"
-
 alias rustrl='. "$HOME/.cargo/env"'
+
+# rupa/z - jump around
+. $HOME/Repo/z/z.sh
