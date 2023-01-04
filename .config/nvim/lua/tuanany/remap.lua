@@ -62,12 +62,11 @@ vim.keymap.set("n","<C-Down>", "ddp", conf)
 vim.keymap.set("v", "<C-Up>", "xkP`[V`]", conf)
 vim.keymap.set("v", "<C-Down>", "xp`[V`]", conf)
 
-
-
--- ### SPLIT
+-- ## SPLIT
 vim.keymap.set("n", "<leader>sr", vim.cmd.vs, conf)     -- split right
 vim.keymap.set("n", "<leader>vs", vim.cmd.vs, conf)     -- split right
 vim.keymap.set("n", "<leader>sb", vim.cmd.sp, conf)     -- split below
+
 
 -- ## TOGGLE things
 vim.keymap.set("n", "\\", ":setlocal hlsearch!<CR>", conf)     -- toggle highlight search
@@ -112,8 +111,6 @@ vim.keymap.set("n", "<leader>]", "vi[xi <Esc>pa <Esc>", conf)
 -- Put [] around word
 --vim.keymap.set("n", "<leader>[", "i[<Esc>ea]<Esc>", {})
 
-
-
 -- ## VISUAL MAPPING
 vim.keymap.set("n", "v", "<C-v>", conf)
 vim.keymap.set("n", "<C-v>", "v", conf)
@@ -121,6 +118,7 @@ vim.keymap.set("v", "v", "<C-v>", conf)
 vim.keymap.set("v", "<C-v>", "v", conf)
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, conf)                             -- goto netrw
+vim.keymap.set("n", "<leader>nt", vim.cmd.Ex, conf)
 vim.keymap.set("n", "<leader>so", vim.cmd.so, conf)                             -- reload local code
 vim.keymap.set("n", "<leader>00", ":so ~/.config/nvim/init.lua<CR>", conf)      -- reload local code
 

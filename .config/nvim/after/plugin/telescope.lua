@@ -8,6 +8,7 @@ vim.keymap.set("n", "<leader>tf", builtin.find_files, conf)
 vim.keymap.set("n", "<C-p>", builtin.git_files, conf)
 vim.keymap.set("n", "<leader>h", builtin.help_tags, conf)
 vim.keymap.set("n", "<leader>tk", builtin.keymaps, conf)
+vim.keymap.set("n", "<leader>tb", builtin.buffers, conf)
 
 vim.keymap.set("n", "<leader>ts", function()
 	builtin.grep_string({ search = vim.fn.input("Grep > ") });
