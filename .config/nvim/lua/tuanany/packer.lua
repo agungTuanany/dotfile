@@ -13,6 +13,10 @@ return require('packer').startup(function(use)
         requires = { {'nvim-lua/plenary.nvim'}}
     }
 
+
+    -- Colors
+    --use('itomasr/molokai')
+
     use({
         'rose-pine/neovim',
         as = 'rose-pine',
@@ -21,8 +25,15 @@ return require('packer').startup(function(use)
         end
     })
 
+    use('luisiacc/gruvbox-baby', {branch = 'main' })
+
+    -- Tresitter
     use('nvim-treesitter/nvim-treesitter', {run = ':TSupdate'})
     use('nvim-treesitter/playground')
+
+
+
+    print("packer.lua > success call");
 end)
 
 

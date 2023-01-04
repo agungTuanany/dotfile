@@ -74,6 +74,11 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["gruvbox-baby"] = {
+    loaded = true,
+    path = "/home/daun/.local/share/nvim/site/pack/packer/start/gruvbox-baby",
+    url = "https://github.com/luisiacc/gruvbox-baby"
+  },
   ["nvim-treesitter"] = {
     loaded = true,
     path = "/home/daun/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
