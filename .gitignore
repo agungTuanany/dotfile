@@ -11,6 +11,7 @@ _*
 ## nvim
 shada
 ctags
+packer_compiled.lua
 
 ## all in .config/
 Thunar
