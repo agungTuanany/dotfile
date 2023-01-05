@@ -79,6 +79,11 @@ _G.packer_plugins = {
     path = "/home/daun/.local/share/nvim/site/pack/packer/start/gruvbox-baby",
     url = "https://github.com/luisiacc/gruvbox-baby"
   },
+  ["markdown-preview.nvim"] = {
+    loaded = true,
+    path = "/home/daun/.local/share/nvim/site/pack/packer/start/markdown-preview.nvim",
+    url = "https://github.com/iamcco/markdown-preview.nvim"
+  },
   ["nvim-treesitter"] = {
     loaded = true,
     path = "/home/daun/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
