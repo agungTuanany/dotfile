@@ -32,8 +32,12 @@ return require('packer').startup(function(use)
     use('nvim-treesitter/playground')
 
 
+    use({
+        'iamcco/markdown-preview.nvim',
+        run = function() vim.fn["mkdp#util#install"]() end,
+    })
 
-    print("packer.lua > success call");
+    print("packer.lua > all plugin reloaded without any error");
 end)
 
 
