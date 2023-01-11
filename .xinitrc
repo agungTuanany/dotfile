@@ -58,10 +58,12 @@ fi
 # Wallpeper
 # nitrogen --restore &
 
-# Loop
-while true; do
-    dwm > dev/null 2>&1
-done
-
-# Execute DWM
-exec dwm
+#xsetroot -name "`date` `uptime | sed 's/.*,//'`" &
+#
+## Loop
+#while true; do
+#    dwm >/dev/null 2>&1;
+#done &
+#
+## Execute DWM
+#exec dwm
