@@ -70,8 +70,8 @@ alias dmenumake='cd ~/.config/dmenu && sudo make install clean && cd -'
 
 ## st setup
 alias strc='nvim ~/.config/st/config.def.h'
-alias strcp='sudo cp -rf ~/.config/st/config.def.h ~/.config/st/config.h'
-alias strmake='cd ~/.config/st && sudo make install clean && cd -'
+alias stcp='sudo cp -rf ~/.config/st/config.def.h ~/.config/st/config.h'
+alias stmake='cd ~/.config/st && sudo make install clean && cd -'
 
 
 ## translate-shell
