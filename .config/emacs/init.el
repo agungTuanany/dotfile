@@ -107,10 +107,77 @@
 ;;TODO:
 ;;; Plugins
 
-;;=======================================
-;;; Magit Begin
+(use-package doom-themes
+  :ensure t
+  :config
+  ;; Global settings (defaults)
+  (setq doom-theme-enable-bold t
+        doom-theme-enable-italic t)
+  (load-theme 'doom-monokai-classic t))
 
-;;; Magit End
+;; config modeline. The bar infromation on bottom
+(use-package doom-modeline
+  :ensure t
+  :custom(
+          (doom-modeline-height 15))
+  :init (doom-modeline-mode 1) )
+
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
+
+(use-package which-key
+  :ensure t
+  :init (which-key-mode)
+  :diminish which-key-mode
+  :config
+  (setq which-key-idle-delay 0.3))
+
+;;=======================================
+;;; Evil Begin
+(use-package evil
+  :ensure t
+  :init
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
+  (setq evil-want-C-u-scroll nil)
+  (setq evil-want-C-i-jump t)
+  :config
+  (evil-mode 1)
+  (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
+  (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
+  (define-key evil-normal-state-map (kbd "v") 'evil-visual-block)
+  (define-key evil-normal-state-map (kbd "C-v") 'evil-visual-char)
+  (define-key evil-visual-state-map (kbd "v") 'evil-visual-block)
+  (define-key evil-visual-state-map (kbd "C-v") 'evil-visual-char)
+
+  ;; use visual line motion even outside of visual-line-mode buffers
+  (evil-global-set-key 'motion "j" 'evil-next-visual-line)
+  (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+
+  (evil-set-initial-state 'message-buffer-mode 'normal)
+  (evil-set-initial-state 'dashboard-mode 'normal)
+  )
+
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (evil-collection-init)
+  )
+
+(use-package evil-surround
+  :after evil
+  :ensure t
+  :config
+  (global-evil-surround-mode 1))
+
+(use-package evil-nerd-commenter
+  :after evil
+  :ensure t
+  :bind ("M-/" . evilnc-comment-or-uncomment-lines))
+
+
+;;; Evil End
 ;;=======================================
 
 ;; Ivy completion
