@@ -5,6 +5,27 @@
 ;; ln -s ~/Repo/agung_dotfile/.config/emacs ~/config/
 
 ;;=======================================
+;;; Presetup package sources Begin
+(require 'package)
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                         ("org" . "https://orgmode.org/elpa/")
+                         ("elpa" . "https://elpa.gnu.org/packages/")))
+
+(package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
+
+;; Initialize use-package on non-Linux platforms
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+
+(require 'use-package)
+(setq use-package-always-ensure t)
+
+;;; Presetup package sources End
+;;=======================================
+
+;;=======================================
 ;;; Presetup Begin
 (setq inhibit-startup-message t
       visible-bell t)
@@ -15,7 +36,7 @@
 (menu-bar-mode -1)         ; Disbale menu on top
 (set-fringe-mode 10)       ; Give some breathing rome
 (electric-pair-mode 1)     ; auto-closing brackets
-(auto-revert-mode 1)       ; refresh the file if has changedee
+(auto-revert-mode 1)       ; refresh the file if has changed
 
 (add-to-list 'default-frame-alist '(fullscreen, maximzed))
 
@@ -39,8 +60,6 @@
 
 (setq-default fill-colum 80)
 
-;; theme config
-(load-theme 'tango-dark t)
 
 ;;(set-face-attribute 'default nil :font "Liberation Mono" :height 90)
 (set-face-attribute 'default nil :font "Source Code Pro" :height 90)
@@ -52,7 +71,7 @@
 ;; remember recent opened files
 (recentf-mode 1)
 
-;; remembering minibuffer prompt history
+;; remember minibuffer prompt history
 (setq history-length 25)
 (savehist-mode 1)
 
@@ -67,6 +86,7 @@
 (setq global-auto-revert-non-file-buffers t)
 
 ;;========================================
+;; Manage custom elips support files
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (load custom-file 'noerror 'nomessage t)
 
@@ -78,7 +98,6 @@
 
 (setq backup-directory-alist
      '((".*" . "~/.config/emacs/backups")))
-
 ;;; Presetup End
 ;;========================================
 
@@ -105,7 +124,10 @@
 ;;=======================================
 
 ;;=======================================
-;;; Magit Begin
+;;; Org-mode Begin
 
-;;; Magit End
+;;; Org-mode End
 ;;=======================================
+
+;; theme config
+(load-theme 'tango-dark t)
