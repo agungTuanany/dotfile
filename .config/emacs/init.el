@@ -68,13 +68,12 @@
 
 (setq-default fill-colum 80)
 
-
 ;;(set-face-attribute 'default nil :font "Liberation Mono" :height 90)
 (set-face-attribute 'default nil :font "Source Code Pro" :height 90)
 
 ;; keybinding config
 ;; Make <ESC> quit prompt either to <C-g>
-(global-set-key (kbd "<escapge>") 'keyboard-escape-quit)
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 ;; remember recent opened files
 (recentf-mode 1)
@@ -206,4 +205,4 @@
 ;;=======================================
 
 ;; theme config
-(load-theme 'tango-dark t)
+;;(load-theme 'tango-dark t)
