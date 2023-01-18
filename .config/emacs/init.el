@@ -45,6 +45,14 @@
 (setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode t)
 
+;; disable line-numbers for some mode
+(dolist (mode '(org-mode-hook
+                term-mode-hook
+                shell-mode-hook
+                eshell-mode-hook
+                help-mode-hook))
+  (add-hook mode(lambda () (display-line-numbers-mode 0))))
+
 ;; indentation config
 (setq-default indent-tabs-mode nil)
 (setq tab-width 4)
