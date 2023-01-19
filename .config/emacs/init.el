@@ -50,6 +50,8 @@
                 term-mode-hook
                 shell-mode-hook
                 eshell-mode-hook
+                package-menu-mode-hook
+                treemacs-mode-hook
                 help-mode-hook))
   (add-hook mode(lambda () (display-line-numbers-mode 0))))
 
@@ -138,6 +140,23 @@
   :diminish which-key-mode
   :config
   (setq which-key-idle-delay 0.3))
+
+(use-package treemacs
+  :ensure t)
+
+(use-package winum
+  :ensure t
+  :config
+  (global-set-key (kbd "M-0") 'treemacs-select-window)
+  (global-set-key (kbd "M-1") 'winum-select-window-1)
+  (global-set-key (kbd "M-2") 'winum-select-window-2)
+  (global-set-key (kbd "M-3") 'winum-select-window-3)
+  (global-set-key (kbd "M-4") 'winum-select-window-4)
+  (global-set-key (kbd "M-5") 'winum-select-window-5)
+  (global-set-key (kbd "M-6") 'winum-select-window-6)
+  (global-set-key (kbd "M-7") 'winum-select-window-7)
+  (global-set-key (kbd "M-8") 'winum-select-window-8)
+  (winum-mode))
 
 ;;=======================================
 ;;; Evil Begin
