@@ -210,14 +210,57 @@
   :after evil
   :ensure t
   :bind ("M-/" . evilnc-comment-or-uncomment-lines))
-
-
 ;;; Evil End
 ;;=======================================
 
-;; Ivy completion
+;;=======================================
+;;; COMPLETION CONFIG BEGIN
+;;company completion - for code/text completion
+(use-package company
+  :ensure t
+  ;; :after lsp-mode
+  :hook ((emacs-lisp-mode . (lambda ()
+                              (setq-local company-backends '(company-elisp))))
+         (emacs-lisp-mode . company-mode))
+  :init
+  (company-mode 1)
+  :config
+  ;; double dashes implies internal function, Cause 'winum' package use 'M-' with a number.
+  (company-keymap--unbind-quick-access company-active-map)
+  (company-tng-configure-default)
+  (setq company-idle-delay 0.1
+        company-minimum-prefix-length 1))
 
-;; company completion - for code/text completion
+;; Vertico + Marginalia + Orderless
+(use-package vertico
+  :ensure t
+  :init
+  (vertico-mode 1))
+
+(use-package marginalia
+  :ensure t
+  :init
+  (marginalia-mode 1)
+  :config
+  (custom-set-faces
+   '(marginalia-documentation ((t (:inherit nil :foreground "LemonChiffon4" :weight normal))))))
+
+(use-package orderless
+  :ensure t
+  :init
+  (setq completion-styles '(orderless basic)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles partial-completion)))))
+
+;; (use-package consult
+;;   :ensure t
+;;   :init
+;;   (setq register-preview-delay 0.5
+;;         register-preview-function #'consult-register-format)
+;;   (advice-add #'register-preview :override #'consult-register-window)
+;;   )
+;;; COMPLETION CONFIG END
+;;=======================================
 
 ;;=======================================
 ;;; Lsp Begin
