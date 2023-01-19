@@ -72,7 +72,7 @@
 (setq whitespace-display-mappings
       '((tab-mark 9 [124 9] [92 9])))
 
-(setq-default fill-colum 80)
+(setq-default fill-column 80)
 
 ;;(set-face-attribute 'default nil :font "Liberation Mono" :height 90)
 (set-face-attribute 'default nil :font "Source Code Pro" :height 90)
