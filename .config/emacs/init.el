@@ -32,13 +32,13 @@
 
 (scroll-bar-mode -1)       ; Disable visible scrollbar
 (tool-bar-mode -1)         ; Disable toolbar
-(tooltip-mode -1)          ; Disable tootips
-(menu-bar-mode -1)         ; Disbale menu on top
-(set-fringe-mode 10)       ; Give some breathing rome
+(tooltip-mode -1)          ; Disable tooltip
+(menu-bar-mode -1)         ; Disable menu on top
+(set-fringe-mode 10)       ; Give some breathing room
 (electric-pair-mode 1)     ; auto-closing brackets
 (auto-revert-mode 1)       ; refresh the file if has changed
 
-(add-to-list 'default-frame-alist '(fullscreen, maximzed))
+(add-to-list 'default-frame-alist '(fullscreen, maximized))
 
 ;; line-number config
 (column-number-mode)
