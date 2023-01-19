@@ -1,4 +1,7 @@
-;;; Package -- init.el
+;;; init.el --- emacs   -*- lexical-binding: t; outline-regexp: ";;;"; eval: (local-set-key (kbd "C-c i") #'consult-outline) -*-
+;; Copyright (C) 2023
+;; Author: ;;; Package -- init.el <agung.tuanany@gmaildotcom>
+;; Keywords:
 ;;
 ;;; Commentary:
 ;; use systemlinks from the repo:
@@ -55,9 +58,12 @@
                 help-mode-hook))
   (add-hook mode(lambda () (display-line-numbers-mode 0))))
 
-;; disable background in line-number-current-line
 (custom-set-faces
- '(line-number-current-line ((t (:inherit default :foreground "#CFC0C5" :slant normal :weight bold)))))
+ ;; disable background in line-number-current-line
+ '(line-number-current-line ((t (:inherit default :foreground "#CFC0C5" :slant normal :weight bold))))
+ ;; increase comment highlight, default one is lightly
+ '(font-lock-comment-face ((t (:foreground "dim gray" :slant italic))))
+ )
 
 ;; indentation config
 (setq-default indent-tabs-mode nil)
@@ -131,8 +137,7 @@
   (setq doom-theme-enable-bold t
         doom-theme-enable-italic t)
   (load-theme 'doom-monokai-classic t))
-
-;; config modeline. The bar infromation on bottom
+;; config modeline. The bar information on bottom
 (use-package doom-modeline
   :ensure t
   :custom(
