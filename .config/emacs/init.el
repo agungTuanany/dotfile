@@ -55,6 +55,10 @@
                 help-mode-hook))
   (add-hook mode(lambda () (display-line-numbers-mode 0))))
 
+;; disable background in line-number-current-line
+(custom-set-faces
+ '(line-number-current-line ((t (:inherit default :foreground "#CFC0C5" :slant normal :weight bold)))))
+
 ;; indentation config
 (setq-default indent-tabs-mode nil)
 (setq tab-width 4)
