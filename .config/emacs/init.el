@@ -98,8 +98,12 @@
 (global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
 
+;; set firefox as my default browser
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "firefox-developer-edition")
+
 ;;========================================
-;; Manage custom elips support files
+;; Manage custom Elips support files
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (load custom-file 'noerror 'nomessage t)
 
