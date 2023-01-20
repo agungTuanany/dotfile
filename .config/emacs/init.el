@@ -1,4 +1,4 @@
-;;; init.el --- emacs   -*- lexical-binding: t; outline-regexp: ";;;"; eval: (local-set-key (kbd "C-c i") #'consult-outline) -*-
+;;; init.el --- emacs
 ;; Copyright (C) 2023
 ;; Author: ;;; Package -- init.el <agung.tuanany@gmaildotcom>
 ;; Keywords:
@@ -47,6 +47,9 @@
 (column-number-mode)
 (setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode t)
+;; fix line-number-mode when encountering an overly long line
+;; from showing double question marks
+(setq line-number-display-limit-width 10000)
 
 ;; disable line-numbers for some mode
 (dolist (mode '(org-mode-hook
@@ -63,6 +66,8 @@
  '(line-number-current-line ((t (:inherit default :foreground "#CFC0C5" :slant normal :weight bold))))
  ;; increase comment highlight, default one is lightly
  '(font-lock-comment-face ((t (:foreground "dim gray" :slant italic))))
+ ;; disable blink cursor
+ '(cursor ((t nil)))
  )
 
 ;; indentation config
@@ -108,8 +113,41 @@
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "firefox-developer-edition")
 
+;; shorten Yes/No prompts
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; Disable blinking cursor
+(setq blink-cursor-mode nil)
+
+;; TODO: enable hs-minor-mode for toggle or use somethin else
+
+;; make recenter with "C-l" start from top
+(setq recenter-positions '(top middle bottom))
+
+;; 'ediff'. when using ediff prepare horizontal split
+(setq ediff-window-setup-function 'ediff-setup-windows-plain
+      ediff-split-window-function 'split-window-horizontally)
+
+;; 'dired' prefer using one buffer unless another one is explicitly created
+(with-eval-after-load 'dired
+  (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
+
+;; adjust keystroke echo timeout
+(setq echo-keystrokes 0.5)
+
+;; Memory Management
+(setq gc-cons-threshold 5000000)
+
+;; initial buffer, let's display notes file instead as daily reminder
+(setq remember-notes-initial-major-mode 'org-mode)
+(setq initial-buffer-choice 'remember-notes)
+;; There is a bit of mismatch between the keybindings 'remember-notes-mode' and 'org-mode'
+(with-eval-after-load 'remember
+  (define-key remember-notes-mode-map (kbd "C-c C-c") nil))
+
 ;;========================================
 ;; Manage custom Elips support files
+
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (load custom-file 'noerror 'nomessage t)
 

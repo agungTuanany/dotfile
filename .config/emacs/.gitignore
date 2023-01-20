@@ -7,6 +7,9 @@ var/
 transient/
 var/
 OrgFiles/
+.cache/
+themes/
+
 
 *.#
 .#*
@@ -18,7 +21,7 @@ OrgFiles/
 history
 places
 recentf
-.cache
+notes
 
 projectile-bookmarks.eld
 forge-database.sqlite
