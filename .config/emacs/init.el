@@ -51,6 +51,25 @@
 ;; from showing double question marks
 (setq line-number-display-limit-width 10000)
 
+;; Memory Management
+(setq gc-cons-threshold 5000000)
+
+;; disable legacy algorithms 3DES
+(setq gnutls-min-prime-bits 2048)
+(setq gnutls-algorithm-priority "SECURE128")
+
+;; =*Scracth*=
+(setq initial-scratch-message "")
+(setq initial-major-mode 'emacs-lisp-mode)
+
+;; initial buffer, let's display notes file instead as daily reminder
+(setq remember-notes-bury-on-kill nil)
+(setq remember-notes-initial-major-mode 'org-mode)
+(setq initial-buffer-choice 'remember-notes)
+;; There is a bit of mismatch between the keybindings 'remember-notes-mode' and 'org-mode'
+(with-eval-after-load 'remember
+  (define-key remember-notes-mode-map (kbd "C-c C-c") nil))
+
 ;; disable line-numbers for some mode
 (dolist (mode '(org-mode-hook
                 term-mode-hook
@@ -66,8 +85,6 @@
  '(line-number-current-line ((t (:inherit default :foreground "#CFC0C5" :slant normal :weight bold))))
  ;; increase comment highlight, default one is lightly
  '(font-lock-comment-face ((t (:foreground "dim gray" :slant italic))))
- ;; disable blink cursor
- '(cursor ((t nil)))
  )
 
 ;; indentation config
@@ -135,20 +152,15 @@
 ;; adjust keystroke echo timeout
 (setq echo-keystrokes 0.5)
 
-;; Memory Management
-(setq gc-cons-threshold 5000000)
 
-;; initial buffer, let's display notes file instead as daily reminder
-(setq remember-notes-initial-major-mode 'org-mode)
-(setq initial-buffer-choice 'remember-notes)
-;; There is a bit of mismatch between the keybindings 'remember-notes-mode' and 'org-mode'
-(with-eval-after-load 'remember
-  (define-key remember-notes-mode-map (kbd "C-c C-c") nil))
+;;
+
 
 ;;========================================
 ;; Manage custom Elips support files
 
 (setq custom-file (locate-user-emacs-file "custom.el"))
+
 (load custom-file 'noerror 'nomessage t)
 
 (setq make-backup-files nil)
