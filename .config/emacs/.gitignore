@@ -9,7 +9,7 @@ var/
 OrgFiles/
 .cache/
 themes/
-
+url/
 
 *.#
 .#*
@@ -22,6 +22,7 @@ history
 places
 recentf
 notes
+projects
 
 projectile-bookmarks.eld
 forge-database.sqlite
