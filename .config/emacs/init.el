@@ -31,7 +31,9 @@
 ;;=======================================
 ;;; Presetup Begin
 (setq inhibit-startup-message t
-      visible-bell t)
+      visible-bell t
+      ;; adjust keystroke echo timeout
+      echo-keystrokes 0.5)
 
 (scroll-bar-mode -1)       ; Disable visible scrollbar
 (tool-bar-mode -1)         ; Disable toolbar
@@ -116,9 +118,6 @@
 (setq history-length 25)
 (savehist-mode 1)
 
-;; remember and restore the last place you visited in a file
-(save-place-mode 1)
-
 ;; Don't pop up UI dialogs when prompting
 (setq use-dialog-box nil)
 
@@ -149,31 +148,87 @@
 (with-eval-after-load 'dired
   (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
 
-;; adjust keystroke echo timeout
-(setq echo-keystrokes 0.5)
+;; fix scrolling
+(setq scroll-conservatively 10000
+      scroll-preserve-screen-position t)
 
+;; stop pasting at the mouse click point
+;; middle-clicking is nice to paste, however it should not adjust point and
+;; paste at the end then adjusted point
+(setq mouse-yank-at-point t)
 
-;;
+;; Display fringe indicators and fix line movement in 'visual-line-mode~
+(setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
 
+;; I don't like the remappings done to operate on visual lines (for
+;; =C-a=, =C-e= and =C-k=), so I'm just undefining them.
+(setcdr visual-line-mode-map nil)
+
+;; enable every deactive command
+;; avoiding confusion for beginners, with many option to choose.
+(setq disabled-command-function nil)
+
+;; Save clipboard data of other programs in the kill ring when possible
+(setq save-interprogram-paste-before-kill t)
+
+;; don't print integers in multiple format
+(fset 'eval-expression-print-format 'ignore)
+
+;; print backtraces in a lispier form
+(setq debugger-stack-frame-as-list t)
+
+;; display raw bytes as hex
+(setq display-raw-bytes-as-hex t)
+
+;; disable signal handler insanity
+(setq attempt-stack-overflow-recovery nil)
+(setq attempt-orderly-shutdown-on-fatal-signal nil)
+
+;; unconditionally kill subprocess at exit
+(setq confirm-kill-processes nil)
+
+;; sentence spacing
+(setq sentence-end-double-space nil)
 
 ;;========================================
-;; Manage custom Elips support files
+;; Manage Backup, autosave, custom, backup
 
 (setq custom-file (locate-user-emacs-file "custom.el"))
-
 (load custom-file 'noerror 'nomessage t)
 
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 
-(setq auto-save-file-name-transforms
-     '((".*"  "~/.config/emacs/auto-save-list" t)))
+(setq auto-save-list-file-prefix "~/.config/emacs/autosave")
+(setq auto-save-file-name-transforms '((".*"  "~/.config/emacs/autosavelist" t)))
 
+;; Backup files are created on save in the same directory as the file and
+;; end in =~=.  They can be numbered which makes most sense combined with
+;; a different save location and automatic pruning.
 (setq backup-directory-alist
-     '((".*" . "~/.config/emacs/backups")))
+      '((".*" . "~/.config/emacs/backups")))
+(setq version-control t)
+(setq delete-old-versions t)
+
+;; Lock files are put in the same directory to detect multiple users
+;; trying to edit the same file. Given that I'm on a single-user system,
+;; I can migrate them elsewhere as of Emacs 28.1.
+(setq lock-file-name-transforms '((".*" "~/.config/emacs/lock/" t)))
+
+(setq bookmark-default-file "~/.config/emacs/etc/bookmarks")
+
+;; remember and restore the last place you visited in a file
+(save-place-mode 1)
+(setq save-place-file "~/.config/emacs/etc/places")
+
+;; TRAMP https://www.gnu.org/software/tramp/
+;; makes backup files, they should better be kept locally than remote
+(setq tramp-backup-directory-alist backup-directory-alist)
+(with-eval-after-load 'tramp-cache
+  (setq tramp-persistency-file-name "~/.config/emacs/etc/tramp"))
+
 ;;; Presetup End
 ;;========================================
-
 
 
 ;;========================================
@@ -192,7 +247,7 @@
   :ensure t
   :custom(
           (doom-modeline-height 15))
-  :init (doom-modeline-mode 1) )
+  :init (doom-modeline-mode 1))
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
