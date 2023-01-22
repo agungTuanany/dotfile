@@ -199,8 +199,8 @@
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 
-(setq auto-save-list-file-prefix "~/.config/emacs/autosave")
-(setq auto-save-file-name-transforms '((".*"  "~/.config/emacs/autosavelist" t)))
+(setq auto-save-list-file-prefix "~/.config/emacs/autosave/")
+(setq auto-save-file-name-transforms '((".*"  "~/.config/emacs/autosave/" t)))
 
 ;; Backup files are created on save in the same directory as the file and
 ;; end in =~=.  They can be numbered which makes most sense combined with
@@ -219,7 +219,11 @@
 
 ;; remember and restore the last place you visited in a file
 (save-place-mode 1)
-(setq save-place-file "~/.config/emacs/etc/places")
+(setq save-place-file "~/.config/emacs/etc/saveplace")
+
+;; move recentf to etc for not cluttering base dir
+(setq recentf-save-file "~/.config/emacs/etc/recentf"
+      recentf-max-saved-items 50)
 
 ;; TRAMP https://www.gnu.org/software/tramp/
 ;; makes backup files, they should better be kept locally than remote
@@ -286,8 +290,21 @@
   (setq evil-want-C-u-scroll nil)
   (setq evil-want-C-i-jump t)
   (setq evil-undo-system 'undo-redo)
+  ;; going for emacs state whenever it makes sense
+  ;; respect and use emacs motion state (emacs movement)
+  (setq evil-default-state 'emacs
+        evil-emacs-state-modes nil
+        evil-insert-state-modes nil
+        evil-motion-state-modes nil
+        evil-normal-state-modes '(text-mode prog-mode fundamental-mode
+                                            css-mode conf-mode TeX-mode
+                                            diff-mode))
+  (add-hook 'org-capture-mode-hook 'evil-insert-state)
+  (add-hook 'with-editor-mode-hook 'evil-insert-state)
+  (add-hook 'view-mode-hook 'evil-emacs-state)
   :config
   (evil-mode 1)
+  ;; keybindings
   (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
   (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
   (define-key evil-normal-state-map (kbd "v") 'evil-visual-block)
