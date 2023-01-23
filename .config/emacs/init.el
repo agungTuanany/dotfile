@@ -15,8 +15,8 @@
                          ("elpa" . "https://elpa.gnu.org/packages/")))
 
 (package-initialize)
-(unless package-archive-contents
-  (package-refresh-contents))
+(when (not package-archive-contents)
+    (package-refresh-contents))
 
 ;; Initialize use-package on non-Linux platforms
 (unless (package-installed-p 'use-package)
@@ -280,18 +280,30 @@
   (global-set-key (kbd "M-8") 'winum-select-window-8)
   (winum-mode))
 
+(use-package pdf-tools
+  :pin manual
+  :config
+  ;;(pdf-tools-install)
+  (setq-default pdf-view-display-size 'fit-width)
+  (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward)
+  :custom
+  (pdf-annot-activate-created-annotations t "automatically annotate highlights")
+  (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+        TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view))
+        TeX-source-correlate-start-server t)
+
+  (add-hook 'TeX-after-compilation-finished-functions
+            #'TeX-revert-document-buffer)
+  (add-hook 'pdf-view-mode-hook (lambda() (linum-mode -1)))
+  )
 ;;=======================================
 ;;; Evil Begin
 (use-package evil
   :ensure t
   :init
-  (setq evil-want-integration t)
-  (setq evil-want-keybinding nil)
-  (setq evil-want-C-u-scroll nil)
-  (setq evil-want-C-i-jump t)
-  (setq evil-undo-system 'undo-redo)
-  ;; going for emacs state whenever it makes sense
-  ;; respect and use emacs motion state (emacs movement)
+
+  ;;  going for emacs state whenever it makes sense
+  ;;respect and use emacs motion state (emacs movement)
   (setq evil-default-state 'emacs
         evil-emacs-state-modes nil
         evil-insert-state-modes nil
