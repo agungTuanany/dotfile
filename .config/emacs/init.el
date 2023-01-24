@@ -301,21 +301,45 @@
 (use-package evil
   :ensure t
   :init
+  ;; going for emacs state whenever it makes sense
+  ;; respect and use emacs motion state (emacs movement)
+  ;; (setq evil-default-state 'emacs
+  ;;       evil-emacs-state-modes nil
+  ;;       evil-insert-state-modes nil
+  ;;       evil-motion-state-modes nil
+  ;;       evil-normal-state-modes '(text-mode prog-mode fundamental-mode
+  ;;                                           css-mode conf-mode TeX-mode
+  ;;                                           diff-mode))
+  ;; (add-hook 'org-capture-mode-hook 'evil-insert-state)
+  ;; (add-hook 'with-editor-mode-hook 'evil-insert-state)
+  ;; (add-hook 'view-mode-hook 'evil-emacs-state)
 
-  ;;  going for emacs state whenever it makes sense
-  ;;respect and use emacs motion state (emacs movement)
-  (setq evil-default-state 'emacs
-        evil-emacs-state-modes nil
-        evil-insert-state-modes nil
-        evil-motion-state-modes nil
-        evil-normal-state-modes '(text-mode prog-mode fundamental-mode
-                                            css-mode conf-mode TeX-mode
-                                            diff-mode))
-  (add-hook 'org-capture-mode-hook 'evil-insert-state)
-  (add-hook 'with-editor-mode-hook 'evil-insert-state)
-  (add-hook 'view-mode-hook 'evil-emacs-state)
+  ;; base setting adjustment
+  ;; make movement, undo and search feel a bit less weird
+  (setq evil-want-integration t
+        evil-want-keybinding nil
+        evil-want-C-u-scroll t
+        evil-want-C-i-jump t
+        evil-undo-system 'undo-redo
+        evil-cross-lines t
+        evil-move-beyond-eol t
+        evil-want-fine-undo t
+        evil-symbol-word-search t)
+
+  ;; enable 'C-w' in emacs-state
+  (with-eval-after-load 'evil-vars
+    (setq evil-want-C-w-in-emacs-state nil))
+
+  ;; (with-eval-after-load 'evil-common
+  ;;   (evil-declare-motion 'recenter-top-bottom))
+
+  ;; 'Y' as yank to the end of the line
+  (setq evil-want-Y-yank-to-eol t)
+
+  ;; disable setting up anyting in 'insert state keymap'
+  (setq evil-disable-insert-state-bindings t)
+
   :config
-  (evil-mode 1)
   ;; keybindings
   (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
   (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
@@ -330,6 +354,8 @@
 
   (evil-set-initial-state 'message-buffer-mode 'normal)
   (evil-set-initial-state 'dashboard-mode 'normal)
+
+  (evil-mode 1)
   )
 
 (use-package evil-collection
