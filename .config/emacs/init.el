@@ -396,6 +396,10 @@
   (setq company-idle-delay 0.1
         company-minimum-prefix-length 1))
 
+(use-package company-box
+  :ensure t
+  :hook (company-mode . company-box-mode))
+
 ;; Vertico + Marginalia + Orderless
 (use-package vertico
   :ensure t
@@ -417,13 +421,13 @@
         completion-category-defaults nil
         completion-category-overrides '((file (styles partial-completion)))))
 
-;; (use-package consult
-;;   :ensure t
-;;   :init
-;;   (setq register-preview-delay 0.5
-;;         register-preview-function #'consult-register-format)
-;;   (advice-add #'register-preview :override #'consult-register-window)
-;;   )
+(use-package consult
+  :ensure t
+  :init
+  (setq register-preview-delay 0.5
+        register-preview-function #'consult-register-format)
+  (advice-add #'register-preview :override #'consult-register-window)
+  )
 ;;; COMPLETION CONFIG END
 ;;=======================================
 
