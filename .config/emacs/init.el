@@ -454,9 +454,7 @@
                   (org-level-6 . 1.1)
                   (org-level-7 . 1.1)
                   (org-level-8 . 1.1)))
-    (set-face-attribute (car face) nil :font "Cantarell" :weight 'semibold :height (cdr face) :slant: oblique)
-
-    )
+    (set-face-attribute (car face) nil :font "Cantarell" :weight 'semibold :height (cdr face) :slant 'oblique))
 
   ;; Ensure that anything that should be fixed-pitch in Org files appears that way
   (set-face-attribute 'org-block nil    :foreground nil :inherit 'fixed-pitch)
@@ -483,8 +481,31 @@
   :config
   (setq org-ellipsis " ▾" )
 
+  (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
+  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+  (add-to-list 'org-structure-template-alist '("py" . "src python"))
+  (add-to-list 'org-structure-template-alist '("js" . "src js"))
+  (add-to-list 'org-structure-template-alist '("rs" . "src rust"))
+
   (my-org-font-setup)
   )
+
+;; enable org-babel-do-laod language for Rust
+(use-package ob-rust
+  :ensure t )
+
+(with-eval-after-load 'org
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (python . t)
+     (rust . t)
+     (js . t)
+     ))
+
+  (push '("conf-unix" . conf-unix) org-src-lang-modes))
+
+
 
 ;;; Org-mode End
 ;;=======================================
