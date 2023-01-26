@@ -248,12 +248,16 @@
   (setq-default doom-theme-enable-bold t
                 doom-theme-enable-italic t)
   (load-theme 'doom-monokai-classic t))
+
 ;; config modeline. The bar information on bottom
 (use-package doom-modeline
   :ensure t
   :custom(
           (doom-modeline-height 15))
   :init (doom-modeline-mode 1))
+
+(use-package all-the-icons
+  :if (display-graphic-p))
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
@@ -684,7 +688,8 @@
               )
 
   :config
-  ;; general
+  ;;======================================
+  ;; lsp config general begin
   (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
   (lsp-enable-which-key-integration t)
   (setq lsp-enable-links nil

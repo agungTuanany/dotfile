@@ -23,6 +23,7 @@ places
 recentf
 notes
 projects
+.lsp-session*
 
 projectile-bookmarks.eld
 forge-database.sqlite
