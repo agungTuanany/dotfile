@@ -639,10 +639,105 @@
      ))
 
   (push '("conf-unix" . conf-unix) org-src-lang-modes))
-
-
-
 ;;; Org-mode End
+;;=======================================
+
+
+;;=======================================
+;;; predefine Lsp Begin
+
+;; use  flycheck instead flymake
+(use-package flycheck
+  :ensure t
+  :config
+  (global-flycheck-mode))
+
+;; Rust mode
+(use-package rust-mode
+  :ensure t
+  :hook ((rust-mode . flycheck-mode)
+         (rust-mode . hs-minor-minor))
+  :bind (:map rust-mode-map
+              ("<f6>" . my/rust-format-buffer)
+              ("C-c 6" . my/rust-format-buffer))
+  :config
+  ;;(require 'lsp-rustfmt)
+  ;;https://gist.github.com/ntBre/b0622cc212314d4d2ea795d913980068
+  (defun my/rust-format-buffer ()
+    "Rust Format buffer"
+    (interactive)
+    (rust-format-buffer)
+    (save-buffer)))
+
+;;; Predefine Lsp Begin End
+;;=======================================
+
+;;=======================================
+;;; Lsp Begin
+(use-package lsp-mode
+  :ensure t
+  :hook (rust-mode . lsp-deferred)
+  :bind (:map lsp-mode-map
+              ("C-c d" . lsp-describe-thing-at-point)
+              ("C-c a" . lsp-execute-code-action)
+              ;; ("C-c f" . flycheck-list-error)
+              )
+
+  :config
+  ;; general
+  (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
+  (lsp-enable-which-key-integration t)
+  (setq lsp-enable-links nil
+        lsp-keep-workspace-alive nil)
+  ;; prevent perfomance to be slow
+  (setq lsp-log-io nil)
+
+  (cl-defmethod lsp-clients-extract-signature-on-hover
+    (contents (_server-id (eql rust-analyzer)))
+    "from https://github.com/emacs-lsp/lsp-mode/pull/1740 to extract signature in rust"
+    (-let* (((&hash "value") contents)
+            (groups (--partition-by (s-blank? it) (s-lines (s-trim value))))
+            (sig_group (if (s-equals? "```rust" (car (-third-item groups)))
+                           (-third-item groups)
+                         (car groups)))
+            (sig (--> sig_group
+                      (--drop-while (s-equals? "```rust" it) it)
+                      (--take-while (not (s-equals? "```" it)) it)
+                      (--map (s-trim it) it)
+                      (s-join " " it))))
+      (lsp--render-element (concat "```rust\n" sig "\n```"))))
+
+
+  ;; rust on lsp config
+    (require 'lsp-rust)
+  (setq lsp-rust-analyzer-completion-add-call-parenthesis nil
+        lsp-rust-analyzer-proc-macro-enable t
+        lsp-rust-analyzer-cargo-watch-command "clippy")
+
+
+  ;; Elisp on lsp config
+  (add-hook 'emacs-lisp-mode-hook
+              (lambda ()
+                ;; Use spaces, not tabs.
+                (setq indent-tabs-mode nil)
+                ;; Keep M-TAB for `completion-at-point'
+                (define-key flyspell-mode-map "\M-\t" nil)
+                ;; Pretty-print eval'd expressions.
+                (define-key emacs-lisp-mode-map
+                            "\C-x\C-e" 'pp-eval-last-sexp)
+                ;; Recompile if .elc exists.
+                (add-hook (make-local-variable 'after-save-hook)
+                          (lambda ()
+                            (byte-force-recompile default-directory)))
+                (define-key emacs-lisp-mode-map
+                            "\r" 'reindent-then-newline-and-indent)))
+
+    (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
+    ;; Requires Ispell
+    (add-hook 'emacs-lisp-mode-hook 'flyspell-prog-mode)
+  )
+
+;;; Lsp End
 ;;=======================================
 
 ;; theme config
@@ -665,3 +760,5 @@
 ;;     (load-theme 'my-solarized t)))
 ;; (my-load-theme)
 ;; (add-hook 'after-make-frame-functions 'my-load-theme)
+
+;;; init.el ends here
