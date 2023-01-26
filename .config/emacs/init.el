@@ -1,4 +1,4 @@
-;;; init.el --- emacs
+;;; init.el --- emacs  -*- lexical-binding: t; -*-
 ;; Copyright (C) 2023
 ;; Author: ;;; Package -- init.el <agung.tuanany@gmaildotcom>
 ;; Keywords:
@@ -6,6 +6,8 @@
 ;;; Commentary:
 ;; use systemlinks from the repo:
 ;; ln -s ~/Repo/agung_dotfile/.config/emacs ~/config/
+;;
+;;; Code:
 
 ;;=======================================
 ;;; Presetup package sources Begin
@@ -47,7 +49,7 @@
 
 ;; line-number config
 (column-number-mode)
-(setq display-line-numbers-type 'relative)
+(setq-default display-line-numbers-type 'relative)
 (global-display-line-numbers-mode t)
 ;; fix line-number-mode when encountering an overly long line
 ;; from showing double question marks
@@ -57,16 +59,16 @@
 (setq gc-cons-threshold 5000000)
 
 ;; disable legacy algorithms 3DES
-(setq gnutls-min-prime-bits 2048)
-(setq gnutls-algorithm-priority "SECURE128")
+(setq-default gnutls-min-prime-bits 2048)
+(setq-default gnutls-algorithm-priority "SECURE128")
 
 ;; =*Scracth*=
 (setq initial-scratch-message "")
 (setq initial-major-mode 'emacs-lisp-mode)
 
 ;; initial buffer, let's display notes file instead as daily reminder
-(setq remember-notes-bury-on-kill nil)
-(setq remember-notes-initial-major-mode 'org-mode)
+(setq-default remember-notes-bury-on-kill nil)
+(setq-default remember-notes-initial-major-mode 'org-mode)
 (setq initial-buffer-choice 'remember-notes)
 ;; There is a bit of mismatch between the keybindings 'remember-notes-mode' and 'org-mode'
 (with-eval-after-load 'remember
@@ -95,11 +97,11 @@
 
 ;; trailing whitespace
 (global-whitespace-mode)
-(setq whitespace-style '(face tabs tab-mark trailing))
+(setq-default whitespace-style '(face tabs tab-mark trailing))
 (custom-set-faces
  '(whitespace-tab ((t (:foreground "#636363")))))
 
-(setq whitespace-display-mappings
+(setq-default whitespace-display-mappings
       '((tab-mark 9 [124 9] [92 9])))
 
 (setq-default fill-column 80)
@@ -123,7 +125,7 @@
 
 ;; Revert buffers when the underlying file has changed
 (global-auto-revert-mode 1)
-(setq global-auto-revert-non-file-buffers t)
+(setq-default global-auto-revert-non-file-buffers t)
 
 ;; set firefox as my default browser
 (setq browse-url-browser-function 'browse-url-generic
@@ -141,7 +143,7 @@
 (setq recenter-positions '(top middle bottom))
 
 ;; 'ediff'. when using ediff prepare horizontal split
-(setq ediff-window-setup-function 'ediff-setup-windows-plain
+(setq-default ediff-window-setup-function 'ediff-setup-windows-plain
       ediff-split-window-function 'split-window-horizontally)
 
 ;; 'dired' prefer using one buffer unless another one is explicitly created
@@ -215,21 +217,21 @@
 ;; I can migrate them elsewhere as of Emacs 28.1.
 (setq lock-file-name-transforms '((".*" "~/.config/emacs/lock/" t)))
 
-(setq bookmark-default-file "~/.config/emacs/etc/bookmarks")
+(setq-default bookmark-default-file "~/.config/emacs/etc/bookmarks")
 
 ;; remember and restore the last place you visited in a file
 (save-place-mode 1)
-(setq save-place-file "~/.config/emacs/etc/saveplace")
+(setq-default save-place-file "~/.config/emacs/etc/saveplace")
 
 ;; move recentf to etc for not cluttering base dir
-(setq recentf-save-file "~/.config/emacs/etc/recentf"
+(setq-default recentf-save-file "~/.config/emacs/etc/recentf"
       recentf-max-saved-items 50)
 
 ;; TRAMP https://www.gnu.org/software/tramp/
 ;; makes backup files, they should better be kept locally than remote
-(setq tramp-backup-directory-alist backup-directory-alist)
+(setq-default tramp-backup-directory-alist backup-directory-alist)
 (with-eval-after-load 'tramp-cache
-  (setq tramp-persistency-file-name "~/.config/emacs/etc/tramp"))
+  (setq-default tramp-persistency-file-name "~/.config/emacs/etc/tramp"))
 
 ;;; Presetup End
 ;;========================================
@@ -243,8 +245,8 @@
   :ensure t
   :config
   ;; Global settings (defaults)
-  (setq doom-theme-enable-bold t
-        doom-theme-enable-italic t)
+  (setq-default doom-theme-enable-bold t
+                doom-theme-enable-italic t)
   (load-theme 'doom-monokai-classic t))
 ;; config modeline. The bar information on bottom
 (use-package doom-modeline
@@ -432,15 +434,9 @@
 ;;=======================================
 
 ;;=======================================
-;;; Lsp Begin
-
-;;; Lsp End
-;;=======================================
-
-;;=======================================
 ;;; Org-mode Begin
 (defun my-org-font-setup ()
-  "Replace list hyphen with dot"
+  "Replace list hyphen with dot."
   (font-lock-add-keywords 'org-mode
                           '(("^ *\\([-]\\) "
                              (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
@@ -471,10 +467,10 @@
   )
 
 (defun my-org-mode-setup ()
-  "Setup all org modes"
+  "Setup all org modes."
   ;; (org-indent-mode)
   ;; (variable-pitch-mode 1)
-  (setq org-catch-invisible-edits 'error
+  (setq-default org-catch-invisible-edits 'error
         org-startup-indented t
         org-cycle-include-plain-lists 'integrate
         org-return-follows-link t
@@ -500,7 +496,7 @@
   (add-to-list 'org-structure-template-alist '("js" . "src js"))
   (add-to-list 'org-structure-template-alist '("rs" . "src rust"))
 
-  (setq org-agenda-start-with-log-mode t)
+  (setq-default org-agenda-start-with-log-mode t)
   (setq org-log-done 'time)
   (setq org-log-into-drawer t)
 
@@ -514,8 +510,8 @@
 
   (require 'org-habit)
   (add-to-list 'org-modules 'org-habit)
-  (setq org-habit-graph-column 60)
-  (setq org-refile-targets
+  (setq-default org-habit-graph-column 60)
+  (setq-default org-refile-targets
         '(("Archive.org" :maxlevel . 1)
           ("Task.org" :maxlevel . 1)))
 
@@ -543,7 +539,7 @@
 
   ;;Agenda query documentation: https://orgmode.org/manual/Custom-Agenda-Views.html#Custom-Agenda-Views
   ;; Configure custom agenda views
-  (setq org-agenda-custom-commands
+  (setq-default org-agenda-custom-commands
         '(("d" "Dashboard"
            ((agenda "" ((org-deadline-warning-days 7)))
             (todo "NEXT"
@@ -591,7 +587,7 @@
                   ((org-agenda-overriding-header "Cancelled Projects")
                    (org-agenda-files org-agenda-files)))))))
 
-  (setq org-capture-templates
+  (setq-default org-capture-templates
         `(("t" "Tasks / Projects")
           ("tt" "Task" entry (file+olp "~/.config/emacs/OrgFiles/Task.org" "Inbox")
            "* TODO %?\n %U\n %a\n  %i" :empty-lines 1)
