@@ -472,8 +472,21 @@
 
 (defun my-org-mode-setup ()
   "Setup all org modes"
-  (org-indent-mode)
-  (variable-pitch-mode 1)
+  ;; (org-indent-mode)
+  ;; (variable-pitch-mode 1)
+  (setq org-catch-invisible-edits 'error
+        org-startup-indented t
+        org-cycle-include-plain-lists 'integrate
+        org-return-follows-link t
+        org-M-RET-may-split-line nil
+        org-src-fontify-natively t
+        org-src-preserve-indentation t
+        org-enforce-todo-dependencies t
+        org-enforce-todo-checkbox-dependencies t
+        org-link-frame-setup '((file . find-file)))
+
+  ;; if variable-pitch-mode enabled just use my default font
+  (set-face-attribute 'variable-pitch nil :family "Source Code Pro")
   )
 
 (use-package org
