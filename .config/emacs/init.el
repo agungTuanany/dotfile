@@ -707,6 +707,10 @@
                       (s-join " " it))))
       (lsp--render-element (concat "```rust\n" sig "\n```"))))
 
+  (setq lsp-session-file "~/.config/emacs/etc/.lsp-session-v1")
+
+  ;; lsp config general end
+  ;;======================================
 
   ;; rust on lsp config
     (require 'lsp-rust)
