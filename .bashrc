@@ -51,6 +51,7 @@ alias duck='lynx duckduckgo.com'
 alias archwiki='lynx wiki.archlinux.org'
 
 alias rl='source ~/.bashrc'
+alias dmesg='sudo dmesg -T -x'
 
 # GIT ALIASES
 # alias gl="git log --pretty=oneline --abbrev-commit"
