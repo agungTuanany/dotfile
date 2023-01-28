@@ -38,7 +38,7 @@ alias xinitrc='nvim ~/.xinitrc'
 alias _xstart='e_key && xmonitor'
 
 alias c='clear'
-alias igrep='grep -i'
+alias igrep='grep -i --color'
 alias bashrc='nvim ~/.bashrc'
 
 alias pacupdate='sudo pacman -Syu'
