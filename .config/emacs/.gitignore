@@ -24,6 +24,7 @@ recentf
 notes
 projects
 .lsp-session*
+flycheck_init*
 
 projectile-bookmarks.eld
 forge-database.sqlite
