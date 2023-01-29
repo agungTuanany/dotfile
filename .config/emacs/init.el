@@ -225,7 +225,9 @@
 
 ;; move recentf to etc for not cluttering base dir
 (setq-default recentf-save-file "~/.config/emacs/etc/recentf"
-              recentf-max-saved-items 50)
+              recentf-max-saved-items 25
+              recentf-max-menu-items 25)
+(global-set-key "\C-x\ \C-r" 'recentf-open-files)
 
 ;; TRAMP https://www.gnu.org/software/tramp/
 ;; makes backup files, they should better be kept locally than remote
