@@ -81,6 +81,7 @@
                 eshell-mode-hook
                 package-menu-mode-hook
                 treemacs-mode-hook
+                markdown-mode-hook
                 help-mode-hook))
   (add-hook mode(lambda () (display-line-numbers-mode 0))))
 
