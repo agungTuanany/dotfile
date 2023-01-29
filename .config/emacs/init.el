@@ -437,6 +437,13 @@
         register-preview-function #'consult-register-format)
   (advice-add #'register-preview :override #'consult-register-window)
   )
+
+;; use  flycheck instead flymake
+(use-package flycheck
+  :ensure t
+  :config
+  (global-flycheck-mode))
+
 ;;; COMPLETION CONFIG END
 ;;=======================================
 
@@ -460,32 +467,34 @@
     (set-face-attribute (car face) nil :font "Cantarell" :weight 'semibold :height (cdr face) :slant 'oblique))
 
   ;; Ensure that anything that should be fixed-pitch in Org files appears that way
-  (set-face-attribute 'org-block nil    :foreground nil :inherit 'fixed-pitch)
-  (set-face-attribute 'org-table nil    :inherit 'fixed-pitch)
-  (set-face-attribute 'org-formula nil  :inherit 'fixed-pitch)
-  (set-face-attribute 'org-code nil     :inherit '(shadow fixed-pitch))
-  (set-face-attribute 'org-table nil    :inherit '(shadow fixed-pitch))
-  (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
-  (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
-  (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
-  (set-face-attribute 'org-checkbox nil  :inherit 'fixed-pitch)
   (set-face-attribute 'line-number nil   :inherit 'fixed-pitch)
   (set-face-attribute 'line-number-current-line nil :inherit 'fixed-pitch)
+  (set-face-attribute 'org-block nil    :foreground nil :inherit 'fixed-pitch)
+  (set-face-attribute 'org-checkbox nil  :inherit 'fixed-pitch)
+  (set-face-attribute 'org-code nil     :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-formula nil  :inherit 'fixed-pitch)
+  (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-table nil    :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-table nil    :inherit 'fixed-pitch)
+  (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
   )
 
 (defun my-org-mode-setup ()
   "Setup all org modes."
   ;; (org-indent-mode)
   ;; (variable-pitch-mode 1)
-  (setq-default org-catch-invisible-edits 'error
-                org-startup-indented t
-                org-cycle-include-plain-lists 'integrate
-                org-return-follows-link t
+  (setq-default
                 org-M-RET-may-split-line nil
+                org-cycle-include-plain-lists 'integrate
+                org-enforce-todo-checkbox-dependencies t
+                org-enforce-todo-dependencies t
+                org-hide-emphasis-markers t
+                org-return-follows-link t
                 org-src-fontify-natively t
                 org-src-preserve-indentation t
-                org-enforce-todo-dependencies t
-                org-enforce-todo-checkbox-dependencies t
+                org-startup-indented t
+                org-catch-invisible-edits 'error
                 org-link-frame-setup '((file . find-file)))
 
   ;; if variable-pitch-mode enabled just use my default font
@@ -497,11 +506,11 @@
   :config
   (setq org-ellipsis " ▾" )
 
-  (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-  (add-to-list 'org-structure-template-alist '("py" . "src python"))
   (add-to-list 'org-structure-template-alist '("js" . "src js"))
+  (add-to-list 'org-structure-template-alist '("py" . "src python"))
   (add-to-list 'org-structure-template-alist '("rs" . "src rust"))
+  (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
 
   (setq-default org-agenda-start-with-log-mode t)
   (setq org-log-done 'time)
@@ -538,11 +547,11 @@
           ("@home" . ?H)
           ("@work" . ?W)
           ("agenda" . ?a)
-          ("planning" . ?p)
-          ("publish" . ?P)
           ("batch" . ?b)
+          ("idea" . ?i)
           ("note" . ?n)
-          ("idea" . ?i)))
+          ("planning" . ?p)
+          ("publish" . ?P)))
 
   ;;Agenda query documentation: https://orgmode.org/manual/Custom-Agenda-Views.html#Custom-Agenda-Views
   ;; Configure custom agenda views
@@ -627,8 +636,6 @@
   (define-key global-map (kbd "C-c j")
     (lambda () (interactive) (org-capture nil "jj")))
 
-
-
   (my-org-font-setup)
   )
 
@@ -640,10 +647,9 @@
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((emacs-lisp . t)
-     (python . t)
-     (rust . t)
      (js . t)
-     ))
+     (python . t)
+     (rust . t)))
 
   (push '("conf-unix" . conf-unix) org-src-lang-modes))
 ;;; Org-mode End
@@ -652,12 +658,6 @@
 
 ;;=======================================
 ;;; predefine Lsp Begin
-
-;; use  flycheck instead flymake
-(use-package flycheck
-  :ensure t
-  :config
-  (global-flycheck-mode))
 
 ;; Rust mode
 (use-package rust-mode
@@ -676,7 +676,7 @@
     (rust-format-buffer)
     (save-buffer)))
 
-;;; Predefine Lsp Begin End
+;;; Predefine Lsp End
 ;;=======================================
 
 ;;=======================================
@@ -728,6 +728,13 @@
   )
 ;;; Lsp End
 ;;=======================================
+
+;;; markdown setup
+
+(dolist (hook '(markdown-mode))
+  (add-hook hook (lambda () (flyspell-mode 1)))
+  (setq markdown-hide-markup t)
+  )
 
 ;; Elisp
 ;; (add-hook 'emacs-lisp-mode-hook
