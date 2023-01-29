@@ -18,7 +18,7 @@
 
 (package-initialize)
 (when (not package-archive-contents)
-    (package-refresh-contents))
+  (package-refresh-contents))
 
 ;; Initialize use-package on non-Linux platforms
 (unless (package-installed-p 'use-package)
@@ -102,7 +102,7 @@
  '(whitespace-tab ((t (:foreground "#636363")))))
 
 (setq-default whitespace-display-mappings
-      '((tab-mark 9 [124 9] [92 9])))
+              '((tab-mark 9 [124 9] [92 9])))
 
 (setq-default fill-column 80)
 
@@ -144,7 +144,7 @@
 
 ;; 'ediff'. when using ediff prepare horizontal split
 (setq-default ediff-window-setup-function 'ediff-setup-windows-plain
-      ediff-split-window-function 'split-window-horizontally)
+              ediff-split-window-function 'split-window-horizontally)
 
 ;; 'dired' prefer using one buffer unless another one is explicitly created
 (with-eval-after-load 'dired
@@ -225,7 +225,7 @@
 
 ;; move recentf to etc for not cluttering base dir
 (setq-default recentf-save-file "~/.config/emacs/etc/recentf"
-      recentf-max-saved-items 50)
+              recentf-max-saved-items 50)
 
 ;; TRAMP https://www.gnu.org/software/tramp/
 ;; makes backup files, they should better be kept locally than remote
@@ -475,15 +475,15 @@
   ;; (org-indent-mode)
   ;; (variable-pitch-mode 1)
   (setq-default org-catch-invisible-edits 'error
-        org-startup-indented t
-        org-cycle-include-plain-lists 'integrate
-        org-return-follows-link t
-        org-M-RET-may-split-line nil
-        org-src-fontify-natively t
-        org-src-preserve-indentation t
-        org-enforce-todo-dependencies t
-        org-enforce-todo-checkbox-dependencies t
-        org-link-frame-setup '((file . find-file)))
+                org-startup-indented t
+                org-cycle-include-plain-lists 'integrate
+                org-return-follows-link t
+                org-M-RET-may-split-line nil
+                org-src-fontify-natively t
+                org-src-preserve-indentation t
+                org-enforce-todo-dependencies t
+                org-enforce-todo-checkbox-dependencies t
+                org-link-frame-setup '((file . find-file)))
 
   ;; if variable-pitch-mode enabled just use my default font
   (set-face-attribute 'variable-pitch nil :family "Source Code Pro")
@@ -516,8 +516,8 @@
   (add-to-list 'org-modules 'org-habit)
   (setq-default org-habit-graph-column 60)
   (setq-default org-refile-targets
-        '(("Archive.org" :maxlevel . 1)
-          ("Task.org" :maxlevel . 1)))
+                '(("Archive.org" :maxlevel . 1)
+                  ("Task.org" :maxlevel . 1)))
 
   ;; Save Org buffers after refiling!
   (advice-add 'org-refile :after 'org-save-all-org-buffers)
@@ -544,80 +544,80 @@
   ;;Agenda query documentation: https://orgmode.org/manual/Custom-Agenda-Views.html#Custom-Agenda-Views
   ;; Configure custom agenda views
   (setq-default org-agenda-custom-commands
-        '(("d" "Dashboard"
-           ((agenda "" ((org-deadline-warning-days 7)))
-            (todo "NEXT"
-                  ((org-agenda-overriding-header "Next Tasks")))
-            (tags-todo "agenda/ACTIVE" ((org-agenda-overriding-header "Active Projects")))))
+                '(("d" "Dashboard"
+                   ((agenda "" ((org-deadline-warning-days 7)))
+                    (todo "NEXT"
+                          ((org-agenda-overriding-header "Next Tasks")))
+                    (tags-todo "agenda/ACTIVE" ((org-agenda-overriding-header "Active Projects")))))
 
-          ("n" "Next Tasks"
-           ((todo "NEXT"
-                  ((org-agenda-overriding-header "Next Tasks")))))
+                  ("n" "Next Tasks"
+                   ((todo "NEXT"
+                          ((org-agenda-overriding-header "Next Tasks")))))
 
-          ;; '-' minus sign with tag name to remove 'email' in a list
-          ("W" "Work Tasks" tags-todo "+work-email")
+                  ;; '-' minus sign with tag name to remove 'email' in a list
+                  ("W" "Work Tasks" tags-todo "+work-email")
 
-          ;; Low-effort next actions
-          ("e" tags-todo "+TODO=\"NEXT\"+Effort<15&+Effort>0"
-           ((org-agenda-overriding-header "Low Effort Tasks")
-            (org-agenda-max-todos 20)
-            (org-agenda-files org-agenda-files)))
+                  ;; Low-effort next actions
+                  ("e" tags-todo "+TODO=\"NEXT\"+Effort<15&+Effort>0"
+                   ((org-agenda-overriding-header "Low Effort Tasks")
+                    (org-agenda-max-todos 20)
+                    (org-agenda-files org-agenda-files)))
 
-          ("w" "Workflow Status"
-           ((todo "WAIT"
-                  ((org-agenda-overriding-header "Waiting on External")
-                   (org-agenda-files org-agenda-files)))
-            (todo "REVIEW"
-                  ((org-agenda-overriding-header "In Review")
-                   (org-agenda-files org-agenda-files)))
-            (todo "PLAN"
-                  ((org-agenda-overriding-header "In Planning")
-                   (org-agenda-todo-list-sublevels nil)
-                   (org-agenda-files org-agenda-files)))
-            (todo "BACKLOG"
-                  ((org-agenda-overriding-header "Project Backlog")
-                   (org-agenda-todo-list-sublevels nil)
-                   (org-agenda-files org-agenda-files)))
-            (todo "READY"
-                  ((org-agenda-overriding-header "Ready for Work")
-                   (org-agenda-files org-agenda-files)))
-            (todo "ACTIVE"
-                  ((org-agenda-overriding-header "Active Projects")
-                   (org-agenda-files org-agenda-files)))
-            (todo "COMPLETED"
-                  ((org-agenda-overriding-header "Completed Projects")
-                   (org-agenda-files org-agenda-files)))
-            (todo "CANC"
-                  ((org-agenda-overriding-header "Cancelled Projects")
-                   (org-agenda-files org-agenda-files)))))))
+                  ("w" "Workflow Status"
+                   ((todo "WAIT"
+                          ((org-agenda-overriding-header "Waiting on External")
+                           (org-agenda-files org-agenda-files)))
+                    (todo "REVIEW"
+                          ((org-agenda-overriding-header "In Review")
+                           (org-agenda-files org-agenda-files)))
+                    (todo "PLAN"
+                          ((org-agenda-overriding-header "In Planning")
+                           (org-agenda-todo-list-sublevels nil)
+                           (org-agenda-files org-agenda-files)))
+                    (todo "BACKLOG"
+                          ((org-agenda-overriding-header "Project Backlog")
+                           (org-agenda-todo-list-sublevels nil)
+                           (org-agenda-files org-agenda-files)))
+                    (todo "READY"
+                          ((org-agenda-overriding-header "Ready for Work")
+                           (org-agenda-files org-agenda-files)))
+                    (todo "ACTIVE"
+                          ((org-agenda-overriding-header "Active Projects")
+                           (org-agenda-files org-agenda-files)))
+                    (todo "COMPLETED"
+                          ((org-agenda-overriding-header "Completed Projects")
+                           (org-agenda-files org-agenda-files)))
+                    (todo "CANC"
+                          ((org-agenda-overriding-header "Cancelled Projects")
+                           (org-agenda-files org-agenda-files)))))))
 
   (setq-default org-capture-templates
-        `(("t" "Tasks / Projects")
-          ("tt" "Task" entry (file+olp "~/.config/emacs/OrgFiles/Task.org" "Inbox")
-           "* TODO %?\n %U\n %a\n  %i" :empty-lines 1)
-          ;;("ts" "Clocked Entry Subtask" entry (clock)
-          ;;"* TODO %?\n %U\n %a\n %i" :empty-lines 1)
+                `(("t" "Tasks / Projects")
+                  ("tt" "Task" entry (file+olp "~/.config/emacs/OrgFiles/Task.org" "Inbox")
+                   "* TODO %?\n %U\n %a\n  %i" :empty-lines 1)
+                  ;;("ts" "Clocked Entry Subtask" entry (clock)
+                  ;;"* TODO %?\n %U\n %a\n %i" :empty-lines 1)
 
-          ("j" "Journal Entries")
-          ("jj" "Journal" entry
-           (file+olp+datetree "~/.config/emacs/OrgFiles/Journal.org")
-           "\n* %<%I:%M %p> - Journal :journal:\n\n%?\n\n"
-           ;; ,(dw/read-file-as-string "~/Notes/Templates/Daily.org")
-           :clock-in :clock-resume
-           :empty-lines 1)
-          ("jm" "Meeting" entry
-           (file+olp+datetree "~/.config/emacs/OrgFiles/Journal.org")
-           "* %<%I:%M %p> - %a :meetings:\n\n%?\n\n"
-           :clock-in :clock-resume
-           :empty-lines 1)
+                  ("j" "Journal Entries")
+                  ("jj" "Journal" entry
+                   (file+olp+datetree "~/.config/emacs/OrgFiles/Journal.org")
+                   "\n* %<%I:%M %p> - Journal :journal:\n\n%?\n\n"
+                   ;; ,(dw/read-file-as-string "~/Notes/Templates/Daily.org")
+                   :clock-in :clock-resume
+                   :empty-lines 1)
+                  ("jm" "Meeting" entry
+                   (file+olp+datetree "~/.config/emacs/OrgFiles/Journal.org")
+                   "* %<%I:%M %p> - %a :meetings:\n\n%?\n\n"
+                   :clock-in :clock-resume
+                   :empty-lines 1)
 
-          ("w" "Workflows")
-          ("we" "Checking Email" entry (file+olp+datetree "~/.config/emacs/OrgFiles/Journal.org")
-           "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
+                  ("w" "Workflows")
+                  ("we" "Checking Email" entry (file+olp+datetree "~/.config/emacs/OrgFiles/Journal.org")
+                   "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
 
-          ("m" "Metrics Capture")
-          ("mw" "Weight" table-line (file+headline "~/.config/emacs/OrgFiles/Metrics.org" "Weight")
-           "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)))
+                  ("m" "Metrics Capture")
+                  ("mw" "Weight" table-line (file+headline "~/.config/emacs/OrgFiles/Metrics.org" "Weight")
+                   "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)))
 
 
   ;; Bindings straight to 'org-capture' - journal templates
@@ -748,7 +748,7 @@
 ;; (add-hook 'emacs-lisp-mode-hook 'flyspell-prog-mode)
 
 ;; theme config
-;(load-theme 'tango-dark t)
+;;(load-theme 'tango-dark t)
 
 ;;; TESTING CODE
 ;; Load custom theme
