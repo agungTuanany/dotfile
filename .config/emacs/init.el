@@ -498,8 +498,7 @@
   "Setup all org modes."
   ;; (org-indent-mode)
   ;; (variable-pitch-mode 1)
-  (setq-default
-                org-M-RET-may-split-line nil
+  (setq-default org-M-RET-may-split-line nil
                 org-cycle-include-plain-lists 'integrate
                 org-enforce-todo-checkbox-dependencies t
                 org-enforce-todo-dependencies t
@@ -512,8 +511,7 @@
                 org-link-frame-setup '((file . find-file)))
 
   ;; if variable-pitch-mode enabled just use my default font
-  (set-face-attribute 'variable-pitch nil :family "Source Code Pro")
-  )
+  (set-face-attribute 'variable-pitch nil :family "Source Code Pro"))
 
 (use-package org
   :hook (org-mode . my-org-mode-setup)
@@ -650,12 +648,11 @@
   (define-key global-map (kbd "C-c j")
     (lambda () (interactive) (org-capture nil "jj")))
 
-  (my-org-font-setup)
-  )
+  (my-org-font-setup))
 
 ;; enable org-babel-do-load language for Rust
 (use-package ob-rust
-  :ensure t )
+  :ensure t)
 
 (with-eval-after-load 'org
   (org-babel-do-load-languages
@@ -672,7 +669,6 @@
 
 ;;=======================================
 ;;; predefine Lsp Begin
-
 ;; Rust mode
 (use-package rust-mode
   :ensure t
@@ -689,7 +685,6 @@
     (interactive)
     (rust-format-buffer)
     (save-buffer)))
-
 ;;; Predefine Lsp End
 ;;=======================================
 
@@ -744,12 +739,13 @@
 ;;=======================================
 
 ;;; markdown setup
-
 (dolist (hook '(markdown-mode))
   (add-hook hook (lambda () (flyspell-mode 1)))
   (setq markdown-hide-markup t)
   )
 
+;;; TESTING CODE
+;;=================================================
 ;; Elisp
 ;; (add-hook 'emacs-lisp-mode-hook
 ;;           (lambda ()
@@ -773,8 +769,9 @@
 
 ;; theme config
 ;;(load-theme 'tango-dark t)
+;;=================================================
 
-;;; TESTING CODE
+;;=================================================
 ;; Load custom theme
 ;; (add-to-list 'custom-theme-load-path "~/.config/emacs/theme/my-solarized.el")
 ;; (add-to-list 'load-path "~/.config/emacs/theme/my-solarized.el")
@@ -791,5 +788,6 @@
 ;;     (load-theme 'my-solarized t)))
 ;; (my-load-theme)
 ;; (add-hook 'after-make-frame-functions 'my-load-theme)
+;;=================================================
 
 ;;; init.el ends here
