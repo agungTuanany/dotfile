@@ -244,6 +244,20 @@
 ;;TODO:
 ;;; Plugins
 
+(use-package magit
+  :ensure t
+  :commands (magit-status magit-get-current-branch))
+
+;; NOTE: make sure to configure a Github token before using this package
+(use-package forge
+  :ensure t
+  :after magit)
+
+(use-package diff-hl
+  :ensure t
+  :config
+  (global-diff-hl-mode))
+
 (use-package doom-themes
   :ensure t
   :config
