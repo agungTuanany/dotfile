@@ -34,7 +34,6 @@
 ;;; Presetup Begin
 (setq inhibit-startup-message t
       visible-bell t
-      ;; adjust keystroke echo timeout
       echo-keystrokes 0.5)
 
 (scroll-bar-mode -1)       ; Disable visible scrollbar
@@ -62,7 +61,7 @@
 (setq-default gnutls-min-prime-bits 2048)
 (setq-default gnutls-algorithm-priority "SECURE128")
 
-;; =*Scracth*=
+;; Scracth buffer
 (setq initial-scratch-message "")
 (setq initial-major-mode 'emacs-lisp-mode)
 
@@ -138,7 +137,7 @@
 ;; Disable blinking cursor
 (setq blink-cursor-mode nil)
 
-;; TODO: enable hs-minor-mode for toggle or use somethin else
+;; TODO: enable hs-minor-mode for toggle or use something else
 
 ;; make recenter with "C-l" start from top
 (setq recenter-positions '(top middle bottom))
@@ -164,7 +163,7 @@
 (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
 
 ;; I don't like the remappings done to operate on visual lines (for
-;; =C-a=, =C-e= and =C-k=), so I'm just undefining them.
+;; 'C-a', 'C-e' and 'C-k'), so I'm just undefining them.
 (setcdr visual-line-mode-map nil)
 
 ;; enable every deactive command
@@ -206,7 +205,7 @@
 (setq auto-save-file-name-transforms '((".*"  "~/.config/emacs/autosave/" t)))
 
 ;; Backup files are created on save in the same directory as the file and
-;; end in =~=.  They can be numbered which makes most sense combined with
+;; end in '~'.  They can be numbered which makes most sense combined with
 ;; a different save location and automatic pruning.
 (setq backup-directory-alist
       '((".*" . "~/.config/emacs/backups")))
@@ -752,8 +751,7 @@
 ;;; markdown setup
 (dolist (hook '(markdown-mode))
   (add-hook hook (lambda () (flyspell-mode 1)))
-  (setq markdown-hide-markup t)
-  )
+  (setq markdown-hide-markup t))
 
 ;;; TESTING CODE
 ;;=================================================
