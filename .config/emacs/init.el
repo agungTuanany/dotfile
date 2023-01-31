@@ -513,6 +513,17 @@
   ;; if variable-pitch-mode enabled just use my default font
   (set-face-attribute 'variable-pitch nil :family "Source Code Pro"))
 
+;; toogle visibilty of hidden elements
+(use-package org-appear
+  :ensure t
+  :after org
+  :config
+  (setq org-appear-autolinks t
+        org-appear-autosubmarkers t
+        org-appear-autoentities t
+        org-appear-autokeywords t
+        org-appear-inside-latex t))
+
 (use-package org
   :hook (org-mode . my-org-mode-setup)
   :config
@@ -643,11 +654,11 @@
                   ("mw" "Weight" table-line (file+headline "~/.config/emacs/OrgFiles/Metrics.org" "Weight")
                    "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)))
 
-
   ;; Bindings straight to 'org-capture' - journal templates
   (define-key global-map (kbd "C-c j")
     (lambda () (interactive) (org-capture nil "jj")))
 
+  (add-hook 'org-mode-hook 'org-appear-mode)
   (my-org-font-setup))
 
 ;; enable org-babel-do-load language for Rust
