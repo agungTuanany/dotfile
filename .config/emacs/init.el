@@ -510,7 +510,10 @@
                 org-link-frame-setup '((file . find-file)))
 
   ;; if variable-pitch-mode enabled just use my default font
-  (set-face-attribute 'variable-pitch nil :family "Source Code Pro"))
+  (set-face-attribute 'variable-pitch nil :family "Source Code Pro")
+
+  (add-hook 'org-mode-hook 'org-appear-mode)
+  (add-hook 'org-mode-hook 'flyspell-mode))
 
 ;; toogle visibilty of hidden elements
 (use-package org-appear
