@@ -660,7 +660,6 @@
   (define-key global-map (kbd "C-c j")
     (lambda () (interactive) (org-capture nil "jj")))
 
-  (add-hook 'org-mode-hook 'org-appear-mode)
   (my-org-font-setup))
 
 ;; enable org-babel-do-load language for Rust
@@ -748,14 +747,24 @@
         lsp-rust-analyzer-proc-macro-enable t
         lsp-rust-analyzer-cargo-watch-command "clippy")
   )
-;;; Lsp End
-;;=======================================
-
 ;;; markdown setup
 (dolist (hook '(markdown-mode))
   (add-hook hook (lambda () (flyspell-mode 1)))
   (setq markdown-hide-markup t))
 
+;;; LaTeX setup
+(with-eval-after-load 'ox-latex
+  (add-to-list 'org-latex-classes
+               '("org-plain-latex"
+                 "\\documentclass{article}
+           [NO-DEFAULT-PACKAGES]
+           [PACKAGES]
+           [EXTRA]"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 ;;; TESTING CODE
 ;;=================================================
 ;; Elisp
