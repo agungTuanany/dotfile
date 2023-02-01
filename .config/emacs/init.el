@@ -1,4 +1,4 @@
-;;; init.el --- emacs  -*- lexical-binding: t; -*-
+;;; init.el --- emacs  -*- lexical-binding: t; outline-regexp: ";;;"; eval: (local-set-key (kbd "C-c i") #'consult-outline) -*-
 ;; Copyright (C) 2023
 ;; Author: ;;; Package -- init.el <agung.tuanany@gmaildotcom>
 ;; Keywords:
@@ -8,9 +8,7 @@
 ;; ln -s ~/Repo/agung_dotfile/.config/emacs ~/config/
 ;;
 ;;; Code:
-
-;;=======================================
-;;; Presetup package sources Begin
+;;; Presetup package sources
 (require 'package)
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("org" . "https://orgmode.org/elpa/")
@@ -27,11 +25,7 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
-;;; Presetup package sources End
-;;=======================================
-
-;;=======================================
-;;; Presetup Begin
+;;; Presetup
 (setq inhibit-startup-message t
       visible-bell t
       echo-keystrokes 0.5)
@@ -235,14 +229,7 @@
 (with-eval-after-load 'tramp-cache
   (setq-default tramp-persistency-file-name "~/.config/emacs/etc/tramp"))
 
-;;; Presetup End
-;;========================================
-
-
-;;========================================
-;;TODO:
 ;;; Plugins
-
 (use-package magit
   :ensure t
   :commands (magit-status magit-get-current-branch))
@@ -318,8 +305,8 @@
             #'TeX-revert-document-buffer)
   (add-hook 'pdf-view-mode-hook (lambda() (linum-mode -1)))
   )
-;;=======================================
-;;; Evil Begin
+
+;;; Evil
 (use-package evil
   :ensure t
   :init
@@ -397,11 +384,7 @@
   :after evil
   :ensure t
   :bind ("M-/" . evilnc-comment-or-uncomment-lines))
-;;; Evil End
-;;=======================================
-
-;;=======================================
-;;; COMPLETION CONFIG BEGIN
+;;; completion config
 ;;company completion - for code/text completion
 (use-package company
   :ensure t
@@ -457,11 +440,7 @@
   :config
   (global-flycheck-mode))
 
-;;; COMPLETION CONFIG END
-;;=======================================
-
-;;=======================================
-;;; Org-mode Begin
+;;; Org-mode
 (defun my-org-font-setup ()
   "Replace list hyphen with dot."
   (font-lock-add-keywords 'org-mode
@@ -675,12 +654,7 @@
      (rust . t)))
 
   (push '("conf-unix" . conf-unix) org-src-lang-modes))
-;;; Org-mode End
-;;=======================================
-
-
-;;=======================================
-;;; predefine Lsp Begin
+;;; predefine Lsp
 ;; Rust mode
 (use-package rust-mode
   :ensure t
@@ -697,10 +671,6 @@
     (interactive)
     (rust-format-buffer)
     (save-buffer)))
-;;; Predefine Lsp End
-;;=======================================
-
-;;=======================================
 ;;; Lsp Begin
 (use-package lsp-mode
   :ensure t
