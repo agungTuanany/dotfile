@@ -86,7 +86,7 @@
  )
 
 ;; indentation config
-(setq-default indent-tabs-mode nil)
+(setq indent-tabs-mode nil)
 (setq tab-width 4)
 
 ;; trailing whitespace
@@ -491,6 +491,13 @@
   ;; if variable-pitch-mode enabled just use my default font
   (set-face-attribute 'variable-pitch nil :family "Source Code Pro")
 
+  (require 'org-tempo)
+  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+  (add-to-list 'org-structure-template-alist '("js" . "src js"))
+  (add-to-list 'org-structure-template-alist '("py" . "src python"))
+  (add-to-list 'org-structure-template-alist '("rs" . "src rust"))
+  (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
+
   (add-hook 'org-mode-hook 'org-appear-mode)
   (add-hook 'org-mode-hook 'flyspell-mode))
 
@@ -508,13 +515,7 @@
 (use-package org
   :hook (org-mode . my-org-mode-setup)
   :config
-  (setq org-ellipsis " ▾" )
-
-  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-  (add-to-list 'org-structure-template-alist '("js" . "src js"))
-  (add-to-list 'org-structure-template-alist '("py" . "src python"))
-  (add-to-list 'org-structure-template-alist '("rs" . "src rust"))
-  (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
+  (setq org-ellipsis " ▾")
 
   (setq-default org-agenda-start-with-log-mode t)
   (setq org-log-done 'time)
