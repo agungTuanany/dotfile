@@ -67,7 +67,7 @@
 (with-eval-after-load 'remember
   (define-key remember-notes-mode-map (kbd "C-c C-c") nil))
 
-;; disable line-numbers for some mode
+;; disable line-numbers for some modes
 (dolist (mode '(org-mode-hook
                 term-mode-hook
                 shell-mode-hook
@@ -75,6 +75,9 @@
                 package-menu-mode-hook
                 treemacs-mode-hook
                 markdown-mode-hook
+                dired-mode-hook
+                text-mode-hook
+                magit-mode-hook
                 help-mode-hook))
   (add-hook mode(lambda () (display-line-numbers-mode 0))))
 
