@@ -68,17 +68,18 @@
   (define-key remember-notes-mode-map (kbd "C-c C-c") nil))
 
 ;; disable line-numbers for some modes
-(dolist (mode '(org-mode-hook
-                term-mode-hook
-                shell-mode-hook
-                eshell-mode-hook
-                package-menu-mode-hook
-                treemacs-mode-hook
-                markdown-mode-hook
+(dolist (mode '(compilation-mode-hook
                 dired-mode-hook
-                text-mode-hook
+                eshell-mode-hook
+                help-mode-hook
                 magit-mode-hook
-                help-mode-hook))
+                markdown-mode-hook
+                org-mode-hook
+                package-menu-mode-hook
+                shell-mode-hook
+                term-mode-hook
+                text-mode-hook
+                treemacs-mode-hook))
   (add-hook mode(lambda () (display-line-numbers-mode 0))))
 
 (custom-set-faces
@@ -89,7 +90,7 @@
  )
 
 ;; indentation config
-(setq indent-tabs-mode nil)
+(setq-default indent-tabs-mode nil)
 (setq tab-width 4)
 
 ;; trailing whitespace
