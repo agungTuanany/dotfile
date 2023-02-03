@@ -474,6 +474,8 @@
   (set-face-attribute 'org-table nil    :inherit '(shadow fixed-pitch))
   (set-face-attribute 'org-table nil    :inherit 'fixed-pitch)
   (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+
+  (setq org-image-actual-width nil)
   )
 
 (defun my-org-mode-setup ()
