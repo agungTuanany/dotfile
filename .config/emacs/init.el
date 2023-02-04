@@ -237,6 +237,9 @@
 (use-package magit
   :ensure t
   :commands (magit-status magit-get-current-branch))
+(use-package magit-delta
+  :after magit
+  :hook (magit-mode . magit-delta-mode))
 
 ;; NOTE: make sure to configure a Github token before using this package
 (use-package forge
