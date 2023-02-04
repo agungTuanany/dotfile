@@ -307,8 +307,14 @@
 
   (add-hook 'TeX-after-compilation-finished-functions
             #'TeX-revert-document-buffer)
-  (add-hook 'pdf-view-mode-hook (lambda() (linum-mode -1)))
-  )
+  (add-hook 'pdf-view-mode-hook (lambda() (linum-mode -1))))
+
+(use-package eros
+  :ensure t
+  :init
+  (eros-mode t)
+  :config
+  (setq eros-eval-result-prefix "⟹ "))
 
 ;;; Evil
 (use-package evil
@@ -475,7 +481,7 @@
   (set-face-attribute 'org-table nil    :inherit 'fixed-pitch)
   (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
 
-  (setq org-image-actual-width nil)
+  (setq-default org-image-actual-width nil)
   )
 
 (defun my-org-mode-setup ()
