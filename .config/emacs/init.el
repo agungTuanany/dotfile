@@ -68,7 +68,9 @@
   (define-key remember-notes-mode-map (kbd "C-c C-c") nil))
 
 ;; disable line-numbers for some modes
-(dolist (mode '(compilation-mode-hook
+(dolist (mode '(Custom-mode-hook
+                Info-mode-hook
+                compilation-mode-hook
                 dired-mode-hook
                 eshell-mode-hook
                 help-mode-hook
