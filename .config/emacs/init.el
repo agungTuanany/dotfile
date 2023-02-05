@@ -336,17 +336,19 @@
   ;; (add-hook 'with-editor-mode-hook 'evil-insert-state)
   ;; (add-hook 'view-mode-hook 'evil-emacs-state)
 
-  ;; base setting adjustment
-  ;; make movement, undo and search feel a bit less weird
-  (setq evil-want-integration t
-        evil-want-keybinding nil
-        evil-want-C-u-scroll t
-        evil-want-C-i-jump t
-        evil-undo-system 'undo-redo
-        evil-cross-lines t
+  ;; base behavior adjustment
+  (setq evil-cross-lines t
+        evil-ex-substitute-global t   ;regex use 'g' at all matched
+        evil-kill-on-visual-paste nil
         evil-move-beyond-eol t
+        evil-move-cursor-back nil
+        evil-symbol-word-search t
+        evil-undo-system 'undo-redo
+        evil-want-C-i-jump t
+        evil-want-C-u-scroll t
         evil-want-fine-undo t
-        evil-symbol-word-search t)
+        evil-want-integration t
+        evil-want-keybinding nil)
 
   ;; enable 'C-w' in emacs-state
   (with-eval-after-load 'evil-vars
@@ -687,7 +689,7 @@
     (interactive)
     (rust-format-buffer)
     (save-buffer)))
-;;; Lsp Begin
+;;; Lsp
 (use-package lsp-mode
   :ensure t
   :hook (rust-mode . lsp-deferred)
