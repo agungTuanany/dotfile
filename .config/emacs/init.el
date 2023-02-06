@@ -474,7 +474,7 @@
                   (org-level-6 . 1.1)
                   (org-level-7 . 1.1)
                   (org-level-8 . 1.1)))
-    (set-face-attribute (car face) nil :font "Cantarell" :weight 'semibold :height (cdr face) :slant 'oblique))
+    (set-face-attribute (car face) nil :weight 'semibold :height (cdr face) :slant 'oblique))
 
   ;; Ensure that anything that should be fixed-pitch in Org files appears that way
   (set-face-attribute 'line-number nil   :inherit 'fixed-pitch)
