@@ -27,6 +27,7 @@
 
 ;;; Presetup
 (setq inhibit-startup-message t
+      inhibit-compacting-font-caches t
       visible-bell t
       echo-keystrokes 0.5)
 
@@ -520,7 +521,7 @@
   (add-hook 'org-mode-hook 'org-appear-mode)
   (add-hook 'org-mode-hook 'flyspell-mode))
 
-;; toogle visibilty of hidden elements
+;; toggle visibilty of hidden elements
 (use-package org-appear
   :ensure t
   :after org
@@ -530,6 +531,10 @@
         org-appear-autoentities t
         org-appear-autokeywords t
         org-appear-inside-latex t))
+
+(use-package org-bullets
+  :config
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode t))))
 
 (use-package org
   :hook (org-mode . my-org-mode-setup)
