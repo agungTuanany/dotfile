@@ -89,8 +89,8 @@
  ;; disable background in line-number-current-line
  '(line-number-current-line ((t (:inherit default :foreground "#CFC0C5" :slant normal :weight bold))))
  ;; increase comment highlight, default one is lightly
- '(font-lock-comment-face ((t (:foreground "dim gray" :slant italic))))
- )
+ '(font-lock-comment-face ((t (:foreground "dim gray" :slant italic :weight semibold))))
+ '(show-paren-match ((t (:underline t :weight ultra-bold)))))
 
 ;; indentation config
 (setq-default indent-tabs-mode nil)
