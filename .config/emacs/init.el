@@ -477,19 +477,25 @@
     (set-face-attribute (car face) nil :weight 'semibold :height (cdr face) :slant 'oblique))
 
   ;; Ensure that anything that should be fixed-pitch in Org files appears that way
-  (set-face-attribute 'line-number nil   :inherit 'fixed-pitch)
-  (set-face-attribute 'line-number-current-line nil :inherit 'fixed-pitch)
-  (set-face-attribute 'org-block nil    :foreground nil :inherit 'fixed-pitch)
-  (set-face-attribute 'org-checkbox nil  :inherit 'fixed-pitch)
-  (set-face-attribute 'org-code nil     :inherit '(shadow fixed-pitch))
-  (set-face-attribute 'org-formula nil  :inherit 'fixed-pitch)
-  (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
-  (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
-  (set-face-attribute 'org-table nil    :inherit '(shadow fixed-pitch))
-  (set-face-attribute 'org-table nil    :inherit 'fixed-pitch)
-  (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
-
-  (setq-default org-image-actual-width nil)
+  (custom-theme-set-faces
+   'user
+   '(line-number ((t (:inherit fixed-pitch))))
+   '(line-number-current-line ((t (:inherit fixed-pitch))))
+   '(org-block ((t (:inherit fixed-pitch))))
+   '(org-checkbox ((t (:inherit 'fixed-pitch))))
+   '(org-code ((t (:inherit (shadow fixed-pitch)))))
+   '(org-document-info ((t (:foreground "dark orange"))))
+   '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
+   '(org-formula ((t (:inherit (fixed-pitch)))))
+   '(org-indent ((t (:inherit (org-hide fixed-pitch)))))
+   '(org-link ((t (:foreground "RoyalBlue" :underline t))))
+   '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+   '(org-property-value ((t (:inherit fixed-pitch))) t)
+   '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+   '(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
+   '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
+   '(org-verbatim ((t (:inherit (shadow fixed-pitch)))))
+   )
   )
 
 (defun my-org-mode-setup ()
@@ -517,6 +523,8 @@
   (add-to-list 'org-structure-template-alist '("py" . "src python"))
   (add-to-list 'org-structure-template-alist '("rs" . "src rust"))
   (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
+
+  (setq-default org-image-actual-width nil)
 
   (add-hook 'org-mode-hook 'org-appear-mode)
   (add-hook 'org-mode-hook 'flyspell-mode))
