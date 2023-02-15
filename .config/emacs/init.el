@@ -488,7 +488,7 @@
    '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
    '(org-formula ((t (:inherit (fixed-pitch)))))
    '(org-indent ((t (:inherit (org-hide fixed-pitch)))))
-   '(org-link ((t (:foreground "RoyalBlue" :underline t))))
+   ;; '(org-link ((t (:foreground "RoyalBlue" :underline t))))
    '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
    '(org-property-value ((t (:inherit fixed-pitch))) t)
    '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
