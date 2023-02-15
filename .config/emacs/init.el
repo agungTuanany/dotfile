@@ -770,8 +770,8 @@
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
   (setq org-latex-listings 'minted)
   (add-to-list 'org-latex-packages-alist '("" "minted"))
-  ( setq  org-latex-pdf-process
-    '( "%latex -shell-escape -interaction nonstopmode -output-directory %o %f" )))
+  (setq  org-latex-pdf-process
+         '( "%latex -shell-escape -interaction nonstopmode -output-directory %o %f" )))
 ;;; TESTING CODE
 ;;=================================================
 ;; Elisp
