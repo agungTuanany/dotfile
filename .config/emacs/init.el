@@ -344,7 +344,7 @@
         evil-ex-substitute-global t   ;regex use 'g' at all matched
         evil-kill-on-visual-paste nil
         evil-move-beyond-eol t
-        evil-move-cursor-back nil
+        ;; evil-move-cursor-back nil
         evil-symbol-word-search t
         evil-undo-system 'undo-redo
         evil-want-C-i-jump t
