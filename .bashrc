@@ -90,3 +90,8 @@ alias rustrl='. "$HOME/.cargo/env"'
 
 # rupa/z - jump around
 . $HOME/Repo/z/z.sh
+
+# for emacs 25+ prerequire tree-sitter
+PATH=$HOME/.cask/bin:$PATH
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
