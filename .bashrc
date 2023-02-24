@@ -74,10 +74,15 @@ alias strc='nvim ~/.config/st/config.def.h'
 alias stcp='sudo cp -rf ~/.config/st/config.def.h ~/.config/st/config.h'
 alias stmake='cd ~/.config/st && sudo make install clean && cd -'
 
-
 ## translate-shell
 alias trid='trans en:id'
 alias tren='trans id:en'
+
+# offline dictionary with dictd
+alias dictc='dict -d foldoc '
+alias dictgc='dict -d gcide '
+alias dictsyn='dict -d moby-thesaurus '
+alias dictwn='dict -d wn '
 
 ## TEMPORARY
 ##alias aml_flash='./home/daun/.local/bin/aml-flash'
