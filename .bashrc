@@ -42,6 +42,7 @@ alias igrep='grep -i --color'
 alias bashrc='nvim ~/.bashrc'
 
 alias pacupdate='sudo pacman -Syu'
+alias pacclean='sudo pacman -Qtdq | sudo pacman -Rns -'
 
 #alias nvimrc='cd ~/.config/nvim && nvim ~/.config/nvim'
 alias nvimrc='nvim ~/.config/nvim'
