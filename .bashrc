@@ -52,6 +52,7 @@ alias archwiki='lynx wiki.archlinux.org'
 
 alias rl='source ~/.bashrc'
 alias dmesg='sudo dmesg -T -x'
+alias lspcv='lspci -k | grep -A 2 -E "(VGA|3D)"'
 
 # GIT ALIASES
 # alias gl="git log --pretty=oneline --abbrev-commit"
