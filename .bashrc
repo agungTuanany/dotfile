@@ -85,6 +85,7 @@ alias dictc='dict -d foldoc '
 alias dictgc='dict -d gcide '
 alias dictsyn='dict -d moby-thesaurus '
 alias dictwn='dict -d wn '
+alias rtfm=rtfm
 
 ##########################################################
 # FUNCTIONS
@@ -109,6 +110,13 @@ duck () {
     local url=$(urlencode "$*")
     lynx "https://duckduckgo.com/lite?q=$url"
 }
+
+
+rtfm() { help $@ || man $@ || ? $@; }
+
+##########################################################
+# ENDS FUNCTIONS
+##########################################################
 
 ## TEMPORARY
 ##alias aml_flash='./home/daun/.local/bin/aml-flash'
