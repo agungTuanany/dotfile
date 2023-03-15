@@ -118,6 +118,11 @@ rtfm() { help $@ || man $@ || ? $@; }
 # ENDS FUNCTIONS
 ##########################################################
 
+# require to install fzf
+source /usr/share/fzf/key-bindings.bash
+source /usr/share/fzf/completion.bash
+[[ -s "$HOME/Repo/qfc/bin/qfc.sh" ]] && source "$HOME/Repo/qfc/bin/qfc.sh"
+
 ## TEMPORARY
 ##alias aml_flash='./home/daun/.local/bin/aml-flash'
 
