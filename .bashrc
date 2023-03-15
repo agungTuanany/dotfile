@@ -48,7 +48,7 @@ alias pacclean='sudo pacman -Qtdq | sudo pacman -Rns -'
 alias nvimrc='nvim ~/.config/nvim'
 alias tmuxrc='nvim ~/.tmux.conf'
 
-alias duck='lynx duckduckgo.com'
+alias duck=duck
 alias archwiki='lynx wiki.archlinux.org'
 
 alias rl='source ~/.bashrc'
@@ -85,6 +85,30 @@ alias dictc='dict -d foldoc '
 alias dictgc='dict -d gcide '
 alias dictsyn='dict -d moby-thesaurus '
 alias dictwn='dict -d wn '
+
+##########################################################
+# FUNCTIONS
+##########################################################
+urlencode () {
+    local str="$*"
+    local encoded=""
+    local i c x
+    for (( i=0; i<${#str}; i++ )); do
+        c=${str:$i:1}
+        case "$c" in
+            [-_.~a-zA-Z0-9] ) x="$c" ;;
+            # `'$c` see https://pubs.opengroup.org/onlinepubs/009695399/utilities/printf.html
+            * ) printf -v x '%%%02x' "'$c" ;;
+        esac
+        encoded+="$x"
+    done
+    echo "$encoded"
+}
+
+duck () {
+    local url=$(urlencode "$*")
+    lynx "https://duckduckgo.com/lite?q=$url"
+}
 
 ## TEMPORARY
 ##alias aml_flash='./home/daun/.local/bin/aml-flash'
