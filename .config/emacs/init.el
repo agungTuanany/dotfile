@@ -322,6 +322,16 @@
   :config
   (setq eros-eval-result-prefix "⟹ "))
 
+(use-package undo-tree
+  :ensure t
+  :config
+  (global-undo-tree-mode))
+
+(use-package key-chord
+  :ensure t
+  :init
+  (key-chord-mode 1))
+
 ;;; Evil
 (use-package evil
   :ensure t
@@ -346,7 +356,7 @@
         evil-move-beyond-eol t
         ;; evil-move-cursor-back nil
         evil-symbol-word-search t
-        evil-undo-system 'undo-redo
+        evil-undo-system 'undo-tree
         evil-want-C-i-jump t
         evil-want-C-u-scroll t
         evil-want-fine-undo t
