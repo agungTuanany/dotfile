@@ -828,4 +828,13 @@
 ;; (add-hook 'after-make-frame-functions 'my-load-theme)
 ;;=================================================
 
+;;; extend libs
+(defun display_current_time ()
+  (interactive)
+  (message (format-time-string "%Y-%m-%d %H:%M:%S")))
+
+;; set specific browser to open links
+(setq browse-url-browser-function (quote browse-url-generic)
+      browse-url-generic-program "firefox")
+(setq browse-url-browser-function 'browse-url-firefox)
 ;;; init.el ends here
