@@ -52,8 +52,13 @@ alias duck=duck
 alias archwiki='lynx wiki.archlinux.org'
 
 alias rl='source ~/.bashrc'
-alias dmesg='sudo dmesg -T -x'
+alias dmesg='sudo dmesg -T -wx'
+alias journalctl='journalctl -b'
 alias lspcv='lspci -k | grep -A 2 -E "(VGA|3D)"'
+
+alias lsblk='watch lsblk -fp'
+alias lsusb='watch lsusb'
+alias sensors='watch sensors'
 
 # GIT ALIASES
 # alias gl="git log --pretty=oneline --abbrev-commit"
