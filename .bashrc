@@ -42,7 +42,7 @@ alias igrep='grep -i --color'
 alias bashrc='nvim ~/.bashrc'
 
 alias pacupdate='sudo pacman -Syu'
-alias pacclean='sudo pacman -Qtdq | sudo pacman -Rns -'
+alias pacclean='sudo pacman -Qtdq | sudo pacman -Rns'
 
 #alias nvimrc='cd ~/.config/nvim && nvim ~/.config/nvim'
 alias nvimrc='nvim ~/.config/nvim'
@@ -88,7 +88,7 @@ alias tren='trans id:en'
 # offline dictionary with dictd
 alias dictc='dict -d foldoc '
 alias dictgc='dict -d gcide '
-alias dictsyn='dict -d moby-thesaurus '
+alias dictmb='dict -d moby-thesaurus '
 alias dictwn='dict -d wn '
 alias rtfm=rtfm
 
@@ -115,7 +115,6 @@ duck () {
     local url=$(urlencode "$*")
     lynx "https://duckduckgo.com/lite?q=$url"
 }
-
 
 rtfm() { help $@ || man $@ || ? $@; }
 
