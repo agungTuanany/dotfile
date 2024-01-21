@@ -60,6 +60,8 @@ alias lsblk='watch lsblk -fp'
 alias lsusb='watch lsusb'
 alias sensors='watch sensors'
 
+alias ifconfigme='curl ifconfig.me '
+
 # GIT ALIASES
 # alias gl="git log --pretty=oneline --abbrev-commit"
 alias gl="git log --graph --pretty=format:'%C(yellow)%h%Creset -%Cred%d%Creset %s %Cgreen| %cr %C(bold blue)| %an%Creset' --abbrev-commit --date=relative"
