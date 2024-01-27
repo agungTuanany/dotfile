@@ -10,6 +10,7 @@ OrgFiles/
 .cache/
 themes/
 url/
+racket-mode
 
 *.#
 .#*
@@ -25,6 +26,8 @@ notes
 projects
 .lsp-session*
 flycheck_init*
+
+.nrepl-port
 
 projectile-bookmarks.eld
 forge-database.sqlite
