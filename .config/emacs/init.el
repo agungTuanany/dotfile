@@ -130,6 +130,7 @@
     ;;; PROGRAMMING LANGUAGES SPECIFIED
     "tuanany-setup-clojure.el"
     "tuanany-setup-racket.el"
+    "tuanany-setup-html.el"
     ;;"tuanay-setup-js.el"
     ))
 
