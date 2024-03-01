@@ -1,3 +1,4 @@
+# folders
 auto-save-list/
 etc/
 elpa/
@@ -10,7 +11,8 @@ OrgFiles/
 .cache/
 themes/
 url/
-racket-mode
+racket-mode/
+.cache/
 
 *.#
 .#*
