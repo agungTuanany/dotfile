@@ -64,7 +64,8 @@
 
 
 (setq dired-listing-switches "-alh")                     ; Make dired human-readable size
-;;(setq indent-tabs-mode nil)
+(setq indent-tabs-mode nil)
+(setq-default tab-width 4)
 (setq show-paren-style 'parenthesis
       show-paren-delay 0)
 ;;(show-paren-mode)
