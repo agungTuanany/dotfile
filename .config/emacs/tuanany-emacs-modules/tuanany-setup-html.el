@@ -28,7 +28,6 @@
 
 (use-package web-mode
   :config
-
   (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
@@ -42,6 +41,8 @@
   (setq web-mode-enable-comment-interpolation t)
   ;; (setq web-mode-enable-current-column-highlight t)
   )
+(add-hook 'web-mode-hook
+  (lambda () (untabify (point-min) (point-max))))
 
 ;; (use-package clojure-mode
 ;;   :hook
