@@ -25,6 +25,8 @@
 
 ;; Temporarily increase the garbage collection threshold. These changes help
 ;; shave off about half a second of startup time.
+;; https://akrl.sdf.org/#orgc15a10d
+(setq garbage-collection-messages t)
 (setq gc-cons-threshold most-positive-fixnum
       gc-cons-percentage 0.5)
 
@@ -36,3 +38,25 @@
 	  (lambda ()
 	    (setq gc-cons-threshold (* 1024 1024 10)
 		  gc-cons-percentage 0.2)))
+
+;;;; PACKAGES
+;; Presetup package sources
+(require 'package)
+(add-hook 'package-menu-mode-hook #'hl-line-mode)
+
+(setq package-archives '(("gnu-elpa" . "https://elpa.gnu.org/packages/")
+			 ("melpa" . "https://melpa.org/packages/")
+			 ("org" . "https://orgmode.org/elpa/")))
+
+;; Highest number gets priority (what is not mentioned has priority 0)
+(setq package-archive-priorities
+      '(("gnu-elpa" . 3)
+	("melpa" . 2)
+	("org" . 1)))
+
+(package-initialize)
+(when (not package-archive-contents)
+  (package-install 'use-package)1)
+
+(require 'use-package)
+(setq use-package-always-ensure t)
