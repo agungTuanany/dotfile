@@ -128,6 +128,8 @@
     ;; tuanany-lisp
     "tuanany-orderless.el"
     "tuanany-spell-checker.el"
+    ;;; LSP
+	"tuanany-setup-lsp.el"
     ;;; PROGRAMMING LANGUAGES SPECIFIED
     "tuanany-setup-clojure.el"
     "tuanany-setup-racket.el"
