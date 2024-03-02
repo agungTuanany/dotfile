@@ -7,7 +7,7 @@
 ;; Package-Requires: ((emacs "^25.1"))
 ;; Created: 2023
 ;; Version: 0.1.0
-;; Keywords: init file.
+;; Keywords: init file, key mapping, modular file, custom config.
 
 ;;;; Package-Requires:
 
@@ -141,7 +141,9 @@
   ;;(setq duplicate-region-final-position -1)
 
   ;;========================================
+  ;;; FILE-HANDLING
   ;; Manage Backup, autosave, custom, backup
+  ;;========================================
 
   ;; Put all the files system on '~/.config/emacs/etc' directory
   ;; Do not clutter base emacs directory <~/.config/emacs>, all unnecessary or secondary file
@@ -165,6 +167,10 @@
     (put c 'disabled t))
   (put 'eshell 'disabled nil)
 
+  ;;========================================
+  ;;; KEY MAPPING
+  ;;========================================
+
   (keymap-global-unset "C-x C-c" 'save-buffers-kill-terminal)
   (keymap-global-unset "C-x C-o" 'delete-blank-lines)
   (keymap-global-set "C-x C-b" 'ibuffer)
@@ -185,9 +191,9 @@
       "tuanany-completion-custom.el"
       "tuanany-completion-vertico.el"
       "tuanany-completion-company.el"
-    ;;; COMPLETIONS
-      "tuanany-magit.el"
-      "tuanany-evil.el"
+    ;;; HELPER
+      "tuanany-helper-magit.el"
+      "tuanany-helper-evil.el"
       ;;tuanany-lisp
       "tuanany-orderless.el"
       "tuanany-spell-checker.el"
