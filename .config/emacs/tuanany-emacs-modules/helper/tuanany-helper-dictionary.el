@@ -1,4 +1,4 @@
-;;;; tuanany-helper-dictionary.el --- Completion -*- lexical-binding: t -*-
+;;;; tuanany-helper-dictionary.el --- dictionary -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2021-2024 Agung Tuanany 
 

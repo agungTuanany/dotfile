@@ -191,8 +191,14 @@
       "tuanany-ui-modeline.el"
       "tuanany-ui.el"
     ;;; COMPLETIONS
+      "tuanany-completion-cape.el"
+      "tuanany-completion-marginalia.el"
+      "tuanany-completion-embark.el"
       "tuanany-completion-company.el"
+      "tuanany-completion-consult.el"
+      "tuanany-completion-corfu.el"
       "tuanany-completion-custom.el"
+      "tuanany-completion-orderless.el"
       "tuanany-completion-vertico.el"
     ;;; HELPER
       "tuanany-helper-dictionary.el"
@@ -203,7 +209,7 @@
       "tuanany-lisp-orderless.el"
     ;;; PROGRAMMING LANGUAGES SPECIFIED
       "tuanany-setup-clojure.el"
-      "tuanany-setup-html.el"
+      "tuanany-setup-web-mode.el"
       "tuanany-setup-racket.el"
       ;;"tuanany-setup-lsp.el"
       ;;"tuanay-setup-js.el"

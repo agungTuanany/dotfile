@@ -1,4 +1,4 @@
-;;;; tuanany-completion-vertico.el --- Programming Languages Specified-*- lexical-binding: t -*-
+;;;; tuanany-completion-embark-.el --- completion -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2021-2024 Agung Tuanany 
 
@@ -29,19 +29,11 @@
 
 ;;;; Code:
 
-(use-package vertico
-  :config
-  (setq vertico-scroll-margin 0)
-  (setq vertico-count 5)
-  (setq vertico-resize nil)
-  (setq vertico-cycle t)
-  (defvar vertico-multiform-minimal
-    '(unobtrusive
-      (vertico-flat-format . ( :multiple ""
-			                   :single ""
-			                   :prompt ""
-			                   :separator ""
-			                   :ellipsis ""
-			                   :no-match ""))))
-  :init (vertico-mode 1)
-  )
+(use-package embark
+  :ensure t
+  :defer
+  :bind (("C-." . embark-act)))
+
+(use-package embark-consult
+  :ensure t
+  :after embark)

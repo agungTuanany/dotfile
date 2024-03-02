@@ -108,18 +108,24 @@
 (setq savehist-additional-variables '(register-alist kill-ring))
 (savehist-mode t)
 
-;;;; `dabbrev' (dynamic world completion (dynamic abbreviatons))
-(setq dabbrev-abbrev-char-regexp "\\sw\\|\\s_")
-(setq dabbrev-abbrev-skip-leading-regexp "[$*/=~']")
-(setq dabbrev-backward-only nil)
-(setq dabbrev-case-distinction 'case-replace)
-(setq dabbrev-case-fold-search nil)
-(setq dabbrev-case-replace 'case-replace)
-(setq dabbrev-check-other-buffers t)
-(setq dabbrev-eliminate-newlines t)
-(setq dabbrev-upcase-means-case-search t)
-(setq dabbrev-ignored-buffer-modes
-      '(archive-mode-image-mode docview-mode pdf-view-mode))
+;;;; `dabbrev' (dynamic world completion (Dynamic Abbrev Expansion))
+(use-package dabbrev
+  :ensure t
+  :config
+  (setq dabbrev-abbrev-char-regexp "\\sw\\|\\s_")
+  (setq dabbrev-abbrev-skip-leading-regexp "[$*/=~']")
+  (setq dabbrev-backward-only nil)
+  (setq dabbrev-case-distinction 'case-replace)
+  (setq dabbrev-case-fold-search nil)
+  (setq dabbrev-case-replace 'case-replace)
+  (setq dabbrev-check-all-buffers nil)
+  (setq dabbrev-check-other-buffers t)
+  (setq dabbrev-eliminate-newlines t)
+  (setq dabbrev-friend-buffer-function 'dabbrev--same-major-mode-p)
+  (setq dabbrev-ignored-buffer-modes '(archive-mode-image-mode docview-mode pdf-view-mode))
+  (setq dabbrev-ignored-buffer-regexps '("\\.\\(?:pdf\\|jpe?g\\|png\\)\\'"))
+  (setq dabbrev-upcase-means-case-search t)
+  )
 
 ;;;; `abbrev' (abbreviation, else Abbrevs)
 (setq abbrev-file-name (locate-user-emacs-file "etc/abbrevs_defs"))
