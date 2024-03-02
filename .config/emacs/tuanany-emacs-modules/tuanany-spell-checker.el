@@ -1,3 +1,93 @@
+;;;; tuanany-company-completion.el --- Completion -*- lexical-binding: t; outline-regexp: ";;;"; eval: (local-set-key (kbd "C-c i") #'consult-outline) -*-
+
+;; Author: Agung Tuanany <agung.tuanany@gmail.com>
+;; URL: http://github.com/agungTuanany/dotfile
+;; Package-Requires: ((emacs "25.1"))
+;; Version: 0.1.0
+;; Keywords: spell checker
+
+;;;; Version: 0.1.0
+;;;; Package-Requires:
+
+;;;; License:
+;; This file is not part of GNU Emacs.
+
+;; This program is free software; you can redistribute it and/or modify it under
+;; the terms of the GNU General Public License as published by the Free Software
+;; Foundation, either version 3 or the License, or any later version.
+
+;; This program is distributed in the hope it will be useful, but WITHOUT ANY
+;; WARRANTY; without even the implied warranty of MERCHANTABILITY or FITINES FOR
+;; A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License along with
+;; this program.  If not, see <https://www.gnu.org/licenses/>.
+
+;;;; Commentary:
+;; Try to check the reference below, it's a great to start.
+;; Ref: - http://blog.binchen.org/posts/what-s-the-best-spell-check-set-up-in-emacs/
+;;      - https://github.com/redguardtoo/emacs.d
+;;      - https://github.com/gopar/.emacs.d?tab=readme-ov-file#spelling
+;;;; Code:
+
+;; (use-package ispell
+;;   :ensure nill
+;;   :custom
+;;   ;; find aspell and hunspell automatically
+;;   (cond
+;;    ;; try hunspell at first
+;;    ;; if hunspell does NOT exist, use aspell
+;;    ((executable-find "hunspell")
+;;     (setq ispell-program-name "hunspell")
+;;     (setq ispell-local-dictionary "en_US")
+;;     (setq ispell-local-dictionary-alist
+;;           ;; Please note the list `("-d" "en_US")` contains ACTUAL parameters passed to hunspell
+;;           ;; You could use `("-d" "en_US,en_US-med")` to check with multiple dictionaries
+;;           '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8)))
+
+;;     ;; new variable `ispell-hunspell-dictionary-alist' is defined in Emacs
+;;     ;; If it's nil, Emacs tries to automatically set up the dictionaries.
+;;     (when (boundp 'ispell-hunspell-dictionary-alist)
+;;       (setq ispell-hunspell-dictionary-alist ispell-local-dictionary-alist)))
+
+;;    ((executable-find "aspell")
+;;     (setq ispell-program-name "aspell")
+;;     ;; Please note ispell-extra-args contains ACTUAL parameters passed to aspell
+;;     (setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_US"))))
+;;   ) ;; ---use package bracket--
+
+
+(use-package ispell
+  :ensure nil
+  :custom
+  (ispell-program-name "aspell")
+  (ispell-personal-dictionary (concat user-emacs-directory "etc/.aspell.lang.pws"))
+  (ispell-dictionary nil)
+  (ispell-local-dictionary nil)
+  (ispell-extra-args '("--sug-mode=ultra" "--lang=en_US"
+                       "--run-together" "--run-together-limit=16"
+                       "--camel-case"))
+  :init
+  (defun tuanany-add-word-to-dictionary ()
+    (interactive)
+    (let ((word (word-at-point)))
+      (append-to-file (concat word "\n") nil ispell-personal-dictionary)
+      (message "Added '%s' to %s" word ispell-personal-dictionary))))
+
+(use-package flyspell
+  :ensure nil
+  :defer
+  :hook ((prog-mode . flyspell-prog-mode)
+         (org-mode . flyspell-mode)
+         (text-mode . flyspell-mode)
+         (flyspell-mode . (lambda ()
+                            (set-face-attribute 'flyspell-incorrect nil :underline '(:style wave :color "Red1"))
+                            (set-face-attribute 'flyspell-duplicate nil :underline '(:style wave :color "DarkOrange")))))
+  :bind (:map flyspell-mode-map
+              ("C-;" . nil)
+              ("C-," . flyspell-goto-next-error)
+              ("C-." . flyspell-auto-correct-word)))
+
 (dolist (hook '(text-mode-hook))
   (add-hook hook (lambda () (flyspell-mode 1))))
 
