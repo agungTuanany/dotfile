@@ -1,21 +1,32 @@
-;;;; init.el --- emacs  -*- lexical-binding: t; outline-regexp: ";;;"; eval: (local-set-key (kbd "C-c i") #'consult-outline) -*-
-;;
-;;;; Copyright (c) 2022-2023 <agung.tuanany@gmaildot.com>
-;; Author: Agung Tuanany <info.tuanany.eu.org>
-;;
-;;;; Version: 0.1.0
-;; Package-Requires:
-;;
+;;;; init.el --- emacs -*- lexical-binding: t -*-
+
+;; Copyright (C) 2021-2024 Agung Tuanany
+
+;; Author: Agung Tuanany <agung.tuanany@gmail.com>
+;; URL: http://github.com/agungTuanany/dotfile
+;; Package-Requires: ((emacs "^25.1"))
+;; Created: 2023
+;; Version: 0.1.0
+;; Keywords: init file.
+
+;;;; Package-Requires:
+
+;;;; License:
+;; This file is not part of GNU Emacs.
+
+;; This program is free software; you can redistribute it and/or modify it under
+;; the terms of the GNU General Public License as published by the Free Software
+;; Foundation, either version 3 or the License, or any later version.
+
+;; This program is distributed in the hope it will be useful, but WITHOUT ANY
+;; WARRANTY; without even the implied warranty of MERCHANTABILITY or FITINES FOR
+;; A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License along with
+;; this program.  If not, see <https://www.gnu.org/licenses/>.
+
 ;;;; Commentary:
-;; Thanks to Protosilaos-Stavrou and System-Crafter aka David Wilson for
-;; Inspiring me to write down my own emacs-configuration from base level
-;; (scratch) and grown up.
-;; - Update:
-;; 01/03/24
-;; https://github.com/gopar/.emacs.d
-;; @gopar have repo as such hidden gem, without no ambiguities utilize basic
-;; craft resources.
-;;
+
 ;;;; Code:
 
 ;; Recommended to have this at the top
@@ -63,7 +74,7 @@
   (read-buffer-completion-ignore-case t)
   (completion-cycle-threshold 3)
   (tab-always-indent 'complete)
-  (use-dialog-box nil)          ; Lets consistent and use minibuffer for everything
+  (use-dialog-box nil)                                    ; Lets consistent and use minibuffer for everything
   (scroll-conservatively 100)
   (auto-revert-mode 1)                                    ; Refresh the file if has changed
   (set-fringe-mode 10)                                    ; Give some breathing room
@@ -155,9 +166,11 @@
   (put 'eshell 'disabled nil)
 
   (keymap-global-unset "C-x C-c" 'save-buffers-kill-terminal)
+  (keymap-global-unset "C-x C-o" 'delete-blank-lines)
   (keymap-global-set "C-x C-b" 'ibuffer)
   (keymap-global-set "C-x C-c C-c" 'save-buffers-kill-emacs)
   (keymap-global-set "C-x M-f" 'recentf-open-files)
+  (keymap-global-set "C-x C-o" 'other-window)
 
   (dolist (emacs-module-path '("tuanany-lisp" "tuanany-emacs-modules"))
     (add-to-list 'load-path (locate-user-emacs-file emacs-module-path)))
@@ -166,41 +179,26 @@
   ;; LOAD EMACS MODULAR CONFIG FILES
   (defvar addons
     '("tuanany-ui.el"
-      "tuanany-mode-line.el"
-      "tuanany-emacs-dashboard.el"
+      "tuanany-ui-modeline.el"
+      "tuanany-ui-dashboard.el"
     ;;; COMPLETIONS
-      "tuanany-custom-completion.el"
-      "tuanany-vertico-completion.el"
-      "tuanany-company-completion.el"
+      "tuanany-completion-custom.el"
+      "tuanany-completion-vertico.el"
+      "tuanany-completion-company.el"
+    ;;; COMPLETIONS
       "tuanany-magit.el"
       "tuanany-evil.el"
-      ;; tuanany-lisp
+      ;;tuanany-lisp
       "tuanany-orderless.el"
       "tuanany-spell-checker.el"
-    ;;; LSP
-      ;; "tuanany-setup-lsp.el"
     ;;; PROGRAMMING LANGUAGES SPECIFIED
       "tuanany-setup-clojure.el"
       "tuanany-setup-racket.el"
       "tuanany-setup-html.el"
       ;;"tuanay-setup-js.el"
+      ;; "tuanany-setup-lsp.el"
       ))
 
   (dolist (x addons)
     (load x))
-  );; --END--
-
-
-
-
-
-;; **NOTE: THIS SHOULD BE THE FIRST THING TO EVAL AFTER BUILT-INS SETTINGS**
-;;(set-cursor-color "yellow")
-;;(load-theme 'tango-dark)
-
-;;; Key Mapping
-
-
-
-
-;;
+  );; --END USE-PACKAGE --

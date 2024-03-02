@@ -1,12 +1,14 @@
-;;;; tuanany-company-completion.el --- Completion -*- lexical-binding: t; outline-regexp: ";;;"; eval: (local-set-key (kbd "C-c i") #'consult-outline) -*-
+;;;; tuanany-spell-checker.el --- Spell Checker -*- lexical-binding: t -*-
+
+;; Copyright (C) 2021-2024 Agung Tuanany 
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
-;; Package-Requires: ((emacs "25.1"))
+;; Package-Requires: ((emacs "^25.1"))
+;; Created: 2023
 ;; Version: 0.1.0
 ;; Keywords: spell checker
 
-;;;; Version: 0.1.0
 ;;;; Package-Requires:
 
 ;;;; License:
@@ -28,34 +30,8 @@
 ;; Ref: - http://blog.binchen.org/posts/what-s-the-best-spell-check-set-up-in-emacs/
 ;;      - https://github.com/redguardtoo/emacs.d
 ;;      - https://github.com/gopar/.emacs.d?tab=readme-ov-file#spelling
+
 ;;;; Code:
-
-;; (use-package ispell
-;;   :ensure nill
-;;   :custom
-;;   ;; find aspell and hunspell automatically
-;;   (cond
-;;    ;; try hunspell at first
-;;    ;; if hunspell does NOT exist, use aspell
-;;    ((executable-find "hunspell")
-;;     (setq ispell-program-name "hunspell")
-;;     (setq ispell-local-dictionary "en_US")
-;;     (setq ispell-local-dictionary-alist
-;;           ;; Please note the list `("-d" "en_US")` contains ACTUAL parameters passed to hunspell
-;;           ;; You could use `("-d" "en_US,en_US-med")` to check with multiple dictionaries
-;;           '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8)))
-
-;;     ;; new variable `ispell-hunspell-dictionary-alist' is defined in Emacs
-;;     ;; If it's nil, Emacs tries to automatically set up the dictionaries.
-;;     (when (boundp 'ispell-hunspell-dictionary-alist)
-;;       (setq ispell-hunspell-dictionary-alist ispell-local-dictionary-alist)))
-
-;;    ((executable-find "aspell")
-;;     (setq ispell-program-name "aspell")
-;;     ;; Please note ispell-extra-args contains ACTUAL parameters passed to aspell
-;;     (setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_US"))))
-;;   ) ;; ---use package bracket--
-
 
 (use-package ispell
   :ensure nil
