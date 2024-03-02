@@ -182,27 +182,31 @@
     (add-to-list 'load-path (locate-user-emacs-file emacs-module-path)))
 
 
+  ;;========================================
   ;; LOAD EMACS MODULAR CONFIG FILES
+  ;;========================================
   (defvar addons
-    '("tuanany-ui.el"
-      "tuanany-ui-modeline.el"
+    '(
       "tuanany-ui-dashboard.el"
+      "tuanany-ui-modeline.el"
+      "tuanany-ui.el"
     ;;; COMPLETIONS
+      "tuanany-completion-company.el"
       "tuanany-completion-custom.el"
       "tuanany-completion-vertico.el"
-      "tuanany-completion-company.el"
     ;;; HELPER
-      "tuanany-helper-magit.el"
+      "tuanany-helper-dictionary.el"
       "tuanany-helper-evil.el"
-      ;;tuanany-lisp
-      "tuanany-orderless.el"
-      "tuanany-spell-checker.el"
+      "tuanany-helper-magit.el"
+      "tuanany-helper-spell-checker.el"
+    ;;;TUANANY-LISP\
+      "tuanany-lisp-orderless.el"
     ;;; PROGRAMMING LANGUAGES SPECIFIED
       "tuanany-setup-clojure.el"
-      "tuanany-setup-racket.el"
       "tuanany-setup-html.el"
+      "tuanany-setup-racket.el"
+      ;;"tuanany-setup-lsp.el"
       ;;"tuanay-setup-js.el"
-      ;; "tuanany-setup-lsp.el"
       ))
 
   (dolist (x addons)
