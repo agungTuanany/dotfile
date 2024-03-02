@@ -1,4 +1,4 @@
-;;;; tuanany-magit.el --- Version Control -*- lexical-binding: t -*-
+;;;; tuanany-completion-vertico.el --- Programming Languages Specified-*- lexical-binding: t -*-
 
 ;; Copyright (C) 2021-2024 Agung Tuanany 
 
@@ -7,7 +7,7 @@
 ;; Package-Requires: ((emacs "^25.1"))
 ;; Created: 2023
 ;; Version: 0.1.0
-;; Keywords: version control
+;; Keywords: completion
 
 ;;;; Package-Requires:
 
@@ -29,14 +29,19 @@
 
 ;;;; Code:
 
-(use-package magit
-  :ensure t
-  :commands (magit-status magit-get-current-branch))
-
-(use-package magit-delta
-  :after magit
-  :hook (magit-mode . magit-delta-mode)) 
-
-(use-package diff-hl
+(use-package vertico
   :config
-  (global-diff-hl-mode))
+  (setq vertico-scroll-margin 0)
+  (setq vertico-count 5)
+  (setq vertico-resize nil)
+  (setq vertico-cycle t)
+  (defvar vertico-multiform-minimal
+    '(unobtrusive
+      (vertico-flat-format . ( :multiple ""
+			                   :single ""
+			                   :prompt ""
+			                   :separator ""
+			                   :ellipsis ""
+			                   :no-match ""))))
+  :init (vertico-mode 1)
+  )

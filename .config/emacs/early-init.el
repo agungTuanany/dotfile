@@ -1,27 +1,33 @@
-;;; early-init.el -- Early Init File _*_ lexical-binding: t _*_
-;;; Commentary:
+;;;; early-init.el --- Emacs Early Init File -*- lexical-binding: t -*-
 
-;; Copyright (C) 2021-2023 agung Tuanany 
-;; Author: Agung Tuanany <agung.tuananydotgmail.com>
-;; URL:
-;; Package-Requires:
+;; Copyright (C) 2021-2024 Agung Tuanany 
 
-;; This file is nost part of GNU emacs.
+;; Author: Agung Tuanany <agung.tuanany@gmail.com>
+;; URL: http://github.com/agungTuanany/dotfile
+;; Package-Requires: ((emacs "^25.1"))
+;; Created: 2023
+;; Version: 0.1.0
+;; Keywords: init file, early init file
 
-;; This program is free software; you can redistribute it and/or modify it under the terms of the GNU
-;; General Public License as published by the Free Software Foundation, either version 3 or the
-;; License, or any later version.
+;;;; Package-Requires:
 
-;; This program is distributed in the hope it will be useful, but WITHOUT ANY WARRANTY; without
-;; even the implied warranty of MERCHANTABILITY or FITNES FOR A PARTICULAR PURPOSE. See the
-;; GNU General Public License for more details.
+;;;; License:
+;; This file is not part of GNU Emacs.
 
-;; You should have recieved a copy of the GNU General Public License along with this program.
-;; If not, see <https://www.gnu.org/licenses/>.
+;; This program is free software; you can redistribute it and/or modify it under
+;; the terms of the GNU General Public License as published by the Free Software
+;; Foundation, either version 3 or the License, or any later version.
 
-;;; Commentary:
+;; This program is distributed in the hope it will be useful, but WITHOUT ANY
+;; WARRANTY; without even the implied warranty of MERCHANTABILITY or FITINES FOR
+;; A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
-;;; Code:
+;; You should have received a copy of the GNU General Public License along with
+;; this program.  If not, see <https://www.gnu.org/licenses/>.
+
+;;;; Commentary:
+
+;;;; Code:
 
 ;; Temporarily increase the garbage collection threshold. These changes help
 ;; shave off about half a second of startup time.
