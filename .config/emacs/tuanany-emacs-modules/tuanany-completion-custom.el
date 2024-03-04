@@ -140,7 +140,6 @@
 ;; `abbrev-file-name' to save abbrevations. I do not need that, nor do I want it.
 ;(remove-hook 'save-some-buffes-functions #'abbrev--possibly-save)
 
-
 ;; Orderless completion style (and tuanany.orderless.el)
 ;(use-package orderless
 ;:ensure t
@@ -151,4 +150,3 @@
 ;   :custom
 ;   (completion-styles '(orderless basic))
 ;   (completion-category-overrides '((file (styles basic partial-completion)))))
-

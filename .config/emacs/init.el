@@ -194,7 +194,7 @@
       "tuanany-completion-cape.el"
       "tuanany-completion-marginalia.el"
       "tuanany-completion-embark.el"
-      "tuanany-completion-company.el"
+      ;; "tuanany-completion-company.el"
       "tuanany-completion-consult.el"
       "tuanany-completion-corfu.el"
       "tuanany-completion-custom.el"
