@@ -52,23 +52,3 @@
   )
 (add-hook 'web-mode-hook
   (lambda () (untabify (point-min) (point-max))))
-
-;; (use-package clojure-mode
-;;   :hook
-;;   (subword-mode
-;;    pareedit-mode))
-
-;; (use-package cider
-;;   :bind-keymap
-;;   ("C-c u" . cider-user-ns)
-;;   :config
-;;   (setq cider-show-error-buffer t)
-;;   (setq cider-auto-select-error-buffer t)
-;;   (setq cider-repl-history-file "~/.config/emacs/etc/cider-history")
-;;   (setq cider-repl-pop-to-buffer-on-connect t)
-;;   (setq cider-repl-wrap-history t)
-;;   )
-
-;; (defun cider-user-ns ()
-;;   (interactive)
-;;   (cider-repl-set-ns "user"))
