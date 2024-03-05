@@ -138,6 +138,9 @@
   (keymap-global-set "C-x C-c C-c" 'save-buffers-kill-emacs)
   (keymap-global-set "C-x M-f" 'recentf-open-files)
   (keymap-global-set "C-x C-o" 'other-window)
+  (keymap-global-set "C-c f" 'find-name-dired)
+  (keymap-global-set "C-c s" 'find-lisp-find-dired)
+
 
   (dolist (tuanany-module-path '("tuanany-emacs-modules" "tuanany-lisp"))
     (add-to-list 'load-path
