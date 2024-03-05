@@ -32,7 +32,7 @@
 ;; Temporarily increase the garbage collection threshold. These changes help
 ;; shave off about half a second of startup time.
 ;; https://akrl.sdf.org/#orgc15a10d
-(setq garbage-collection-messages t)
+;; (setq garbage-collection-messages t)
 (setq gc-cons-threshold most-positive-fixnum
       gc-cons-percentage 0.5)
 

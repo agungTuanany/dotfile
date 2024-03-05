@@ -1,4 +1,4 @@
-;;;; init.el --- emacs -*- lexical-binding: t -*-
+ ;;;; init.el --- emacs -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2021-2024 Agung Tuanany
 
@@ -12,29 +12,33 @@
 ;;;; Package-Requires:
 
 ;;;; License:
-;; This file is not part of GNU Emacs.
 
-;; This program is free software; you can redistribute it and/or modify it under
-;; the terms of the GNU General Public License as published by the Free Software
-;; Foundation, either version 3 or the License, or any later version.
 
-;; This program is distributed in the hope it will be useful, but WITHOUT ANY
-;; WARRANTY; without even the implied warranty of MERCHANTABILITY or FITINES FOR
-;; A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+;; This file is part of GNU Emacs.
 
-;; You should have received a copy of the GNU General Public License along with
-;; this program.  If not, see <https://www.gnu.org/licenses/>.
+;; GNU Emacs is free software: you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
 
-;;;; Commentary:
+;; GNU Emacs is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
 
-;;;; Code:
+;; You should have received a copy of the GNU General Public License
+;; along with GNU Emacs.  If not, see <https://www.gnu.org/licenses/>.
+
+;;; Commentary:
+
+;;; Code:
 
 ;; Recommended to have this at the top
 ;; Source: https://www.masteringemacs.org/article/how-to-get-started-tree-sitter
 ;; Emacs 29 support for tree-sitter built in.
 (setq treesit-extra-load-path `(,(concat user-emacs-directory "/etc/var/tree-sitter-dist/")
                                 ,(concat user-emacs-directory "/etc/tree-sitter")))
-(setq load-prefer-newer t)
+
 (use-package no-littering :ensure t)
 (use-package quelpa :ensure t)
 (use-package quelpa-use-package :ensure t)
@@ -42,83 +46,71 @@
 (use-package emacs
   :ensure nil
   :defer
-
-  :hook ((after-init . pending-delete-mode)
-         (after-init . toggle-frame-maximized)
-         (after-init . (lambda () (menu-bar-mode -1)))
-         (after-init . (lambda () (scroll-bar-mode -1)))
-         (after-init . (lambda () (tool-bar-mode -1)))
-         (after-init . (lambda () (tooltip-mode -1)))
-         )
-
   :custom
-  (electric-pair-mode 1)    ; Auto-closing brackets
-  (debugger-stack-frame-as-list t)
+  (initial-buffer-choice t)                     ; open *scratch* buffer
+  (electric-pair-mode t)                        ; Automatic parens pairing
+  (toggle-frame-maximized)                      ; Always use all screen for emacs
+  (pending-delete-mode)                         ; Typed text replaces if the selection is active
+  (use-short-answers t)                         ; use 'y' or 'n'
+  (indent-tabs-mode nil)                        ; tabs are evil
   (narrow-to-defun-include-comments t)
-  (use-short-answer t)
-  (confirm-nonexistent-file-or-buffer nill)
-  ;; Treat manual switching of buffers the same as programatic
-  (switch-to-buffer-obey-display-actions t)
+  (confirm-nonexistent-file-or-buffer nil)
+
+  (switch-to-buffer-obey-display-actions t)     ; Treat manual switching of buffers the same as programatic
   (switch-to-buffer-in-dedicated-window nil)
-  (window-sides-slots '(3 0 3 1))
-  ;; Sentences end with 1 space not 2
-  (sentence-end-double-space nil)
-  ;; Make cursor the width of the character it is under
-  ;; ie. full width of a TAB
-  (x-strecth-cursor t)
-  ;; Stop cursor from going into minibuffer prompt text
+  (window-sides-slots '(3 0 3 1))               ; 
+  (sentence-end-double-space nil)               ; End sentence with 1 space not 2
+  (x-stretch-cursor t)                          ; Make cursor stretch to cover wider characters
   (minibuffer-prompt-properties '(read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt))
   (history-delete-duplicates t)
-  ;; Completion stuff for consult
-  (completion-ignore-case t)
-  (read-buffer-completion-ignore-case t)
-  (completion-cycle-threshold 3)
-  (tab-always-indent 'complete)
-  (use-dialog-box nil)                                    ; Lets consistent and use minibuffer for everything
-  (scroll-conservatively 100)
-  (auto-revert-mode 1)                                    ; Refresh the file if has changed
-  (set-fringe-mode 10)                                    ; Give some breathing room
+  (auto-revert-mode t)                          ; Refresh the file if has changed
+  (set-fringe-mode 6)                           ; Give some breating room for symbols
 
-  :config
-  (prefer-coding-system 'utf-8)                           ; Uppercase is same as lowercase
+  (prefer-coding-system 'utf-8)
   (define-coding-system-alias 'UTF-8 'utf-8)
-  ;;(debugger-stack-frame-as-list t)                      ; display call-stack frame
+  (debugger-stack-frame-as-list t)
+  (use-dialog-box nil)
+  (scroll-conservatively 100)
 
-  (setq initial-buffer-choice t)                          ; Always start with *scratch*
-  (setq frame-title-format '("%b (%f)"))
-  (setq ring-bell-function 'ignore)
-  (setq native-comp-async-report-warnings-errors 'silent) ; Emacs 28 with native compilation
-  (setq native-compile-prune-cache t)                     ; Emacs 29
 
-  (setq auto-save-default nil)
-  (setq make-backup-files nil)
-  (setq backup-inhibited nil)                             ; Not sure if needed. given 'make-backup-file'
-  (setq create-lockfiles nil)                             ; No need for ~ files when editing
-  (setq blink-cursor-mode nil)                            ; Disable blinking cursor
+  (inhibit-compacting-font-caches t)            ; Do not exhaust GC memory
+  (visible-bell t)
+  (blink-cursor-mode nil)                       ; Blink gives me a sick eyes
+  ;; (file-name-handler-alist nil)
+  ;; (echo-keystrokes 0.05) ; the value is 0.25
+  (load-prefer-newer t)                         ; Load newest version file
+  (frame-inhibit-implied-resize nil)            ; Fonts independent from any resized frame
+  (tab-width 4)
+  (show-paren-style 'expression)
+  (show-paren-delay 0)
+  (fill-colum 120)
+  (dired-listing-switches "-alh")
+  (kill-do-not-save-duplicates t)
+  (eval-expression-print-length nil)
+  (display-line-numbers 'relative)
 
-  (setq inhibit-compacting-font-caches t)
-  (setq visible-bell t)
-  (setq echo-keystrokes 0.05)
-  (setq file-name-handler-alist nil)
-  (setq load-prefer-newer t)                              ; load newest version of a file
-  (setq frame-inhibit-implied-resize t)
-
-  (setq-default fill-column 80)
-  (setq-default display-line-numbers 'relative)
-  (setq dired-listing-switches "-alh")                    ; Make dired human-readable size
-  (setq-default indent-tabs-mode nil)
-  (setq-default tab-width 4)
-  (setq show-paren-style 'parenthesis
-        show-paren-delay 0)
-  ;;(show-paren-mode)
-
-  ;; set frame parameters
-  (add-to-list 'default-frame-alist '(fullscreen, maximized))
+  ;; FRAMES.
+  ;; The top-level window in the GUI version of emacs
   (add-to-list 'default-frame-alist '(alpha-background . 90)) ; Give transparency
 
-  ;; disable line-numbers for some modes
+  ;; do not clutter root folder
+  (auto-save-default nil)
+  (make-backup-files nil)
+  (backup-inhibited nil)
+  (create-lockfiles nil)
+  :config
+  ;;========================================
+  ;;; CORE
+  ;;========================================
+  (menu-bar-mode -1)
+  (scroll-bar-mode -1)
+  (tool-bar-mode -1)
+  (tooltip-mode -1)
+
   (dolist (mode '(Custom-mode-hook
                   Info-mode-hook
+                  lisp-interaction-mode-hook
+                  ibuffer-mode-hook
                   compilation-mode-hook
                   dired-mode-hook
                   eshell-mode-hook
@@ -131,14 +123,64 @@
                   term-mode-hook
                   text-mode-hook
                   treemacs-mode-hook
+                  helpful-mode-hook
+                  messages-buffer-mode-hook
                   dashboard-mode-hook))
-    (add-hook mode(lambda () (display-line-numbers-mode 0))))
+    (add-hook mode(lambda () (display-line-numbers-mode -1))))
 
+  ;;========================================
+  ;;; KEY MAPPING
+  ;;========================================
 
-  (setq kill-do-not-save-duplicates t)
-  (setq eval-expression-print-length nil)
-  ;;(setq duplicate-line-final-position -1)
-  ;;(setq duplicate-region-final-position -1)
+  (keymap-global-unset "C-x C-c" 'save-buffers-kill-terminal)
+  (keymap-global-unset "C-x C-o" 'delete-blank-lines)
+  (keymap-global-set "C-x C-b" 'ibuffer)
+  (keymap-global-set "C-x C-c C-c" 'save-buffers-kill-emacs)
+  (keymap-global-set "C-x M-f" 'recentf-open-files)
+  (keymap-global-set "C-x C-o" 'other-window)
+
+  (dolist (tuanany-module-path '("tuanany-emacs-modules" "tuanany-lisp"))
+    (add-to-list 'load-path
+                 (locate-user-emacs-file tuanany-module-path)))
+
+  (defvar addons '(
+                   ;;; UI
+                   "tuanany-ui-dashboard.el"
+                   "tuanany-ui-modeline.el"
+                   "tuanany-ui-time.el"
+                   "tuanany-ui.el"
+                   ;;; COMPLETION
+                   "tuanany-completion-custom.el"
+                   "tuanany-completion-vertico.el"
+                   "tuanany-completion-corfu.el"
+                   "tuanany-completion-cape.el"
+                   "tuanany-completion-orderless.el"
+                   "tuanany-completion-consult.el"
+                   "tuanany-completion-marginalia.el"
+                   "tuanany-completion-embark.el"
+                   ;;; HELPER
+                   "tuanany-helper-dumb-jump.el"
+                   "tuanany-helper-helpful.el"
+                   "tuanany-helper-ispell.el"
+                   "tuanany-helper-minibuffer.el"
+                   ;; "tuanany-helper-shrface.el"
+                   ;;; TOOLS
+                   "tuanany-tools-evil.el"
+                   "tuanany-tools-magit.el"
+                   "tuanany-tools-proced.el"
+                   "tuanany-tools-projectile.el"
+                   "tuanany-tools-shell.el"
+                   "tuanany-tools-eww.el"
+                   ;; "tuanany-tools-browse-url.el"
+                   ;; "tuanany-tools-prog-mode.el"
+                   ;;; LANGUAGES
+                   "tuanany-lang-clojure.el"
+                   "tuanany-lang-racket.el"
+                   "tuanany-lang-web-mode.el"
+                   ))
+
+  (dolist (x addons)
+    (load x))
 
   ;;========================================
   ;;; FILE-HANDLING
@@ -146,7 +188,8 @@
   ;;========================================
 
   ;; Put all the files system on '~/.config/emacs/etc' directory
-  ;; Do not clutter base emacs directory <~/.config/emacs>, all unnecessary or secondary file
+  ;; Do not clutter base emacs directory <~/.config/emacs>,
+  ;; all unnecessary or secondary file
   (setq custom-file (locate-user-emacs-file "etc/custom.el"))
   (load custom-file)
 
@@ -167,54 +210,4 @@
     (put c 'disabled t))
   (put 'eshell 'disabled nil)
 
-  ;;========================================
-  ;;; KEY MAPPING
-  ;;========================================
-
-  (keymap-global-unset "C-x C-c" 'save-buffers-kill-terminal)
-  (keymap-global-unset "C-x C-o" 'delete-blank-lines)
-  (keymap-global-set "C-x C-b" 'ibuffer)
-  (keymap-global-set "C-x C-c C-c" 'save-buffers-kill-emacs)
-  (keymap-global-set "C-x M-f" 'recentf-open-files)
-  (keymap-global-set "C-x C-o" 'other-window)
-
-  (dolist (emacs-module-path '("tuanany-lisp" "tuanany-emacs-modules"))
-    (add-to-list 'load-path (locate-user-emacs-file emacs-module-path)))
-
-
-  ;;========================================
-  ;; LOAD EMACS MODULAR CONFIG FILES
-  ;;========================================
-  (defvar addons
-    '(
-      "tuanany-ui-dashboard.el"
-      "tuanany-ui-modeline.el"
-      "tuanany-ui.el"
-    ;;; COMPLETIONS
-      "tuanany-completion-cape.el"
-      "tuanany-completion-marginalia.el"
-      "tuanany-completion-embark.el"
-      ;; "tuanany-completion-company.el"
-      "tuanany-completion-consult.el"
-      "tuanany-completion-corfu.el"
-      "tuanany-completion-custom.el"
-      "tuanany-completion-orderless.el"
-      "tuanany-completion-vertico.el"
-    ;;; HELPER
-      "tuanany-helper-dictionary.el"
-      "tuanany-helper-evil.el"
-      "tuanany-helper-magit.el"
-      "tuanany-helper-spell-checker.el"
-    ;;;TUANANY-LISP\
-      "tuanany-lisp-orderless.el"
-    ;;; PROGRAMMING LANGUAGES SPECIFIED
-      "tuanany-setup-clojure.el"
-      "tuanany-setup-web-mode.el"
-      "tuanany-setup-racket.el"
-      ;;"tuanany-setup-lsp.el"
-      ;;"tuanay-setup-js.el"
-      ))
-
-  (dolist (x addons)
-    (load x))
-  );; --END USE-PACKAGE --
+  ) ;; END EMACS-PAKCAGE
