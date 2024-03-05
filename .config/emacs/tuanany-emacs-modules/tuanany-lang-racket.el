@@ -36,7 +36,7 @@
   (racket-repl-mode . company-mode)
   )
 
-;;; This is the binary name of my scheme implementation
+;;; binary name of scheme implementation
 (setq scheme-program-name "mzscheme")
 
 ;; (use-package quack
