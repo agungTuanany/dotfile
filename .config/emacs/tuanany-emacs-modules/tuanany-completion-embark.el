@@ -32,7 +32,8 @@
 (use-package embark
   :ensure t
   :defer
-  :bind (("C-." . embark-act)))
+  :config
+  (keymap-global-set "C-c C-." 'embark-act))
 
 (use-package embark-consult
   :ensure t
