@@ -1,4 +1,4 @@
-;;; tuanany-emacs-dashboard.el -- Dashboard -*- lexical-binding: t -*-
+;;; tuanany-ui-dashboard.el -- Dashboard -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2021-2024 Agung Tuanany 
 

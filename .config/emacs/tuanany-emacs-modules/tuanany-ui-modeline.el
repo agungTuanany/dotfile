@@ -1,4 +1,4 @@
-;;;; tuanany-mode-line.el --- Mode Line -*- lexical-binding: t -*-
+;;;; tuanany-ui-modeline.el --- Mode Line -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2021-2024 Agung Tuanany 
 
