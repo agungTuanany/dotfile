@@ -1,4 +1,4 @@
-;;;; tuanany-ui.el --- UI -*- lexical-binding: t -*-
+;;;; tuanany-ui-time.el --- Mode Line -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2021-2024 Agung Tuanany 
 
@@ -7,7 +7,7 @@
 ;; Package-Requires: ((emacs "^25.1"))
 ;; Created: 2023
 ;; Version: 0.1.0
-;; Keywords: global ui, 
+;; Keywords: ui, time
 
 ;;;; Package-Requires:
 
@@ -29,31 +29,17 @@
 
 ;;;; Code:
 
-(use-package doom-themes
-  :config
-  (setq-default doom-theme-enable-bold t
-		doom-theme-enable-italic t)
-  (load-theme 'doom-monokai-octagon t)
-  ;; (set-cursor-color "yellow")
-  )
-
-(use-package diminish
-   :ensure t)
-
-(use-package rainbow-delimiters
-  :hook (prog-mode . rainbow-delimiters-mode))
-
-(use-package which-key
-  :ensure nil
-  :defer
-  :hook
-  ((prog-mode . which-function-mode)
-   (after-init . which-key-mode))
+(use-package time
+  :ensure t
   :custom
-  (which-key-idle-delay 0.5)
-  :diminish (which-key-mode))
-
-(use-package paredit
-  :hook
-  ((racket-mode . paredit-mode)
-   (racket-repl-mode . paredit-mode)))
+  (display-time-format " %a %e %b, %H:%M ")
+  (display-time-interval 60)
+  (display-time-default-load-average nil)
+  (display-time-mail-function nil)
+  (display-time-mail-directory nil)
+  (display-time-use-mail-icon nil)
+  (display-time-mail-string nil)
+  (display-time-mail-face nil)
+  :init
+  (display-time-mode)
+  )
