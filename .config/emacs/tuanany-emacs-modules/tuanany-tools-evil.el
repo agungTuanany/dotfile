@@ -1,4 +1,4 @@
-;;;; tuanany-evil.el --- evil -*- lexical-binding: t -*-
+;;;; tuanany-tools-evil.el --- evil -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2021-2024 Agung Tuanany 
 

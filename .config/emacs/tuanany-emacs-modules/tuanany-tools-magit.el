@@ -1,4 +1,4 @@
-;;;; tuanany-magit.el --- Version Control -*- lexical-binding: t -*-
+;;;; tuanany-tools-magit.el --- magit -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2021-2024 Agung Tuanany 
 
@@ -40,3 +40,4 @@
 (use-package diff-hl
   :config
   (global-diff-hl-mode))
+
