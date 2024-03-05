@@ -1,4 +1,4 @@
-;;;; tuanany-helper-dictionary.el --- dictionary -*- lexical-binding: t -*-
+;;;; tuanany-helper-shrface.el --- shrface -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2021-2024 Agung Tuanany 
 
@@ -7,7 +7,7 @@
 ;; Package-Requires: ((emacs "^25.1"))
 ;; Created: 2023
 ;; Version: 0.1.0
-;; Keywords: helper package, dictionary 
+;; Keywords: helpful, shr, eww
 
 ;;;; Package-Requires:
 
@@ -26,24 +26,13 @@
 ;; this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ;;;; Commentary:
-;; Look up word at point using dict.org in readme/text/org-mode buffers
-;; Ref: https://github.com/gopar/.emacs.d?tab=readme-ov-file#spelling
 
 ;;;; Code:
-
-(use-package dictionary
-  :defer
-  :ensure nil
-  :bind (:map text-mode-map
-              ("C->" . dictionary-lookup-definition)
-         :map org-mode-map
-              ("C->" . dictionary-lookup-definition)
-         :map dictionary-mode-map
-              ("C->" . dictionary-lookup-definition))
-  :init
-  (add-to-list 'display-buffer-alist
-               '("^\\*Dictionary\\*" display-buffer-in-side-window
-                 (side . left)
-                 (window-width . 50)))
-  :custom
-  (dictionary-server "dict.org"))
+(use-package shrface
+  :ensure t
+  :defer t
+  :config
+  (shrface-basic)
+  (shrface-trial)
+  (shrface-default-keybindings) ; setup default keybindings
+  (setq shrface-href-versatile t))
