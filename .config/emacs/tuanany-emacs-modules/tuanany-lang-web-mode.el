@@ -36,6 +36,14 @@
 ;;; Code:
 
 (use-package web-mode
+  :ensure t
+  :defer
+  :custom
+  (web-mode-enable-current-element-highlight t)
+  (web-mode-enable-current-column-highlight t)
+  (web-mode-script-padding 0)
+  (web-mode-enable-block-face t)
+  (web-mode-enable-comment-interpolation t)
   :config
   (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
@@ -45,10 +53,6 @@
   (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-  ;; Enable / Disable features
-  (setq web-mode-enable-block-face t)
-  (setq web-mode-enable-comment-interpolation t)
-  ;; (setq web-mode-enable-current-column-highlight t)
+  :init (web-mode)
   )
-(add-hook 'web-mode-hook
-  (lambda () (untabify (point-min) (point-max))))
+(add-hook 'web-mode-hook (lambda () (untabify (point-min) (point-max))))
