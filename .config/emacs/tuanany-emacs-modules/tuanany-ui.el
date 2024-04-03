@@ -36,21 +36,17 @@
   (load-theme 'doom-monokai-octagon t)
   )
 
-;; (use-package diminish
-;;    :ensure t)
-
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
 (use-package which-key
   :ensure nil
-  :defer
   :hook
   ((prog-mode . which-function-mode)
    (after-init . which-key-mode))
   :custom
   (which-key-idle-delay 0.5)
-  :diminish (which-key-mode))
+  )
 
 (use-package paredit
   :hook
