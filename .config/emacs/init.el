@@ -1,4 +1,4 @@
- ;;;; init.el --- emacs -*- lexical-binding: t -*-
+;;;; init.el --- emacs -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2021-2024 Agung Tuanany
 
@@ -14,7 +14,7 @@
 ;;;; License:
 
 
-;; This file is part of GNU Emacs.
+;; This file is not part of GNU Emacs.
 
 ;; GNU Emacs is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -56,7 +56,7 @@
   (narrow-to-defun-include-comments t)
   (confirm-nonexistent-file-or-buffer nil)
 
-  (switch-to-buffer-obey-display-actions t)     ; Treat manual switching of buffers the same as programatic
+  (switch-to-buffer-obey-display-actions t)     ; Treat manual switching of buffers the same as programmatic
   (switch-to-buffer-in-dedicated-window nil)
   (window-sides-slots '(3 0 3 1))               ; 
   (sentence-end-double-space nil)               ; End sentence with 1 space not 2
@@ -213,4 +213,4 @@
     (put c 'disabled t))
   (put 'eshell 'disabled nil)
 
-  ) ;; END EMACS-PAKCAGE
+  ) ;; END EMACS-PACKAGE
