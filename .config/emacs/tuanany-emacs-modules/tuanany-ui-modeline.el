@@ -33,6 +33,7 @@
   :config
   (setq doom-modeline-support-imenu t)
   (setq doom-modeline-icon nil)
+  (setq doom-modeline-time-live-icon nil)
   (setq doom-modeline-workspace-name t)
   (setq doom-modeline-total-line-number t)
   ;; (setq doom-modeline-position-line-format '("L%l"))
