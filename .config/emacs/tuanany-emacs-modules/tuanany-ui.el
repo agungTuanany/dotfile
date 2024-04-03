@@ -32,13 +32,12 @@
 (use-package doom-themes
   :config
   (setq-default doom-theme-enable-bold t
-		doom-theme-enable-italic t)
+                doom-theme-enable-italic t)
   (load-theme 'doom-monokai-octagon t)
-  ;; (set-cursor-color "yellow")
   )
 
-(use-package diminish
-   :ensure t)
+;; (use-package diminish
+;;    :ensure t)
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
