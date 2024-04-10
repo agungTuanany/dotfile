@@ -166,6 +166,7 @@
                    "tuanany-helper-helpful.el"
                    "tuanany-helper-ispell.el"
                    "tuanany-helper-minibuffer.el"
+                   "tuanany-helper-skewer.el"
                    ;; "tuanany-helper-shrface.el"
                    ;;; TOOLS
                    "tuanany-tools-evil.el"
