@@ -38,4 +38,5 @@
   (keymap-global-set "C-h k" 'helpful-key)
   (keymap-global-set "C-h x" 'helpful-command)
   (keymap-global-set "C-c C-d" 'helpful-at-point)
-  (keymap-global-set "C-h F" 'helpful-function))
+  (keymap-global-set "C-h F" 'helpful-function)
+  (keymap-global-set "C-h o" 'helpful-symbol))
