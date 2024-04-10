@@ -174,12 +174,14 @@
                    "tuanany-tools-projectile.el"
                    "tuanany-tools-shell.el"
                    "tuanany-tools-eww.el"
+                   "tuanany-tools-tree-sitter.el"
                    ;; "tuanany-tools-browse-url.el"
                    ;; "tuanany-tools-prog-mode.el"
                    ;;; LANGUAGES
                    "tuanany-lang-clojure.el"
                    "tuanany-lang-racket.el"
                    "tuanany-lang-web-mode.el"
+                   "tuanany-lang-js2-mode.el"
                    ))
 
   (dolist (x addons)

@@ -6,7 +6,6 @@ eshell/
 packages/
 var/
 transient/
-var/
 OrgFiles/
 .cache/
 themes/
