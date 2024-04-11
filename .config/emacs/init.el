@@ -164,10 +164,11 @@
                    ;;; HELPER
                    "tuanany-helper-dumb-jump.el"
                    "tuanany-helper-helpful.el"
+                   "tuanany-helper-highlight-indentation.el"
+                   "tuanany-helper-iedit.el"
                    "tuanany-helper-ispell.el"
                    "tuanany-helper-minibuffer.el"
                    "tuanany-helper-skewer.el"
-                   "tuanany-helper-highlight-indentation.el"
                    ;; "tuanany-helper-shrface.el"
                    ;;; TOOLS
                    "tuanany-tools-evil.el"
