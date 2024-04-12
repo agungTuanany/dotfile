@@ -170,7 +170,6 @@
                    "tuanany-helper-ispell.el"
                    "tuanany-helper-minibuffer.el"
                    "tuanany-helper-whitespace.el"
-                   ;; "tuanany-helper-skewer.el"
                    ;; "tuanany-helper-shrface.el"
                    ;;; TOOLS
                    "tuanany-tools-evil.el"
@@ -180,6 +179,8 @@
                    "tuanany-tools-projectile.el"
                    "tuanany-tools-shell.el"
                    "tuanany-tools-tree-sitter.el"
+                   ;; "tuanany-tools-impatient-mode.el"
+                   ;; "tuanany-tools-skewer.el"
                    ;; "tuanany-tools-browse-url.el"
                    ;; "tuanany-tools-prog-mode.el"
                    ;;; LANGUAGES
