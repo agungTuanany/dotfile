@@ -1,6 +1,6 @@
 ;;;; tuanany-completion-orderless-.el --- completion -*- lexical-binding: t -*-
 
-;; Copyright (C) 2021-2024 Agung Tuanany 
+;; Copyright (C) 2021-2024 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
@@ -35,3 +35,5 @@
   :custom
   (completion-styles '(orderless basic))
   (completion-category-overrides '((file (styles basic partial-completion)))))
+
+;;; tuanany-completion-orderless.el ends here

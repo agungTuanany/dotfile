@@ -1,6 +1,6 @@
 ;;;; tuanany-completion-embark-.el --- completion -*- lexical-binding: t -*-
 
-;; Copyright (C) 2021-2024 Agung Tuanany 
+;; Copyright (C) 2021-2024 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
@@ -38,3 +38,5 @@
 (use-package embark-consult
   :ensure t
   :after embark)
+
+;;; tuanany-completion-embark.el ends here

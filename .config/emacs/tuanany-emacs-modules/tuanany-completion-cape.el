@@ -1,6 +1,6 @@
 ;;;; tuanany-completion-cape-.el --- completion -*- lexical-binding: t -*-
 
-;; Copyright (C) 2021-2024 Agung Tuanany 
+;; Copyright (C) 2021-2024 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
@@ -60,3 +60,4 @@
   (add-hook 'minibuffer-setup-hook #'corfu-enable-always-in-minibuffer 1)
   :bind ("C-c SPC" . cape-dabbrev)
   )
+;;; tuanany-completion-cape.el ends here

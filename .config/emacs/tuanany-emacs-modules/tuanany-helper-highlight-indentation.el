@@ -1,6 +1,6 @@
 ;;;; tuanany-helper-highlight-indentation.el --- highlight-indentation -*- lexical-binding: t -*-
 
-;; Copyright (C) 2021-2024 Agung Tuanany 
+;; Copyright (C) 2021-2024 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
@@ -26,9 +26,6 @@
 ;; this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ;;;; Commentary:
-;; Dependencies:
-;;   - simple-httpd
-;;   - js2-mode
 
 ;;;; Code:
 (use-package highlight-indentation
@@ -38,3 +35,5 @@
   ((prog-mode . highlight-indentation-mode)
    (prog-mode . highlight-indentation-current-column-mode)
    ))
+
+;;; tuanany-helper-highlight-indentation.el ends here

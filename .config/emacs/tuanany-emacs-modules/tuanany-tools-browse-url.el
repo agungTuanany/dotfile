@@ -1,6 +1,6 @@
 ;;;; tuanany-tools-browse-url.el --- browse url -*- lexical-binding: t -*-
 
-;; Copyright (C) 2021-2024 Agung Tuanany 
+;; Copyright (C) 2021-2024 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
@@ -39,3 +39,5 @@
 ;;   (browse-url-firefox-new-window-is-tab t)
 ;;   :config
 ;;   (put 'browse-url-handlers 'safe-local-variable (lambda (x) t)))
+
+;;; tuanany-tools-browse-url.el ends here

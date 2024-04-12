@@ -1,6 +1,6 @@
 ;;;; tuanany-tools-magit.el --- magit -*- lexical-binding: t -*-
 
-;; Copyright (C) 2021-2024 Agung Tuanany 
+;; Copyright (C) 2021-2024 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
@@ -35,9 +35,10 @@
 
 (use-package magit-delta
   :after magit
-  :hook (magit-mode . magit-delta-mode)) 
+  :hook (magit-mode . magit-delta-mode))
 
 (use-package diff-hl
   :config
   (global-diff-hl-mode))
 
+;;; tuanany-tools-magit.el ends here

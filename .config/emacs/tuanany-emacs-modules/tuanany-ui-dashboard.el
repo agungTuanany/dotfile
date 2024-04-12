@@ -1,6 +1,6 @@
 ;;; tuanany-ui-dashboard.el -- Dashboard -*- lexical-binding: t -*-
 
-;; Copyright (C) 2021-2024 Agung Tuanany 
+;; Copyright (C) 2021-2024 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
@@ -36,3 +36,5 @@
   (setq dashboard-center-content t)
   (dashboard-setup-startup-hook)
   )
+
+;;; tuanany-ui-dashboard.el ends here

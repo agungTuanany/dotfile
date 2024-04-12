@@ -1,6 +1,6 @@
 ;;;; tuanany-helper-helpful.el --- helpful -*- lexical-binding: t -*-
 
-;; Copyright (C) 2021-2024 Agung Tuanany 
+;; Copyright (C) 2021-2024 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
@@ -40,3 +40,5 @@
   (keymap-global-set "C-c C-d" 'helpful-at-point)
   (keymap-global-set "C-h F" 'helpful-function)
   (keymap-global-set "C-h o" 'helpful-symbol))
+
+;;; tuanany-helper-helpful.el ends here

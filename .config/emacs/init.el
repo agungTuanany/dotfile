@@ -149,7 +149,7 @@
   (defvar addons '(
                    ;;; UI
                    "tuanany-ui-dashboard.el"
-                   "tuanany-ui-modeline.el"
+                   "tuanany-ui-doom-modeline.el"
                    "tuanany-ui-time.el"
                    "tuanany-ui.el"
                    ;;; COMPLETION
@@ -221,3 +221,4 @@
   (put 'eshell 'disabled nil)
 
   ) ;; END EMACS-PACKAGE
+;;; init.el ends here

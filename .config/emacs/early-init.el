@@ -1,6 +1,6 @@
 ;;;; early-init.el --- Emacs Early Init File -*- lexical-binding: t -*-
 
-;; Copyright (C) 2021-2024 Agung Tuanany 
+;; Copyright (C) 2021-2024 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
@@ -41,9 +41,9 @@
 (setq package-enable-at-startup nil)
 
 (add-hook 'emacs-startup-hook
-	      (lambda ()
-	        (setq gc-cons-threshold (* 1024 1024 10)
-		          gc-cons-percentage 0.2)))
+          (lambda ()
+            (setq gc-cons-threshold (* 1024 1024 10)
+                  gc-cons-percentage 0.2)))
 
 ;;;; PACKAGES
 ;; Presetup package sources
@@ -51,8 +51,8 @@
 (add-hook 'package-menu-mode-hook #'hl-line-mode)
 
 (setq package-archives '(("gnu-elpa" . "https://elpa.gnu.org/packages/")
-			             ("melpa" . "https://melpa.org/packages/")
-			             ("org" . "https://orgmode.org/elpa/")))
+                         ("melpa" . "https://melpa.org/packages/")
+                         ("org" . "https://orgmode.org/elpa/")))
 
 ;; Highest number gets priority (what is not mentioned has priority 0)
 (setq package-archive-priorities
@@ -66,3 +66,5 @@
 
 (require 'use-package)
 (setq use-package-always-ensure t)
+
+;;; early-init.el ends here

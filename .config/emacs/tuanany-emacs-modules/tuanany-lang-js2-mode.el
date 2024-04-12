@@ -1,6 +1,6 @@
 ;;;; tuanany-lang-js2-mode.el --- js2-mode Programming Languages Specified-*- lexical-binding: t -*-
 
-;; Copyright (C) 2021-2024 Agung Tuanany 
+;; Copyright (C) 2021-2024 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
@@ -40,4 +40,4 @@
   :config
   (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode)))
 
-;; 
+;;; tuanany-lang-js2-mode.el ends here

@@ -1,11 +1,14 @@
 ;;;; tuanany-helper-minibuffer.el --- minibuffer -*- lexical-binding: t -*-
+
+;; Copyright (C) 2021-2024 Agung Tuanany
+
+;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
 ;; Package-Requires: ((emacs "^25.1"))
 ;; Created: 2023
 ;; Version: 0.1.0
-;; Keywords: spell checker
+;; Keywords: multiple occurrences in the same way simultaneously
 
-;;;; Package-Requires:
 
 ;;;; License:
 ;; This file is not part of GNU Emacs.
@@ -36,3 +39,5 @@
   :ensure nil
   :custom
   (completion-styles '(initials partial-completion flex)))
+
+;;; tuanany-helper-minibuffer.el ends here

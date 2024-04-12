@@ -1,6 +1,6 @@
 ;;;; tuanany-completion-vertico.el --- Programming Languages Specified-*- lexical-binding: t -*-
 
-;; Copyright (C) 2021-2024 Agung Tuanany 
+;; Copyright (C) 2021-2024 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
@@ -40,11 +40,11 @@
   (defvar vertico-multiform-minimal
     '(unobtrusive
       (vertico-flat-format . ( :multiple ""
-			                   :single ""
-			                   :prompt ""
-			                   :separator ""
-			                   :ellipsis ""
-			                   :no-match ""))))
+                               :single ""
+                               :prompt ""
+                               :separator ""
+                               :ellipsis ""
+                               :no-match ""))))
   :init (vertico-mode 1)
   )
 
@@ -68,3 +68,5 @@
           '((left-fringe . 8)
             (right-fringe . 8)))
   )
+
+;;; tuanany-completion-vertico.el ends here

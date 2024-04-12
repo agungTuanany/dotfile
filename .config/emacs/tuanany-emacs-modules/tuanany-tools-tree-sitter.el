@@ -1,6 +1,6 @@
 ;;;; tuanany-helper-tree-sitter-.el --- tree-sitter -*- lexical-binding: t -*-
 
-;; Copyright (C) 2021-2024 Agung Tuanany 
+;; Copyright (C) 2021-2024 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
@@ -53,3 +53,5 @@
 (use-package tree-sitter-langs
   :hook
   (tree-sitter-after-on . tree-sitter-hl-mode))
+
+;;; tuanany-tools-tree-sitter.el ends here
