@@ -58,7 +58,7 @@
 
   (switch-to-buffer-obey-display-actions t)     ; Treat manual switching of buffers the same as programmatic
   (switch-to-buffer-in-dedicated-window nil)
-  (window-sides-slots '(3 0 3 1))               ; 
+  (window-sides-slots '(3 0 3 1))               ;
   (sentence-end-double-space nil)               ; End sentence with 1 space not 2
   (x-stretch-cursor t)                          ; Make cursor stretch to cover wider characters
   (minibuffer-prompt-properties '(read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt))
@@ -153,38 +153,40 @@
                    "tuanany-ui-time.el"
                    "tuanany-ui.el"
                    ;;; COMPLETION
-                   "tuanany-completion-custom.el"
-                   "tuanany-completion-vertico.el"
-                   "tuanany-completion-corfu.el"
                    "tuanany-completion-cape.el"
-                   "tuanany-completion-orderless.el"
                    "tuanany-completion-consult.el"
-                   "tuanany-completion-marginalia.el"
+                   "tuanany-completion-corfu.el"
+                   "tuanany-completion-custom.el"
                    "tuanany-completion-embark.el"
+                   "tuanany-completion-marginalia.el"
+                   "tuanany-completion-orderless.el"
+                   "tuanany-completion-vertico.el"
                    ;;; HELPER
                    "tuanany-helper-dumb-jump.el"
+                   "tuanany-helper-flycheck.el"
                    "tuanany-helper-helpful.el"
                    "tuanany-helper-highlight-indentation.el"
                    "tuanany-helper-iedit.el"
                    "tuanany-helper-ispell.el"
                    "tuanany-helper-minibuffer.el"
-                   "tuanany-helper-skewer.el"
+                   "tuanany-helper-whitespace.el"
+                   ;; "tuanany-helper-skewer.el"
                    ;; "tuanany-helper-shrface.el"
                    ;;; TOOLS
                    "tuanany-tools-evil.el"
+                   "tuanany-tools-eww.el"
                    "tuanany-tools-magit.el"
                    "tuanany-tools-proced.el"
                    "tuanany-tools-projectile.el"
                    "tuanany-tools-shell.el"
-                   "tuanany-tools-eww.el"
                    "tuanany-tools-tree-sitter.el"
                    ;; "tuanany-tools-browse-url.el"
                    ;; "tuanany-tools-prog-mode.el"
                    ;;; LANGUAGES
                    "tuanany-lang-clojure.el"
+                   "tuanany-lang-js2-mode.el"
                    "tuanany-lang-racket.el"
                    "tuanany-lang-web-mode.el"
-                   "tuanany-lang-js2-mode.el"
                    ))
 
   (dolist (x addons)

@@ -36,4 +36,5 @@
   :defer
   :hook
   ((prog-mode . highlight-indentation-mode)
-   (prog-mode . highlight-indentation-current-column-mode)))
+   (prog-mode . highlight-indentation-current-column-mode)
+   ))
