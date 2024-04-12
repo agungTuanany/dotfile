@@ -38,6 +38,10 @@
 (use-package js2-mode
   :ensure t
   :config
-  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode)))
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+  ;; :custom
+  ;; (js2-strict-missing-semi-warning nil)
+  ;; (js2-missing-semi-one-line-override nil)
+  )
 
 ;;; tuanany-lang-js2-mode.el ends here
