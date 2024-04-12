@@ -1,6 +1,6 @@
 ;;;; tuanany-completion-consult-.el --- completion -*- lexical-binding: t -*-
 
-;; Copyright (C) 2021-2024 Agung Tuanany 
+;; Copyright (C) 2021-2024 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
@@ -115,4 +115,6 @@ If used with a prefix, it will search all buffers as well."
   ;; Eventually suppress previewing for certain functions
   (consult-customize
    consult-org-roam-forward-links
-   :preview-key (kbd "M-.")))
+   :preview-key (kbd "M-."))
+  )
+;;; tuanany-completion-consult.el ends here

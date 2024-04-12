@@ -1,6 +1,6 @@
 ;;;; tuanany-helper-dumb-jump.el --- dumb jump -*- lexical-binding: t -*-
 
-;; Copyright (C) 2021-2024 Agung Tuanany 
+;; Copyright (C) 2021-2024 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
@@ -54,4 +54,6 @@
         (list (xref-make identifier (xref-make-file-location (format "%s%s" (projectile-project-root) path) 1 0))))))
 
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
-  (add-hook 'xref-backend-functions #'tuanany-filename/xref-filename-backend))
+  (add-hook 'xref-backend-functions #'tuanany-filename/xref-filename-backend)
+  )
+;;; tuanany-helper-dumb-jump.el ends here

@@ -1,6 +1,6 @@
 ;;;; tuanany-setup-html.el --- Programming Languages Specified-*- lexical-binding: t -*-
 
-;; Copyright (C) 2021-2024 Agung Tuanany 
+;; Copyright (C) 2021-2024 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
@@ -53,6 +53,10 @@
   (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+  ;; :hook
+  ;; (web-mode . (lambda () (untabify (point-min) (point-max))))
   :init (web-mode)
   )
 (add-hook 'web-mode-hook (lambda () (untabify (point-min) (point-max))))
+
+;;; tuanany-lang-web-mode.el ends here

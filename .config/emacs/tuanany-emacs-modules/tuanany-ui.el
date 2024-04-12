@@ -1,13 +1,13 @@
 ;;;; tuanany-ui.el --- UI -*- lexical-binding: t -*-
 
-;; Copyright (C) 2021-2024 Agung Tuanany 
+;; Copyright (C) 2021-2024 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
 ;; Package-Requires: ((emacs "^25.1"))
 ;; Created: 2023
 ;; Version: 0.1.0
-;; Keywords: global ui, 
+;; Keywords: global ui,
 
 ;;;; Package-Requires:
 
@@ -52,3 +52,5 @@
   :hook
   ((racket-mode . paredit-mode)
    (racket-repl-mode . paredit-mode)))
+
+;;; tuanany-ui.el ends here

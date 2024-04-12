@@ -1,6 +1,6 @@
 ;;;; tuanany-helper-iedit.el --- iedit -*- lexical-binding: t -*-
 
-;; Copyright (C) 2021-2024 Agung Tuanany 
+;; Copyright (C) 2021-2024 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
@@ -36,3 +36,5 @@
   :custom
   (iedit-toggle-key-default nil)
   )
+
+;;; tuanany-helper-iedit.el ends here

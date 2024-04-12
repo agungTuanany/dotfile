@@ -1,6 +1,6 @@
 ;;;; tuanany-tools-projectile.el --- projectile -*- lexical-binding: t -*-
 
-;; Copyright (C) 2021-2024 Agung Tuanany 
+;; Copyright (C) 2021-2024 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
@@ -44,3 +44,5 @@
   ;; :init
   ;; (projectile-mode +1)
   )
+
+;;; tuanany-tools-projectile.el ends here

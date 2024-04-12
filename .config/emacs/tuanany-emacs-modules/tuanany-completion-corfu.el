@@ -1,6 +1,6 @@
 ;;;; tuanany-completion-corfu-.el --- completion -*- lexical-binding: t -*-
 
-;; Copyright (C) 2021-2024 Agung Tuanany 
+;; Copyright (C) 2021-2024 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
@@ -61,3 +61,5 @@
   :init
   (setq corfu-exclude-modes '(eshell-mode))
   (global-corfu-mode))
+
+;;; tuanany-completion-corfu.el ends here

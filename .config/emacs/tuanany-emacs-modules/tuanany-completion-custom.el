@@ -1,13 +1,13 @@
 ;;;; tuanany-completion-custom.el --- completion custom -*- lexical-binding: t -*-
 
-;; Copyright (C) 2021-2024 Agung Tuanany 
+;; Copyright (C) 2021-2024 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
 ;; Package-Requires: ((emacs "^25.1"))
 ;; Created: 2023
 ;; Version: 0.1.0
-;; Keywords: helpful, shr, eww
+;; Keywords: custom completion
 
 ;;;; Package-Requires:
 
@@ -68,3 +68,4 @@
   (setq dabbrev-ignored-buffer-regexps '("\\.\\(?:pdf\\|jpe?g\\|png\\)\\'"))
   (setq dabbrev-upcase-means-case-search t)
   )
+;;; tuanany-completion-custom.el ends here

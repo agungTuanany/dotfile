@@ -1,9 +1,13 @@
 ;;;; tuanany-helper-ispell.el --- ispell -*- lexical-binding: t -*-
+
+;; Copyright (C) 2021-2024 Agung Tuanany
+
+;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
 ;; Package-Requires: ((emacs "^25.1"))
 ;; Created: 2023
 ;; Version: 0.1.0
-;; Keywords: spell checker
+;; Keywords: multiple occurrences in the same way simultaneously
 
 ;;;; Package-Requires:
 
@@ -65,3 +69,5 @@
 
 (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
   (add-hook hook (lambda () (flyspell-mode -1))))
+
+;;; tuanany-helper-ispell.el ends here

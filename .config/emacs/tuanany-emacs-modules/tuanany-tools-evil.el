@@ -1,6 +1,6 @@
 ;;;; tuanany-tools-evil.el --- evil -*- lexical-binding: t -*-
 
-;; Copyright (C) 2021-2024 Agung Tuanany 
+;; Copyright (C) 2021-2024 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
@@ -36,32 +36,32 @@
   ;; going for emacs state whenever it makes sense
   ;; respect and use emacs motion state (emacs movement)
   (setq evil-default-state 'emacs
-	evil-emacs-state-modes nil
-	evil-insert-state-modes nil
-	evil-motion-state-modes nil
-	evil-normal-state-modes '(text-mode prog-mode fundamental-mode
-					    css-mode conf-mode TeX-mode
-					    diff-mode))
+    evil-emacs-state-modes nil
+    evil-insert-state-modes nil
+    evil-motion-state-modes nil
+    evil-normal-state-modes '(text-mode prog-mode fundamental-mode
+                        css-mode conf-mode TeX-mode
+                        diff-mode))
   (add-hook 'org-capture-mode-hook 'evil-insert-state)
   (add-hook 'with-editor-mode-hook 'evil-insert-state)
   (add-hook 'view-mode-hook 'evil-emacs-state)
 
   ;; base behavior adjustment
   (setq evil-cross-lines t
-	evil-ex-substitute-global t   ;regex use 'g' at all matched
-	evil-kill-on-visual-paste nil
-	evil-move-beyond-eol t
-	;;evil-default-cursor 'hbar
-	evil-move-cursor-back nil
-	evil-symbol-word-search t
-	evil-undo-system 'undo-tree
-	evil-want-C-i-jump t
-	evil-want-C-u-scroll t
-	evil-want-C-h-delete t
-	evil-want-fine-undo t
-	evil-want-integration t
-	evil-want-keybinding nil
-	)
+    evil-ex-substitute-global t   ;regex use 'g' at all matched
+    evil-kill-on-visual-paste nil
+    evil-move-beyond-eol t
+    ;;evil-default-cursor 'hbar
+    evil-move-cursor-back nil
+    evil-symbol-word-search t
+    evil-undo-system 'undo-tree
+    evil-want-C-i-jump t
+    evil-want-C-u-scroll t
+    evil-want-C-h-delete t
+    evil-want-fine-undo t
+    evil-want-integration t
+    evil-want-keybinding nil
+    )
 
   ;; enable 'C-w' in emacs-state
   (with-eval-after-load 'evil-vars
@@ -100,7 +100,8 @@
   (evil-define-key 'normal 'global (kbd "<leader>ev") 'eval-buffer)
   (evil-define-key 'normal 'global (kbd "<leader>ev") 'list-ibuffer)
   (evil-define-key 'insert 'global (kbd "TAB") 'tab-to-tab-stop)
-  (evil-mode 1))
+  (evil-mode 1)
+  )
 
 (use-package evil-surround
   :after evil
@@ -112,3 +113,5 @@
   :ensure t
   :config
   (evil-collection-init))
+
+;;; tuanany-tools-evil.el ends here
