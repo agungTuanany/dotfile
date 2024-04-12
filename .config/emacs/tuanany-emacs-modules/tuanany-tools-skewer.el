@@ -1,4 +1,4 @@
-;;;; tuanany-helper-skewer.el --- skewer -*- lexical-binding: t -*-
+;;;; tuanany-tools-skewer.el --- skewer -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2021-2024 Agung Tuanany
 
@@ -49,4 +49,4 @@
 ;;   (setq httpd-root "/var/www")
 ;;   (httpd-start))
 
-;;; tuanany-helper-skewer.el ends here
+;;; tuanany-tools-skewer.el ends here
