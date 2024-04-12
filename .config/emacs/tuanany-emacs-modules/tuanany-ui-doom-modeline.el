@@ -31,14 +31,29 @@
 
 (use-package doom-modeline
   :config
-  (setq doom-modeline-support-imenu t)
-  (setq doom-modeline-icon nil)
-  (setq doom-modeline-time-live-icon nil)
-  (setq doom-modeline-workspace-name t)
-  (setq doom-modeline-total-line-number t)
+  ;; (setq doom-modeline-support-imenu t)
+  ;; (setq doom-modeline-icon nil)
+  ;; (setq doom-modeline-time-live-icon nil)
+  ;; (setq doom-modeline-workspace-name t)
+  ;; (setq doom-modeline-total-line-number t)
   ;; (setq doom-modeline-position-line-format '("L%l"))
   ;; (setq doom-modeline-position-column-format '("%l:%c"))
-  (setq column-number-mode t)
+  ;; (setq column-number-mode t)
+  :custom
+  (doom-modeline-height 21)
+  (doom-modeline-icon nil)
+  (doom-modeline-time-live-icon nil)
+  (doom-modeline-minor-modes nil)
+  (doom-modeline-buffer-encoding nil)
+  (doom-modeline-buffer-file-name-style 'file-name)
+  (doom-modeline-buffer-modification-icon t)
+  (doom-modeline-enable-word-count nil)
+  (doom-modeline-vcs-max-length 50)
+  (doom-modeline-window-width-limit nil)
+  (doom-modeline-position-column-format '("%l:%c"))
+  (doom-modeline-position-line-format '("L%l"))
+  ;; (column-number-mode t)
+  (doom-modeline-total-line-number t)
   :init
   (doom-modeline-mode 1))
 
