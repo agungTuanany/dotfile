@@ -1,6 +1,6 @@
-;;;; tuanany-ui-modeline.el --- Mode Line -*- lexical-binding: t -*-
+;;;; tuanany-ui-doom-modeline.el --- doom-modeline -*- lexical-binding: t -*-
 
-;; Copyright (C) 2021-2024 Agung Tuanany 
+;; Copyright (C) 2021-2024 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
@@ -41,3 +41,5 @@
   (setq column-number-mode t)
   :init
   (doom-modeline-mode 1))
+
+;;; tuanany-ui-doom-modeline.el ends here
