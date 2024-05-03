@@ -178,10 +178,10 @@
                    "tuanany-tools-proced.el"
                    "tuanany-tools-projectile.el"
                    "tuanany-tools-shell.el"
+                   "tuanany-tools-skewer.el"
                    "tuanany-tools-tree-sitter.el"
-                   ;; "tuanany-tools-impatient-mode.el"
-                   ;; "tuanany-tools-skewer.el"
                    ;; "tuanany-tools-browse-url.el"
+                   ;; "tuanany-tools-impatient-mode.el"
                    ;; "tuanany-tools-prog-mode.el"
                    ;;; LANGUAGES
                    "tuanany-lang-clojure.el"

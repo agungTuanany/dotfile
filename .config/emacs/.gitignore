@@ -12,6 +12,7 @@ themes/
 url/
 racket-mode/
 .cache/
+org/
 
 *.#
 .#*
@@ -36,4 +37,3 @@ Hello.org
 bookmarks
 TAGS
 tags
-
