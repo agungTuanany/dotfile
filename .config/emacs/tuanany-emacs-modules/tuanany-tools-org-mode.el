@@ -36,6 +36,7 @@
   (org-agenda-include-diary t)
   (org-directory "~/Documents/org-masters/")        ;; Where the org file live
   (org-archive-location (concat (expand-file-name "~/Documents/org-masters/private/org-roam/gtd/archives.org") "::"))       ;; Where archive should go | GTD Get Things Done
+  (org-agenda-files '("~/Documents/org-masters/org-agenda/"))
   (org-src-fontify-natively t)                      ;; Make sure we see syntax highlighting
   (org-use-sub-superscripts nil)                    ;; I don't use it for subs/super scripts
   (org-startup-folded 'content)                     ;; Should everything be hidden?
@@ -66,7 +67,6 @@
   (org-log-redeadline t)
   (org-log-reschedule t)
   (org-todo-repeat-to-state t)                        ;; Repeat to previous todo state If there was no todo state, then don't set a state
-
   (org-refile-use-outline-path 'file)                 ;; Refile options
   (org-refile-allow-creating-parent-nodes 'confirm)
   (org-refile-targets '(("~/Documents/org/private/org-roam/gtd/gtd.org" :maxlevel . 3)
@@ -82,10 +82,12 @@
                  ))
   (org-special-ctrl-a/e t)
   (org-insert-heading-respect-content t)
-  :hook ((org-mode . org-indent-mode)
-         (org-mode . org-display-inline-images))
-  :custom-face
-  (org-scheduled-previously ((t (:foreground "orange"))))
+  (org-clock-persistence-insinuate)                     ;; Save history throughout sessions
+  (org-return-follows-link t)                           ;; Follow the links
+  (add-tolist 'auto-mode-alist '("\\.org\\'" . org-mode))   ;; Associate all org files with org-mode
+
+  :hook (org-mode . tuanany--org-setup)
+  :custom-face (org-scheduled-previously ((t (:foreground "orange"))))
   :config
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -97,8 +99,6 @@
      (C . t)
      (emacs-lisp . t)
      (shell . t)))
-  ;; Save history throughout sessions
-  (org-clock-persistence-insinuate)
   :bind
   (:map global-map
         ("C-c l" . org-store-link)
@@ -108,5 +108,14 @@
   ("C-c <down>" . org-priority-down)
   ("C-c C-g C-r" . org-shifmetaright)
   )
+
+(defun tuanany--org-mode-setup ()
+  "Local function to setup all `org-mode hook in one place."
+  (org-indent-mode)
+  (variable-pitch-mode 1)
+  (auto-fill-mode 0)
+  (visual-line-mode 1)
+  (setq evil-auto-indent nil)
+  (org-display-inline-images))
 
 ;;; tuanany-tools-org-mode.el ends here
