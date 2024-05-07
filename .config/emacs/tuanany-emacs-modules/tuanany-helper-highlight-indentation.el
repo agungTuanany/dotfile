@@ -32,8 +32,7 @@
   :ensure t
   :defer
   :hook
-  ((prog-mode . highlight-indentation-mode)
-   (prog-mode . highlight-indentation-current-column-mode)
-   ))
+  (
+   (prog-mode . highlight-indentation-current-column-mode)))
 
 ;;; tuanany-helper-highlight-indentation.el ends here
