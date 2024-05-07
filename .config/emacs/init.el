@@ -175,6 +175,7 @@
                    "tuanany-tools-evil.el"
                    "tuanany-tools-eww.el"
                    "tuanany-tools-magit.el"
+                   "tuanany-tools-org-mode.el"
                    "tuanany-tools-proced.el"
                    "tuanany-tools-projectile.el"
                    "tuanany-tools-shell.el"

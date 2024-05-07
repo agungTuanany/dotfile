@@ -99,14 +99,24 @@
      (C . t)
      (emacs-lisp . t)
      (shell . t)))
+
+  (dolist (tuanany--org-level-faces '((org-level-1 . 1.15)
+                                      (org-level-2 . 1.10)
+                                      (org-level-3 . 1.05)
+                                      (org-level-4 . 1.0)
+                                      (org-level-5 . 1.1)
+                                      (org-level-6 . 1.1)
+                                      (org-level-7 . 1.1)
+                                      (org-level-8 . 1.1)))
+    (set-face-attribute (car tuanany--org-level-faces) nil :family "Source Code Pro" :weight 'semibold :height (cdr tuanany--org-level-faces)))
+
   :bind
+  ("C-c <up>" . org-priority-up)
+  ("C-c <down>" . org-priority-down)
   (:map global-map
         ("C-c l" . org-store-link)
         ("C-c a" . org-agenda)
         ("C-c c" . org-capture))
-  ("C-c <up>" . org-priority-up)
-  ("C-c <down>" . org-priority-down)
-  ("C-c C-g C-r" . org-shifmetaright)
   )
 
 (defun tuanany--org-mode-setup ()
