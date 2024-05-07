@@ -29,76 +29,54 @@
 
 ;;;; Code:
 ;; https://stackoverflow.com/a/10091330/217812
+
 (use-package org
-  :defer
+  :defer t
   :custom
   (org-agenda-include-diary t)
-  ;; Where the org file live
-  (org-directory "~/Documents/org-masters/")
-  ;; Where archive should go | GTD Get Things Done
-  (org-archive-location (concat (expand-file-name "~/Documents/org-masters/private/org-roam/gtd/archives.org") "::"))
-  ;; Make sure we see syntax highlighting
-  (org-src-fontify-natively t)
-  ;; I don't use it for subs/super scripts
-  (org-use-sub-superscripts nil)
-  ;; Should everything be hidden?
-  (org-startup-folded 'content)
+  (org-directory "~/Documents/org-masters/")        ;; Where the org file live
+  (org-archive-location (concat (expand-file-name "~/Documents/org-masters/private/org-roam/gtd/archives.org") "::"))       ;; Where archive should go | GTD Get Things Done
+  (org-src-fontify-natively t)                      ;; Make sure we see syntax highlighting
+  (org-use-sub-superscripts nil)                    ;; I don't use it for subs/super scripts
+  (org-startup-folded 'content)                     ;; Should everything be hidden?
   (org-M-RET-may-split-line '((default . nil)))
-  ;; Don't hide stars
-  (org-hide-leading-stars nil)
+  (org-hide-leading-stars nil)                      ;; Don't hide stars
   (org-hide-emphasis-markers nil)
-  ;; Show utf-8 chars
-  (org-pretty-entities t)
-  ;; Put timestamp when finished a todo
-  (org-log-done 'time)
-  ;; timestamp when reschedule
-  (org-log-reschedule t)
-  ;; Don't indent the stars
-  (org-startup-indented nil)
+  (org-pretty-entities t)                           ;; Show utf-8 chars
+  (org-log-done 'time)                              ;; Put timestamp when finished a todo
+  (org-log-reschedule t)                            ;; timestamp when reschedule
+  (org-startup-indented nil)                        ;; Don't indent the stars
   (org-list-allow-alphabetical t)
   (org-image-actual-width nil)
-  ;; Save notes into log drawer
-  (org-log-into-drawer t)
-  ;;
+  (org-log-into-drawer t)                           ;; Save notes into log drawer
   (org-fontify-whole-heading-line t)
   (org-fontify-done-headline t)
-  ;;
   (org-fontify-quote-and-verse-blocks t)
-  ;; See down arrow instead of "..." when we have subtrees
-  ;; (org-ellipsis "⤵")
-  ;; Catch invisible edit
-  (org-catch-invisible-edits 'show-and-error)
-  ;; Only useful for property searching only but can slow down search
-  (org-hierarchical-todo-statistics nil)
-  ;; Unchecked boxes will block switching the parent to DONE
-  (org-enforce-todo-checkbox-dependencies t)
-  ;; Don't allow TODO's to close without their dependencies done
-  (org-enforce-todo-dependencies t)
+  ;; (org-ellipsis "⤵")                               ;; See down arrow instead of "..." when we have subtrees
+  (org-catch-invisible-edits 'show-and-error)         ;; Catch invisible edit
+  (org-hierarchical-todo-statistics nil)              ;; Only useful for property searching only but can slow down search
+  (org-enforce-todo-checkbox-dependencies t)          ;; Unchecked boxes will block switching the parent to DONE
+  (org-enforce-todo-dependencies t)                   ;; Don't allow TODO's to close without their dependencies done
   (org-track-ordered-property-with-tag t)
-  ;; Where should notes go to? Dont even use them tho
-  (org-default-notes-file (concat org-directory "notes.org"))
-  ;; The right side of | indicates the DONE states
-  (org-todo-keywords
+  (org-default-notes-file (concat org-directory "notes.org"))     ;; Where should notes go to? Dont even use them tho
+  (org-todo-keywords                                  ;; The right side of | indicates the DONE states
    '((sequence "TODO(t)" "NEXT(n)" "IN-PROGRESS(i!)" "WAITING(w!)" "|" "DONE(d!)" "CANCELED(c!)" "DELEGATED(p!)")))
-  ;; Needed to allow helm to compute all refile options in buffer
-  (org-outline-path-complete-in-steps nil)
+  (org-outline-path-complete-in-steps nil)            ;; Needed to allow helm to compute all refile options in buffer
   (org-deadline-warning-days 2)
   (org-log-redeadline t)
   (org-log-reschedule t)
-  ;; Repeat to previous todo state
-  ;; If there was no todo state, then dont set a state
-  (org-todo-repeat-to-state t)
-  ;; Refile options
-  (org-refile-use-outline-path 'file)
+  (org-todo-repeat-to-state t)                        ;; Repeat to previous todo state If there was no todo state, then don't set a state
+
+  (org-refile-use-outline-path 'file)                 ;; Refile options
   (org-refile-allow-creating-parent-nodes 'confirm)
   (org-refile-targets '(("~/Documents/org/private/org-roam/gtd/gtd.org" :maxlevel . 3)
                         ("~/Documents/org/private/org-roam/gtd/someday.org" :level . 1)
                         ("~/Documents/org/private/org-roam/gtd/tickler.org" :maxlevel . 1)
                         ("~/Documents/org/private/org-roam/gtd/repeat.org" :maxlevel . 1)
                         ))
-  ;; Lets customize which modules we load up
+  ;; customize loaded module
   (org-modules '(;; ol-eww
-                 ;; Stuff I've enabled below
+                 ;; stuff that I enabled
                  org-habit
                  ;; org-checklist
                  ))
