@@ -127,7 +127,7 @@
         ("C-c c" . org-capture))
   )
 
-(defun tuanany--org-mode-setup ()
+(defun tuanany--org-setup ()
   "Local function to setup all `org-mode hook in one place."
   (org-indent-mode)
   (variable-pitch-mode 1)
@@ -148,4 +148,16 @@
   :custom
   (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
+
+(setq org-capture-templates
+      '(
+        ("j" "Work Log Entry"
+         entry (file+datetree "~/Documents/org-masters/tuanany-work-log.org")
+         "* %?"
+         :empty-lines 0)
+        ("n" "Note"
+         entry (file+headline "~/Documents/org-masters/tuanany-work-log.org" "Random Notes")
+         "* %?"
+         :empty-lines 0)
+        ))
 ;;; tuanany-tools-org-mode.el ends here
