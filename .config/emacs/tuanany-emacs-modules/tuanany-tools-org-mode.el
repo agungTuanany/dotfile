@@ -87,7 +87,15 @@
   (add-tolist 'auto-mode-alist '("\\.org\\'" . org-mode))   ;; Associate all org files with org-mode
 
   :hook (org-mode . tuanany--org-setup)
-  :custom-face (org-scheduled-previously ((t (:foreground "orange"))))
+  :custom-face
+  (org-scheduled-previously ((t (:foreground "orange"))))
+  (org-block ((t (:foreground nil :inherit 'fixed-pitch))))
+  (org-code ((t (:inherit (shadow fixed-pitch)))))
+  (org-indent ((t (:inherit (org-hide fixed-pitch)))))
+  (org-verbatim ((t (:inherit (shadow fixed-pitch)))))
+  (org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+  (org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+  (org-checkbox ((t (:inherit 'fixed-pitch))))
   :config
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -127,5 +135,17 @@
   (visual-line-mode 1)
   (setq evil-auto-indent nil)
   (org-display-inline-images))
+
+(use-package org-super-agenda
+  :after org)
+
+(use-package comment-tags)
+;; (require 'org-indent)
+
+(use-package org-bullets
+  :after org
+  :hook (org-mode . org-bullets-mode)
+  :custom
+  (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
 ;;; tuanany-tools-org-mode.el ends here
