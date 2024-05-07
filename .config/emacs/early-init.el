@@ -56,15 +56,16 @@
 
 ;; Highest number gets priority (what is not mentioned has priority 0)
 (setq package-archive-priorities
-      '(("gnu-elpa" . 3)
+      '(("gnu-elpa" . 1)
         ("melpa" . 2)
-        ("org" . 1)))
+        ("org" . 3)))
 
 (package-initialize)
 (when (not package-archive-contents)
   (package-install 'use-package)1)
 
-(require 'use-package)
+(eval-when-compile
+  (require 'use-package))
 (setq use-package-always-ensure t)
 
 ;;; early-init.el ends here
