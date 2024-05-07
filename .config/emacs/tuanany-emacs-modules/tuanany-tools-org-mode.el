@@ -121,17 +121,14 @@
      (shell . t)))
   ;; Save history throughout sessions
   (org-clock-persistence-insinuate)
-  )
-
-(use-package org-tempo
-  :after org
-  :config
-  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-  (add-to-list 'org-structure-template-alist '("js" . "src javascript"))
-  (add-to-list 'org-structure-template-alist '("j" . "src java"))
-  (add-to-list 'org-structure-template-alist '("k" . "src kotlin"))
-  (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
-  (add-to-list 'org-structure-template-alist '("r" . "src rust"))
+  :bind
+  (:map global-map
+        ("C-c l" . org-store-link)
+        ("C-c a" . org-agenda)
+        ("C-c c" . org-capture))
+  ("C-c <up>" . org-priority-up)
+  ("C-c <down>" . org-priority-down)
+  ("C-c C-g C-r" . org-shifmetaright)
   )
 
 ;;; tuanany-tools-org-mode.el ends here
