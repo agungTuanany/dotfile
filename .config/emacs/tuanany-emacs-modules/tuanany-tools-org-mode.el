@@ -29,12 +29,14 @@
 
 ;;;; Code:
 ;; https://stackoverflow.com/a/10091330/217812
-;; In summary, :custom is used for setting variables and faces
-;; associated with the package, before package loaded, while :config is
-;; used for executing Emacs Lisp code to configure or initialize the
-;; package after it is loaded. You can use both keywords together in a
-;; use-package declaration to fully customize and configure a package
-;; to suit your needs.
+;;
+;; In summary,
+;; [-] :custom is used for setting variables and faces associated with
+;; the package, before package loaded; while
+;; [-] :config is used for executing Emacs Lisp code to configure or
+;; initialize the package after it is loaded.
+;; You can use both keywords together in a use-package declaration to
+;; fully customize and configure a package to suit your needs.
 
 (use-package org
   :defer t
@@ -137,8 +139,68 @@
       entry (file+headline "~/Documents/org-masters/tuanany-todo.org" "Code Related Tasks")
       "* TODO [#B] %?\n:Created: %T\n%i\n%a\nProposed Solution: "
       :empty-lines 0)
-     ))
 
+     ("m" "Meeting"
+      entry (file+datetree "~/Documents/org-masters/tuanany-meetings.org")
+      "* %? :meeting:%^g \n:Created: %T\n** Attendees\n*** \n** Notes\n** Action Items\n*** TODO [#A] "
+      :tree-type week
+      :clock-in t
+      :clock-resume t
+      :empty-lines 0)
+     ))
+  (org-tag-alist '(
+                   ;; Ticket types
+                   (:startgroup . nil)
+                   ("@bug" . ?b)
+                   ("@feature" . ?u)
+                   ("@spike" . ?j)
+                   (:endgroup . nil)
+
+                   ;; Ticket flags
+                   ("@write_future_ticket" . ?w)
+                   ("@emergency" . ?e)
+                   ("@research" ?r)
+
+                   ;; Meeting types
+                   (:startgroup . nil)
+                   ("big_sprint_review" . ?i)
+                   ("cents_sprint_retro" . ?n)
+                   ("dsu" . ?d) ;; domain specific update
+                   ("grooming" . ?g)
+                   ("sprint_retro" ?s)
+                   (:endgroup . nil)
+
+                   ;; Code TODOs tags
+                   ("QA" . ?q)
+                   ("backend" . ?k)
+                   ("broken_code" . ?c)
+                   ("frontend" . ?f)
+
+                   ;; Special tags
+                   ("CRITICAL" . ?x)
+                   ("obstacle" . ?o)
+
+                   ;; Meeting tags
+                   ("HR" . ?h)
+                   ("general" . ?l)
+                   ("meeting" . ?m)
+                   ("misc" . ?z)
+                   ("planning" . ?p)
+
+                   ;; Work Log Tags
+                   ("accomplishment" . ?a)
+                   ))
+  ;; Tag colors
+  (org-tag-faces
+   '(
+     ("planning"  . (:foreground "mediumPurple1" :weight bold))
+     ("backend"   . (:foreground "royalblue1"    :weight bold))
+     ("frontend"  . (:foreground "forest green"  :weight bold))
+     ("QA"        . (:foreground "sienna"        :weight bold))
+     ("meeting"   . (:foreground "yellow1"       :weight bold))
+     ("CRITICAL"  . (:foreground "red1"          :weight bold))
+     )
+   )
   :custom-face
   (org-scheduled-previously ((t (:foreground "orange"))))
   (org-block ((t (:foreground nil :inherit 'fixed-pitch))))
