@@ -93,6 +93,51 @@
   (org-return-follows-link t)                           ;; Follow the links
   (add-tolist 'auto-mode-alist '("\\.org\\'" . org-mode))   ;; Associate all org files with org-mode
 
+  (org-todo-keywords
+   '((sequence "TODO(t)" "PLANNING(p)" "IN-PROGRESS(i@/!)" "VERIFYING(v!)" "BLOCKED(b@)"  "|" "DONE(d!)" "OBE(o@!)" "WONT-DO(w@/!)" "CANCELED(c!)" "WAITING(w!)" "DELEGATED")
+     ))
+
+  ;; TODO colors
+  (org-todo-keyword-faces
+   '(
+     ("TODO" . (:foreground "GoldenRod" :weight bold))
+     ("PLANNING" . (:foreground "DeepPink" :weight bold))
+     ("IN-PROGRESS" . (:foreground "Cyan" :weight bold))
+     ("VERIFYING" . (:foreground "DarkOrange" :weight bold))
+     ("BLOCKED" . (:foreground "Red" :weight bold))
+     ("DONE" . (:foreground "LimeGreen" :weight bold))
+     ("OBE" . (:foreground "LimeGreen" :weight bold))
+     ("WONT-DO" . (:foreground "LimeGreen" :weight bold))
+     ("CANCELED" . (:foreground "DarkRed" :weight bold))
+     ("DELEGATED" . (:foreground "DarkOrange" :weight bold))
+     ))
+  (org-capture-templates
+   '(
+     ("j" "Work Log Entry"
+      entry (file+datetree "~/Documents/org-masters/tuanany-work-log.org")
+      "* [ ] %?"
+      :empty-lines 0)
+
+     ("n" "Simple Note"
+      entry (file+headline "~/Documents/org-masters/tuanany-work-log.org" "Random Notes")
+      "** [ ] %?"
+      :empty-lines 0)
+
+     ("d" "Door Codes"
+      entry (file+headline "~/Documents/org-masters/tuanany-work-log.org" "Door Codes")
+      "** [ ] %?"
+      :empty-lines 0)
+
+     ("g" "General TO-DO"
+      entry (file+headline "~/Documents/org-masters/tuanany-todo.org" "General Task")
+      "* TODO [#B] %?\n:Created: %T\n "
+      :empty-lines 0)
+
+     ("c" "Code To-Do"
+      entry (file+headline "~/Documents/org-masters/tuanany-todo.org" "Code Related Tasks")
+      "* TODO [#B] %?\n:Created: %T\n%i\n%a\nProposed Solution: "
+      :empty-lines 0)
+     ))
 
   :custom-face
   (org-scheduled-previously ((t (:foreground "orange"))))
@@ -132,11 +177,10 @@
                                       (org-level-7 . 1.1)
                                       (org-level-8 . 1.1)))
     (set-face-attribute (car tuanany--org-level-faces) nil :family "Source Code Pro" :weight 'semibold :height (cdr tuanany--org-level-faces)))
-
   )
 
 (defun tuanany--org-setup ()
-  "Local function to setup all `org-mode hook in one place."
+  "Local function to setup all `org-mode-hook in one place."
   (org-indent-mode)
   (variable-pitch-mode 1)
   (auto-fill-mode 0)
@@ -156,55 +200,4 @@
   :custom
   (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
-
-(setq org-capture-templates
-      '(
-        ("j" "Work Log Entry"
-         entry (file+datetree "~/Documents/org-masters/tuanany-work-log.org")
-         "* [ ] %?"
-         :empty-lines 0)
-
-        ("n" "Simple Note"
-         entry (file+headline "~/Documents/org-masters/tuanany-work-log.org" "Random Notes")
-         "** [ ] %?"
-         :empty-lines 0)
-
-        ("d" "Door Codes"
-         entry (file+headline "~/Documents/org-masters/tuanany-work-log.org" "Door Codes")
-         "** [ ] %?"
-         :empty-lines 0)
-
-        ("g" "General TO-DO"
-         entry (file+headline "~/Documents/org-masters/tuanany-todo.org" "General Task")
-         "* TODO [#B] %?\n:Created: %T\n "
-         :empty-lines 0)
-
-        ("c" "Code To-Do"
-         entry (file+headline "~/Documents/org-masters/tuanany-todo.org" "Code Related Tasks")
-         "* TODO [#B] %?\n:Created: %T\n%i\n%a\nProposed Solution: "
-         :empty-lines 0)
-        ))
-
-;; TODO states
-(setq org-todo-keywords
-      '((sequence "TODO(t)" "PLANNING(p)" "IN-PROGRESS(i@/!)" "VERIFYING(v!)" "BLOCKED(b@)"  "|" "DONE(d!)" "OBE(o@!)" "WONT-DO(w@/!)" "CANCELED(c!)" "WAITING(w!)" "DELEGATED")
-        ))
-
-  ;; (org-todo-keywords                                  ;; The right side of | indicates the DONE states
-  ;;  '((sequence "TODO(t)" "NEXT(n)" "IN-PROGRESS(i!)" "WAITING(w!)" "|" "DONE(d!)" "CANCELED(c!)" "DELEGATED(p!)")))
-
-;; TODO colors
-(setq org-todo-keyword-faces
-      '(
-        ("TODO" . (:foreground "GoldenRod" :weight bold))
-        ("PLANNING" . (:foreground "DeepPink" :weight bold))
-        ("IN-PROGRESS" . (:foreground "Cyan" :weight bold))
-        ("VERIFYING" . (:foreground "DarkOrange" :weight bold))
-        ("BLOCKED" . (:foreground "Red" :weight bold))
-        ("DONE" . (:foreground "LimeGreen" :weight bold))
-        ("OBE" . (:foreground "LimeGreen" :weight bold))
-        ("WONT-DO" . (:foreground "LimeGreen" :weight bold))
-        ("CANCELED" . (:foreground "DarkRed" :weight bold))
-        ("DELEGATED" . (:foreground "DarkOrange" :weight bold))
-        ))
 ;;; tuanany-tools-org-mode.el ends here
