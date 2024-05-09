@@ -29,13 +29,22 @@
 
 ;;;; Code:
 ;; https://stackoverflow.com/a/10091330/217812
+;; In summary, :custom is used for setting variables and faces
+;; associated with the package, before package loaded, while :config is
+;; used for executing Emacs Lisp code to configure or initialize the
+;; package after it is loaded. You can use both keywords together in a
+;; use-package declaration to fully customize and configure a package
+;; to suit your needs.
 
 (use-package org
   :defer t
+
+  :hook (org-mode . tuanany--org-setup)
+
   :custom
   (org-agenda-include-diary t)
   (org-directory "~/Documents/org-masters/")        ;; Where the org file live
-  (org-archive-location (concat (expand-file-name "~/Documents/org-masters/private/org-roam/gtd/archives.org") "::"))       ;; Where archive should go | GTD Get Things Done
+  (org-archive-location (concat (expand-file-name "~/Documents/org-masters/private/org-roam/gtd/archives.org") "::"))   ;; Where archive should go | GTD Get Things Done
   (org-agenda-files '("~/Documents/org-masters/org-agenda/"))
   (org-src-fontify-natively t)                      ;; Make sure we see syntax highlighting
   (org-use-sub-superscripts nil)                    ;; I don't use it for subs/super scripts
@@ -60,8 +69,6 @@
   (org-enforce-todo-dependencies t)                   ;; Don't allow TODO's to close without their dependencies done
   (org-track-ordered-property-with-tag t)
   (org-default-notes-file (concat org-directory "notes.org"))     ;; Where should notes go to? Dont even use them tho
-  (org-todo-keywords                                  ;; The right side of | indicates the DONE states
-   '((sequence "TODO(t)" "NEXT(n)" "IN-PROGRESS(i!)" "WAITING(w!)" "|" "DONE(d!)" "CANCELED(c!)" "DELEGATED(p!)")))
   (org-outline-path-complete-in-steps nil)            ;; Needed to allow helm to compute all refile options in buffer
   (org-deadline-warning-days 2)
   (org-log-redeadline t)
@@ -86,7 +93,7 @@
   (org-return-follows-link t)                           ;; Follow the links
   (add-tolist 'auto-mode-alist '("\\.org\\'" . org-mode))   ;; Associate all org files with org-mode
 
-  :hook (org-mode . tuanany--org-setup)
+
   :custom-face
   (org-scheduled-previously ((t (:foreground "orange"))))
   (org-block ((t (:foreground nil :inherit 'fixed-pitch))))
@@ -96,6 +103,14 @@
   (org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
   (org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
   (org-checkbox ((t (:inherit 'fixed-pitch))))
+
+  :bind
+  ("C-c <up>" . org-priority-up)
+  ("C-c <down>" . org-priority-down)
+  (:map global-map
+        ("C-c l" . org-store-link)
+        ("C-c a" . org-agenda)
+        ("C-c c" . org-capture))
   :config
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -118,13 +133,6 @@
                                       (org-level-8 . 1.1)))
     (set-face-attribute (car tuanany--org-level-faces) nil :family "Source Code Pro" :weight 'semibold :height (cdr tuanany--org-level-faces)))
 
-  :bind
-  ("C-c <up>" . org-priority-up)
-  ("C-c <down>" . org-priority-down)
-  (:map global-map
-        ("C-c l" . org-store-link)
-        ("C-c a" . org-agenda)
-        ("C-c c" . org-capture))
   )
 
 (defun tuanany--org-setup ()
@@ -153,11 +161,50 @@
       '(
         ("j" "Work Log Entry"
          entry (file+datetree "~/Documents/org-masters/tuanany-work-log.org")
-         "* %?"
+         "* [ ] %?"
          :empty-lines 0)
-        ("n" "Note"
+
+        ("n" "Simple Note"
          entry (file+headline "~/Documents/org-masters/tuanany-work-log.org" "Random Notes")
-         "* %?"
+         "** [ ] %?"
          :empty-lines 0)
+
+        ("d" "Door Codes"
+         entry (file+headline "~/Documents/org-masters/tuanany-work-log.org" "Door Codes")
+         "** [ ] %?"
+         :empty-lines 0)
+
+        ("g" "General TO-DO"
+         entry (file+headline "~/Documents/org-masters/tuanany-todo.org" "General Task")
+         "* TODO [#B] %?\n:Created: %T\n "
+         :empty-lines 0)
+
+        ("c" "Code To-Do"
+         entry (file+headline "~/Documents/org-masters/tuanany-todo.org" "Code Related Tasks")
+         "* TODO [#B] %?\n:Created: %T\n%i\n%a\nProposed Solution: "
+         :empty-lines 0)
+        ))
+
+;; TODO states
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "PLANNING(p)" "IN-PROGRESS(i@/!)" "VERIFYING(v!)" "BLOCKED(b@)"  "|" "DONE(d!)" "OBE(o@!)" "WONT-DO(w@/!)" "CANCELED(c!)" "WAITING(w!)" "DELEGATED")
+        ))
+
+  ;; (org-todo-keywords                                  ;; The right side of | indicates the DONE states
+  ;;  '((sequence "TODO(t)" "NEXT(n)" "IN-PROGRESS(i!)" "WAITING(w!)" "|" "DONE(d!)" "CANCELED(c!)" "DELEGATED(p!)")))
+
+;; TODO colors
+(setq org-todo-keyword-faces
+      '(
+        ("TODO" . (:foreground "GoldenRod" :weight bold))
+        ("PLANNING" . (:foreground "DeepPink" :weight bold))
+        ("IN-PROGRESS" . (:foreground "Cyan" :weight bold))
+        ("VERIFYING" . (:foreground "DarkOrange" :weight bold))
+        ("BLOCKED" . (:foreground "Red" :weight bold))
+        ("DONE" . (:foreground "LimeGreen" :weight bold))
+        ("OBE" . (:foreground "LimeGreen" :weight bold))
+        ("WONT-DO" . (:foreground "LimeGreen" :weight bold))
+        ("CANCELED" . (:foreground "DarkRed" :weight bold))
+        ("DELEGATED" . (:foreground "DarkOrange" :weight bold))
         ))
 ;;; tuanany-tools-org-mode.el ends here
