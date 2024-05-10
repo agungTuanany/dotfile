@@ -114,4 +114,7 @@
   :config
   (evil-collection-init))
 
+(use-package evil-nerd-commenter
+  :bind ("M-/" . evilnc-comment-or-uncomment-lines))
+
 ;;; tuanany-tools-evil.el ends here
