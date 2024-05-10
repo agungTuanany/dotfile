@@ -46,6 +46,8 @@
 (use-package emacs
   :ensure nil
   :defer
+  :hook
+  (prog-mode . hs-minor-mode)
   :custom
   (initial-buffer-choice t)                     ; open *scratch* buffer
   (electric-pair-mode t)                        ; Automatic parens pairing
