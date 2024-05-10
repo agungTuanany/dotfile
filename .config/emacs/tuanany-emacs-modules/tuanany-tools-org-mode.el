@@ -44,57 +44,54 @@
   :hook (org-mode . tuanany--org-setup)
 
   :custom
-  (org-agenda-include-diary t)
   (org-directory "~/Documents/org-masters/")        ;; Where the org file live
   (org-archive-location (concat (expand-file-name "~/Documents/org-masters/private/org-roam/gtd/archives.org") "::"))   ;; Where archive should go | GTD Get Things Done
-  (org-agenda-files '("~/Documents/org-masters/org-agenda/"))
-  (org-src-fontify-natively t)                      ;; Make sure we see syntax highlighting
-  (org-use-sub-superscripts nil)                    ;; I don't use it for subs/super scripts
-  (org-startup-folded 'content)                     ;; Should everything be hidden?
   (org-M-RET-may-split-line '((default . nil)))
-  (org-hide-leading-stars nil)                      ;; Don't hide stars
-  (org-hide-emphasis-markers nil)
-  (org-pretty-entities t)                           ;; Show utf-8 chars
-  (org-log-done 'time)                              ;; Put timestamp when finished a todo
-  (org-log-reschedule t)                            ;; timestamp when reschedule
-  (org-startup-indented nil)                        ;; Don't indent the stars
-  (org-list-allow-alphabetical t)
-  (org-image-actual-width nil)
-  (org-log-into-drawer t)                           ;; Save notes into log drawer
-  (org-fontify-whole-heading-line t)
+  (org-catch-invisible-edits 'show-and-error)       ;; Catch invisible edit
+  (org-deadline-warning-days 2)
+  (org-default-notes-file (concat org-directory "tuanany-notes.org"))       ;; Where should notes go to? Dont even use them tho
+  (org-ellipsis "⤵")                                ;; See down arrow instead of "..." when we have subtrees
+  (org-enforce-todo-checkbox-dependencies t)        ;; Unchecked boxes will block switching the parent to DONE
+  (org-enforce-todo-dependencies t)                 ;; Don't allow TODO's to close without their dependencies done
   (org-fontify-done-headline t)
   (org-fontify-quote-and-verse-blocks t)
-  ;; (org-ellipsis "⤵")                               ;; See down arrow instead of "..." when we have subtrees
-  (org-catch-invisible-edits 'show-and-error)         ;; Catch invisible edit
-  (org-hierarchical-todo-statistics nil)              ;; Only useful for property searching only but can slow down search
-  (org-enforce-todo-checkbox-dependencies t)          ;; Unchecked boxes will block switching the parent to DONE
-  (org-enforce-todo-dependencies t)                   ;; Don't allow TODO's to close without their dependencies done
+  (org-fontify-whole-heading-line t)
+  (org-hide-emphasis-markers nil)
+  (org-hide-leading-stars nil)                      ;; Don't hide stars
+  (org-hierarchical-todo-statistics nil)            ;; Only useful for property searching only but can slow down search
+  (org-image-actual-width nil)
+  (org-list-allow-alphabetical t)
+  (org-outline-path-complete-in-steps nil)          ;; Needed to allow helm to compute all refile options in buffer
+  (org-pretty-entities t)                           ;; Show utf-8 chars
+  (org-src-fontify-natively t)                      ;; Make sure we see syntax highlighting
+  (org-startup-folded 'content)                     ;; Should everything be hidden?
+  (org-startup-indented nil)                        ;; Don't indent the stars
+  (org-todo-repeat-to-state t)                      ;; Repeat to previous todo state If there was no todo state, then don't set a state
   (org-track-ordered-property-with-tag t)
-  (org-default-notes-file (concat org-directory "notes.org"))     ;; Where should notes go to? Dont even use them tho
-  (org-outline-path-complete-in-steps nil)            ;; Needed to allow helm to compute all refile options in buffer
-  (org-deadline-warning-days 2)
-  (org-log-redeadline t)
-  (org-log-reschedule t)
-  (org-todo-repeat-to-state t)                        ;; Repeat to previous todo state If there was no todo state, then don't set a state
-  (org-refile-use-outline-path 'file)                 ;; Refile options
+  (org-use-sub-superscripts nil)                    ;; I don't use it for subs/super scripts
+
+  (org-refile-use-outline-path 'file)               ;; Refile options
   (org-refile-allow-creating-parent-nodes 'confirm)
   (org-refile-targets '(("~/Documents/org/private/org-roam/gtd/gtd.org" :maxlevel . 3)
                         ("~/Documents/org/private/org-roam/gtd/someday.org" :level . 1)
                         ("~/Documents/org/private/org-roam/gtd/tickler.org" :maxlevel . 1)
                         ("~/Documents/org/private/org-roam/gtd/repeat.org" :maxlevel . 1)
                         ))
-  ;; customize loaded module
-  (org-modules '(;; ol-eww
-                 ;; stuff that I enabled
+  (org-modules '(                                   ;; customize loaded module
                  org-habit
+                 ;; ol-eww
                  ;; org-checklist
                  ))
-  (org-special-ctrl-a/e t)
-  (org-insert-heading-respect-content t)
-  (org-clock-persistence-insinuate)                     ;; Save history throughout sessions
-  (org-return-follows-link t)                           ;; Follow the links
-  (add-tolist 'auto-mode-alist '("\\.org\\'" . org-mode))   ;; Associate all org files with org-mode
 
+  ;; ORG-LOG
+  (org-log-done 'time)                              ;; Put timestamp when finished a todo
+  (org-log-reschedule t)                            ;; timestamp when reschedule
+  (org-log-into-drawer t)                           ;; Save notes into log drawer
+  (org-log-redeadline t)
+  (org-log-reschedule t)
+
+  ;; === ORG-TODO ===
+  (org-todo-repeat-to-state t)                      ;; Repeat to previous todo state If there was no todo state, then don't set a state
   (org-todo-keywords
    '((sequence "TODO(t)" "PLANNING(p)" "IN-PROGRESS(i@/!)" "VERIFYING(v!)" "BLOCKED(b@)"  "|" "DONE(d!)" "OBE(o@!)" "WONT-DO(w@/!)" "CANCELED(c!)" "WAITING(w!)" "DELEGATED")
      ))
@@ -249,7 +246,9 @@
         ("C-c l" . org-store-link)
         ("C-c a" . org-agenda)
         ("C-c c" . org-capture))
+
   :config
+  (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))   ;; Associate all org files with org-mode
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((sql . t)
@@ -264,7 +263,7 @@
   (dolist (tuanany--org-level-faces '((org-level-1 . 1.15)
                                       (org-level-2 . 1.10)
                                       (org-level-3 . 1.05)
-                                      (org-level-4 . 1.0)
+                                      (org-level-4 . 1.1)
                                       (org-level-5 . 1.1)
                                       (org-level-6 . 1.1)
                                       (org-level-7 . 1.1)
