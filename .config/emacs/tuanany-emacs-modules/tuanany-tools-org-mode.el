@@ -201,6 +201,37 @@
      ("CRITICAL"  . (:foreground "red1"          :weight bold))
      )
    )
+
+  ;; ORG-AGENDA
+  (org-agenda-files '("~/Documents/org-masters/org-agenda/"))
+  (org-agenda-include-diary t)
+  (org-agenda-skip-deadline-if-done t)
+  (org-agenda-custom-commands
+   '(
+     ;; Daily Agenda & TODOs
+     ("d" "Daily agenda and all TODOs"
+
+      ;; Display items with priority A
+      ((tags "PRIORITY=\"A\""
+             ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+              (org-agenda-overriding-header "High-priority unfinished tasks:")))
+       ;; View 7 days in the calendar view
+       (agenda "" ((org-agenda-span 7)))
+       ;; Display items with priority B (really it is view all items minus A & C)
+       (alltodo ""
+                ((org-agenda-skip-function '(or (air-drop-skip-subtree-if-priority ?A)
+                                                (air-drop-skip-subtree-if-priority ?C)
+                                                (org-agenda-skip-if nil '(schedule deadline))))
+                 (org-agena-overriding-header "ALL normal priority tasks: ")))
+       ;; Display items with priority C
+       (tags "PRIORITY=\"C\""
+             ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+              (org-agenda-overriding-header "Low-priority Unfinished tasks:")))
+       ;; Don't compress things (change to suite your taste)
+       (org-agenda-compact-blocks nil)
+       ))
+     ))
+
   :custom-face
   (org-scheduled-previously ((t (:foreground "orange"))))
   (org-block ((t (:foreground nil :inherit 'fixed-pitch))))
@@ -255,11 +286,21 @@
 
 (use-package comment-tags)
 ;; (require 'org-indent)
-
 (use-package org-bullets
   :after org
   :hook (org-mode . org-bullets-mode)
   :custom
   (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+
+(defun air-org-skip-subtree-if-priority (priority)
+  "Skip an agenda subtree if it has a priority of PRIORITY.
+
+  PRIORITY may be one of the characters ?A, ?B, ?C."
+  (let ((subtree-end (save-excursion (org-end-subtree t)))
+        (pri-value (* 1000 (- org-lowest-priority)))
+        (pri-current (org-get-priority (thing-at-point 'line t))))
+    (if (= pri-value pri-current)
+        subtree-end
+      nil)))
 
 ;;; tuanany-tools-org-mode.el ends here
