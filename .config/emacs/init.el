@@ -147,12 +147,12 @@
                  (locate-user-emacs-file tuanany-module-path)))
 
   (defvar addons '(
-                   ;;; UI
+                   ;;; ==== UI ====
                    "tuanany-ui-dashboard.el"
                    "tuanany-ui-doom-modeline.el"
                    "tuanany-ui-time.el"
                    "tuanany-ui.el"
-                   ;;; COMPLETION
+                   ;;; ==== COMPLETION ====
                    "tuanany-completion-cape.el"
                    "tuanany-completion-consult.el"
                    "tuanany-completion-corfu.el"
@@ -161,7 +161,7 @@
                    "tuanany-completion-marginalia.el"
                    "tuanany-completion-orderless.el"
                    "tuanany-completion-vertico.el"
-                   ;;; HELPER
+                   ;;; ==== HELPER ====
                    "tuanany-helper-dumb-jump.el"
                    "tuanany-helper-flycheck.el"
                    "tuanany-helper-helpful.el"
@@ -171,7 +171,7 @@
                    "tuanany-helper-minibuffer.el"
                    "tuanany-helper-whitespace.el"
                    ;; "tuanany-helper-shrface.el"
-                   ;;; TOOLS
+                   ;;; ==== TOOLS ====
                    "tuanany-tools-evil.el"
                    "tuanany-tools-eww.el"
                    "tuanany-tools-magit.el"
@@ -184,7 +184,7 @@
                    ;; "tuanany-tools-browse-url.el"
                    ;; "tuanany-tools-impatient-mode.el"
                    ;; "tuanany-tools-prog-mode.el"
-                   ;;; LANGUAGES
+                   ;;; ==== LANGUAGES ====
                    "tuanany-lang-clojure.el"
                    "tuanany-lang-js2-mode.el"
                    "tuanany-lang-racket.el"
@@ -221,6 +221,10 @@
   (dolist (c '(eshell project-eshell overwrite-mode iconify-frame diary))
     (put c 'disabled t))
   (put 'eshell 'disabled nil)
+
+  :custom-face
+  (cursor ((t (:background "light goldenrod" :foreground "black"))))
+  (web-mode-current-element-highlight-face ((t (:foreground "#ffffff" :underline "gold"))))
 
   ) ;; END EMACS-PACKAGE
 ;;; init.el ends here
