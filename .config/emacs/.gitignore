@@ -13,6 +13,7 @@ url/
 racket-mode/
 .cache/
 org/
+eln-cache/
 
 *.#
 .#*
