@@ -52,7 +52,7 @@
   (doom-modeline-window-width-limit nil)
   (doom-modeline-position-column-format '("%l:%c"))
   (doom-modeline-position-line-format '("L%l"))
-  ;; (column-number-mode t)
+  (column-number-mode t)
   (doom-modeline-total-line-number t)
   :init
   (doom-modeline-mode 1))
