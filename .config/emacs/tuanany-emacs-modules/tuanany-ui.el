@@ -41,6 +41,8 @@
 
 (use-package which-key
   :ensure nil
+  :init (which-key-mode)
+  :diminish which-key-mode
   :hook
   ((prog-mode . which-function-mode)
    (after-init . which-key-mode))
