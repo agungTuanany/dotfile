@@ -40,9 +40,7 @@
 
 (use-package org
   :defer t
-
   :hook (org-mode . tuanany--org-setup)
-
   :custom
   (org-directory "~/Documents/org-masters/")        ;; Where the org file live
   (org-archive-location (concat (expand-file-name "~/Documents/org-masters/private/org-roam/gtd/archives.org") "::"))   ;; Where archive should go | GTD Get Things Done
@@ -50,7 +48,7 @@
   (org-catch-invisible-edits 'show-and-error)       ;; Catch invisible edit
   (org-deadline-warning-days 2)
   (org-default-notes-file (concat org-directory "tuanany-notes.org"))       ;; Where should notes go to? Dont even use them tho
-  (org-ellipsis "⤵")                                ;; See down arrow instead of "..." when we have subtrees
+  ;; (org-ellipsis "⤵")                                ;; See down arrow instead of "..." when we have subtrees
   (org-enforce-todo-checkbox-dependencies t)        ;; Unchecked boxes will block switching the parent to DONE
   (org-enforce-todo-dependencies t)                 ;; Don't allow TODO's to close without their dependencies done
   (org-fontify-done-headline t)
@@ -72,10 +70,10 @@
 
   (org-refile-use-outline-path 'file)               ;; Refile options
   (org-refile-allow-creating-parent-nodes 'confirm)
-  (org-refile-targets '(("~/Documents/org/private/org-roam/gtd/gtd.org" :maxlevel . 3)
-                        ("~/Documents/org/private/org-roam/gtd/someday.org" :level . 1)
-                        ("~/Documents/org/private/org-roam/gtd/tickler.org" :maxlevel . 1)
-                        ("~/Documents/org/private/org-roam/gtd/repeat.org" :maxlevel . 1)
+  (org-refile-targets '(("~/Documents/org-masters/private/org-roam/gtd/gtd.org" :maxlevel . 3)
+                        ("~/Documents/org-masters/private/org-roam/gtd/someday.org" :level . 1)
+                        ("~/Documents/org-masters/private/org-roam/gtd/tickler.org" :maxlevel . 1)
+                        ("~/Documents/org-masters/private/org-roam/gtd/repeat.org" :maxlevel . 1)
                         ))
   (org-modules '(                                   ;; customize loaded module
                  org-habit
@@ -219,7 +217,7 @@
                 ((org-agenda-skip-function '(or (air-drop-skip-subtree-if-priority ?A)
                                                 (air-drop-skip-subtree-if-priority ?C)
                                                 (org-agenda-skip-if nil '(schedule deadline))))
-                 (org-agena-overriding-header "ALL normal priority tasks: ")))
+                 (org-agenda-overriding-header "ALL normal priority tasks: ")))
        ;; Display items with priority C
        (tags "PRIORITY=\"C\""
              ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
@@ -228,7 +226,6 @@
        (org-agenda-compact-blocks nil)
        ))
      ))
-
   :custom-face
   (org-scheduled-previously ((t (:foreground "orange"))))
   (org-block ((t (:foreground nil :inherit 'fixed-pitch))))
@@ -238,7 +235,6 @@
   (org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
   (org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
   (org-checkbox ((t (:inherit 'fixed-pitch))))
-
   :bind
   ("C-c <up>" . org-priority-up)
   ("C-c <down>" . org-priority-down)

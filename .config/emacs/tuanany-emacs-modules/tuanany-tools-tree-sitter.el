@@ -54,4 +54,8 @@
   :hook
   (tree-sitter-after-on . tree-sitter-hl-mode))
 
+(use-package treesit-auto
+  :custom
+  (treesit-auto-add-to-auto-mode-alist 'all))
+
 ;;; tuanany-tools-tree-sitter.el ends here
