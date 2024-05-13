@@ -58,6 +58,7 @@
   (org-hide-leading-stars nil)                      ;; Don't hide stars
   (org-hierarchical-todo-statistics nil)            ;; Only useful for property searching only but can slow down search
   (org-image-actual-width nil)
+  (org-loop-over-headlines-in-active-region 'start-level)
   (org-list-allow-alphabetical t)
   (org-outline-path-complete-in-steps nil)          ;; Needed to allow helm to compute all refile options in buffer
   (org-pretty-entities t)                           ;; Show utf-8 chars
@@ -68,13 +69,19 @@
   (org-track-ordered-property-with-tag t)
   (org-use-sub-superscripts nil)                    ;; I don't use it for subs/super scripts
 
-  (org-refile-use-outline-path 'file)               ;; Refile options
+  (org-insert-heading-respect-content t)
+  (org-read-date-prefer-future 'time)
   (org-refile-allow-creating-parent-nodes 'confirm)
+  (org-refile-use-outline-path 'file)               ;; Refile options
   (org-refile-targets '(("~/Documents/org-masters/private/org-roam/gtd/gtd.org" :maxlevel . 3)
                         ("~/Documents/org-masters/private/org-roam/gtd/someday.org" :level . 1)
                         ("~/Documents/org-masters/private/org-roam/gtd/tickler.org" :maxlevel . 1)
                         ("~/Documents/org-masters/private/org-roam/gtd/repeat.org" :maxlevel . 1)
+                        (org-agenda-files . (:max-levels . 2))
+                        (nil . (:max-level . 2))
                         ))
+
+
   (org-modules '(                                   ;; customize loaded module
                  org-habit
                  ;; ol-eww
@@ -83,10 +90,10 @@
 
   ;; ORG-LOG
   (org-log-done 'time)                              ;; Put timestamp when finished a todo
-  (org-log-reschedule t)                            ;; timestamp when reschedule
   (org-log-into-drawer t)                           ;; Save notes into log drawer
+  (org-log-note-clock-out nil)
   (org-log-redeadline t)
-  (org-log-reschedule t)
+  (org-log-reschedule t)                            ;; timestamp when reschedule
 
   ;; === ORG-TODO ===
   (org-todo-repeat-to-state t)                      ;; Repeat to previous todo state If there was no todo state, then don't set a state
