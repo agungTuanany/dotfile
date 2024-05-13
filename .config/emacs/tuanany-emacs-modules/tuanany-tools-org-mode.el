@@ -208,11 +208,23 @@
   (org-agenda-files '("~/Documents/org-masters/org-agenda/"))
   (org-agenda-include-diary t)
   (org-agenda-skip-deadline-if-done t)
+
+  ;; https://github.com/james-stoup/emacs-org-mode-tutorial?tab=readme-ov-file#orgd080503
+  (defun air-org-skip-subtree-if-priority (priority)
+    "Skip an agenda subtree if it has a priority of PRIORITY.
+
+  PRIORITY may be one of the characters ?A, ?B, ?C."
+    (let ((subtree-end (save-excursion (org-end-subtree t)))
+          (pri-value (* 1000 (- org-lowest-priority)))
+          (pri-current (org-get-priority (thing-at-point 'line t))))
+      (if (= pri-value pri-current)
+          subtree-end
+        nil)))
+
   (org-agenda-custom-commands
    '(
      ;; Daily Agenda & TODOs
      ("d" "Daily agenda and all TODOs"
-
       ;; Display items with priority A
       ((tags "PRIORITY=\"A\""
              ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
@@ -294,15 +306,5 @@
   :custom
   (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
-(defun air-org-skip-subtree-if-priority (priority)
-  "Skip an agenda subtree if it has a priority of PRIORITY.
-
-  PRIORITY may be one of the characters ?A, ?B, ?C."
-  (let ((subtree-end (save-excursion (org-end-subtree t)))
-        (pri-value (* 1000 (- org-lowest-priority)))
-        (pri-current (org-get-priority (thing-at-point 'line t))))
-    (if (= pri-value pri-current)
-        subtree-end
-      nil)))
 
 ;;; tuanany-tools-org-mode.el ends here
