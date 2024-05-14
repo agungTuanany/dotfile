@@ -35,7 +35,8 @@
   (setq dashboard-banner-logo-title "Hello Agung Jangan Malas, ingat Aly dan Istrimu")
   (setq dashboard-footer-messages '("Take small steps and don't get discouraged. Good luck"
                                     "an idiot admires complexity, a genius admires simplicity"
-                                    "Before the endgames, the Gods have placed the middle game, -Siegbert Tarrasch"))
+                                    "Before the endgames, the Gods have placed the middle game, -Siegbert Tarrasch"
+                                    "Don't tell me what the code does, show me what the code does, -Anonymous"))
   (setq dashboard-center-content t)
   (dashboard-setup-startup-hook)
   )
