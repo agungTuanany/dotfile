@@ -49,47 +49,45 @@
   :hook
   (prog-mode . hs-minor-mode)
   :custom
-  (initial-buffer-choice t)                     ; open *scratch* buffer
-  (electric-pair-mode t)                        ; Automatic parens pairing
-  (toggle-frame-maximized)                      ; Always use all screen for emacs
-  (pending-delete-mode)                         ; Typed text replaces if the selection is active
-  (use-short-answers t)                         ; use 'y' or 'n'
-  (indent-tabs-mode nil)                        ; tabs are evil
-  (narrow-to-defun-include-comments t)
+  (auto-revert-mode t)                          ;; Refresh the file if has changed
+  (blink-cursor-mode nil)                       ;; Blink gives me a sick eyes
   (confirm-nonexistent-file-or-buffer nil)
-
-  (switch-to-buffer-obey-display-actions t)     ; Treat manual switching of buffers the same as programmatic
-  (switch-to-buffer-in-dedicated-window nil)
-  (window-sides-slots '(3 0 3 1))               ;
-  (sentence-end-double-space nil)               ; End sentence with 1 space not 2
-  (x-stretch-cursor t)                          ; Make cursor stretch to cover wider characters
-  (minibuffer-prompt-properties '(read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt))
-  (history-delete-duplicates t)
-  (auto-revert-mode t)                          ; Refresh the file if has changed
-  (set-fringe-mode 6)                           ; Give some breating room for symbols
-
-  (prefer-coding-system 'utf-8)
-  (define-coding-system-alias 'UTF-8 'utf-8)
   (debugger-stack-frame-as-list t)
-  (use-dialog-box nil)
-  (scroll-conservatively 100)
-
-
-  (inhibit-compacting-font-caches t)            ; Do not exhaust GC memory
-  (visible-bell t)
-  (blink-cursor-mode nil)                       ; Blink gives me a sick eyes
-  ;; (file-name-handler-alist nil)
-  ;; (echo-keystrokes 0.05) ; the value is 0.25
-  (load-prefer-newer t)                         ; Load newest version file
-  (frame-inhibit-implied-resize nil)            ; Fonts independent from any resized frame
-  (tab-width 4)
-  (show-paren-style 'expression)
-  (show-paren-delay 0)
-  (fill-colum 120)
+  (define-coding-system-alias 'UTF-8 'utf-8)
   (dired-listing-switches "-alh")
-  (kill-do-not-save-duplicates t)
-  (eval-expression-print-length nil)
   (display-line-numbers 'relative)
+  (electric-pair-mode t)                        ;; Automatic parens pairing
+  (eval-expression-print-length nil)
+  (fill-colum 120)
+  (frame-inhibit-implied-resize nil)            ;; Fonts independent from any resized frame
+  (history-delete-duplicates t)
+  (history-length 1000)
+  (indent-tabs-mode nil)                        ;; tabs are evil
+  (inhibit-compacting-font-caches t)            ;; Do not exhaust GC memory
+  (initial-buffer-choice t)                     ;; open *scratch* buffer
+  (kill-do-not-save-duplicates t)
+  (load-prefer-newer t)                         ;; Load newest version file
+  (minibuffer-prompt-properties '(read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt))
+  (narrow-to-defun-include-comments t)
+  (pending-delete-mode)                         ;; Typed text replaces if the selection is active
+  (prefer-coding-system 'utf-8)
+  (scroll-conservatively 100)
+  (sentence-end-double-space nil)               ;; End sentence with 1 space not 2
+  (set-fringe-mode 6)                           ;; Give some breating room for symbols
+  (show-paren-delay 0)
+  (show-paren-style 'expression)
+  (switch-to-buffer-in-dedicated-window nil)
+  (switch-to-buffer-obey-display-actions t)     ;; Treat manual switching of buffers the same as programmatic
+  (tab-width 4)
+  (toggle-frame-maximized)                      ;; Always use all screen for emacs
+  (use-dialog-box nil)
+  (use-short-answers t)                         ;; use 'y' or 'n'
+  (visible-bell t)
+  (window-sides-slots '(3 0 3 1))               ;;
+  (x-stretch-cursor t)                          ;; Make cursor stretch to cover wider characters
+
+  ;; (file-name-handler-alist nil)
+  ;; (echo-keystrokes 0.05)                         ;; the value is 0.25
 
   ;; FRAMES.
   ;; The top-level window in the GUI version of emacs
@@ -215,6 +213,9 @@
   (setq auto-save-list-file-prefix "~/.config/emacs/etc/auto-save-list/.save-")
   (setq recentf-save-file "~/.config/emacs/etc/recentf")
   (recentf-mode 1)
+
+  (setq savehist-file "~/.config/emacs/etc/savehist")
+  (savehist-mode 1)
 
   ;; Enable these
   (dolist (c '(narrow-to-region narrow-to-page upcase-region downcase-region))
