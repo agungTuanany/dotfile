@@ -100,6 +100,7 @@
   (make-backup-files nil)
   (backup-inhibited nil)
   (create-lockfiles nil)
+
   :config
   ;;========================================
   ;;; CORE
@@ -148,7 +149,7 @@
     (add-to-list 'load-path
                  (locate-user-emacs-file tuanany-module-path)))
 
-  (defvar addons '(
+  (defvar tuanany-addons '(
                    ;;; ==== UI ====
                    "tuanany-ui-dashboard.el"
                    "tuanany-ui-doom-modeline.el"
@@ -193,7 +194,7 @@
                    "tuanany-lang-web-mode.el"
                    ))
 
-  (dolist (x addons)
+  (dolist (x tuanany-addons)
     (load x))
 
   ;;========================================
