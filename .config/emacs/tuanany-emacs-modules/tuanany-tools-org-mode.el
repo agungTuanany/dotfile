@@ -246,7 +246,7 @@
        ))
      ))
   :custom-face
-  (org-block ((t (:foreground nil :inherit fixed-pitch))))
+  (org-block ((t (:foreground "unspecified" :inherit fixed-pitch))))
   (org-checkbox ((t (:inherit fixed-pitch))))
   (org-code ((t (:inherit (shadow fixed-pitch)))))
   (org-document-info ((t (:foreground "dark orange"))))
