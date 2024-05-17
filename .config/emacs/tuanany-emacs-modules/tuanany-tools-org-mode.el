@@ -54,7 +54,7 @@
   (org-fontify-done-headline t)
   (org-fontify-quote-and-verse-blocks t)
   (org-fontify-whole-heading-line t)
-  (org-hide-emphasis-markers nil)
+  (org-hide-emphasis-markers t)
   (org-hide-leading-stars nil)                      ;; Don't hide stars
   (org-hierarchical-todo-statistics nil)            ;; Only useful for property searching only but can slow down search
   (org-image-actual-width nil)
