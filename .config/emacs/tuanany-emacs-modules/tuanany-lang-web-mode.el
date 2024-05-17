@@ -55,7 +55,7 @@
   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
   ;; :hook
   ;; (web-mode . (lambda () (untabify (point-min) (point-max))))
-  :init (web-mode)
+  ;; :init (web-mode)
   )
 (add-hook 'web-mode-hook (lambda () (untabify (point-min) (point-max))))
 
