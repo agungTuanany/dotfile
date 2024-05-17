@@ -285,14 +285,15 @@
      (emacs-lisp . t)
      (shell . t)))
 
-  (dolist (tuanany--org-level-faces '((org-level-1 . 1.15)
-                                      (org-level-2 . 1.10)
-                                      (org-level-3 . 1.05)
+  (dolist (tuanany--org-level-faces '((org-level-1 . 1.20)
+                                      (org-level-2 . 1.15)
+                                      (org-level-3 . 1.13)
                                       (org-level-4 . 1.1)
                                       (org-level-5 . 1.1)
                                       (org-level-6 . 1.1)
                                       (org-level-7 . 1.1)
                                       (org-level-8 . 1.1)))
+
     (set-face-attribute (car tuanany--org-level-faces) nil :family "Source Code Pro" :weight 'semibold :height (cdr tuanany--org-level-faces)))
   )
 
