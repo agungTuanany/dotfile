@@ -54,7 +54,7 @@
   (org-fontify-done-headline t)
   (org-fontify-quote-and-verse-blocks t)
   (org-fontify-whole-heading-line t)
-  (org-hide-emphasis-markers t)
+  (org-hide-emphasis-markers nil)
   (org-hide-leading-stars nil)                      ;; Don't hide stars
   (org-hierarchical-todo-statistics nil)            ;; Only useful for property searching only but can slow down search
   (org-image-actual-width nil)
@@ -80,7 +80,6 @@
                         (org-agenda-files . (:max-levels . 2))
                         (nil . (:max-level . 2))
                         ))
-
 
   (org-modules '(                                   ;; customize loaded module
                  org-habit
@@ -270,7 +269,8 @@
   (:map global-map
         ("C-c l" . org-store-link)
         ("C-c a" . org-agenda)
-        ("C-c c" . org-capture))
+        ("C-c c" . org-capture)
+        ("C-c e" . tuanany--toggle-org-emphasis-markers))
 
   :config
   (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))   ;; Associate all org files with org-mode
@@ -305,6 +305,15 @@
   (visual-line-mode 1)
   (setq evil-auto-indent nil)
   (org-display-inline-images))
+
+(defun tuanany--toggle-org-emphasis-markers ()
+  "Toggle the visibility of Org-mode emphasis markers."
+  (interactive)
+  (setq org-hide-emphasis-markers (not org-hide-emphasis-markers))
+  ;; Refresh the current buffer to apply the changes
+  (org-toggle-pretty-entities)
+  (font-lock-flush)
+  (font-lock-ensure))
 
 (use-package org-super-agenda
   :after org)
