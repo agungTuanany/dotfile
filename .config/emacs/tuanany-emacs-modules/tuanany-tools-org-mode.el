@@ -326,5 +326,10 @@
   :custom
   (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
+(use-package org-pomodoro
+  :custom
+  (org-pomodoro-length 20)
+  (org-pomodoro-short-break-length 5)
+  (org-pomodoro-long-break-length 20))
 
 ;;; tuanany-tools-org-mode.el ends here
