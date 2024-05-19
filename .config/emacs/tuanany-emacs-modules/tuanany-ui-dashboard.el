@@ -37,7 +37,8 @@
                                     "an idiot admires complexity, a genius admires simplicity"
                                     "Before the endgames, the Gods have placed the middle game, -Siegbert Tarrasch"
                                     "Don't tell me what the code does, show me what the code does, -Anonymous"
-                                    "The great book of nature can be read only by those who know the language in which it was written. And this language is mathematics. -The Assyaer"))
+                                    "The great book of nature can be read only by those who know the language in which it was written. And this language is mathematics. -The Assyaer"
+                                    "Education is preparation for life, and only part of that is the mastery of specific work skills - Keith Devlin"))
   (setq dashboard-center-content t)
   (dashboard-setup-startup-hook)
   )
