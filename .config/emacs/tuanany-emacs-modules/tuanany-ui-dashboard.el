@@ -40,7 +40,10 @@
                                     "The great book of nature can be read only by those who know the language in which it was written. And this language is mathematics. -The Assayer"
                                     "Education is preparation for life, and only part of that is the mastery of specific work skills - Keith Devlin"
                                     "It's the method that's important, never mind if you don't get the right answer - Tom Lehrer"
-                                    "Education is a prepartion for life, and only part of that is the mastery of specific work skills - Tom Lehrer"))
+                                    "Education is a prepartion for life, and only part of that is the mastery of specific work skills - Tom Lehrer"
+                                    "The things about politician is that they're very much like prostitutes, but only more expensive - Riccardo Privitera"
+                                    "I am invisible man, not because I don't exists, it because you choose not to see me - Bandar bin Sultan"
+                                    ))
   (setq dashboard-center-content t)
   (dashboard-setup-startup-hook)
   )
