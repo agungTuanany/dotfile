@@ -332,4 +332,9 @@
   (org-pomodoro-short-break-length 5)
   (org-pomodoro-long-break-length 20))
 
+(require 'ox-latex)
+(setq org-latex-create-formula-image-program 'imagemagick)
+(setq org-latex-packages-alist '(("" "amsmath" t)))
+
+
 ;;; tuanany-tools-org-mode.el ends here
