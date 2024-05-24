@@ -65,6 +65,8 @@
   (org-src-fontify-natively t)                      ;; Make sure we see syntax highlighting
   (org-startup-folded 'content)                     ;; Should everything be hidden?
   (org-startup-indented nil)                        ;; Don't indent the stars
+  (org-startup-align-all-tables)                    ;;
+  (org-startup-shrink-all-tables)                   ;;
   (org-todo-repeat-to-state t)                      ;; Repeat to previous todo state If there was no todo state, then don't set a state
   (org-track-ordered-property-with-tag t)
   (org-use-sub-superscripts nil)                    ;; I don't use it for subs/super scripts
