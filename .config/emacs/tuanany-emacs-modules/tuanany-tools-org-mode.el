@@ -311,7 +311,7 @@
   (interactive)
   (setq org-hide-emphasis-markers (not org-hide-emphasis-markers))
   ;; Refresh the current buffer to apply the changes
-  (org-toggle-pretty-entities)
+  ;; (org-toggle-pretty-entities)
   (font-lock-flush)
   (font-lock-ensure))
 
