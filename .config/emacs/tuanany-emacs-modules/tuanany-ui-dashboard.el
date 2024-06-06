@@ -44,6 +44,8 @@
                                     "The things about politician is that they're very much like prostitutes, but only more expensive - Riccardo Privitera"
                                     "I am invisible man, not because I don't exists, it because you choose not to see me - Bandar bin Sultan"
                                     "Without error there can be no brilliancy - Emanuel Lasker"
+                                    "You have to have the fighting spirit. You have to force moves and takes chances -Bobby Fischer"
+                                    "If they could see on my face what I feel in my heart no one would ever fight me - Yasuhiro Yamashita"
                                     ))
   (setq dashboard-center-content t)
   (dashboard-setup-startup-hook)
