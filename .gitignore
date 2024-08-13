@@ -26,3 +26,7 @@ vlc
 xfce4
 menus
 dconf
+
+#ignore from ~/.local
+share/
+state/
