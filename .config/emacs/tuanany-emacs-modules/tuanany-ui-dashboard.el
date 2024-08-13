@@ -46,6 +46,7 @@
                                     "Without error there can be no brilliancy - Emanuel Lasker"
                                     "You have to have the fighting spirit. You have to force moves and takes chances -Bobby Fischer"
                                     "If they could see on my face what I feel in my heart no one would ever fight me - Yasuhiro Yamashita"
+                                    "Programmers want to believe that if they use the right algorithms and design patterns then the bugs will take care of themselves, that garbage! - Internet of Bugs"
                                     ))
   (setq dashboard-center-content t)
   (dashboard-setup-startup-hook)
