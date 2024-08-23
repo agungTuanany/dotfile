@@ -1,4 +1,4 @@
-;;;; tuanany-lang-js2-mode.el --- js2-mode Programming Languages Specified-*- lexical-binding: t -*-
+;;;; tuanany-lang-php-mode.el --- js2-mode Programming Languages Specified-*- lexical-binding: t -*-
 
 ;; Copyright (C) 2021-2024 Agung Tuanany
 
@@ -7,7 +7,7 @@
 ;; Package-Requires: ((emacs "^25.1"))
 ;; Created: 2023
 ;; Version: 0.1.0
-;; Keywords: javascript, programming language
+;; Keywords: javascript, php, programming language
 
 ;;;; Package-Requires:
 
@@ -26,12 +26,6 @@
 ;; this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ;;;; Commentary:
-;; js2-mode advantages:
-;; - Syntax Checking
-;; - Code Navigation
-;; - Code Higlighting
-;; - Code Folding
-;; - ECMAScript Compatibility
 
 ;;;; Code:
 
@@ -43,4 +37,4 @@
   ;; :custom
   )
 
-;;; tuanany-lang-js2-mode.el ends here
+;;; tuanany-lang-php-mode.el ends here
