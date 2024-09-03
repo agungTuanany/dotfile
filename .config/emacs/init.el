@@ -36,8 +36,9 @@
 ;; Recommended to have this at the top
 ;; Source: https://www.masteringemacs.org/article/how-to-get-started-tree-sitter
 ;; Emacs 29 support for tree-sitter built in.
-(setq treesit-extra-load-path `(,(concat user-emacs-directory "/etc/var/tree-sitter-dist/")
-                                ,(concat user-emacs-directory "/etc/tree-sitter")))
+;; Add custom tree-sitter grammar path
+(setq treesit-extra-load-path `(,(concat user-emacs-directory "etc/var/tree-sitter-dist/")
+                                ,(concat user-emacs-directory "etc/tree-sitter")))
 
 (use-package no-littering :ensure t)
 (use-package quelpa :ensure t)
