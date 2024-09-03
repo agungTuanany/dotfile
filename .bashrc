@@ -34,6 +34,8 @@ alias rm='rm -rf'
 alias e_key='xmodmap ~/.local/bin/emacs_keyboard'
 alias xmonitor='~/.local/bin/xmonitor'
 alias xinitrc='nvim ~/.xinitrc'
+# download first: https://github.com/pprevos/emacs-writing-studio
+alias ews='emacs --init-directory ~/.config/emacs-writing-studio'
 
 alias _xstart='e_key && xmonitor'
 
