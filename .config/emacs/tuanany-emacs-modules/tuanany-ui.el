@@ -40,7 +40,7 @@
   :hook (prog-mode . rainbow-delimiters-mode))
 
 (use-package which-key
-  :ensure nil
+  :ensure t
   :init (which-key-mode)
   :diminish which-key-mode
   :hook
