@@ -30,32 +30,48 @@
 
 ;;;; Code:
 
-(use-package tree-sitter
-  :hook
-  ((
-    css-mode
-    elisp-mode
-    js-mode
-    json-mode
-    php-mode
-    ruby-mode
-    rust-mode
-    sh-mode
-    terraform-mode
-    typescript-mode
-    yaml-mode
-    ) . tuanany-tree-sitter-mode-enable)
-  :preface
-  (defun tuanany-tree-sitter-mode-enable ()
-    (tree-sitter-mode t))
-  :defer t)
+;; (use-package tree-sitter
+;;   :hook
+;;   ((
+;;     css-mode
+;;     elisp-mode
+;;     js-mode
+;;     json-mode
+;;     ;; php-mode
+;;     ruby-mode
+;;     rust-mode
+;;     sh-mode
+;;     terraform-mode
+;;     ;; typescript-ts-mode
+;;     yaml-mode
+;;     ) . tuanany-tree-sitter-mode-enable)
+;;   :preface
+;;   (defun tuanany-tree-sitter-mode-enable ()
+;;     (tree-sitter-mode t))
+;;   :custom
+;; ;; ensures .ts and .php files use correct mode
+;;   (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-ts-mode))
+;;   (add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
 
-(use-package tree-sitter-langs
-  :hook
-  (tree-sitter-after-on . tree-sitter-hl-mode))
+;;   ;; ensure tree-sitter highlighting is enabled
+;;   (add-hook 'typescript-ts-mode #'tree-sitter-hl-mode)
+;;   (add-hook 'php-mode #'tree-sitter-hl-mode)
+;;   ;; :defer t
+;;   )
+
+;; (use-package tree-sitter-langs
+;;   :hook
+;;   (tree-sitter-after-on . tree-sitter-hl-mode))
 
 (use-package treesit-auto
+  :ensure t
+  ;; :demand t ;; ensure that the package is loaded immediately
+  :commands (treesit-auto-add-to-auto-mode-alist global-treesit-auto-mode)
   :custom
-  (treesit-auto-add-to-auto-mode-alist 'all))
+  (treesit-auto-install 'prompt)
+  :config
+  ;; Ensure that the function are called after the package is loaded
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode))
 
 ;;; tuanany-tools-tree-sitter.el ends here
