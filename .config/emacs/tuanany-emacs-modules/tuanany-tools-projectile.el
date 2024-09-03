@@ -32,14 +32,14 @@
 
 (use-package projectile
   :ensure t
-  :load t
+  ;; :load t
   :commands projectile-project-root
   :custom
   (projectile-indexing-method 'hybrid)  ;; indexing uses external tools
   (projectile-per-project-compilation-buffer nil)
   :config
   (keymap-global-set "C-c p" 'projectile-command-map)
-  (projectile-global-mode)
+  (projectile-mode +1)
   (setq frame-title-format '(:eval (if (projectile-project-root) (projectile-project-root) "%b")))
   ;; :init
   ;; (projectile-mode +1)
