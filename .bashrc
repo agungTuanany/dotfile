@@ -36,6 +36,7 @@ alias xmonitor='~/.local/bin/xmonitor'
 alias xinitrc='nvim ~/.xinitrc'
 # download first: https://github.com/pprevos/emacs-writing-studio
 alias ews='emacs --init-directory ~/.config/emacs-writing-studio'
+alias purcell='emacs --init-directory ~/.config/purcell-emacs.d'
 
 alias _xstart='e_key && xmonitor'
 
@@ -147,6 +148,8 @@ alias rustrl='. "$HOME/.cargo/env"'
 PATH=$HOME/.cask/bin:$PATH
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
+
+export PATH="$HOME/.local/bin/:$PATH"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
