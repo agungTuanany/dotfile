@@ -46,17 +46,22 @@
   (web-mode-enable-comment-interpolation t)
   :config
   (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.ts\\'" . type-script-ts-mode))
   ;; :hook
   ;; (web-mode . (lambda () (untabify (point-min) (point-max))))
   ;; :init (web-mode)
   )
+
 (add-hook 'web-mode-hook (lambda () (untabify (point-min) (point-max))))
+
+(use-package simple-httpd
+  :ensure t)
 
 ;;; tuanany-lang-web-mode.el ends here
