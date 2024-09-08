@@ -27,7 +27,6 @@
 
 ;;;; Commentary:
 ;; Dependencies:
-;;   - simple-httpd
 ;;   - js2-mode
 
 ;;;; Code:
@@ -42,11 +41,5 @@
   (css-mode . skewer-css-mode)
   (html-mode . skewer-html-mode)
   (web-mode . skewer-html-mode))
-
-;; (use-package simple-httpd
-;;   :ensure t
-;;   :config
-;;   (setq httpd-root "/var/www")
-;;   (httpd-start))
 
 ;;; tuanany-tools-skewer.el ends here
