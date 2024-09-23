@@ -1,10 +1,11 @@
-;;;; init.el --- emacs -*- lexical-binding: t -*-
+;;; init.el --- Load the full configuration -*- lexical-binding: t -*-
+;;; Commentary:
 
 ;; Copyright (C) 2021-2024 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
-;; Package-Requires: ((emacs "^25.1"))
+;; Package-Requires: ((emacs "25.1"))
 ;; Created: 2023
 ;; Version: 0.1.0
 ;; Keywords: init file, key mapping, modular file, custom config.
@@ -232,4 +233,9 @@
   (web-mode-current-element-highlight-face ((t (:foreground "#ffffff" :underline "gold"))))
 
   ) ;; END EMACS-PACKAGE
+
+;; Local Variables:
+;; coding: utf-8
+;; no-byte-compile: t
+;; End:
 ;;; init.el ends here
