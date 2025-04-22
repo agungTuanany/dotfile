@@ -15,6 +15,7 @@ racket-mode/
 org/
 eln-cache/
 tree-sitter/
+tutorial/
 
 *.#
 .#*

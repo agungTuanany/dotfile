@@ -175,7 +175,7 @@
                            "tuanany-helper-whitespace.el"
                            ;; "tuanany-helper-shrface.el"
                            ;; ==== TOOLS ====
-                           "tuanany-tools-evil.el"
+                           ;; "tuanany-tools-evil.el"
                            "tuanany-tools-eww.el"
                            "tuanany-tools-magit.el"
                            "tuanany-tools-org-mode.el"
