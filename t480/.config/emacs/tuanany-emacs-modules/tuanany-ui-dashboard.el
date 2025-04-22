@@ -32,7 +32,7 @@
 (use-package dashboard
   :config
   (setq dashboard-startup-banner 'ascii)
-  (setq dashboard-banner-logo-title "Hello Agung Jangan Malas, ingat Aly dan Istrimu")
+  (setq dashboard-banner-logo-title "Hello Agung Jangan Malas, ingat Nuha, Aly dan Istrimu")
   (setq dashboard-footer-messages '("Take small steps and don't get discouraged. Good luck"
                                     "an idiot admires complexity, a genius admires simplicity"
                                     "Before the endgames, the Gods have placed the middle game, -Siegbert Tarrasch"
