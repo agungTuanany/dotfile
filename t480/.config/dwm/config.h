@@ -63,6 +63,8 @@ static const char *termcmd[]  = { "st", NULL };
 static const char *browser[]  = { "firefox-developer-edition", NULL };
 static const char *emacs[]    = { "emacs", NULL };
 
+static void setmfact(const Arg *arg);
+
 static const Key keys[] = {
     /* modifier                     key        function        argument */
     { MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
