@@ -88,6 +88,11 @@
   (window-sides-slots '(3 0 3 1))               ;;
   (x-stretch-cursor t)                          ;; Make cursor stretch to cover wider characters
 
+  (global-unset-key [touchscreen-begin])
+  (global-unset-key [touchscreen-update])
+  (global-unset-key [touchscreen-end])
+
+
   ;; (file-name-handler-alist nil)
   ;; (echo-keystrokes 0.05)                         ;; the value is 0.25
 
