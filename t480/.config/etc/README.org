@@ -1,0 +1,7 @@
+This /etc folder is from root file-system, and NetworkManager folder is folder
+that config resolv.conf file in '/etc/resolv.conf' to use 'resolvconf -u' to
+manage all dns.
+
+
+- Put this file into /etc/NetworkManager/conf.d/
+- change owner and group file and directory into root.
