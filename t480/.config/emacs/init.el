@@ -60,7 +60,7 @@
   (display-line-numbers 'relative)
   (electric-pair-mode t)                        ;; Automatic parens pairing
   (eval-expression-print-length nil)
-  (fill-column 120)
+  (fill-column 80)
   (frame-inhibit-implied-resize nil)            ;; Fonts independent from any resized frame
   (history-delete-duplicates t)
   (history-length 1000)
