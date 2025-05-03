@@ -193,10 +193,11 @@
                            ;; "tuanany-tools-impatient-mode.el"
                            ;; "tuanany-tools-prog-mode.el"
                            ;; ==== LANGUAGES ====
-                           "tuanany-lang-clojure.el"
+                           "tuanany-lang-clojure-mode.el"
                            "tuanany-lang-js2-mode.el"
-                           "tuanany-lang-racket.el"
+                           "tuanany-lang-racket-mode.el"
                            "tuanany-lang-web-mode.el"
+                           "tuanany-lang-yaml-mode.el"
                            ))
 
   (dolist (x tuanany-addons)
