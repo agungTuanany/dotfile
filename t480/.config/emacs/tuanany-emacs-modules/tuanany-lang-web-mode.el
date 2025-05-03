@@ -1,4 +1,4 @@
-;;;; tuanany-setup-html.el --- Programming Languages Specified-*- lexical-binding: t -*-
+;;;; tuanany-lang-web-mode.el --- Programming Languages Specified-*- lexical-binding: t -*-
 
 ;; Copyright (C) 2021-2024 Agung Tuanany
 

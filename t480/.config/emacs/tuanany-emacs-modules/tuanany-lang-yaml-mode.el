@@ -1,4 +1,4 @@
-;;;; tuanany-setup-racket.el --- Programming Languages Specified-*- lexical-binding: t -*-
+;;;; tuanany-lang-yaml-mode.el --- yaml-mode Programming Languages Specified-*- lexical-binding: t -*-
 
 ;; Copyright (C) 2021-2024 Agung Tuanany
 
@@ -7,7 +7,7 @@
 ;; Package-Requires: ((emacs "^25.1"))
 ;; Created: 2023
 ;; Version: 0.1.0
-;; Keywords: racket, programming language
+;; Keywords: yaml file, config yaml-mode
 
 ;;;; Package-Requires:
 
@@ -29,20 +29,10 @@
 
 ;;;; Code:
 
-(use-package racket-mode
-  :hook
-  (racket-mode . racket-xp-mode)
-  (racket-mode . company-mode)
-  (racket-repl-mode . company-mode)
+(use-package yaml-mode
+  :ensure t
+  :mode ("\\.yml\\'" "\\.yaml\\'")
+  ;; :custom
   )
 
-;;; binary name of scheme implementation
-(setq scheme-program-name "mzscheme")
-
-;; (use-package quack
-;;      :hook
-;;      (quack-mode racket-mode))
-
-;; (require 'quack)
-
-;;; tuanany-lang-racket.el ends here
+;;; tuanany-lang-yaml.el ends here

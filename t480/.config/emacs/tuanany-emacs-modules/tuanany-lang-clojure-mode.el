@@ -1,4 +1,4 @@
-;;;; tuanany-setup-clojure.el --- Programming Languages Specified-*- lexical-binding: t -*-
+;;;; tuanany-setup-clojure-mode.el --- Programming Languages Specified-*- lexical-binding: t -*-
 
 ;; Copyright (C) 2021-2024 Agung Tuanany
 
@@ -49,4 +49,4 @@
   (interactive)
   (cider-repl-set-ns "user"))
 
-;;; tuanany-lang-clojure.el ends here
+;;; tuanany-lang-clojure-mode.el ends here
