@@ -1,7 +1,7 @@
 ##
 #
 # Author               : Agung Tuanany
-# Last Modified        : Wed Jan 4 11:06:19 AM WIB 2023
+# Last Modified        : Thu May  8 07:32:05 PM WIB 2025
 #
 # RECOMMEND USE:
 #
@@ -42,7 +42,7 @@ alias _xstart='e_key && xmonitor'
 
 alias c='clear'
 alias igrep='grep -i --color'
-alias BASHRc='vim ~/.bashrc'
+alias bashrc='vim ~/.bashrc'
 
 alias pacupdate='sudo pacman -Syu'
 alias pacclean='sudo pacman -Qtdq | sudo pacman -Rns'
@@ -65,6 +65,13 @@ alias sensors='watch sensors'
 
 alias ifconfigme='curl ifconfig.me '
 alias battery='acpi'
+
+
+alias touchpadd="xinput disable 'Synaptics TM3276-022'"
+alias touchpade="xinput enable 'Synaptics TM3276-022'"
+alias trackpointd="xinput disable 'TPPS/2 IBM TrackPoint'"
+alias trackpointe="xinput enable 'TPPS/2 IBM TrackPoint'"
+
 
 # GIT ALIASES
 # alias gl="git log --pretty=oneline --abbrev-commit"
