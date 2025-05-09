@@ -305,6 +305,8 @@
   (variable-pitch-mode 1)
   (auto-fill-mode 0)
   (visual-line-mode 1)
+  (setq-local tab-width 4)
+  (setq-local fill-column 80)
   (setq evil-auto-indent nil)
   (org-display-inline-images))
 
