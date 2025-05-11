@@ -14,7 +14,7 @@
 (syndaemon -i 1.0 -K -t -d) &
 
 # Start dwmblock
-(dwmblocks &)
+(dwmblocks) &
 
 # start emacs pinky finger
 (sleep 1 && xmodmap ~/.local/bin/emacs_keyboard) &
