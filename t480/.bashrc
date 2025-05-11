@@ -72,6 +72,10 @@ alias touchpade="xinput enable 'Synaptics TM3276-022'"
 alias trackpointd="xinput disable 'TPPS/2 IBM TrackPoint'"
 alias trackpointe="xinput enable 'TPPS/2 IBM TrackPoint'"
 
+# https://wiki.archlinux.org/title/Touchpad_Synaptics
+alias touchpadoff="synclient TouchpadOff=1"
+alias touchpadon="synclient TouchpadOff=0"
+
 
 # GIT ALIASES
 # alias gl="git log --pretty=oneline --abbrev-commit"
