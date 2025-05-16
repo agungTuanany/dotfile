@@ -62,7 +62,8 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *termcmd[]  = { "st", NULL };
 static const char *browser[]  = { "firefox-developer-edition", NULL };
 static const char *emacs[]    = { "emacs", NULL };
-
+static const char *touchpadd[] = { "sh", "-c", "xinput disable 'Synaptics TM3276-022' && xinput disable 'TPPS/2 IBM TrackPoint' && synclient TouchpadOff=1", NULL };
+static const char *touchpade[] = { "sh", "-c", "xinput enable 'Synaptics TM3276-022' && xinput enable 'TPPS/2 IBM TrackPoint' && synclient TouchpadOff=0", NULL };
 static void setmfact(const Arg *arg);
 
 static const Key keys[] = {
@@ -71,6 +72,8 @@ static const Key keys[] = {
     { MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
     { MODKEY|ShiftMask,             XK_b,      spawn,          {.v = browser } },
     { MODKEY,                       XK_e,      spawn,          {.v = emacs } },
+    { MODKEY,                       XK_r,      spawn,          {.v = touchpadd } },
+    { MODKEY|ShiftMask,             XK_r,      spawn,          {.v = touchpade } },
     { MODKEY,                       XK_b,      togglebar,      {0} },
     { MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
     { MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
