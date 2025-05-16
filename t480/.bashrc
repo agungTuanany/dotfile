@@ -66,7 +66,6 @@ alias sensors='watch sensors'
 alias ifconfigme='curl ifconfig.me '
 alias battery='acpi'
 
-
 alias touchpadd="xinput disable 'Synaptics TM3276-022'"
 alias touchpade="xinput enable 'Synaptics TM3276-022'"
 alias trackpointd="xinput disable 'TPPS/2 IBM TrackPoint'"
@@ -76,6 +75,8 @@ alias trackpointe="xinput enable 'TPPS/2 IBM TrackPoint'"
 alias touchpadoff="synclient TouchpadOff=1"
 alias touchpadon="synclient TouchpadOff=0"
 
+alias tcpd="touchpadd & touchpadoff & trackpointd"
+alias tcpe="touchpade & touchpadon & trackpointe"
 
 # GIT ALIASES
 # alias gl="git log --pretty=oneline --abbrev-commit"
