@@ -33,6 +33,8 @@
   :ensure t
   :mode ("\\.yml\\'" "\\.yaml\\'")
   ;; :custom
+  :hook
+  (yaml-mode . display-line-numbers-mode)
   )
 
-;;; tuanany-lang-yaml.el ends here
+;;; tuanany-lang-yaml-mode.el ends here
