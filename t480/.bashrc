@@ -78,6 +78,16 @@ alias touchpadon="synclient TouchpadOff=0"
 alias tcpd="touchpadd & touchpadoff & trackpointd"
 alias tcpe="touchpade & touchpadon & trackpointe"
 
+# TPPS/2 IBM TrackPoint ID=11
+# Disable left-click (button 1) on device ID 10
+#alias mousels="xinput set-button-map 'Synaptics TM3279-022' 1 2 3 4 5 6 7 8 9 10 11 12"
+#alias mouselt="xinput set-button-map 'TPPS/2 IBM TrackPoint' 0 1 2 3 4 5 6 7"
+
+alias mousesd="xinput set-button-map 10 0 2 3 4 5 6 7 8 9 10 11 12"
+alias mousese="xinput set-button-map 10 1 2 3 4 5 6 7 8 9 10 11 12"
+alias mousetd="xinput set-button-map 11 0 2 3 4 5 6 7 8 9 10 11 12"
+alias mousete="xinput set-button-map 11 1 2 3 4 5 6 7 8 9 10 11 12"
+
 # GIT ALIASES
 # alias gl="git log --pretty=oneline --abbrev-commit"
 alias gl="git log --graph --pretty=format:'%C(yellow)%h%Creset -%Cred%d%Creset %s %Cgreen| %cr %C(bold blue)| %an%Creset' --abbrev-commit --date=relative"
