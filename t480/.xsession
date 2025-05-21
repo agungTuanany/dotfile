@@ -15,6 +15,9 @@
 # Device ID 10 is equal to 'Synaptics TM3276-022'
 (xinput set-button-map 10 0 2 3 4 5 6 7 8 9 10 11 12) &
 
+# Disable TPPS/2 IBM TrackPoint
+(xinput set-button-map 11 0 2 3 4 5 6 7 8 9 10 11 12) &
+
 # Disable touchpad while typing (syndaemon)
 (syndaemon -i 1.0 -K -t -d) &
 
