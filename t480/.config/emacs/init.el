@@ -56,7 +56,7 @@
    dired-listing-switches        "-alhv --group-directories-first"
    display-line-numbers-type     'relative
    fill-column                   80
-   indent-tabs-mode              nil
+   indent-tabs-mode              t
    scroll-conservatively         100
    sentence-end-double-space     nil       ;; End sentence with 1 space not 2
    tab-width                     4         ;; tabs are evil
@@ -125,6 +125,7 @@
   :hook
   (prog-mode . display-line-numbers-mode)
   (prog-mode . hs-minor-mode)
+  (before-save-hook . tuanany--untabify-before-save)
 
   ;; After everything is loaded, configure modes and keybindings
   ;;
@@ -248,13 +249,19 @@
     (put c 'disabled t))
   (put 'eshell 'disabled nil)
 
-  :custom-face
-  (cursor ((t (:background "light goldenrod" :foreground "black"))))
-  (web-mode-current-element-highlight-face ((t (:foreground "#ffffff" :underline "gold"))))
+  (defun tuanany--untabify-before-save ()
+    "Convert tabs to space before saving the buffer."
+    (when (and indent-tabs-mode
+	       (< (buffer-size) 100000))  ; Skip files larger than 100KB
+      (untabify (point-min) (point-max))))
 
   ;; Load custom-file if it exists
   (when (file-exists-p custom-file)
     (load custom-file))
+
+  :custom-face
+  (cursor ((t (:background "light goldenrod" :foreground "black"))))
+  (web-mode-current-element-highlight-face ((t (:foreground "#ffffff" :underline "gold"))))
 
   ) ;; END EMACS-PACKAGE
 
