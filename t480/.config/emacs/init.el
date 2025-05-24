@@ -112,6 +112,8 @@
    switch-to-buffer-obey-display-actions  t            ;; Treat manual switching of buffers the same as programmatic
    window-sides-slots                     '(3 0 3 1)
    x-stretch-cursor                       t            ;; Make cursor stretch to cover wider characters
+   outline-blank-line                     t
+   search-invisible                       nil           ;; Prevent Emacs from searching folded section
    )
 
   :custom
