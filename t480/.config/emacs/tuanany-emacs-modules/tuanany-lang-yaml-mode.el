@@ -35,6 +35,7 @@
   ;; :custom
   :hook
   (yaml-mode . display-line-numbers-mode)
+  (yaml-mode . outline-indent-minor-mode)
   )
 
 ;;; tuanany-lang-yaml-mode.el ends here
