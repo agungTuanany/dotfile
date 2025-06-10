@@ -112,8 +112,8 @@
    switch-to-buffer-obey-display-actions  t            ;; Treat manual switching of buffers the same as programmatic
    window-sides-slots                     '(3 0 3 1)
    x-stretch-cursor                       t            ;; Make cursor stretch to cover wider characters
-   outline-blank-line                     t
-   search-invisible                       nil           ;; Prevent Emacs from searching folded section
+   outline-blank-line                     t            ;; Maintaining blank lines between folded section
+   search-invisible                       nil          ;; Prevent Emacs from searching folded section
    )
 
   :custom
@@ -262,6 +262,20 @@
   ;; Load custom-file if it exists
   (when (file-exists-p custom-file)
     (load custom-file))
+
+  (defun tuanany-toggle-fold ()
+    "Toggle fold all lines larger than indentation on current line"
+    (interactive)
+    (let ((col 1))
+      (save-excursion
+	(back-to-indentation)
+	(setq col (+ 1 (current-column)))
+	(set-selective-display
+	 (if selective-display nil (or col 1))))))
+
+  (keymap-global-set "C-M-i" #'aj-toggle-fold)
+  ;; (keymap-global-unset "C-x C-c" 'save-buffers-kill-terminal)
+  ;; (keymap-global-set "C-x C-b" 'ibuffer)
 
   :custom-face
   (cursor ((t (:background "light goldenrod" :foreground "black"))))
