@@ -5,7 +5,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Liberation Mono:pixelsize=18:antialias=true:autohint=true";
+static char *font = "Liberation Mono:pixelsize=16:antialias=true:autohint=true";
 static int borderpx = 2;
 
 /*
@@ -83,13 +83,13 @@ char *termname = "st-256color";
  * the st.info and appropriately install the st.info in the environment where
  * you use this st version.
  *
- *	it#$tabspaces,
+ *      it#$tabspaces,
  *
  * Secondly make sure your kernel is not expanding tabs. When running `stty
  * -a` »tab0« should appear. You can tell the terminal to not expand tabs by
  *  running following command:
  *
- *	stty tabs
+ *      stty tabs
  */
 unsigned int tabspaces = 8;
 
