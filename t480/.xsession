@@ -5,6 +5,9 @@
 # Disable IBM TrackPoint
 (xinput disable "TPPS/2 IBM TrackPoint") &
 
+# Disable Multi-Touch on trackPoint
+(xinput disable "G2Touch Multi-Touch by G2TSP") &
+
 # Enable Synaptics palm detection
 (xinput set-prop "Synaptics TM3276-022" "Synaptics Palm Detection" 1)         &
 (xinput set-prop "Synaptics TM3276-022" "Synaptics Tap Action" 1 1 1 1 1 1 1) &
