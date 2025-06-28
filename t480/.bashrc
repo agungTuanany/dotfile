@@ -70,6 +70,7 @@ alias touchpadd="xinput disable 'Synaptics TM3276-022'"
 alias touchpade="xinput enable 'Synaptics TM3276-022'"
 alias trackpointd="xinput disable 'TPPS/2 IBM TrackPoint'"
 alias trackpointe="xinput enable 'TPPS/2 IBM TrackPoint'"
+alias g2touchd="xinput disable 'G2Touch Multi-Touch by G2TSP'"
 
 # https://wiki.archlinux.org/title/Touchpad_Synaptics
 alias touchpadoff="synclient TouchpadOff=1"
