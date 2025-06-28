@@ -30,13 +30,22 @@
 
 (use-package flycheck
   :ensure
-  :defer
+  :init (global-flycheck-mode)
+  :config
+  (flycheck-define-checker yaml-gitlab
+    "A YAML syntax checker using yamllint with Gitlab CI schema"
+    :command ("yamllint" "-d" "{extends: gitlab}" source)
+    :error-patterns
+    ((warning line-start (file-name) ":" line ":" column ": [warning] " (message) line-end)
+     (error line-start (file-name) ":"line ":" column ": [error] " (message) line-end))
+    :modes (yaml-))
   :hook ((prog-mode . flycheck-mode))
   :bind (:map flycheck-mode-map
-              ("C-c C-n" . flycheck-next-error)
-              ("C-c C-p" . flycheck-previous-error))
+	      ("C-c C-n" . flycheck-next-error)
+	      ("C-c C-p" . flycheck-previous-error))
   :custom
   (setq flycheck-emacs-lisp-load-path 'inherit)
+  (add-to-list 'flycheck-checkers 'yaml-gitlab)
   )
 
 ;;; tuanany-helper-flycheck.el ends here
