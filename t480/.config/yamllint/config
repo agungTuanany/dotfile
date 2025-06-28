@@ -1,0 +1,7 @@
+extends: default
+rules:
+  document-start: disable  # GitLab CI doesn't need ---
+  line-length: disable     # Disable line length checks
+  braces: enable
+  brackets: enable
+  colons: enable
