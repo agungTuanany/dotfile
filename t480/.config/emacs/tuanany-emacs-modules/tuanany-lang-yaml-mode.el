@@ -31,7 +31,12 @@
 
 (use-package yaml-mode
   :ensure t
-  :mode ("\\.yml\\'" "\\.yaml\\'")
+  :mode (("\\.yml\\'" . yaml-mode)
+	 ("\\.yaml\\'" . yaml-mode)
+	 ("\\.gitlab-ci.yml\\'" . yaml-mode))
+
+  :config
+  (setq yaml-indent-offset 2)
   ;; :custom
   :hook
   (yaml-mode . display-line-numbers-mode)
