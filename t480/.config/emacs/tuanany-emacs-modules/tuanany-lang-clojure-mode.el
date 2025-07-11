@@ -30,24 +30,29 @@
 ;;;; Code:
 
 (use-package clojure-mode
+  :ensure t
+  :mode ("\\.clj\\'" "\\.cljs\\'" "\\.edn\\'")
   :hook
-  (subword-mode
-   pareedit-mode))
+  (clojure-mode . subword-mode)
+  (subword-mode . pareedit-mode)
+  )
 
 (use-package cider
   :bind-keymap
   ("C-c u" . cider-user-ns)
   :config
-  (setq cider-show-error-buffer t)
-  (setq cider-auto-select-error-buffer t)
-  (setq cider-repl-history-file "~/.config/emacs/etc/cider-history")
-  (setq cider-repl-pop-to-buffer-on-connect t)
-  (setq cider-repl-wrap-history t)
-  )
+  (setq nrepl-log-message t
+	cider-auto-select-error-buffer t
+	cider-repl-display-help-banner nil
+	cider-repl-history-file "~/.config/emacs/etc/cider-history"
+	cider-repl-pop-to-buffer-on-connect t
+	cider-repl-use-clojure-font-lock t
+	cider-repl-wrap-history t
+	cider-show-error-buffer t))
 
-(defun cider-user-ns ()
-  (interactive)
-  (cider-repl-set-ns "user"))
+(use-package flycheck-clj-kondo
+  :ensure t
+  :after clojure-mode)
 
-
+;; (provide 'tuanany-lang-clojure-mode)
 ;;; tuanany-lang-clojure-mode.el ends here
