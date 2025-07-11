@@ -217,8 +217,9 @@
 			   "tuanany-helper-iedit.el"
 			   "tuanany-helper-ispell.el"
 			   "tuanany-helper-minibuffer.el"
-			   "tuanany-helper-whitespace.el"
 			   "tuanany-helper-outline-indent.el"
+			   "tuanany-helper-pdf-tools.el"
+			   "tuanany-helper-whitespace.el"
 			   ;; "tuanany-helper-shrface.el"
 			   ;; ==== TOOLS ====
 			   ;; "tuanany-tools-evil.el"
