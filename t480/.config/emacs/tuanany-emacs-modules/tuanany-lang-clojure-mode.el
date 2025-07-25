@@ -34,7 +34,7 @@
   :mode ("\\.clj\\'" "\\.cljs\\'" "\\.edn\\'")
   :hook
   (clojure-mode . subword-mode)
-  (subword-mode . pareedit-mode)
+  (subword-mode . paredit-mode)
   )
 
 (use-package cider
