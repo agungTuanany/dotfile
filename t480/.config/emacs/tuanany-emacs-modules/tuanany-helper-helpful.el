@@ -29,7 +29,7 @@
 
 ;;;; Code:
 
-(require 'shortdoc)
+
 (use-package helpful
   :ensure t
   ;; :defer

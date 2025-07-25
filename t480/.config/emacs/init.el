@@ -46,6 +46,7 @@
 (use-package quelpa :ensure t)
 (use-package quelpa-use-package :ensure t)
 
+;; (require 'shortdoc)
 (use-package emacs
   :ensure nil
   :defer nil
