@@ -53,11 +53,15 @@
 
   ;; Variables that should be set before any packages
   :init
+  (setq-default
+   indent-tabs-mode   nil
+   indent-tabs-mode   nil
+   )
   (setq
    dired-listing-switches        "-alhv --group-directories-first"
    display-line-numbers-type     'relative
    fill-column                   80
-   indent-tabs-mode              t
+
    scroll-conservatively         100
    sentence-end-double-space     nil       ;; End sentence with 1 space not 2
    tab-width                     4         ;; tabs are evil
@@ -169,111 +173,116 @@
 
   ;; Disable line-numbers in specific mode
   (dolist (mode '(Custom-mode-hook
-		  Info-mode-hook
-		  lisp-interaction-mode-hook
-		  ibuffer-mode-hook
-		  compilation-mode-hook
-		  dired-mode-hook
-		  eshell-mode-hook
-		  help-mode-hook
-		  magit-mode-hook
-		  markdown-mode-hook
-		  org-mode-hook
-		  ;; package-menu-hook
-		  ;; u-mode-hook
-		  shell-mode-hook
-		  term-mode-hook
-		  text-mode-hook
-		  treemacs-mode-hook
-		  helpful-mode-hook
-		  messages-buffer-mode-hook
-		  dashboard-mode-hook))
+                  Info-mode-hook
+                  lisp-interaction-mode-hook
+                  ibuffer-mode-hook
+                  compilation-mode-hook
+                  dired-mode-hook
+                  eshell-mode-hook
+                  help-mode-hook
+                  magit-mode-hook
+                  markdown-mode-hook
+                  org-mode-hook
+                  ;; package-menu-hook
+                  ;; u-mode-hook
+                  shell-mode-hook
+                  term-mode-hook
+                  text-mode-hook
+                  treemacs-mode-hook
+                  helpful-mode-hook
+                  messages-buffer-mode-hook
+                  dashboard-mode-hook))
     (add-hook mode(lambda () (display-line-numbers-mode -1))))
 
 
   (dolist (tuanany-module-path '("tuanany-emacs-modules" "tuanany-lisp"))
-    (add-to-list 'load-path
-		 (locate-user-emacs-file tuanany-module-path)))
+        (add-to-list 'load-path
+                 (locate-user-emacs-file tuanany-module-path)))
 
   (defvar tuanany-addons '(
-			   ;; ==== UI ====
-			   "tuanany-ui-dashboard.el"
-			   "tuanany-ui-doom-modeline.el"
-			   "tuanany-ui-time.el"
-			   "tuanany-ui.el"
-			   ;; ==== COMPLETION ====
-			   "tuanany-completion-cape.el"
-			   "tuanany-completion-consult.el"
-			   "tuanany-completion-corfu.el"
-			   "tuanany-completion-custom.el"
-			   "tuanany-completion-embark.el"
-			   "tuanany-completion-marginalia.el"
-			   "tuanany-completion-orderless.el"
-			   "tuanany-completion-vertico.el"
-			   ;; ==== HELPER ====
-			   "tuanany-helper-dumb-jump.el"
-			   "tuanany-helper-flycheck.el"
-			   "tuanany-helper-helpful.el"
-			   "tuanany-helper-highlight-indentation.el"
-			   "tuanany-helper-iedit.el"
-			   "tuanany-helper-ispell.el"
-			   "tuanany-helper-minibuffer.el"
-			   "tuanany-helper-outline-indent.el"
-			   "tuanany-helper-pdf-tools.el"
-			   "tuanany-helper-whitespace.el"
-			   ;; "tuanany-helper-shrface.el"
-			   ;; ==== TOOLS ====
-			   ;; "tuanany-tools-evil.el"
-			   "tuanany-tools-eww.el"
-			   "tuanany-tools-magit.el"
-			   "tuanany-tools-org-mode.el"
-			   "tuanany-tools-proced.el"
-			   "tuanany-tools-projectile.el"
-			   "tuanany-tools-shell.el"
-			   "tuanany-tools-skewer.el"
-			   "tuanany-tools-tree-sitter.el"
-			   ;; "tuanany-tools-browse-url.el"
-			   ;; "tuanany-tools-impatient-mode.el"
-			   ;; "tuanany-tools-prog-mode.el"
-			   ;; ==== LANGUAGES ====
-			   "tuanany-lang-clojure-mode.el"
-			   "tuanany-lang-js2-mode.el"
-			   "tuanany-lang-racket-mode.el"
-			   "tuanany-lang-web-mode.el"
-			   "tuanany-lang-yaml-mode.el"
-			   ))
+                           ;; ==== UI ====
+                           "tuanany-ui-dashboard.el"
+                           "tuanany-ui-doom-modeline.el"
+                           "tuanany-ui-time.el"
+                           "tuanany-ui.el"
+                           ;; ==== COMPLETION ====
+                           "tuanany-completion-cape.el"
+                           "tuanany-completion-consult.el"
+                           "tuanany-completion-corfu.el"
+                           "tuanany-completion-custom.el"
+                           "tuanany-completion-embark.el"
+                           "tuanany-completion-marginalia.el"
+                           "tuanany-completion-orderless.el"
+                           "tuanany-completion-vertico.el"
+                           ;; ==== HELPER ====
+                           "tuanany-helper-dumb-jump.el"
+                           "tuanany-helper-flycheck.el"
+                           ;; "tuanany-helper-helpful.el"
+                           "tuanany-helper-highlight-indentation.el"
+                           "tuanany-helper-iedit.el"
+                           "tuanany-helper-ispell.el"
+                           "tuanany-helper-minibuffer.el"
+                           "tuanany-helper-outline-indent.el"
+                           "tuanany-helper-pdf-tools.el"
+                           "tuanany-helper-whitespace.el"
+                           ;; "tuanany-helper-shrface.el"
+                           ;; ==== TOOLS ====
+                           ;; "tuanany-tools-evil.el"
+                           "tuanany-tools-eww.el"
+                           "tuanany-tools-magit.el"
+                           "tuanany-tools-org-mode.el"
+                           "tuanany-tools-proced.el"
+                           "tuanany-tools-projectile.el"
+                           "tuanany-tools-shell.el"
+                           "tuanany-tools-skewer.el"
+                           "tuanany-tools-tree-sitter.el"
+                           ;; "tuanany-tools-browse-url.el"
+                           ;; "tuanany-tools-impatient-mode.el"
+                           ;; "tuanany-tools-prog-mode.el"
+                           ;; ==== LANGUAGES ====
+                           "tuanany-lang-clojure-mode.el"
+                           "tuanany-lang-js2-mode.el"
+                           "tuanany-lang-racket-mode.el"
+                           "tuanany-lang-web-mode.el"
+                           "tuanany-lang-yaml-mode.el"
+                           ))
 
   (dolist (x tuanany-addons)
-    (load x))
+        (load x))
 
   ;; Enable these
   (dolist (c '(narrow-to-region narrow-to-page upcase-region downcase-region))
-    (put c 'disabled nil))
+        (put c 'disabled nil))
 
   ;; And disable these
   (dolist (c '(eshell project-eshell overwrite-mode iconify-frame diary))
-    (put c 'disabled t))
+        (put c 'disabled t))
   (put 'eshell 'disabled nil)
-
-  (defun tuanany--untabify-before-save ()
-    "Convert tabs to space before saving the buffer."
-    (when (and indent-tabs-mode
-	       (< (buffer-size) 100000))  ; Skip files larger than 100KB
-      (untabify (point-min) (point-max))))
 
   ;; Load custom-file if it exists
   (when (file-exists-p custom-file)
-    (load custom-file))
+        (load custom-file))
+
+(defun tuanany--untabify-before-save ()
+  "Forcefully convert all tabs to spaces before saving, except Makefiles."
+  (unless (or (derived-mode-p 'makefile-mode)
+              (string-match-p "\\.mk$" buffer-file-name))
+    (let ((inhibit-message t))  ; Suppress "Untabified N regions" message
+      (untabify (point-min) (point-max))
+    (setq indent-tabs-mode nil)  ; Ensure future indentation uses spaces
+    (when (fboundp 'whitespace-cleanup)  ; Additional cleanup if available
+      (whitespace-cleanup))))
+
 
   (defun tuanany-toggle-fold ()
     "Toggle fold all lines larger than indentation on current line"
     (interactive)
     (let ((col 1))
       (save-excursion
-	(back-to-indentation)
-	(setq col (+ 1 (current-column)))
-	(set-selective-display
-	 (if selective-display nil (or col 1))))))
+        (back-to-indentation)
+        (setq col (+ 1 (current-column)))
+        (set-selective-display
+         (if selective-display nil (or col 1))))))
 
   (keymap-global-set "C-M-i" #'aj-toggle-fold)
   ;; (keymap-global-unset "C-x C-c" 'save-buffers-kill-terminal)
