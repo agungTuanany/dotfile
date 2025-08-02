@@ -32,7 +32,13 @@
   :ensure t
   :magic ("%PDF" . pdf-view-mode)
   :config
-  (pdf-tools-install))
+  ;; (pdf-tools-install)
+  (setq-default pdf-view-mode-display-size 'fit-page)
+  (setq pdf-view-restore-filename (expand-file-name "etc/pdf-view-restore" user-emacs-directory))
+  :hook (pdf-view-mode . pdf-view-restore-filename)
+  )
 
+;; (add-hook 'pdf-view-mode-hook #'pdf-view-restore-mode)
+;; File mode specification error: (void-function pdf-view-restore-mode)
 
 ;;; tuanany-helper-pdf-tools.el ends here
