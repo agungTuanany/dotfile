@@ -88,18 +88,36 @@ If used with a prefix, it will search all buffers as well."
           (let ((regionp (buffer-substring-no-properties (region-beginning) (region-end))))
             (deactivate-mark)
             (funcall cmd regionp))
-        (funcall cmd "")))))
+        (funcall cmd ""))))
+
+  :config
+  ;; Better integration with embark
+  (with-eval-after-load 'embark
+    (require 'embark-consult)
+    (add-hook 'embark-collect-mode-hook #'consult-preview-at-point-mode))
+
+  ;; Improved consult buffer sorting
+  (setq consult-buffer-sources
+        '(consult--source-hidden-buffer
+          consult--source-buffer
+          consult--source-recent-file
+          consult--source-project-buffer
+          consult--source-bookmark
+          consult--source-project-buffer
+          consult--source-project-recent-file)))
 
 (use-package consult-ag
   :ensure
-  :defer
   :bind (:map projectile-command-map
               ("s s" . consult-ag)
-              ("s g" . consult-grep)))
+              ("s g" . consult-grep))
+  :config
+  (setq consult-ag-args "ag --nocolor --nogroup --numbers")
+  )
 
 (use-package consult-org-roam
   :ensure t
-  :after org-roam
+  :after (org-roam consult)
   :init
   (require 'consult-org-roam)
   ;; Activate the minor mode
@@ -117,4 +135,9 @@ If used with a prefix, it will search all buffers as well."
    consult-org-roam-forward-links
    :preview-key (kbd "M-."))
   )
+
+(with-eval-after-load 'embark
+  (with-eval-after-load 'consult
+    (require 'embark-consult)
+    (embark-consult-setup)))
 ;;; tuanany-completion-consult.el ends here
