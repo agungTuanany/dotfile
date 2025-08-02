@@ -66,6 +66,9 @@ alias sensors='watch sensors'
 alias ifconfigme='curl ifconfig.me '
 alias battery='acpi'
 
+alias neofetch='fastfetch'
+
+## t480 mousepad 
 alias touchpadd="xinput disable 'Synaptics TM3276-022'"
 alias touchpade="xinput enable 'Synaptics TM3276-022'"
 alias trackpointd="xinput disable 'TPPS/2 IBM TrackPoint'"
