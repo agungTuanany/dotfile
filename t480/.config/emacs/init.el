@@ -297,5 +297,6 @@
   (line-number-current-line ((t (:inherit default :foreground "#CFC0C5" :slant normal :weight regular))))
   (whitespace-tab ((t (:foreground "#636363"))))
   ;; (marginalia-documentation ((t (:inherit nil :foreground "LemonChiffon4" :weight normal))))
-  ) ;; END EMACS-PACKAGE
+  )
+);; END EMACS-PACKAGE
 ;;; init.el ends here
