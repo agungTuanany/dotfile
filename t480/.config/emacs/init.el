@@ -133,7 +133,8 @@
   (prog-mode . display-line-numbers-mode)
   (prog-mode . hs-minor-mode)
   (prog-mode . outline-indent-minor-mode)
-  (before-save-hook . tuanany--untabify-before-save)
+  (prog-mode-hook . electric-indent-local-mode)
+  (before-save . tuanany--untabify-before-save)
 
   ;; After everything is loaded, configure modes and keybindings
   ;;
