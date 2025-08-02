@@ -55,8 +55,8 @@
   :init
   (setq-default
    indent-tabs-mode   nil
-   indent-tabs-mode   nil
    )
+
   (setq
    dired-listing-switches        "-alhv --group-directories-first"
    display-line-numbers-type     'relative
@@ -292,10 +292,9 @@
   (cursor ((t (:background "light goldenrod" :foreground "black"))))
   (web-mode-current-element-highlight-face ((t (:foreground "#ffffff" :underline "gold"))))
 
+  (font-lock-comment-face ((t (:foreground "dim gray" :slant italic))))
+  (line-number-current-line ((t (:inherit default :foreground "#CFC0C5" :slant normal :weight regular))))
+  (whitespace-tab ((t (:foreground "#636363"))))
+  ;; (marginalia-documentation ((t (:inherit nil :foreground "LemonChiffon4" :weight normal))))
   ) ;; END EMACS-PACKAGE
-
-;; Local Variables:
-;; coding: utf-8
-;; no-byte-compile: t
-;; End:
 ;;; init.el ends here
