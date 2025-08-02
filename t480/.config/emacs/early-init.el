@@ -60,12 +60,12 @@
         ("melpa" . 2)
         ("org" . 3)))
 
+;; Initialize package system but don't activate packages yet
+(setq package-enable-at-startup nil)
 (package-initialize)
-(when (not package-archive-contents)
-  (package-install 'use-package)1)
 
+;; Configure use-package (built-in)
 (eval-when-compile
   (require 'use-package))
 (setq use-package-always-ensure t)
-
 ;;; early-init.el ends here
