@@ -40,11 +40,11 @@
 
 ;; Add custom tree-sitter grammar path
 (setq treesit-extra-load-path `(,(concat user-emacs-directory "etc/var/tree-sitter-dist/")
-				,(concat user-emacs-directory "etc/tree-sitter")))
+                                ,(concat user-emacs-directory "etc/tree-sitter")))
 
 (use-package no-littering :ensure t)
-(use-package quelpa :ensure t)
-(use-package quelpa-use-package :ensure t)
+;; (use-package quelpa :ensure t)
+;; (use-package quelpa-use-package :ensure t)
 
 ;; (require 'shortdoc)
 (use-package emacs
