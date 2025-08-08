@@ -34,11 +34,20 @@
   :config
   ;; (pdf-tools-install)
   (setq-default pdf-view-mode-display-size 'fit-page)
-  (setq pdf-view-restore-filename (expand-file-name "etc/pdf-view-restore" user-emacs-directory))
-  :hook (pdf-view-mode . pdf-view-restore-filename)
+  ;; (setq pdf-view-midnight-colors '("#FFFFFF" . "#000000")) ;; white text on black
+  :hook
+  (pdf-view-mode . pdf-view-midnight-minor-mode)
   )
 
-;; (add-hook 'pdf-view-mode-hook #'pdf-view-restore-mode)
-;; File mode specification error: (void-function pdf-view-restore-mode)
+(use-package pdf-view-restore
+  :ensure t
+  :after pdf-tools
+  :config
+  (setq pdf-view-restore-filename (expand-file-name "etc/pdf-view-restore" user-emacs-directory))
+  :hook
+  ;; Remember the last page when reopen PDFs
+  (pdf-view-mode-hook .pdf-view-restore-mode)
+
+  )
 
 ;;; tuanany-helper-pdf-tools.el ends here
