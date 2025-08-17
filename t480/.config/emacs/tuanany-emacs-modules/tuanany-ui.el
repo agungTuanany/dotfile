@@ -53,7 +53,8 @@
 (use-package paredit
   :hook
   ((racket-mode . paredit-mode)
-   (racket-repl-mode . paredit-mode)))
+   (racket-repl-mode . paredit-mode))
+  (clojure-mode . paredit-mode))
 
 ;; (face-attribute 'default :height)
 ;; (set-face-attribute 'default nil :height 100)  ;; 140 = 14pt

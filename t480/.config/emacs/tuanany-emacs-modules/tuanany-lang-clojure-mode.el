@@ -1,12 +1,12 @@
-;;;; tanany-lang-clojure-mode.el --- Programming Languages Specified-*- lexical-binding: t -*-
+;;;; tuanany-lang-clojure-mode.el --- Programming Languages Specified-*- lexical-binding: t -*-
 
 ;; Copyright (C) 2021-2024 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
-;; Package-Requires: ((emacs "^25.1"))
-;; Created: 2023
-;; Version: 0.1.0
+;; Package-Requires: ((emacs "^25.1") (clojure-mode "5.13") (cider "1.6") (pareidt "26"))
+;; Created: 2025
+;; Version: 0.2.0
 ;; Keywords: clojure, programming language
 
 ;;;; Package-Requires:
@@ -40,15 +40,22 @@
 (use-package cider
   :bind-keymap
   ("C-c u" . cider-user-ns)
+  :hook (clojure-mode . tuanany-auto-cider-jack-in)
   :config
   (setq nrepl-log-message t
-	cider-auto-select-error-buffer t
-	cider-repl-display-help-banner nil
-	cider-repl-history-file "~/.config/emacs/etc/cider-history"
-	cider-repl-pop-to-buffer-on-connect t
-	cider-repl-use-clojure-font-lock t
-	cider-repl-wrap-history t
-	cider-show-error-buffer t))
+        cider-auto-select-error-buffer t
+        cider-repl-display-help-banner nil
+        cider-repl-history-file "~/.config/emacs/etc/cider-history"
+        cider-repl-pop-to-buffer-on-connect t
+        cider-repl-use-clojure-font-lock t
+        cider-repl-wrap-history t
+        cider-show-error-buffer t)
+  (defun tuanany-auto-cider-jack-in ()
+    "Automatically start CIDER when opening the first .clj .cljs file"
+    (unless (cider-connected-p)
+      (message "Starting CIDER REPL…")
+      (cider-jack-in nil))))
+
 
 (use-package flycheck-clj-kondo
   :ensure t

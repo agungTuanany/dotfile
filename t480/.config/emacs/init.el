@@ -218,7 +218,7 @@
                            ;; ==== HELPER ====
                            "tuanany-helper-dumb-jump.el"
                            "tuanany-helper-flycheck.el"
-                           ;; "tuanany-helper-helpful.el"
+                           "tuanany-helper-helpful.el"
                            "tuanany-helper-highlight-indentation.el"
                            "tuanany-helper-iedit.el"
                            "tuanany-helper-ispell.el"
