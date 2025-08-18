@@ -27,13 +27,20 @@
 
 ;;;; Commentary:
 
-;;;; Code:
+;; https://stackoverflow.com/a/10091330/217812
+;;
+;; In summary,
+;; [-] :custom is used for setting variables and faces associated with
+;; the package, before package loaded; while
+;; [-] :config is used for executing Emacs Lisp code to configure or
+;; initialize the package after it is loaded.
+;; You can use both keywords together in a use-package declaration to
+;; fully customize and configure a package to suit your needs.
 
-;;; Commentary:
 ;; There is three option for html, use 'ac-html.el or 'company-web.el or
 ;; 'web-mode.el. My first attempt to try 'web-mode.el
 
-;;; Code:
+;;;; Code:
 
 (use-package web-mode
   :ensure t

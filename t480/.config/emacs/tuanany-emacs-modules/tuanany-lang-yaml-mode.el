@@ -26,14 +26,23 @@
 ;; this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ;;;; Commentary:
+;; https://stackoverflow.com/a/10091330/217812
+;;
+;; In summary,
+;; [-] :custom is used for setting variables and faces associated with
+;; the package, before package loaded; while
+;; [-] :config is used for executing Emacs Lisp code to configure or
+;; initialize the package after it is loaded.
+;; You can use both keywords together in a use-package declaration to
+;; fully customize and configure a package to suit your needs.
 
 ;;;; Code:
 
 (use-package yaml-mode
   :ensure t
   :mode (("\\.yml\\'" . yaml-mode)
-	 ("\\.yaml\\'" . yaml-mode)
-	 ("\\.gitlab-ci.yml\\'" . yaml-mode))
+         ("\\.yaml\\'" . yaml-mode)
+         ("\\.gitlab-ci.yml\\'" . yaml-mode))
 
   :config
   (setq yaml-indent-offset 2)

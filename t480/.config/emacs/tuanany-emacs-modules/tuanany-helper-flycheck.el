@@ -26,6 +26,16 @@
 ;; this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ;;;; Commentary:
+;; https://stackoverflow.com/a/10091330/217812
+;;
+;; In summary,
+;; [-] :custom is used for setting variables and faces associated with
+;; the package, before package loaded; while
+;; [-] :config is used for executing Emacs Lisp code to configure or
+;; initialize the package after it is loaded.
+;; You can use both keywords together in a use-package declaration to
+;; fully customize and configure a package to suit your needs.
+
 ;;;; Code:
 
 (use-package flycheck
@@ -41,8 +51,8 @@
     :modes (yaml-))
   :hook ((prog-mode . flycheck-mode))
   :bind (:map flycheck-mode-map
-	      ("C-c C-n" . flycheck-next-error)
-	      ("C-c C-p" . flycheck-previous-error))
+              ("C-c C-n" . flycheck-next-error)
+              ("C-c C-p" . flycheck-previous-error))
   :custom
   (setq flycheck-emacs-lisp-load-path 'inherit)
   (add-to-list 'flycheck-checkers 'yaml-gitlab)
