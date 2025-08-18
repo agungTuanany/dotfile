@@ -52,14 +52,18 @@
   ("C-c u" . cider-user-ns)
   :hook (clojure-mode . tuanany-auto-cider-jack-in)
   :config
-  (setq nrepl-log-message t
-        cider-auto-select-error-buffer t
-        cider-repl-display-help-banner nil
+  (setq nrepl-log-message                     t
+        cider-auto-select-error-buffer        t
+        cider-repl-display-help-banner        nil
         cider-repl-history-file "~/.config/emacs/etc/cider-history"
-        cider-repl-pop-to-buffer-on-connect t
-        cider-repl-use-clojure-font-lock t
-        cider-repl-wrap-history t
-        cider-show-error-buffer t)
+        cider-repl-pop-to-buffer-on-connect   t
+        cider-repl-use-clojure-font-lock      t
+        cider-repl-wrap-history               t
+        cider-show-error-buffer               t
+        cider-doc-auto-select-buffer          t
+        cider-use-overlays                    nil
+        )
+
   (defun tuanany-auto-cider-jack-in ()
     "Automatically start CIDER when opening the first .clj .cljs file"
     (unless (cider-connected-p)
@@ -70,12 +74,6 @@
 (use-package flycheck-clj-kondo
   :ensure t
   :after clojure-mode)
-
-(use-package ob-clojure
-  :after org
-  :config
-  ;; Tell Org to use cider as backend
-  (setq org-babel-clojure-backend 'cider))
 
 ;; (provide 'tuanany-lang-clojure-mode)
 ;;; tuanany-lang-clojure-mode.el ends here

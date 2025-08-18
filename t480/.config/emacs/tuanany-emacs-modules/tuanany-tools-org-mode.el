@@ -43,7 +43,7 @@
   :hook (org-mode . tuanany--org-setup)
   :custom
   (org-directory "~/Documents/org-masters/")        ;; Where the org file live
-  (org-archive-location (concat (expand-file-name "~/Documents/org-masters/private/org-roam/gtd/archives.org") "::"))   ;; Where archive should go | GTD Get Things Done
+  (org-archive-location (concat (expand-file-name "~/Documents/org-masters/private/org-roam/gtd/archives.org") "::"))   ;; Where archive should go | GTD (Get Things Done)
   (org-M-RET-may-split-line '((default . nil)))
   (org-catch-invisible-edits 'show-and-error)       ;; Catch invisible edit
   (org-deadline-warning-days 2)
@@ -116,6 +116,7 @@
      ("CANCELED" . (:foreground "DarkRed" :weight bold))
      ("DELEGATED" . (:foreground "DarkOrange" :weight bold))
      ))
+
   (org-capture-templates
    '(
      ("j" "Work Log Entry"
@@ -151,6 +152,7 @@
       :clock-resume t
       :empty-lines 0)
      ))
+
   (org-tag-alist '(
                    ;; Ticket types
                    (:startgroup . nil)
@@ -193,6 +195,7 @@
                    ;; Work Log Tags
                    ("accomplishment" . ?a)
                    ))
+
   ;; Tag colors
   (org-tag-faces
    '(
@@ -246,25 +249,27 @@
        (org-agenda-compact-blocks nil)
        ))
      ))
+
   :custom-face
-  (org-block ((t (:foreground "unspecified" :inherit fixed-pitch))))
-  (org-checkbox ((t (:inherit fixed-pitch))))
-  (org-code ((t (:inherit (shadow fixed-pitch)))))
-  (org-document-info ((t (:foreground "dark orange"))))
+  (org-block                 ((t (:foreground "unspecified" :inherit fixed-pitch))))
+  (org-checkbox              ((t (:inherit fixed-pitch))))
+  (org-code                  ((t (:inherit (shadow fixed-pitch)))))
+  (org-document-info         ((t (:foreground "dark orange"))))
   (org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
-  (org-indent ((t (:inherit (org-hide fixed-pitch)))))
-  (org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
-  (org-property-values ((t (:inherit fixed-pitch))))
-  (org-scheduled-previously ((t (:foreground "orange"))))
-  (org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
-  (org-table ((t (:inherit fixed-pitch :foreground "#83A598"))))
-  (org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
-  (org-verbatim ((t (:inherit (shadow fixed-pitch)))))
+  (org-indent                ((t (:inherit (org-hide fixed-pitch)))))
+  (org-meta-line             ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+  (org-property-values       ((t (:inherit fixed-pitch))))
+  (org-scheduled-previously  ((t (:foreground "orange"))))
+  (org-special-keyword       ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+  (org-table                 ((t (:inherit fixed-pitch :foreground "#83A598"))))
+  (org-tag                   ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
+  (org-verbatim              ((t (:inherit (shadow fixed-pitch)))))
 
   ;; Related to org paragraph fonts
-  (variable-pitch ((t (:family "Source Code Pro" :height 1.0 :weight medium))))
-  (fixed-pitch ((t (:family "Source Code Pro" :height: 1.0 :weight medium))))
-  ;; (org-default ((t (:family "Source Code Pro" :height 1.15 :weight medium :foreground "SpringGreen4"))))
+  (variable-pitch            ((t (:family "Source Code Pro" :height 1.0 :weight medium))))
+  (fixed-pitch               ((t (:family "Source Code Pro" :height: 1.0 :weight medium))))
+  ;; (org-default            ((t (:family "Source Code Pro" :height 1.15 :weight medium :foreground "SpringGreen4"))))
+
   :bind
   ("C-c <up>" . org-priority-up)
   ("C-c <down>" . org-priority-down)
@@ -275,6 +280,7 @@
         ("C-c e" . tuanany--toggle-org-emphasis-markers))
 
   :config
+  (require 'ob-clojure)
   (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))   ;; Associate all org files with org-mode
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -298,6 +304,8 @@
                                       (org-level-8 . 1.1)))
 
     (set-face-attribute (car tuanany--org-level-faces) nil :family "Source Code Pro-14" :weight 'semibold :height (cdr tuanany--org-level-faces)))
+
+  (setq org-confirm-babel-evaluate nil)
   )
 
 (defun tuanany--org-setup ()
@@ -340,6 +348,5 @@
 (require 'ox-latex)
 (setq org-latex-create-formula-image-program 'imagemagick)
 (setq org-latex-packages-alist '(("" "amsmath" t)))
-
 
 ;;; tuanany-tools-org-mode.el ends here
