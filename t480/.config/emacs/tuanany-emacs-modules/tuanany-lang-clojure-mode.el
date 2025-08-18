@@ -61,5 +61,11 @@
   :ensure t
   :after clojure-mode)
 
+(use-package ob-clojure
+  :after org
+  :config
+  ;; Tell Org to use cider as backend
+  (setq org-babel-clojure-backend 'cider))
+
 ;; (provide 'tuanany-lang-clojure-mode)
 ;;; tuanany-lang-clojure-mode.el ends here
