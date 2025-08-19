@@ -53,9 +53,7 @@
 
   ;; Variables that should be set before any packages
   :init
-  (setq-default
-   indent-tabs-mode   nil
-   )
+  (setq-default indent-tabs-mode nil)
 
   (setq
    dired-listing-switches        "-alhv --group-directories-first"
@@ -203,7 +201,7 @@
 
 
   (dolist (tuanany-module-path '("tuanany-emacs-modules" "tuanany-lisp"))
-        (add-to-list 'load-path
+    (add-to-list 'load-path
                  (locate-user-emacs-file tuanany-module-path)))
 
   (defvar tuanany-addons '(
@@ -255,54 +253,54 @@
                            ))
 
   (dolist (x tuanany-addons)
-        (load x))
+    (load x))
 
   ;; Enable these
   (dolist (c '(narrow-to-region narrow-to-page upcase-region downcase-region))
-        (put c 'disabled nil))
+    (put c 'disabled nil))
 
   ;; And disable these
   (dolist (c '(eshell project-eshell overwrite-mode iconify-frame diary))
-        (put c 'disabled t))
+    (put c 'disabled t))
   (put 'eshell 'disabled nil)
 
   ;; Load custom-file if it exists
   (when (file-exists-p custom-file)
-        (load custom-file))
+    (load custom-file))
 
-(defun tuanany--untabify-before-save ()
-  "Forcefully convert all tabs to spaces before saving, except Makefiles."
-  (unless (or (derived-mode-p 'makefile-mode)
-              (string-match-p "\\.mk$" buffer-file-name))
-    (let ((inhibit-message t))  ; Suppress "Untabified N regions" message
-      (untabify (point-min) (point-max))
-    (setq indent-tabs-mode nil)  ; Ensure future indentation uses spaces
-    (when (fboundp 'whitespace-cleanup)  ; Additional cleanup if available
-      (whitespace-cleanup))))
+  (defun tuanany--untabify-before-save ()
+    "Forcefully convert all tabs to spaces before saving, except Makefiles."
+    (unless (or (derived-mode-p 'makefile-mode)
+                (string-match-p "\\.mk$" buffer-file-name))
+      (let ((inhibit-message t))  ; Suppress "Untabified N regions" message
+        (untabify (point-min) (point-max))
+        (setq indent-tabs-mode nil)  ; Ensure future indentation uses spaces
+        (when (fboundp 'whitespace-cleanup)  ; Additional cleanup if available
+          (whitespace-cleanup))))
 
 
-  (defun tuanany-toggle-fold ()
-    "Toggle fold all lines larger than indentation on current line"
-    (interactive)
-    (let ((col 1))
-      (save-excursion
-        (back-to-indentation)
-        (setq col (+ 1 (current-column)))
-        (set-selective-display
-         (if selective-display nil (or col 1))))))
+    (defun tuanany-toggle-fold ()
+      "Toggle fold all lines larger than indentation on current line"
+      (interactive)
+      (let ((col 1))
+        (save-excursion
+          (back-to-indentation)
+          (setq col (+ 1 (current-column)))
+          (set-selective-display
+           (if selective-display nil (or col 1))))))
 
-  (keymap-global-set "C-M-i" #'aj-toggle-fold)
-  ;; (keymap-global-unset "C-x C-c" 'save-buffers-kill-terminal)
-  ;; (keymap-global-set "C-x C-b" 'ibuffer)
+    (keymap-global-set "C-M-i" #'aj-toggle-fold)
+    ;; (keymap-global-unset "C-x C-c" 'save-buffers-kill-terminal)
+    ;; (keymap-global-set "C-x C-b" 'ibuffer)
 
-  :custom-face
-  (cursor ((t (:background "light goldenrod" :foreground "black"))))
-  (web-mode-current-element-highlight-face ((t (:foreground "#ffffff" :underline "gold"))))
+    :custom-face
+    (cursor ((t (:background "light goldenrod" :foreground "black"))))
+    (web-mode-current-element-highlight-face ((t (:foreground "#ffffff" :underline "gold"))))
 
-  (font-lock-comment-face ((t (:foreground "dim gray" :slant italic))))
-  (line-number-current-line ((t (:inherit default :foreground "#CFC0C5" :slant normal :weight regular))))
-  (whitespace-tab ((t (:foreground "#636363"))))
-  ;; (marginalia-documentation ((t (:inherit nil :foreground "LemonChiffon4" :weight normal))))
-  )
-);; END EMACS-PACKAGE
+    (font-lock-comment-face ((t (:foreground "dim gray" :slant italic))))
+    (line-number-current-line ((t (:inherit default :foreground "#CFC0C5" :slant normal :weight regular))))
+    (whitespace-tab ((t (:foreground "#636363"))))
+    ;; (marginalia-documentation ((t (:inherit nil :foreground "LemonChiffon4" :weight normal))))
+    )
+  );; END EMACS-PACKAGE
 ;;; init.el ends here
