@@ -100,6 +100,12 @@
    use-dialog-box                     nil
    initial-buffer-choice              t      ;; open *scratch* buffer
    minibuffer-prompt-properties       '(read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)
+   inhibit-startup-echo-area-message  t
+
+   ;; kill the buffer without asking a live process attached to it
+   (setq kill-buffer-query-functions
+         (remq 'process-kill-buffer-query-function
+               kill-buffer-query-functions))
 
    ;; Coding systems
    coding-system-aliases  (list (cons 'UTF-8 'utf-8))
@@ -218,7 +224,7 @@
                            ;; ==== HELPER ====
                            "tuanany-helper-dumb-jump.el"
                            "tuanany-helper-flycheck.el"
-                           "tuanany-helper-helpful.el"
+                           ;; "tuanany-helper-helpful.el"
                            "tuanany-helper-highlight-indentation.el"
                            "tuanany-helper-iedit.el"
                            "tuanany-helper-ispell.el"
