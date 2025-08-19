@@ -100,10 +100,6 @@
    minibuffer-prompt-properties       '(read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)
    inhibit-startup-echo-area-message  t
 
-   ;; kill the buffer without asking a live process attached to it
-   (setq kill-buffer-query-functions
-         (remq 'process-kill-buffer-query-function
-               kill-buffer-query-functions))
 
    ;; Coding systems
    coding-system-aliases  (list (cons 'UTF-8 'utf-8))
@@ -124,6 +120,12 @@
    outline-blank-line                     t            ;; Maintaining blank lines between folded section
    search-invisible                       nil          ;; Prevent Emacs from searching folded section
    )
+
+  ;; kill the buffer without asking a live process attached to it
+  (setq kill-buffer-query-functions
+        (remq 'process-kill-buffer-query-function
+              kill-buffer-query-functions))
+
 
   :custom
   (display-line-numbers t)            ;; globally enable line numbers
