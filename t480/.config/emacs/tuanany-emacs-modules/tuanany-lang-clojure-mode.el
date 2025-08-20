@@ -54,13 +54,14 @@
   :config
   (setq nrepl-log-message                     t
         cider-auto-select-error-buffer        t
+        cider-doc-auto-select-buffer          t
         cider-repl-display-help-banner        nil
-        cider-repl-history-file "~/.config/emacs/etc/cider-history"
+        cider-repl-history-file               "~/.config/emacs/etc/cider-history"
         cider-repl-pop-to-buffer-on-connect   t
+        cider-repl-result-prefix              ";; =>"
         cider-repl-use-clojure-font-lock      t
         cider-repl-wrap-history               t
         cider-show-error-buffer               t
-        cider-doc-auto-select-buffer          t
         cider-use-overlays                    nil
         )
 
@@ -68,7 +69,25 @@
     "Automatically start CIDER when opening the first .clj .cljs file"
     (unless (cider-connected-p)
       (message "Starting CIDER REPL…")
-      (cider-jack-in nil))))
+      (cider-jack-in nil)))
+
+  (defun tuanany-cider-print-eval-result-in-repl (result)
+    "Insert RESULT into the *cider-repl* buffer, like native REPL output."
+    (when-let ((repl (cider-current-repl 'clj)))
+      (with-current-buffer repl
+        (goto-char (point-max))
+        (insert (format "\n;; => %s\n" result))
+        (goto-char (point-max)))))
+
+  ;; Advice: accept any number of args, pick out RESULT
+  (advice-add 'cider--display-interactive-eval-result :after
+              (lambda (&rest args)
+                (let ((value (car args)))
+                  (tuanany-cider-print-eval-result-in-repl value))))
+
+  )
+
+
 
 
 (use-package flycheck-clj-kondo
