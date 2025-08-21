@@ -252,6 +252,7 @@
                            "tuanany-lang-racket-mode.el"
                            "tuanany-lang-web-mode.el"
                            "tuanany-lang-yaml-mode.el"
+                           "tuanany-lang-ruby-mode.el"
                            ))
 
   (dolist (x tuanany-addons)
