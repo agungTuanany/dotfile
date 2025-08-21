@@ -84,11 +84,7 @@
               (lambda (&rest args)
                 (let ((value (car args)))
                   (tuanany-cider-print-eval-result-in-repl value))))
-
   )
-
-
-
 
 (use-package flycheck-clj-kondo
   :ensure t

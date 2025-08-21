@@ -284,15 +284,16 @@
   (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))   ;; Associate all org files with org-mode
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((sql . t)
-     (sqlite . t)
-     (python . t)
-     (java . t)
-     ;; (cpp . t)
-     (C . t)
+   '((sql .        t)
+     (sqlite .     t)
+     (python .     t)
+     (java .       t)
+     ;; (cpp .        t)
+     (C .          t)
      (emacs-lisp . t)
-     (shell . t)
-     (clojure . t)))
+     (shell .      t)
+     (clojure .    t)
+     (ruby .       t)))
 
   (dolist (tuanany--org-level-faces '((org-level-1 . 1.20)
                                       (org-level-2 . 1.15)
