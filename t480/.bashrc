@@ -68,6 +68,8 @@ alias battery='acpi'
 
 alias neofetch='fastfetch'
 
+alias xinputl="xinput list"
+
 ## t480 mousepad 
 alias touchpadd="xinput disable 'Synaptics TM3276-022'"
 alias touchpade="xinput enable 'Synaptics TM3276-022'"
