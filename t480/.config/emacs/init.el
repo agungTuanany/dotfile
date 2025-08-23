@@ -53,12 +53,14 @@
 
   ;; Variables that should be set before any packages
   :init
-  (setq-default indent-tabs-mode nil)
+  (setq-default
+   indent-tabs-mode              nil
+   fill-column                   80
+   )
 
   (setq
    dired-listing-switches        "-alhv --group-directories-first"
    display-line-numbers-type     'relative
-   fill-column                   80
 
    scroll-conservatively         100
    sentence-end-double-space     nil       ;; End sentence with 1 space not 2
