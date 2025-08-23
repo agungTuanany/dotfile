@@ -43,6 +43,9 @@
 
 (use-package inf-ruby
   :ensure t
+  :config
+  (autoload 'inf-ruby "inf-ruby" "Run an inferior Ruby process" t)
+  (add-hook 'ruby-mode-hook 'inf-ruby-minor-mode)
   :hook (ruby-mode . inf-ruby-minor-mode)
   )
 
