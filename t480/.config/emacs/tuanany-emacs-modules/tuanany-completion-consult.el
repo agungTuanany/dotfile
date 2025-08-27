@@ -40,7 +40,7 @@
 
 (use-package consult
   :ensure
-  :after projectile
+  ;; :after projectile
   :bind (("C-s" . consult-line)
          ("C-c M-x" . consult-mode-command)
          ("C-x b" . consult-buffer)
@@ -55,8 +55,8 @@
          :map minibuffer-local-map
          ("M-s" . consult-history)                 ;; orig. next-matching-history-element
          ("M-r" . consult-history)
-         :map projectile-command-map
-         ("b" . consult-project-buffer)
+         ;; :map projectile-command-map
+         ;; ("b" . consult-project-buffer)
          :map prog-mode-map
          ("M-g o" . consult-imenu))
 
@@ -82,7 +82,7 @@
                                    tao
                                    ))
   (setq consult-themes (remove-items tuanay-themes-blacklisted (custom-available-themes)))
-  (setq consult-project-function (lambda (_) (projectile-project-root)))
+  ;; (setq consult-project-function (lambda (_) (projectile-project-root)))
   (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref)
   (setq consult-narrow-key "<")
@@ -117,9 +117,9 @@ If used with a prefix, it will search all buffers as well."
 
 (use-package consult-ag
   :ensure
-  :bind (:map projectile-command-map
-              ("s s" . consult-ag)
-              ("s g" . consult-grep))
+  ;; :bind (:map projectile-command-map
+  ;;             ("s s" . consult-ag)
+  ;;             ("s g" . consult-grep))
   :config
   (setq consult-ag-args "ag --nocolor --nogroup --numbers")
   )

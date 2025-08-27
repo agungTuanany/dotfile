@@ -294,10 +294,6 @@
           (set-selective-display
            (if selective-display nil (or col 1))))))
 
-    (keymap-global-set "C-M-i" #'aj-toggle-fold)
-    ;; (keymap-global-unset "C-x C-c" 'save-buffers-kill-terminal)
-    ;; (keymap-global-set "C-x C-b" 'ibuffer)
-
     :custom-face
     (cursor ((t (:background "light goldenrod" :foreground "black"))))
     (web-mode-current-element-highlight-face ((t (:foreground "#ffffff" :underline "gold"))))
