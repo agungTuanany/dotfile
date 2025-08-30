@@ -220,8 +220,10 @@
                            "tuanany-completion-corfu.el"
                            "tuanany-completion-custom.el"
                            "tuanany-completion-embark.el"
+                           "tuanany-completion-embark-consult.el"
                            "tuanany-completion-marginalia.el"
                            "tuanany-completion-orderless.el"
+                           "tuanany-completion-yasnippet.el"
                            "tuanany-completion-vertico.el"
                            ;; ==== HELPER ====
                            "tuanany-helper-dumb-jump.el"
