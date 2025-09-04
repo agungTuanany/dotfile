@@ -3,7 +3,7 @@
 # Ensure XServer is fully initialized before applying xmodmap
 
 # Disable IBM TrackPoint
-#(xinput disable "TPPS/2 IBM TrackPoint") &
+(xinput disable "TPPS/2 IBM TrackPoint") &
 
 # Disable Multi-Touch on trackPoint
 (xinput disable "G2Touch Multi-Touch by G2TSP") &
