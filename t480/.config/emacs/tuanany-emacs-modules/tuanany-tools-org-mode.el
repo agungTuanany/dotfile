@@ -281,19 +281,21 @@
 
   :config
   (require 'ob-clojure)
+  (require 'ob-js)
   (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))   ;; Associate all org files with org-mode
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((sql .        t)
-     (sqlite .     t)
-     (python .     t)
-     (java .       t)
+   '((sql        . t)
+     (sqlite     . t)
+     (python     . t)
+     (java       . t)
      ;; (cpp .        t)
-     (C .          t)
+     (C          . t)
      (emacs-lisp . t)
-     (shell .      t)
-     (clojure .    t)
-     (ruby .       t)))
+     (shell      . t)
+     (clojure    . t)
+     (ruby       . t)
+     (js         . t)))
 
   (dolist (tuanany--org-level-faces '((org-level-1 . 1.20)
                                       (org-level-2 . 1.15)
@@ -306,8 +308,8 @@
 
     (set-face-attribute (car tuanany--org-level-faces) nil :family "Source Code Pro-14" :weight 'semibold :height (cdr tuanany--org-level-faces)))
 
-  (setq org-confirm-babel-evaluate nil)
-  )
+  (setq org-confirm-babel-evaluate nil
+        org-latex-compiler         "xelatex"))
 
 (defun tuanany--org-setup ()
   "Local function to setup all `org-mode-hook in one place."
