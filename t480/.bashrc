@@ -126,6 +126,8 @@ alias dictmb='dict -d moby-thesaurus '
 alias dictwn='dict -d wn '
 alias rtfm=rtfm
 
+alias airboom='bluetoothctl connect 41:42:92:DA:6C:5E'
+
 ##########################################################
 # FUNCTIONS
 ##########################################################
