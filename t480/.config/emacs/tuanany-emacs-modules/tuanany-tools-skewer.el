@@ -47,7 +47,7 @@
   (define-key skewer-mode-map (kbd "C-c C-c") 'skewer-eval-defun)
   (define-key skewer-mode-map (kbd "C-c C-z") 'skewer-eval-region)
   :hook
-  (js2-mode . skewer-mode)
+  ;; (js2-mode . skewer-mode)
   (css-mode . skewer-css-mode)
   (html-mode . skewer-html-mode)
   (web-mode . skewer-html-mode))

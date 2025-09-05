@@ -43,15 +43,44 @@
 ;; You can use both keywords together in a use-package declaration to
 ;; fully customize and configure a package to suit your needs.
 
+;; Provides JavaScript development environment using `js2-mode`
+;; with evaluation via `node` through `js-comint`.
+;; Skewer integration is disabled in favor of Node.js workflow.
 ;;;; Code:
 
 (use-package js2-mode
   :ensure t
+  :mode ("\\.js\\'"     . js2-mode)           ;; open .js files in js2-mode
+  :interpreter ("node"  . js2-mode)           ;; use node when interpreting
   :config
-  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-  ;; :custom
-  ;; (js2-strict-missing-semi-warning nil)
-  ;; (js2-missing-semi-one-line-override nil)
+  (setq js2-highlight-level 3)
+    (defun tuanany-js2-mode-keys()
+    (keymap-set js2-mode-map "C-x C-e"  #'js-comint-send-last-sexp)
+    (keymap-set js2-mode-map "C-M-x"    #'js-comint-send-last-sexp-and-go)
+    (keymap-set js2-mode-map "C-c C-r"  #'js-comint-send-region)
+    (keymap-set js2-mode-map "C-c C-b"  #'js-comint-send-buffer)
+    (keymap-set js2-mode-map "C-c C-l"  #'js-comint-send-buffer-and-go)
+    (keymap-set js2-mode-map "C-c C-c"  #'tuanany-run-js-file))
+
+    (add-hook 'js2-mode-hook 'tuanany-js2-mode-keys))
+
+(use-package js-comint
+  :after js2-mode
+  :commands (run-js)
+  :config
+  (setq js-comint-program-command "node")  ;; path to Node.js (/usr/bin/node)
+
+
+  (defun tuanany-run-js-file ()
+    "Run the current .js file with NodeJS."
+    (interactive)
+    (when (buffer-file-name)
+      (compile (concat "node " (shell-quote-argument (buffer-file-name))))))
   )
+
+;; Disable skewer from auto-loading in js2-mode
+(with-eval-after-load 'skewer-mode
+  (remove-hook 'js2-mode-hook #'skewer-mode)
+  (remove-hook 'js-mode-hook #'skewer-mode))
 
 ;;; tuanany-lang-js2-mode.el ends here
