@@ -176,6 +176,7 @@
   (keymap-global-set "C-x C-o" 'other-window)
   (keymap-global-set "C-x M-f" 'recentf-open-files)
   (keymap-global-set "C-x C-b" 'ibuffer)
+  (keymap-global-set "C-x C-/" 'goto-last-change)
 
   (toggle-frame-maximized)    ;; Always use all screen for emacs
   (set-fringe-mode 6)         ;; Give some breating room for symbols
