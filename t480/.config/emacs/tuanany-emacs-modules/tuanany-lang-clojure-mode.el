@@ -63,6 +63,7 @@
         cider-repl-wrap-history               t
         cider-show-error-buffer               t
         cider-use-overlays                    nil
+        cider-test-show-report-on-success     t
         )
 
   (defun tuanany-auto-cider-jack-in ()
