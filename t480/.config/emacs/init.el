@@ -69,31 +69,30 @@
    ;;; FILE-HANDLING & HISTORIC
    ;; Manage Backup, autosave, custom, backup.
    ;;
-   ;; Put all the files system on '~/.config/emacs/etc' directory
-   ;; Do not clutter base Emacs directory <~/.config/emacs>,
-   ;; all unnecessary or secondary file
-   ;; do not clutter root folder
+   ;; Put all the file systems on '~/.config/emacs/etc' directory.
+   ;; Do not clutter 'user-emacs-directory (~/.config/emacs/),
+   ;; all unnecessary or secondary file take in (/etc/) directory.
    auto-save-default              nil
    make-backup-files              nil
    backup-inhibited               nil
    create-lockfiles               nil
    file-name-handler-alist        nil
 
-   ;; remember and restore the last place you visited in a file
+   ;; Remember and restore the last place you visited in a file
    auto-save-list-file-name (expand-file-name "etc/auto-save-list/.save-" user-emacs-directory)
    recentf-save-file        (locate-user-emacs-file "etc/recentf")
    save-place-file          (locate-user-emacs-file "etc/saveplaces")
    savehist-file            (locate-user-emacs-file "etc/savehist")
    custom-file              (locate-user-emacs-file "etc/custom.el")
 
-   ;; Performance & misc
+   ;; Performance & Misc
    inhibit-compacting-font-caches   t       ;; Do not exhaust GC memory
    frame-inhibit-implied-resize     t       ;; Fonts independent from any resized frame
    load-prefer-newer                t       ;; Load newest version file
    history-length                   1000
    history-delete-duplicates        t
 
-   ;; Minibuffer & prompts
+   ;; Minibuffer & Prompts
    confirm-nonexistent-file-or-buffer nil
    kill-do-not-save-duplicates        t
    use-short-answers                  t      ;; use 'y' or 'n'
@@ -101,9 +100,9 @@
    initial-buffer-choice              t      ;; open *scratch* buffer
    minibuffer-prompt-properties       '(read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)
    inhibit-startup-echo-area-message  t
+   kill-ring-max                      30
 
-
-   ;; Coding systems
+   ;; Coding Systems
    coding-system-aliases  (list (cons 'UTF-8 'utf-8))
    prefer-coding-system   'utf-8
 
@@ -128,7 +127,6 @@
         (remq 'process-kill-buffer-query-function
               kill-buffer-query-functions))
 
-
   :custom
   (display-line-numbers t)            ;; globally enable line numbers
   (echo-keystrokes      0.05)         ;; the value is 0.25
@@ -147,7 +145,7 @@
   ;; After everything is loaded, configure modes and keybindings
   ;;
   :config
-  ;; simple toggle of customizable variables
+  ;; simply toggle of customizable variables
   (blink-cursor-mode       0)             ;; Blink gives me a sick eyes
   (electric-pair-mode      1)             ;; Automatic parens pairing
   (global-auto-revert-mode 1)             ;; Refresh the file if has changed
