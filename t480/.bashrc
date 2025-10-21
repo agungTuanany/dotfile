@@ -1,7 +1,7 @@
 ##
 #
 # Author               : Agung Tuanany
-# Last Modified        : Thu May  8 07:32:05 PM WIB 2025
+# Last Modified        : Wed Oct 22 06:48:21 AM WIB 2025
 #
 # RECOMMEND USE:
 #
@@ -70,7 +70,7 @@ alias neofetch='fastfetch'
 
 alias xinputl="xinput list"
 
-## t480 mousepad 
+## t480 mousepad
 alias touchpadd="xinput disable 'Synaptics TM3276-022'"
 alias touchpade="xinput enable 'Synaptics TM3276-022'"
 alias trackpointd="xinput disable 'TPPS/2 IBM TrackPoint'"
@@ -128,28 +128,31 @@ alias rtfm=rtfm
 
 alias airboom='bluetoothctl connect 41:42:92:DA:6C:5E'
 
+#T480 - screen brightness
+alias brightup="brightnessctl set +10%"
+alias brightdown="brightnessctl set 10%-"
 ##########################################################
 # FUNCTIONS
 ##########################################################
 urlencode () {
-	local str="$*"
-	local encoded=""
-	local i c x
-	for (( i=0; i<${#str}; i++ )); do
-		c=${str:$i:1}
-		case "$c" in
-			[-_.~a-zA-Z0-9] ) x="$c" ;;
-			# `'$c` see https://pubs.opengroup.org/onlinepubs/009695399/utilities/printf.html
-			* ) printf -v x '%%%02x' "'$c" ;;
-		esac
-		encoded+="$x"
-	done
-	echo "$encoded"
+    local str="$*"
+    local encoded=""
+    local i c x
+    for (( i=0; i<${#str}; i++ )); do
+        c=${str:$i:1}
+        case "$c" in
+            [-_.~a-zA-Z0-9] ) x="$c" ;;
+            # `'$c` see https://pubs.opengroup.org/onlinepubs/009695399/utilities/printf.html
+            * ) printf -v x '%%%02x' "'$c" ;;
+        esac
+        encoded+="$x"
+    done
+    echo "$encoded"
 }
 
 duck () {
-	local url=$(urlencode "$*")
-	lynx "https://duckduckgo.com/lite?q=$url"
+    local url=$(urlencode "$*")
+    lynx "https://duckduckgo.com/lite?q=$url"
 }
 
 rtfm() { help $@ || man $@ || ? $@; }
