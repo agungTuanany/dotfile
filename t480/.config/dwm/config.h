@@ -1,5 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
+#include <X11/XF86keysym.h>  // Audio & Brightness
+
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
@@ -23,8 +25,8 @@ static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
     /* xprop(1):
-     *	WM_CLASS(STRING) = instance, class
-     *	WM_NAME(STRING) = title
+     *  WM_CLASS(STRING) = instance, class
+     *  WM_NAME(STRING) = title
      */
     /* class      instance    title       tags mask     isfloating   monitor */
     { "Gimp",     NULL,       NULL,       0,            1,           -1 },
@@ -105,6 +107,15 @@ static const Key keys[] = {
     TAGKEYS(                        XK_8,                      7)
     TAGKEYS(                        XK_9,                      8)
     { MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+
+    /* Volume control */
+    { 0, XF86XK_AudioRaiseVolume, spawn, SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5%") },
+    { 0, XF86XK_AudioLowerVolume, spawn, SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5%") },
+    { 0, XF86XK_AudioMute, spawn, SHCMD("pactl set-sink-mute @DEFAULT_SINK@ toggle") },
+
+    /* Brightness control */
+    { 0, XF86XK_MonBrightnessUp, spawn, SHCMD("brightnessctl set +10%") },
+    { 0, XF86XK_MonBrightnessDown, spawn, SHCMD("brightnessctl set 10%-") },
 };
 
 /* button definitions */
