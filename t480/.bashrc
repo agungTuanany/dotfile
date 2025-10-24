@@ -126,7 +126,7 @@ alias dictmb='dict -d moby-thesaurus '
 alias dictwn='dict -d wn '
 alias rtfm=rtfm
 
-alias airboom='bluetoothctl connect 41:42:92:DA:6C:5E'
+alias airboom='bluetoothctl connect 44:42:FF:B0:7F:0C'
 
 #T480 - screen brightness
 alias brightup="brightnessctl set +10%"
