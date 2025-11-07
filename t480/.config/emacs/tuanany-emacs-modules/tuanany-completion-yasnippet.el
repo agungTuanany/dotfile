@@ -8,7 +8,8 @@
 ;; Created: 2025
 ;; Version: 0.1.0
 ;; Keywords: completion, snippets, template
-;; Description: Snippet completion for Emacs
+;; Description: Snippet completion for Emacs, with per-mode snippet and Corfu -
+;; integration
 ;; Keywords: convenience, snippets, template
 
 ;;;; Package-Requires:
@@ -44,21 +45,49 @@
 ;;;; Code:
 (use-package yasnippet
   :ensure t
-  :config
-  ;; Custom snippets dir: ~/.config/emacs/etc/yasnippet/snippets/
-  (setq yas-snippet-dirs (list (expand-file-name "etc/yasnippet/snippets"
-        user-emacs-directory)))
-  ;; Enable globally
-  (yas-global-mode 1))
+  :commands (yas-minor-mode yas-reload-all)
+  :hook
+  ((prog-mode text-mode conf-mode org-mode) . yas-minor-mode)
+  :init
 
-(use-package yasnippet-snippets
-  :ensure t
-  :after yasnippet
   :config
-  ;; Add package-provided snippets directory
-  (add-to-list 'yas-snippet-dirs (expand-file-name "snippets"
-               (file-name-directory (locate-library "yasnippet-snippets"))))
-  ;; Reload all snippets (custom + package)
-  (yas-reload-all))
+  ;; Explicitly set snippet directory before yas loaded
+  ;; Only use your etc/yasnippet directory
+  (setq yas-snippet-dirs
+        (list (expand-file-name "etc/yasnippet/snippets" user-emacs-directory)))
 
+  ;; Debug: Print whether directory exists
+  (unless (file-directory-p (car yas-snippet-dirs))
+    (message "⚠️  Snippet directory not found: %s" (car yas-snippet-dirs)))
+
+  ;; Load manually and reload tables
+  (when (file-directory-p (car yas-snippet-dirs))
+    (yas-load-directory (car yas-snippet-dirs))
+    (yas-reload-all)
+    (message "✅ Yasnippet loaded snippets from %s)" (car yas-snippet-dirs))
+
+  ;; Don't touch ~/.config/emacs/snippets
+  (setq yas-prompt-function '(yas-ido-prompt yas-dropdown-prompt yas-completing-prompt))
+
+  ;; function to manually reload snippets (useful after adding new ones)
+  (defun tuanany--yas-reload()
+    "Reload all yasnippet snippets and re-enable yasnippet."
+    (interactive)
+    (yas-reload-all)
+    (message "Okay -- Yasnippet reloaded successfully."))
+
+  ;; Automatically reload snippets when `org-mode` is reloaded
+  (defun tuanany--yas-reload-after-org ()
+    (when (derived-mode-p 'or-mode)
+      (yas-reload-all)))
+  (add-hook 'org-mode-hook #'tuanany--yas-reload-after-org)))
+
+;; Optional integration with Corfu and Embark
+(use-package yasnippet-capf
+  :after (yasnippet cape)
+  :init
+  ;; Add yasnippet to completion-at-point-functions
+  (add-to-list 'completion-at-point-functions #'yasnippet-capf))
+
+(provide 'tuanany-completion-yasnippet)
 ;;; tuanany-completion-yasnippet.el ends here
