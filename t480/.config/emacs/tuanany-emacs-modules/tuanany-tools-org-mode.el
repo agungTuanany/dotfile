@@ -297,6 +297,8 @@
      (ruby       . t)
      (js         . t)))
 
+  (setq org-babel-clojure-backend 'cider)
+
   (dolist (tuanany--org-level-faces '((org-level-1 . 1.20)
                                       (org-level-2 . 1.15)
                                       (org-level-3 . 1.13)
