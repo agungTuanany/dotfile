@@ -1,34 +1,37 @@
+# ============================================
+# Author               : Agung Tuanany
+# Last Modified        : Wed Nov 26 06:25:00 AM WIB 2025
+# ============================================
+
 #!/bin/sh
 
-# Ensure XServer is fully initialized before applying xmodmap
+# Wait until X devices are fully available
+sleep 1
 
-# Disable IBM TrackPoint
-(xinput disable "TPPS/2 IBM TrackPoint") &
+# Disable TrackPoint (if still detected)
+if xinput list | grep -q "TPPS/2 IBM TrackPoint"; then
+    xinput disable "TPPS/2 IBM TrackPoint"
+fi
 
-# Disable Multi-Touch on trackPoint
-(xinput disable "G2Touch Multi-Touch by G2TSP") &
+# Disable G2Touch (floating but still appears)
+if xinput list | grep -q "G2Touch"; then
+    xinput disable "G2Touch Multi-Touch by G2TSP"
+fi
 
-# Enable Synaptics palm detection
-(xinput set-prop "Synaptics TM3276-022" "Synaptics Palm Detection" 1)         &
-(xinput set-prop "Synaptics TM3276-022" "Synaptics Tap Action" 1 1 1 1 1 1 1) &
-(xinput set-prop "Synaptics TM3276-022" "Synaptics Tap Time" 100)             &
+# Touchpad tuning using libinput (synaptics replaced)
+if xinput list | grep -q "Synaptics TM3276-022"; then
+    xinput set-prop "Synaptics TM3276-022" "libinput Tapping Enabled" 1
+    xinput set-prop "Synaptics TM3276-022" "libinput Disable While Typing Enabled" 1
+fi
 
-# Disable left-click (button 1) on device ID 10
-# This disables left-click, while keeping right-click, middle-click, scroll, etc.
-# Device ID 10 is equal to 'Synaptics TM3276-022'
-(xinput set-button-map 10 0 2 3 4 5 6 7 8 9 10 11 12) &
-
-# Disable TPPS/2 IBM TrackPoint
-#(xinput set-button-map 11 0 2 3 4 5 6 7 8 9 10 11 12) &
-
-# Disable touchpad while typing (syndaemon)
+# Disable touchpad while typing (extra layer)
 (syndaemon -i 1.0 -K -t -d) &
 
-# Start dwmblock
-(dwmblocks) &
+# Start dwmblocks (if installed)
+(dwmblocks >/dev/null 2>&1) &
 
-# Start emacs pinky finger
+# Apply Emacs keyboard Pinky redirection
 (sleep 1 && xmodmap ~/.local/bin/emacs_keyboard) &
 
-# Start window manager
-(exec /usr/local/bin/dwm)
+# Start Window Manager
+exec /usr/local/bin/dwm
