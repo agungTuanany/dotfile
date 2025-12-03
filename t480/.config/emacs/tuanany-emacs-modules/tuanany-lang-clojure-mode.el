@@ -58,7 +58,7 @@
         cider-repl-display-help-banner        nil
         cider-repl-history-file               "~/.config/emacs/etc/cider-history"
         cider-repl-pop-to-buffer-on-connect   t
-        cider-repl-result-prefix              ";; =>"
+        cider-repl-result-prefix              ";; => "
         cider-repl-use-clojure-font-lock      t
         cider-repl-wrap-history               t
         cider-show-error-buffer               t
