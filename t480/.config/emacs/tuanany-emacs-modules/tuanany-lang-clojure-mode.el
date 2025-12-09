@@ -41,10 +41,14 @@
 
 (use-package clojure-mode
   :ensure t
-  :mode ("\\.clj\\'" "\\.cljs\\'" "\\.edn\\'")
+  :mode ("\\.clj\\'" "\\.cljs\\'" "\\.edn\\'" "\\.boot\\'")
   :hook
   (clojure-mode . subword-mode)
   (subword-mode . paredit-mode)
+  :config
+  (add-to-list 'magic-mode-alist '("#!/usr/bin/env clojure" . clojure-mode))
+  (add-to-list 'magic-mode-alist '("#!/usr/bin/env boot" . clojure-mode))
+  (add-to-list 'magic-mode-alist '("#!/usr/bin/env bb" . clojure-mode))
   )
 
 (use-package cider
@@ -85,6 +89,10 @@
               (lambda (&rest args)
                 (let ((value (car args)))
                   (tuanany-cider-print-eval-result-in-repl value))))
+  :custom
+  (cider-lein-command "lein")
+  (cider-boot-command "boot repl -s wait")
+  (cider-preferred-build-tool nil)
   )
 
 (use-package flycheck-clj-kondo
