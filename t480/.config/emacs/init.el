@@ -235,6 +235,7 @@
                            "tuanany-helper-outline-indent.el"
                            "tuanany-helper-pdf-tools.el"
                            "tuanany-helper-whitespace.el"
+                           "tuanany-helper-multiple-cursors.el"
                            ;; "tuanany-helper-shrface.el"
                            ;; ==== TOOLS ====
                            ;; "tuanany-tools-evil.el"
