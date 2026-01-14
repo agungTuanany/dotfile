@@ -1,0 +1,76 @@
+#+TITLE: README.org for T480
+#+DATE: Tue Jun 10 08:19:15 PM WIB 2025
+#+AUTHOR: Agung Tuanany
+#+DESCRIPTION: Information about T480 config
+#+OPTIONS: toc:nil num:nil
+
+* About
+
+Configuration for Lenovo T80 Series
+
+* Log:
+
+- Tmux config
+- Synaptics TM3276-022
+- IBM TrackPoint
+
+
+** date: Wed Jun 11 09:32:55 PM WIB 2025
+
+Disable Multi-Touch on trackPoint
+
+
+#+BEGIN_SRC bash
+   xinput disable "G2Touch Multi-Touch by G2TSP"
+#+END_SRC
+
+My T480 trackpoint is always make a problem, when I want to write down in emacs or in terminal the pointer is always going to scramble in every inch on monitor.
+
+** Sat Jun 28 05:29:01 PM WIB 2025
+
+- The unstable on trackpad is found. "G2Touch Multi-Touch by G2TSP" is the problems
+- Add specific config for yaml-mode with yamllint
+
+** Tue Aug 5 05:06:54 PM WIB 2025
+
+- Reword (rebase) most of git commits (more than 250 commits) for uniforms all commits structure.
+
+** Wed Jan 14 05:16:16 PM WIB 2026
+
+file: .config/etc/X11/99-disable-g2touch.conf
+
+*** Disable permanently "G2Touch Multi-Touch by G2TSP":
+
+#+begin_src bash :results value verbatim :exports both eval: never-export
+  sudo vim /etc/X11/xorg.conf.d/99-disable-g2touch.conf
+#+end_src
+
+#+begin_src c :results value verbatim :exports both eval: never-export
+  Section "InputClass"
+      Identifier "Disable G2Touch"
+      MatchProduct "G2Touch Multi-Touch by G2TSP"
+      Option "Ignore" "on"
+  EndSection
+#+end_src
+
+*** Blacklist permanently in Kernel module
+
+file: .config/etc/modprobe.d/
+
+#+begin_src bash :results value verbatim :exports both eval: never-export
+  lsmod | grep -i g2touch
+  # or
+  dmesg | grep -i g2touch
+#+end_src
+
+If found, blacklist it:
+
+#+begin_src bash :results value verbatim :exports both eval: never-export
+  echo "blacklist g2touch" | sudo tee /etc/modprobe.d/blacklist-g2touch.conf
+#+end_src
+
+update initramfs:
+
+#+begin_src bash :results value verbatim :exports both eval: never-export
+  sudo mkinitcpio -P
+#+end_src
