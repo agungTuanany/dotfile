@@ -110,6 +110,7 @@
    ;; note: adjust transparency as desired
    ;; The top-level window in the GUI version of emacs
    default-frame-alist '((alpha-background . 90))
+   default-frame-alist '((fullscreen . maximize-window))
 
    debugger-stack-frame-as-list           t
    eval-expression-print-length           nil
