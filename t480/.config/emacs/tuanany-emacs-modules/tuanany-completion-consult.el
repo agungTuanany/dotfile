@@ -106,14 +106,15 @@ If used with a prefix, it will search all buffers as well."
     (add-hook 'embark-collect-mode-hook #'consult-preview-at-point-mode))
 
   ;; Improved consult buffer sorting
-  (setq consult-buffer-sources
-        '(consult--source-hidden-buffer
-          consult--source-buffer
-          consult--source-recent-file
-          consult--source-project-buffer
-          consult--source-bookmark
-          consult--source-project-buffer
-          consult--source-project-recent-file)))
+  ;; (setq consult-buffer-sources
+  ;;       '(consult--source-hidden-buffer
+  ;;         consult--source-buffer
+  ;;         consult--source-recent-file
+  ;;         consult--source-project-buffer
+  ;;         consult--source-bookmark
+  ;;         consult--source-project-buffer
+  ;;         consult--source-project-recent-file))
+  )
 
 (use-package consult-ag
   :ensure
