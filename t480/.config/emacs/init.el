@@ -32,6 +32,14 @@
 
 ;;; Commentary:
 
+;; In summary,
+;; [-] :custom is used for setting variables and faces associated with the
+;; package, before package loaded, only for "defcustom" variables not all
+;; variables; while
+;; [-] :config is used for executing Emacs Lisp code to
+;; configure or initialize the package after it is loaded.
+;; You can use both keywords together in a use-package declaration to
+;; fully customize and configure a package to suit your needs.
 ;;; Code:
 
 ;; Recommended to have this at the top
@@ -175,7 +183,7 @@
   (keymap-global-set "C-x C-o" 'other-window)
   (keymap-global-set "C-x M-f" 'recentf-open-files)
   (keymap-global-set "C-x C-b" 'ibuffer)
-  (keymap-global-set "C-x C-/" 'goto-last-change)
+  ;; (keymap-global-set "C-x C-/" 'goto-last-change)
 
   (toggle-frame-maximized)    ;; Always use all screen for emacs
   (set-fringe-mode 6)         ;; Give some breating room for symbols
@@ -228,6 +236,7 @@
                            ;; ==== HELPER ====
                            "tuanany-helper-dumb-jump.el"
                            "tuanany-helper-flycheck.el"
+                           "tuanany-helper-goto-last-change.el"
                            ;; "tuanany-helper-helpful.el"
                            "tuanany-helper-highlight-indentation.el"
                            "tuanany-helper-iedit.el"
