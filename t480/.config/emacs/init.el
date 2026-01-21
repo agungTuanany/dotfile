@@ -10,10 +10,9 @@
 ;; Version: 0.1.0
 ;; Keywords: init file, key mapping, modular file, custom config.
 
-;;;; Package-Requires:
+;;;; Package-Requires: ((Emacs "29.1"))
 
-;;;; License:
-
+;;;; License: GPL-3.0-or-later
 
 ;; This file is not part of GNU Emacs.
 
@@ -40,6 +39,12 @@
 ;; configure or initialize the package after it is loaded.
 ;; You can use both keywords together in a use-package declaration to
 ;; fully customize and configure a package to suit your needs.
+
+;; Thanks to:
+;;
+;; - James Cherti - https://github.com/jamescherti/minimal-emacs.d
+;; - Lars Tveito https://github.com/larstvei/dot-emacs
+
 ;;; Code:
 
 ;; Recommended to have this at the top
@@ -62,29 +67,29 @@
   ;; Variables that should be set before any packages
   :init
   (setq-default
-   indent-tabs-mode              nil
-   fill-column                   80
-   )
+   indent-tabs-mode nil)
 
+  ;; Function calls
+  (prefer-coding-system   'utf-8)           ;; Function call
+
+  ;;; PERFORMANCE & MISC
   (setq
-   dired-listing-switches        "-alhv --group-directories-first"
-   display-line-numbers-type     'relative
+   inhibit-compacting-font-caches   t       ;; Do not exhaust GC memory
+   load-prefer-newer                t       ;; Load newest version file
 
-   scroll-conservatively         100
-   sentence-end-double-space     nil       ;; End sentence with 1 space not 2
-   tab-width                     4         ;; tabs are evil
+   ;; Coding Systems
+   coding-system-aliases  (list (cons 'UTF-8 'utf-8)))
 
-   ;;; FILE-HANDLING & HISTORIC
-   ;; Manage Backup, autosave, custom, backup.
-   ;;
-   ;; Put all the file systems on '~/.config/emacs/etc' directory.
-   ;; Do not clutter 'user-emacs-directory (~/.config/emacs/),
-   ;; all unnecessary or secondary file take in (/etc/) directory.
-   auto-save-default              nil
-   make-backup-files              nil
+  ;;; FILE-HANDLING & HISTORIC
+  ;; Manage Backup, autosave, custom, backup.
+  ;;
+  ;; Put all the file systems on '~/.config/emacs/etc' directory.
+  ;; Do not clutter 'user-emacs-directory (~/.config/emacs/),
+  ;; all unnecessary or secondary file take in (/etc/) directory.
+  (setq
    backup-inhibited               nil
-   create-lockfiles               nil
    file-name-handler-alist        nil
+
 
    ;; Remember and restore the last place you visited in a file
    auto-save-list-file-name (expand-file-name "etc/auto-save-list/.save-" user-emacs-directory)
@@ -92,66 +97,123 @@
    save-place-file          (locate-user-emacs-file "etc/saveplaces")
    savehist-file            (locate-user-emacs-file "etc/savehist")
    custom-file              (locate-user-emacs-file "etc/custom.el")
-
-   ;; Performance & Misc
-   inhibit-compacting-font-caches   t       ;; Do not exhaust GC memory
-   frame-inhibit-implied-resize     t       ;; Fonts independent from any resized frame
-   load-prefer-newer                t       ;; Load newest version file
-   history-length                   1000
-   history-delete-duplicates        t
-
-   ;; Minibuffer & Prompts
-   confirm-nonexistent-file-or-buffer nil
-   kill-do-not-save-duplicates        t
-   use-short-answers                  t      ;; use 'y' or 'n'
-   use-dialog-box                     nil
-   initial-buffer-choice              t      ;; open *scratch* buffer
-   minibuffer-prompt-properties       '(read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)
-   inhibit-startup-echo-area-message  t
-   kill-ring-max                      30
-
-   ;; Coding Systems
-   coding-system-aliases  (list (cons 'UTF-8 'utf-8))
-   prefer-coding-system   'utf-8
-
-   ;; UI frame default
-   ;; note: adjust transparency as desired
-   ;; The top-level window in the GUI version of emacs
-   default-frame-alist '((alpha-background . 90))
-   default-frame-alist '((fullscreen . maximize-window))
-
-   debugger-stack-frame-as-list           t
-   eval-expression-print-length           nil
-   narrow-to-defun-include-comments       t
-   switch-to-buffer-in-dedicated-window   nil
-   switch-to-buffer-obey-display-actions  t            ;; Treat manual switching of buffers the same as programmatic
-   window-sides-slots                     '(3 0 3 1)
-   x-stretch-cursor                       t            ;; Make cursor stretch to cover wider characters
-   outline-blank-line                     t            ;; Maintaining blank lines between folded section
-   search-invisible                       nil          ;; Prevent Emacs from searching folded section
    )
 
   ;; kill the buffer without asking a live process attached to it
-  (setq kill-buffer-query-functions
+   (setq kill-buffer-query-functions
         (remq 'process-kill-buffer-query-function
               kill-buffer-query-functions))
 
   :custom
-  (display-line-numbers t)            ;; globally enable line numbers
-  (echo-keystrokes      0.05)         ;; the value is 0.25
-  (show-paren-delay     0)
-  (show-paren-style     'expression)
-  (visible-bell         t)
+  ;;; Display
+  (display-line-numbers         t)          ;; globally enable line numbers
+  (display-line-numbers-type    'relative)
+  (display-line-numbers-width   3)
+  (display-line-numbers-widen   t)
 
-  ;; Load early packages and hooks
+  ;;; Dired
+  (dired-listing-switches "-alhv --group-directories-first")
+
+  ;;; UI/UX
+  (echo-keystrokes              0.05)       ;; the value is 0.25
+  (visible-bell                 t)
+  (truncate-string-ellipsis     "…")
+
+  ;;; Paren Matching
+  (show-paren-delay                     0.1)
+  (show-paren-when-point-inside-paren   t)
+  (show-paren-when-point-in-periphery   t)
+  (show-paren-style 'expression)
+
+  ;;; Input/Output
+  (read-answer-short  t)                    ;; Allow for shorter responses
+  (use-short-answers  t)                    ;; use 'y' or 'n'
+
+  ;;; Evaluation
+  (eval-expression-print-length nil)        ;; Disable truncation
+  (eval-expression-print-level  nil)
+
+
+  ;;; Frame/Window
+  (default-frame-alist '((alpha-background . 90)
+                         ;; (font . "Source Code Pro-12")
+                         (fullscreen . maximize-window)))
+
+
+  (fill-column                     80)
+  (frame-inhibit-implied-resize    t)       ;; Fonts independent from any resized frame
+  (split-width-threshold           170)     ;; Prefer Vertical splits
+  (split-height-threshold          80)
+  (window-sides-slots              '(3 0 3 1))
+
+
+
+  ;;; Text/Editing
+  (scroll-conservatively             100)
+  (sentence-end-double-space         nil)           ;; End sentence with 1 space not 2
+  (tab-width                         4)             ;; tabs are evil
+  (narrow-to-defun-include-comments  t)
+  (x-stretch-cursor                  t)             ;; Make cursor stretch to cover wider characters
+  (x-underline-at-descent-line       t)             ;; position underline as descent line
+
+  ;;; Navigation/Search
+  (switch-to-buffer-in-dedicated-window   nil)
+  (switch-to-buffer-obey-display-actions  t)        ;; Treat manual switching of buffers the same as programmatic
+  (outline-blank-line                     t)        ;; Maintaining blank lines between folded section
+  (search-invisible                       nil)      ;; Prevent Emacs from searching folded section
+
+  ;;; Debugging
+  (debugger-stack-frame-as-list           t)
+
+  ;;; History
+  (history-length                         1000)
+  (history-delete-duplicates              t)
+
+  ;;; File Handling
+  (auto-save-default                      nil)
+  (make-backup-files                      nil)
+  (create-lockfiles                       nil)
+
+  ;;; Buffer/Minibuffer
+  (confirm-nonexistent-file-or-buffer   nil)
+  (delete-by-moving-to-trash            not noninteractive)
+  (enable-recursive-minibuffers         t)
+  (inhibit-startup-echo-area-message    t)
+  (initial-buffer-choice                t)          ;; open *scratch* buffer
+  (kill-do-not-save-duplicates          t)
+  (kill-ring-max                        30)
+  (minibuffer-prompt-properties         '(read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt))
+  (next-line-add-newlines               nil)        ;; Disable auto-adding a new line
+  (uniquify-buffer-name-style           'forward)
+  (use-dialog-box                       nil)
+
+  ;;; Undo/redo
+  (undo-limit         (* 13 160000))
+  (undo-strong-limit  (* 13 240000))
+  (undo-outer-limit   (* 13 24000000))
+
+  ;;; Bookmars
+  (bookmark-save-flag 1)                    ;; Save bookmarks immediately after change
+
+  ;;; TRAMP
+  (tramp-verbose                             1)
+  (tramp-completion-reread-directory-timeout 50)
+  (remote-file-name-inhibit-cache            50)
+
+  ;;; Imenu
+  (imenu-max-item-length 106)               ;; Prevent truncation of long function names
+
+  ;; ================================================
+  ;;; LOAD EARLY PACKAGES AND HOOKS
+  ;; ================================================
   :hook
-  (prog-mode . display-line-numbers-mode)
-  (prog-mode . hs-minor-mode)
-  (prog-mode . outline-indent-minor-mode)
-  (prog-mode-hook . electric-indent-local-mode)
-  (before-save . tuanany--untabify-before-save)
+  (prog-mode       . display-line-numbers-mode)
+  (prog-mode       . hs-minor-mode)
+  (prog-mode       . outline-indent-minor-mode)
+  (prog-mode-hook  . electric-indent-local-mode)
+  (before-save     . tuanany--untabify-before-save)
 
-  ;; After everything is loaded, configure modes and keybindings
+   ;; After everything is loaded, configure modes and keybindings
   ;;
   :config
   ;; simply toggle of customizable variables
@@ -170,23 +232,43 @@
   (tool-bar-mode   -1)
   (tooltip-mode    -1)
 
+  ;; Font/Font size
+  ;; (when (display-graphic-p)
+  ;;   ;; Clear any font scaling
+  ;;   (setq face-font-rescale-alist nil)
+
+  ;;   ;; Set the font directly
+  ;;   (set-face-attribute 'default nil
+  ;;                       :family "Source Code Pro"
+  ;;                       :height 120) ;; 12pt = 120
+
+  ;;   ;; Force immediate update
+  ;;   (redraw-frame (selected-frame))
+
+  ;;   ;; Set for new frames too
+  ;;   (add-to-list 'default-frame-alist
+  ;;                '(font . ,(font-xlfd-name
+  ;;                           (font-spec :family "Source Code Pro" :height 120)))
+  ;;                t)
+  ;;   (message "Font set to Source Code Pro 12pt"))
+
   ;; Unset unwanted keys (e.g spurious touchscreen events)
   (global-unset-key [touchscreen-begin])
   (global-unset-key [touchscreen-end])
   (global-unset-key [touchscreen-update])
 
   ;; Keybindings
-  (keymap-global-unset "C-x C-c" 'save-buffers-kill-terminal)
-  (keymap-global-unset "C-x C-o" 'delete-blank-lines)
-  (keymap-global-set "C-c f" 'find-name-dired)
-  (keymap-global-set "C-x C-c C-c" 'save-buffers-kill-emacs)
-  (keymap-global-set "C-x C-o" 'other-window)
-  (keymap-global-set "C-x M-f" 'recentf-open-files)
-  (keymap-global-set "C-x C-b" 'ibuffer)
+  (keymap-global-unset "C-x C-c"      'save-buffers-kill-terminal)
+  (keymap-global-unset "C-x C-o"      'delete-blank-lines)
+  (keymap-global-set   "C-c f"        'find-name-dired)
+  (keymap-global-set   "C-x C-c C-c"  'save-buffers-kill-emacs)
+  (keymap-global-set   "C-x C-o"      'other-window)
+  (keymap-global-set   "C-x M-f"      'recentf-open-files)
+  (keymap-global-set   "C-x C-b"      'ibuffer)
   ;; (keymap-global-set "C-x C-/" 'goto-last-change)
 
-  (toggle-frame-maximized)    ;; Always use all screen for emacs
-  (set-fringe-mode 6)         ;; Give some breating room for symbols
+  (toggle-frame-maximized)                  ;; Always use all screen for emacs
+  (set-fringe-mode 6)                       ;; Give some breating room for symbols
 
   ;; Disable line-numbers in specific mode
   (dolist (mode '(Custom-mode-hook
@@ -210,7 +292,6 @@
                   messages-buffer-mode-hook
                   dashboard-mode-hook))
     (add-hook mode(lambda () (display-line-numbers-mode -1))))
-
 
   (dolist (tuanany-module-path '("tuanany-emacs-modules" "tuanany-lisp"))
     (add-to-list 'load-path
@@ -293,10 +374,9 @@
         (untabify (point-min) (point-max))
         (setq indent-tabs-mode nil)  ; Ensure future indentation uses spaces
         (when (fboundp 'whitespace-cleanup)  ; Additional cleanup if available
-          (whitespace-cleanup))))
+          (whitespace-cleanup)))))
 
-
-    (defun tuanany-toggle-fold ()
+   (defun tuanany-toggle-fold ()
       "Toggle fold all lines larger than indentation on current line"
       (interactive)
       (let ((col 1))
@@ -306,14 +386,14 @@
           (set-selective-display
            (if selective-display nil (or col 1))))))
 
-    :custom-face
-    (cursor ((t (:background "light goldenrod" :foreground "black"))))
-    (web-mode-current-element-highlight-face ((t (:foreground "#ffffff" :underline "gold"))))
+  :custom-face
+  (cursor ((t (:background "light goldenrod" :foreground "black"))))
+  (web-mode-current-element-highlight-face ((t (:foreground "#ffffff" :underline "gold"))))
+  (font-lock-comment-face ((t (:foreground "dim gray" :slant italic))))
+  (line-number-current-line ((t (:inherit default :foreground "#CFC0C5" :slant normal :weight regular))))
+  (whitespace-tab ((t (:foreground "#636363"))))
+  ;; (marginalia-documentation ((t (:inherit nil :foreground "LemonChiffon4" :weight normal))))
 
-    (font-lock-comment-face ((t (:foreground "dim gray" :slant italic))))
-    (line-number-current-line ((t (:inherit default :foreground "#CFC0C5" :slant normal :weight regular))))
-    (whitespace-tab ((t (:foreground "#636363"))))
-    ;; (marginalia-documentation ((t (:inherit nil :foreground "LemonChiffon4" :weight normal))))
-    )
-  );; END EMACS-PACKAGE
+  ) ;; END EMACS-PACKAGE
+
 ;;; init.el ends here
