@@ -40,12 +40,36 @@
 
 (use-package vertico
   :ensure t
+  :init
+  (vertico-mode 1)
+
+  :custom
+  ;; PERFORMANCE OPTIMIZATION
+  (vertico-count 5)                         ;; show only 5 candidates max
+  (vertico-cycle nil)                       ;; No cycling
+  (vertico-resize nil)                      ;; No resizing
+  (vertico-scroll-margin 0)                 ;; No scroll margin
+  (vertico--sort-function nil)              ;; No sorting (fast)
+
+  ;; Disable expensive features
+  (vertico-group-function nil)              ;; No grouping
+  (vertico-flat-function nil)               ;; No flat mode
+  (vertico-grid-function nil)               ;; No grid mode
+
+  (completion-style '(basic substring))     ;; SIMPLER styles
+  (completion-category-defaults nil)        ;; No category overrides
+  (completion--category-override nil)       ;; Clear overrides
+
+  ;; File completion optimizations
+  (read-file-name-completion-ignore-case t)
+  (completion-ignore-case t)
+
+  (completion-category-overrides '((file (styles . (partial-completion)))))
+  (read-file-name-completion-ignore-case t)
+
   :hook (rfn-eshadow-update-overlay . vertico-directory-tidy)
+
   :config
-  (setq vertico-scroll-margin 0)
-  (setq vertico-count 5)
-  (setq vertico-resize nil)
-  (setq vertico-cycle t)
   (defvar vertico-multiform-minimal
     '(unobtrusive
       (vertico-flat-format . ( :multiple ""
