@@ -39,7 +39,7 @@
 ;;;; Code:
 
 (use-package helpful
-  :ensure t
+  ;; :ensure t
   ;; :defer
   :config
   (keymap-global-set "C-h f" 'helpful-callable)
