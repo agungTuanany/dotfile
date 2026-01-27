@@ -29,6 +29,10 @@
 
 ;;;; Code:
 
+;; Backup of `gc-cons-threshold' and `gc-cons-percentage' before startup.
+(defvar minimal-emacs--backup-gc-cons-threshold gc-cons-threshold)
+(defvar minimal-emacs--backup-gc-cons-percentage gc-cons-percentage)
+
 ;; Temporarily increase the garbage collection threshold. These changes help
 ;; shave off about half a second of startup time.
 ;; https://akrl.sdf.org/#orgc15a10d
