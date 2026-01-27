@@ -93,6 +93,7 @@
 
    ;; Remember and restore the last place you visited in a file
    auto-save-list-file-name (expand-file-name "etc/auto-save-list/.save-" user-emacs-directory)
+   tramp-auto-save-directory (expand-file-name "etc/tramp-autosave/.tramp-" user-emacs-directory)
    recentf-save-file        (locate-user-emacs-file "etc/recentf")
    save-place-file          (locate-user-emacs-file "etc/saveplaces")
    savehist-file            (locate-user-emacs-file "etc/savehist")
@@ -112,7 +113,57 @@
   (display-line-numbers-widen   t)
 
   ;;; Dired
-  (dired-listing-switches "-alhv --group-directories-first")
+  (dired-listing-switches          "-alhv --group-directories-first")
+  (dired-free-space                nil)
+  (dired-dwim-target               t)  ; Propose a target for intelligent moving/copying
+  (dired-deletion-confirmer        'y-or-n-p)
+  (dired-filter-verbose            nil)
+  (dired-recursive-deletes         'top)
+  (dired-recursive-copies          'always)
+  (dired-vc-rename-file            t)
+  (dired-create-destination-dirs   'ask)
+  ;; Suppress Dired buffer kill prompt for deleted dirs
+  (dired-clean-confirm-killing-deleted-buffers nil)
+
+  ;; This is a higher-level predicate that wraps `dired-directory-changed-p'
+  ;; with additional logic. This `dired-buffer-stale-p' predicate handles remote
+  ;; files, wdired, unreadable dirs, and delegates to dired-directory-changed-p
+  ;; for modification checks.
+  (auto-revert-remote-files  nil)
+  (dired-auto-revert-buffer  'dired-buffer-stale-p)
+
+  ;; dired-omit-mode
+  (dired-omit-verbose  nil)
+  (dired-omit-files    (concat "\\`[.]\\'"))
+
+  (ls-lisp-verbosity   nil)
+  (ls-lisp-dirs-first  t)
+
+   ;;; Ediff
+
+  ;; Configure Ediff to use a single frame and split windows horizontally
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain
+        ediff-split-window-function 'split-window-horizontally)
+
+  ;;; ispell
+
+  ;; In Emacs 30 and newer, disable Ispell completion to avoid annotation errors
+  ;; when no `ispell' dictionary is set.
+  (text-mode-ispell-word-completion nil)
+  (ispell-silently-savep            t)
+
+  ;;; ibuffer
+
+  (ibuffer-formats
+   '((mark modified read-only locked
+           " " (name 55 55 :left :elide)
+           " " (size 8 -1 :right)
+           " " (mode 18 18 :left :elide) " " filename-and-process)
+     (mark " " (name 16 -1) " " filename)))
+
+  ;;; abbrev
+  (save-abbrevs 'silently)
+
 
   ;;; UI/UX
   (echo-keystrokes              0.05)       ;; the value is 0.25
@@ -180,6 +231,7 @@
   (enable-recursive-minibuffers         t)
   (inhibit-startup-echo-area-message    t)
   (initial-buffer-choice                t)          ;; open *scratch* buffer
+  (kill-buffer-delete-auto-save-files   t)
   (kill-do-not-save-duplicates          t)
   (kill-ring-max                        30)
   (minibuffer-prompt-properties         '(read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt))
@@ -202,6 +254,51 @@
 
   ;;; Imenu
   (imenu-max-item-length 106)               ;; Prevent truncation of long function names
+
+  ;;; Auto revert
+  ;; Auto-revert in Emacs is a feature that automatically updates the contents of
+  ;; a buffer to reflect changes made to the underlying file.
+  (revert-without-query             (list ".")) ;; Do not prompt
+  (auto-revert-stop-on-user-input   nil)
+  (auto-revert-verbose              t)
+
+  ;; `recentf' is an that maintains a list of recently accessed files.
+  (recentf-max-saved-items   300) ; default is 20
+  (recentf-max-menu-items    15)
+  (recentf-auto-cleanup      'mode)
+  (recentf-exclude           nil)
+
+  ;;; hl-line-mode
+  ;; Restrict `hl-line-mode' highlighting to the current window, reducing visual
+  ;; clutter and slightly improving `hl-line-mode' performance.
+  (hl-line-sticky-flag          nil)
+  (global-hl-line-sticky-flag   nil)
+
+  ;;; icomplete
+  ;; Do not delay displaying completion candidates in `fido-mode' or
+  ;; `fido-vertical-mode'
+  (icomplete-compute-delay 0.01)
+
+  ;;; ispell
+  ;; In Emacs 30 and newer, disable Ispell completion to avoid annotation errors
+  ;; when no `ispell' dictionary is set.
+  (text-mode-ispell-word-completion   nil)
+  (ispell-silently-savep              t)
+
+  ;;; ibuffer
+  (ibuffer-formats
+      '((mark modified read-only locked
+              " " (name 55 55 :left :elide)
+              " " (size 8 -1 :right)
+              " " (mode 18 18 :left :elide) " " filename-and-process)
+        (mark " " (name 16 -1) " " filename)))
+
+  ;;; flyspell
+(flyspell-issue-welcome-flag nil)
+
+;; Improves flyspell performance by preventing messages from being displayed for
+;; each word when checking the entire buffer.
+(flyspell-issue-message-flag nil)
 
   ;; ================================================
   ;;; LOAD EARLY PACKAGES AND HOOKS
