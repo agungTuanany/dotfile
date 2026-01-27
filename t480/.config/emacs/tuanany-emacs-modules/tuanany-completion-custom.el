@@ -59,22 +59,45 @@
   (completion-ignore-case t)
   ;; :config
   )
-;;;; (dynamic world completion (Dynamic Abbrev Expansion))
+;;; (dynamic world completion (Dynamic Abbrev Expansion))
 (use-package dabbrev
   :ensure t
+  :custom
+  ;; Only put defcustom variables here
+  (dabbrev-case-fold-search nil)
+  (dabbrev-case-replace 'case-replace)
+  (dabbrev-check-all-buffers nil)
+  (dabbrev-check-other-buffers t)
+  (dabbrev-eliminate-newlines t)
+  (dabbrev-upcase-means-case-search t)
+
   :config
+  ;; Internal/implementation variables
   (setq dabbrev-abbrev-char-regexp "\\sw\\|\\s_")
   (setq dabbrev-abbrev-skip-leading-regexp "[$*/=~']")
   (setq dabbrev-backward-only nil)
   (setq dabbrev-case-distinction 'case-replace)
-  (setq dabbrev-case-fold-search nil)
-  (setq dabbrev-case-replace 'case-replace)
-  (setq dabbrev-check-all-buffers nil)
-  (setq dabbrev-check-other-buffers t)
-  (setq dabbrev-eliminate-newlines t)
   (setq dabbrev-friend-buffer-function 'dabbrev--same-major-mode-p)
-  (setq dabbrev-ignored-buffer-modes '(archive-mode-image-mode docview-mode pdf-view-mode))
-  (setq dabbrev-ignored-buffer-regexps '("\\.\\(?:pdf\\|jpe?g\\|png\\)\\'"))
-  (setq dabbrev-upcase-means-case-search t)
-  )
+  (setq dabbrev-ignored-buffer-modes
+        '(archive-mode
+          image-mode
+          docview-mode
+          pdf-view-mode
+          tags-table-mode
+          eww-mode          ; Web browser
+          mu4e-view-mode    ; Email viewer
+          vterm-mode        ; Terminal
+          eshell-mode       ; Shell
+          ))
+
+  (setq dabbrev-ignored-buffer-regexps
+        '("\\` "                    ; Buffers starting with space
+          "\\*.*\\*"                ; Internal buffers with asterisks
+          "\\.\\(?:elc\\|pyc\\)\\'" ; Compiled files
+          "TAGS\\'"                 ; Tags files
+          "\\.\\(?:pdf\\|jpe?g\\|png\\|gif\\)\\'" ; Image/media files
+          ))
+)
+
+
 ;;; tuanany-completion-custom.el ends here
