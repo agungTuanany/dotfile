@@ -54,7 +54,7 @@
 (use-package cider
   :bind-keymap
   ("C-c u" . cider-user-ns)
-  :hook (clojure-mode . tuanany-auto-cider-jack-in)
+  ;; :hook (clojure-mode . tuanany-auto-cider-jack-in)
   :config
   (setq nrepl-log-message                     t
         cider-auto-select-error-buffer        t
