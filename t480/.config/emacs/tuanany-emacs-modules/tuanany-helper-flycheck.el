@@ -37,25 +37,36 @@
 ;; fully customize and configure a package to suit your needs.
 
 ;;;; Code:
-
 (use-package flycheck
-  :ensure
-  :init (global-flycheck-mode)
+  :ensure t
+  :init
+  (global-flycheck-mode)
+
   :config
+  ;; Disable Flycheck completely in Org buffers
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (flycheck-mode -1)))
+
+  ;; Define custom YAML checker
   (flycheck-define-checker yaml-gitlab
-    "A YAML syntax checker using yamllint with Gitlab CI schema"
+    "YAML syntax checker using yamllint with GitLab schema."
     :command ("yamllint" "-d" "{extends: gitlab}" source)
     :error-patterns
-    ((warning line-start (file-name) ":" line ":" column ": [warning] " (message) line-end)
-     (error line-start (file-name) ":"line ":" column ": [error] " (message) line-end))
-    :modes (yaml-))
-  :hook ((prog-mode . flycheck-mode))
-  :bind (:map flycheck-mode-map
-              ("C-c C-n" . flycheck-next-error)
-              ("C-c C-p" . flycheck-previous-error))
-  :custom
-  (setq flycheck-emacs-lisp-load-path 'inherit)
+    ((warning line-start (file-name) ":" line ":" column
+              ": [warning] " (message) line-end)
+     (error line-start (file-name) ":" line ":" column
+            ": [error] " (message) line-end))
+    :modes (yaml-mode))
+
   (add-to-list 'flycheck-checkers 'yaml-gitlab)
-  )
+
+  :bind
+  (:map flycheck-mode-map
+        ("C-c C-n" . flycheck-next-error)
+        ("C-c C-p" . flycheck-previous-error))
+
+  :custom
+  (flycheck-emacs-lisp-load-path 'inherit))
 
 ;;; tuanany-helper-flycheck.el ends here
