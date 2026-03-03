@@ -40,7 +40,10 @@
 (use-package flycheck
   :ensure t
   :init
-  (global-flycheck-mode)
+  ;; Better UX defaults
+  (setq flycheck-display-errors-delay 0.3
+        flycheck-indication-mode 'right-fringe
+        flycheck-emacs-lisp-load-path 'inherit)
 
   :config
   ;; Disable Flycheck completely in Org buffers
@@ -64,9 +67,6 @@
   :bind
   (:map flycheck-mode-map
         ("C-c C-n" . flycheck-next-error)
-        ("C-c C-p" . flycheck-previous-error))
-
-  :custom
-  (flycheck-emacs-lisp-load-path 'inherit))
+        ("C-c C-p" . flycheck-previous-error)))
 
 ;;; tuanany-helper-flycheck.el ends here
