@@ -1,5 +1,4 @@
-;;;; tuanany-helper-ispell.el --- ispell -*- lexical-binding: t -*-
-
+;;; tuanany-helper-ispell.el --- Spell checking configuration -*- lexical-binding: t; -*-
 ;; Copyright (C) 2021-2026 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
@@ -43,16 +42,26 @@
 
 ;;;; Code:
 
+;;;; -------------------------
+;;;; Ispell / Hunspell Setup
+;;;; -------------------------
 (use-package ispell
   :ensure nil
+  :init
+  ;; use hunspell
+  (setopt
+   ispell-program-name "hunspell"
+   ispell-dictionary "en_US"
+   ispell-silently-savep t
+   ispell-personal-dictionary
+   (expand-file-name "etc/hunspell_en_US" user-emacs-directory))
+
+   (setopt ispell-extra-args '("--sug-mode=ultra" "--lang=en_US"
+                        "--run-together" "--run-together-limit=16"
+                        "--camel-case"))
   :custom
-  (ispell-program-name "aspell")
-  (ispell-personal-dictionary (concat user-emacs-directory "etc/.aspell.lang.pws"))
-  (ispell-dictionary nil)
-  (ispell-local-dictionary nil)
-  (ispell-extra-args '("--sug-mode=ultra" "--lang=en_US"
-                       "--run-together" "--run-together-limit=16"
-                       "--camel-case"))
+  (text-mode-ispell-word-completion nil)
+
   :init
   (defun tuanany-add-word-to-dictionary ()
     (interactive)
@@ -63,21 +72,24 @@
 (use-package flyspell
   :ensure nil
   :defer
-  :hook ((prog-mode . flyspell-prog-mode)
-         (org-mode . flyspell-mode)
-         (text-mode . flyspell-mode)
-         (flyspell-mode . (lambda ()
-                            (set-face-attribute 'flyspell-incorrect nil :underline '(:style wave :color "Red1"))
-                            (set-face-attribute 'flyspell-duplicate nil :underline '(:style wave :color "DarkOrange")))))
+  :hook ((prog-mode  . flyspell-prog-mode)
+         (org-mode   . flyspell-mode)
+         (text-mode  . flyspell-mode)
+         (flyspell-mode . tuanany-flyspell-face-setup)
+)
   :bind (:map flyspell-mode-map
               ("C-;" . nil)
               ("C-," . flyspell-goto-next-error)
               ("C-." . flyspell-auto-correct-word)))
 
-(dolist (hook '(text-mode-hook))
-  (add-hook hook (lambda () (flyspell-mode 1))))
+(defun tuanany-flyspell-face-setup ()
+  (set-face-attribute 'flyspell-incorrect nil
+                      :underline '(:style wave :color "Red1"))
+  (set-face-attribute 'flyspell-duplicate nil
+                      :underline '(:style wave :color "DarkOrange")))
 
-(dolist (hook '(change-log-mode-hook log-edit-mode-hook))
-  (add-hook hook (lambda () (flyspell-mode -1))))
+
+
+
 
 ;;; tuanany-helper-ispell.el ends here

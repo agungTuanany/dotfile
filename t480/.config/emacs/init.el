@@ -146,11 +146,7 @@
         ediff-split-window-function 'split-window-horizontally)
 
   ;;; ispell
-
-  ;; In Emacs 30 and newer, disable Ispell completion to avoid annotation errors
-  ;; when no `ispell' dictionary is set.
-  (text-mode-ispell-word-completion nil)
-  (ispell-silently-savep            t)
+  ;; move into separate file
 
   ;;; ibuffer
 
