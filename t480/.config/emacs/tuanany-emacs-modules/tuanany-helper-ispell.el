@@ -48,26 +48,20 @@
 (use-package ispell
   :ensure nil
   :init
-  ;; use hunspell
-  (setopt
-   ispell-program-name "hunspell"
-   ispell-dictionary "en_US"
-   ispell-silently-savep t
-   ispell-personal-dictionary
-   (expand-file-name "etc/hunspell_en_US" user-emacs-directory))
+  (let ((dict (expand-file-name "etc/.hunspell_en_US"
+                                user-emacs-directory)))
+    ;; ensure file exists with proper header
+    (unless (file-exists-p dict)
+      (with-temp-file dict
+        (insert "0\n")))
 
-   (setopt ispell-extra-args '("--sug-mode=ultra" "--lang=en_US"
-                        "--run-together" "--run-together-limit=16"
-                        "--camel-case"))
-  :custom
-  (text-mode-ispell-word-completion nil)
+    (setopt
+     ispell-program-name "hunspell"
+     ispell-dictionary "en_US"
+     ispell-personal-dictionary dict
+     ispell-silently-savep t
+     ispell-extra-args (list "-d" "en_US" "-p" dict))))
 
-  :init
-  (defun tuanany-add-word-to-dictionary ()
-    (interactive)
-    (let ((word (word-at-point)))
-      (append-to-file (concat word "\n") nil ispell-personal-dictionary)
-      (message "Added '%s' to %s" word ispell-personal-dictionary))))
 
 (use-package flyspell
   :ensure nil
