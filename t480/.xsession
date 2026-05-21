@@ -31,7 +31,7 @@ fi
 (dwmblocks >/dev/null 2>&1) &
 
 # Apply Emacs keyboard Pinky redirection
-(sleep 1 && xmodmap ~/.local/bin/emacs_keyboard) &
+#(sleep 1 && xmodmap ~/.local/bin/emacs_keyboard) &
 
 # Start Window Manager
 exec /usr/local/bin/dwm
