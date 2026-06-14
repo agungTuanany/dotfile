@@ -1,0 +1,73 @@
+#!/bin/sh
+
+# ============================================
+# ThinkPad T480 + ThinkVision T32p-30
+# Author           : Agung Tuanany
+# Last Modified    : Sat Jun  6 07:02:29 AM WIB 2026
+# ============================================
+
+# Give X time to enumerate devices
+sleep 1
+
+#
+# DPI
+#
+# xrdb -merge <<EOF
+# Xft.dpi: 144
+# EOF
+
+#
+# Monitor layout
+#
+# Internal display: eDP1
+# External monitor: DP1
+
+#
+# Cursor size
+#
+export XCURSOR_SIZE=24
+export XCURSOR_THEME=Adwaita
+
+
+#
+if xrandr | grep -q "^DP1 connected"; then
+    xrandr \
+        --output eDP1 --auto \
+        --output DP1 --mode 3840x2160 --rate 60 --right-of eDP1
+fi
+
+#
+# Disable TrackPoint
+#
+if xinput list | grep -q "TPPS/2 IBM TrackPoint"; then
+    xinput disable "TPPS/2 IBM TrackPoint"
+fi
+
+#
+# Disable G2Touch
+#
+if xinput list | grep -q "G2Touch"; then
+    xinput disable "G2Touch Multi-Touch by G2TSP"
+fi
+
+#
+# Touchpad tuning
+#
+if xinput list | grep -q "Synaptics TM3276-022"; then
+    xinput set-prop "Synaptics TM3276-022" \
+        "libinput Tapping Enabled" 1
+
+    xinput set-prop "Synaptics TM3276-022" \
+        "libinput Disable While Typing Enabled" 1
+fi
+
+#
+# Additional palm protection
+#
+pkill syndaemon 2>/dev/null
+syndaemon -i 1.0 -K -t -d &
+
+#
+# Status bar
+#
+pgrep dwmblocks >/dev/null || dwmblocks &
