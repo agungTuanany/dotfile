@@ -70,4 +70,4 @@ syndaemon -i 1.0 -K -t -d &
 #
 # Status bar
 #
-pgrep dwmblocks >/dev/null || dwmblocks &
+# pgrep dwmblocks >/dev/null || dwmblocks &-
