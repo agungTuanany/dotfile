@@ -211,6 +211,7 @@
 
   ;;; Debugging
   (debugger-stack-frame-as-list           t)
+  (toggle-debug-on-error                  t)
 
   ;;; History
   (history-length                         1000)
