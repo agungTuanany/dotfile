@@ -80,4 +80,5 @@
                    (when-let ((act (embark--action-target)))
                      (embark--action-bindings act))))))
 
+(provide 'tuanany-completion-embark)
 ;;; tuanany-completion-embark.el ends here

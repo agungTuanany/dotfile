@@ -52,4 +52,5 @@
   (html-mode . skewer-html-mode)
   (web-mode . skewer-html-mode))
 
+(provide 'tuanany-tools-skewer)
 ;;; tuanany-tools-skewer.el ends here

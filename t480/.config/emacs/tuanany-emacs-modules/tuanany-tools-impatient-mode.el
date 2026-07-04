@@ -45,4 +45,6 @@
   (html-mode . impatient-mode)
   (css-mode . impatient-mode)
   )
+
+(provide 'tuanany-tools-impatient-mode)
 ;;; tuanany-tools-impatient-mode.el ends here

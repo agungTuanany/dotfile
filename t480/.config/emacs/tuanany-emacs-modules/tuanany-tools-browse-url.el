@@ -49,4 +49,5 @@
 ;;   :config
 ;;   (put 'browse-url-handlers 'safe-local-variable (lambda (x) t)))
 
+;; (provide ;tuanany-tools-browse-url)
 ;;; tuanany-tools-browse-url.el ends here

@@ -83,4 +83,5 @@
   (remove-hook 'js2-mode-hook #'skewer-mode)
   (remove-hook 'js-mode-hook #'skewer-mode))
 
+(provide 'tuanany-lang-js2-mode)
 ;;; tuanany-lang-js2-mode.el ends here

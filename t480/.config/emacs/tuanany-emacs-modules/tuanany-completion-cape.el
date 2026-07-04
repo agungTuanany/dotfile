@@ -70,4 +70,6 @@
   (add-hook 'minibuffer-setup-hook #'corfu-enable-always-in-minibuffer 1)
   :bind ("C-c SPC" . cape-dabbrev)
   )
+
+(provide 'tuanany-completion-cape)
 ;;; tuanany-completion-cape.el ends here

@@ -1,4 +1,4 @@
-;;;; tuanany-helper-dumb-jump.el --- dumb jump -*- lexical-binding: t -*-
+;;;; tuanany-helper-goto-last-change.el --- dumb jump -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2021-2026 Agung Tuanany
 
@@ -52,4 +52,6 @@
   :ensure t
   :bind (("C-x C-/" . goto-last-change)
          ("C-x /"   . goto-last-change)))  ; Alternative binding
-;;; tuanany-helper-dumb-jump.el ends here
+
+(provide 'tuanany-helper-goto-last-change)
+;;; tuanany-helper-goto-last-change.el ends here

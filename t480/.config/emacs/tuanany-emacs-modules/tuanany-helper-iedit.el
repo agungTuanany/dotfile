@@ -46,4 +46,5 @@
   (iedit-toggle-key-default nil)
   )
 
+(provide 'tuanany-helper-iedit)
 ;;; tuanany-helper-iedit.el ends here

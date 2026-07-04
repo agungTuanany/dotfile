@@ -391,63 +391,73 @@
                  (locate-user-emacs-file tuanany-module-path)))
 
   (defvar tuanany-addons '(
+                           ;; ==== CORE ====
+                           tuanany-core-package
                            ;; ==== UI ====
-                           "tuanany-ui-dashboard.el"
-                           "tuanany-ui-doom-modeline.el"
-                           "tuanany-ui-time.el"
-                           "tuanany-ui.el"
+                           tuanany-ui-dashboard
+                           tuanany-ui-doom-modeline
+                           tuanany-ui-time
+                           tuanany-ui
                            ;; ==== COMPLETION ====
-                           "tuanany-completion-cape.el"
-                           "tuanany-completion-consult.el"
-                           "tuanany-completion-corfu.el"
-                           "tuanany-completion-custom.el"
-                           "tuanany-completion-embark-consult.el"
-                           "tuanany-completion-embark.el"
-                           "tuanany-completion-marginalia.el"
-                           "tuanany-completion-orderless.el"
-                           "tuanany-completion-yasnippet.el"
-                           "tuanany-completion-vertico.el"
+                           tuanany-completion-cape
+                           tuanany-completion-consult
+                           tuanany-completion-corfu
+                           tuanany-completion-custom
+                           tuanany-completion-embark-consult
+                           tuanany-completion-embark
+                           tuanany-completion-marginalia
+                           tuanany-completion-orderless
+                           tuanany-completion-yasnippet
+                           tuanany-completion-vertico
                            ;; ==== HELPER ====
-                           "tuanany-helper-dumb-jump.el"
-                           "tuanany-helper-flycheck.el"
-                           "tuanany-helper-goto-last-change.el"
-                           ;; "tuanany-helper-helpful.el"
-                           "tuanany-helper-highlight-indentation.el"
-                           "tuanany-helper-iedit.el"
-                           "tuanany-helper-ispell.el"
-                           "tuanany-helper-minibuffer.el"
-                           "tuanany-helper-outline-indent.el"
-                           "tuanany-helper-pdf-tools.el"
-                           "tuanany-helper-whitespace.el"
-                           "tuanany-helper-multiple-cursors.el"
-                           ;; "tuanany-helper-shrface.el"
+                           tuanany-helper-dumb-jump
+                           tuanany-helper-flycheck
+                           tuanany-helper-goto-last-change
+                           ;; tuanany-helper-helpful
+                           tuanany-helper-highlight-indentation
+                           tuanany-helper-iedit
+                           tuanany-helper-ispell
+                           tuanany-helper-minibuffer
+                           tuanany-helper-outline-indent
+                           tuanany-helper-pdf-tools
+                           tuanany-helper-epub
+                           tuanany-helper-whitespace
+                           tuanany-helper-multiple-cursors
+                           ;; tuanany-helper-shrface
                            ;; ==== TOOLS ====
-                           ;; "tuanany-tools-evil.el"
-                           "tuanany-tools-eww.el"
-                           "tuanany-tools-magit.el"
-                           "tuanany-tools-org-mode.el"
-                           "tuanany-tools-proced.el"
-                           "tuanany-tools-projectile.el"
-                           "tuanany-tools-shell.el"
-                           "tuanany-tools-skewer.el"
-                           "tuanany-tools-tree-sitter.el"
-                           ;; "tuanany-tools-browse-url.el"
-                           ;; "tuanany-tools-impatient-mode.el"
-                           ;; "tuanany-tools-prog-mode.el"
+                           ;; tuanany-tools-evil
+                           ;; tuanany-tools-eww
+                           tuanany-tools-magit
+                           tuanany-tools-org-mode
+                           tuanany-tools-proced
+                           tuanany-tools-projectile
+                           tuanany-tools-shell
+                           tuanany-tools-skewer
+                           tuanany-tools-tree-sitter
+                           ;; tuanany-tools-browse-url
+                           ;; tuanany-tools-impatient-mode
+                           ;; tuanany-tools-prog-mode
                            ;; ==== LANGUAGES ====
-                           "tuanany-lang-clojure-mode.el"
-                           "tuanany-lang-js2-mode.el"
-                           "tuanany-lang-racket-mode.el"
-                           "tuanany-lang-web-mode.el"
-                           "tuanany-lang-yaml-mode.el"
-                           "tuanany-lang-ruby-mode.el"
+                           tuanany-lang-clojure-mode
+                           tuanany-lang-js2-mode
+                           tuanany-lang-racket-mode
+                           tuanany-lang-web-mode
+                           tuanany-lang-yaml-mode
+                           tuanany-lang-ruby-mode
                            ))
 
-  (dolist (x tuanany-addons)
-    (load x))
+  (dolist (file tuanany-addons)
+    (condition-case err
+        (progn
+          (message "Loading %s..." file)
+          (require file)
+          (message "Loaded %s ✓" file))
+      (error
+       (message "FAILED loading %s" file)
+       (signal (car err) (cdr err)))))
 
   ;; Enable these
-  (dolist (c '(narrow-to-region narrow-to-page upcase-region downcase-region))
+  (dolist (c '(narrow-to-gion narrow-to-page upcase-region downcase-region))
     (put c 'disabled nil))
 
   ;; And disable these

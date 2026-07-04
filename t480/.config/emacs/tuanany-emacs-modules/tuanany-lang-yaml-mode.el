@@ -52,4 +52,5 @@
   (yaml-mode . outline-indent-minor-mode)
   )
 
+(provide 'tuanany-lang-yaml-mode)
 ;;; tuanany-lang-yaml-mode.el ends here

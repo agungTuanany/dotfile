@@ -46,4 +46,5 @@
   ;; This replaces the old (now-removed) `embark-consult-setup`.
   (embark-collect-mode . embark-consult-preview-minor-mode))
 
+(provide 'tuanany-completion-embark-consult)
 ;;; tuanany-completion-embark-consult.el ends here

@@ -66,4 +66,5 @@
   :init
   (doom-modeline-mode 1))
 
+(provide 'tuanany-ui-doom-modeline)
 ;;; tuanany-ui-doom-modeline.el ends here

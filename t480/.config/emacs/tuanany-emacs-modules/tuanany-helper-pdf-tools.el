@@ -60,4 +60,5 @@
 
   )
 
+(provide 'tuanany-helper-pdf-tools)
 ;;; tuanany-helper-pdf-tools.el ends here

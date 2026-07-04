@@ -45,4 +45,5 @@
   :hook ((prog-mode . subword-mode)
          (prog-mode . (lambda () (setq-local fill-column 120)))))
 
+(provide 'tuanany-tools-prog-mode)
 ;;; tuanany-tools-prog-mode.el ends here

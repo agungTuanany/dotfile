@@ -71,4 +71,5 @@
 (use-package simple-httpd
   :ensure t)
 
+(provide 'tuanany-lang-web-mode)
 ;;; tuanany-lang-web-mode.el ends here

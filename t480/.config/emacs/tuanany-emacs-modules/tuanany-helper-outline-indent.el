@@ -45,4 +45,5 @@
   :custom
   (outline-indent-ellipsis " ▼ "))
 
+(provide 'tuanany-helper-outline-indent)
 ;;; tuanany-helper-outline-indent.el ends here

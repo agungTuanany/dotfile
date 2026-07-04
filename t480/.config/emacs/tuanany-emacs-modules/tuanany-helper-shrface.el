@@ -46,4 +46,5 @@
   (shrface-default-keybindings) ; setup default keybindings
   (setq shrface-href-versatile t))
 
+(provide 'tuanany-helper-shrface)
 ;;; tuanany-helper-shrface.el ends here

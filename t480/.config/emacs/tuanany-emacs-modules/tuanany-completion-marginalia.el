@@ -44,4 +44,5 @@
   ;; enabled right away. Note that this forces loading the package.
   (marginalia-mode))
 
+(provide 'tuanany-completion-marginalia)
 ;;; tuanany-completion-marginalia.el ends here

@@ -54,4 +54,5 @@
 
 ;; (require 'quack)
 
+(provide 'tuanany-lang-racket-mode)
 ;;; tuanany-lang-racket-mode.el ends here

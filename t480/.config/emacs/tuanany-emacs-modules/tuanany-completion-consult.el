@@ -150,4 +150,6 @@ If used with a prefix, it will search all buffers as well."
   (with-eval-after-load 'consult
     (require 'embark-consult)
     (embark-consult-setup)))
+
+(provide 'tuanany-completion-consult)
 ;;; tuanany-completion-consult.el ends here

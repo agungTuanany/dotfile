@@ -69,5 +69,5 @@
 ;; (set-face-attribute 'default nil :height 100)  ;; 140 = 14pt
 (set-face-attribute 'default nil :font "Source Code Pro" :height 140)
 
-
+(provide 'tuanany-ui)
 ;;; tuanany-ui.el ends here

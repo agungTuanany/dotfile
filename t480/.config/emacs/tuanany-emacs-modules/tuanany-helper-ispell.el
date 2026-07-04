@@ -82,8 +82,5 @@
   (set-face-attribute 'flyspell-duplicate nil
                       :underline '(:style wave :color "DarkOrange")))
 
-
-
-
-
+(provide 'tuanany-helper-ispell)
 ;;; tuanany-helper-ispell.el ends here

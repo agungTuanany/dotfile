@@ -99,5 +99,5 @@
           ))
 )
 
-
+(provide 'tuanany-completion-custom)
 ;;; tuanany-completion-custom.el ends here

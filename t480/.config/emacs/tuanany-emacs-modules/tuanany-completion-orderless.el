@@ -45,4 +45,5 @@
   (completion-styles '(orderless basic))
   (completion-category-overrides '((file (styles basic partial-completion)))))
 
+(provide 'tuanany-completion-orderless)
 ;;; tuanany-completion-orderless.el ends here

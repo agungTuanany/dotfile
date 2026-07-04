@@ -46,4 +46,5 @@
   ;; :custom
   )
 
+(provide 'tuanany-lang-php-mode)
 ;;; tuanany-lang-php-mode.el ends here

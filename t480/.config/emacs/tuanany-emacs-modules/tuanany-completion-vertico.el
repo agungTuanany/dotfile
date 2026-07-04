@@ -102,4 +102,5 @@
             (right-fringe . 8)))
   )
 
+(provide 'tuanany-completion-vertico)
 ;;; tuanany-completion-vertico.el ends here

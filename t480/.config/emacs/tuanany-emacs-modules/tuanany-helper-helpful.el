@@ -50,4 +50,5 @@
   (keymap-global-set "C-h F" 'helpful-function)
   (keymap-global-set "C-h o" 'helpful-symbol))
 
+(provide 'tuanany-helper-helpful)
 ;;; tuanany-helper-helpful.el ends here

@@ -84,4 +84,5 @@
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode))
 
+(provide 'tuanany-tools-tree-sitter)
 ;;; tuanany-tools-tree-sitter.el ends here

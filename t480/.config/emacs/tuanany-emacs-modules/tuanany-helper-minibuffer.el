@@ -45,4 +45,5 @@
   :custom
   (completion-styles '(initials partial-completion flex)))
 
+(provide  'tuanany-helper-minibuffer)
 ;;; tuanany-helper-minibuffer.el ends here

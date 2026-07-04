@@ -68,4 +68,5 @@
 
   )
 
+(provide 'tuanany-tools-shell)
 ;;; tuanany-tools-shell.el ends here

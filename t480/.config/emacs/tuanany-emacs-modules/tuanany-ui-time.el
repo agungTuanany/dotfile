@@ -53,4 +53,5 @@
   (display-time-mode)
   )
 
+(provide 'tuanany-ui-time)
 ;;; tuanany-ui-time.el ends here

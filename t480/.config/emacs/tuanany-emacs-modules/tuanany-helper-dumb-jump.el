@@ -66,4 +66,6 @@
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
   (add-hook 'xref-backend-functions #'tuanany-filename/xref-filename-backend)
   )
+
+(provide 'tuanany-helper-dumb-jump)
 ;;; tuanany-helper-dumb-jump.el ends here

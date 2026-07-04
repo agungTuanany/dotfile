@@ -48,4 +48,5 @@
   (proced-descend t)
   (proced-filter 'user))
 
+(provide 'tuanany-tools-proced)
 ;;; tuanany-tools-proced.el ends here

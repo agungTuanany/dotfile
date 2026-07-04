@@ -54,4 +54,5 @@
   ;; (projectile-mode +1)
   )
 
+(provide 'tuanany-tools-projectile)
 ;;; tuanany-tools-projectile.el ends here

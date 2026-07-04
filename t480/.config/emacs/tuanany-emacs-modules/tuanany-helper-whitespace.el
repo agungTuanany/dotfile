@@ -43,4 +43,5 @@
   :defer
   :hook (before-save . whitespace-cleanup))
 
+(provide 'tuanany-helper-whitespace)
 ;;; tuanany-helper-whitespace.el ends here

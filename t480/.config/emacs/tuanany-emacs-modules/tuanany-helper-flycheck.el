@@ -69,4 +69,5 @@
         ("C-c C-n" . flycheck-next-error)
         ("C-c C-p" . flycheck-previous-error)))
 
+(provide 'tuanany-helper-flycheck)
 ;;; tuanany-helper-flycheck.el ends here

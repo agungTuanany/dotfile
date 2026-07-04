@@ -44,4 +44,5 @@
   (
    (prog-mode . highlight-indentation-current-column-mode)))
 
+(provide 'tuanany-helper-highlight-indentation)
 ;;; tuanany-helper-highlight-indentation.el ends here

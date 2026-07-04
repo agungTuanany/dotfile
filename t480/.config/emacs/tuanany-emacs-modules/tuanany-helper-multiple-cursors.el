@@ -48,4 +48,5 @@
    ("C-c C->" . mc/mark-all-like-this)
    ("C-c C-c" . mc/edit-lines)))
 
+(provide 'tuanany-helper-multiple-cursors)
 ;;; tuanany-helper-multiple-cursors.el ends here

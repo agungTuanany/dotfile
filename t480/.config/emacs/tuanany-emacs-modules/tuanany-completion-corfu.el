@@ -71,4 +71,5 @@
   (setq corfu-exclude-modes '(eshell-mode))
   (global-corfu-mode))
 
+(provide 'tuanany-completion-corfu)
 ;;; tuanany-completion-corfu.el ends here

@@ -99,5 +99,5 @@
   :ensure t
   :after clojure-mode)
 
-;; (provide 'tuanany-lang-clojure-mode)
+(provide 'tuanany-lang-clojure-mode)
 ;;; tuanany-lang-clojure-mode.el ends here

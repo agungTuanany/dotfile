@@ -47,4 +47,5 @@
                 grep-scroll-output t)
   )
 
+(provide 'tuanany-tools-grep)
 ;;; tuanany-tools-grep.el ends here

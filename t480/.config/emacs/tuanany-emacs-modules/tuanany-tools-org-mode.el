@@ -354,4 +354,5 @@
 (setq org-latex-create-formula-image-program 'imagemagick)
 (setq org-latex-packages-alist '(("" "amsmath" t)))
 
+(provide 'tuanany-tools-org-mode)
 ;;; tuanany-tools-org-mode.el ends here

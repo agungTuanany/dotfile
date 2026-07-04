@@ -50,4 +50,5 @@
   :config
   (global-diff-hl-mode))
 
+(provide 'tuanany-tools-magit)
 ;;; tuanany-tools-magit.el ends here
