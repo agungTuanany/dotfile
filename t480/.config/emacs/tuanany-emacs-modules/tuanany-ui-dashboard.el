@@ -42,11 +42,12 @@
   :config
   (setq dashboard-startup-banner 'ascii)
   (setq dashboard-banner-logo-title "Hello Agung Jangan Malas, ingat Nuha, Aly dan Istrimu")
-  (setq dashboard-footer-messages '("Take small steps and don't get discouraged. Good luck"
-                                    "an idiot admires complexity, a genius admires simplicity"
-                                    "Before the endgames, the Gods have placed the middle game, -Siegbert Tarrasch"
-                                    "Don't tell me what the code does, show me what the code does, -Anonymous"
-                                    "The great book of nature can be read only by those who know the language in which it was written. And this language is mathematics. -The Assayer"
+  (setq dashboard-footer-messages '(
+                                    "Take small steps and don't get discouraged. Good luck - Anonymous"
+                                    "an idiot admires complexity, a genius admires simplicity - Anonymous"
+                                    "Before the endgames, the Gods have placed the middle game, - Siegbert Tarrasch"
+                                    "Don't tell me what the code does, show me what the code does, - Anonymous"
+                                    "The great book of nature can be read only by those who know the language in which it was written. And this language is mathematics. - The Assayer"
                                     "Education is preparation for life, and only part of that is the mastery of specific work skills - Keith Devlin"
                                     "It's the method that's important, never mind if you don't get the right answer - Tom Lehrer"
                                     "Education is a prepartion for life, and only part of that is the mastery of specific work skills - Tom Lehrer"
@@ -57,9 +58,14 @@
                                     "If they could see on my face what I feel in my heart no one would ever fight me - Yasuhiro Yamashita"
                                     "Programmers want to believe that if they use the right algorithms and design patterns then the bugs will take care of themselves, that garbage! - Internet of Bugs"
                                     "It's better to go slowly in the right direction, than to go speeding off in the wrong direction - Simon Sinek"
+                                    "When you combine two pieces of data you get *data*
+When you combine two machine you get *trouble* - Rich Hickey"
+                                    "No body want to code with *mutable strings* anymore
+why do you want to program with *mutable collections?* - Rich Hickey"
+                                    "System are dynamic and data driven, it might be nice idea to use a language that is also *dynamic* and *data driven* - Rich Hickey"
                                     ))
   (setq dashboard-center-content t)
-  (dashboard-setup-startup-hook)
-  )
+  (dashboard-setup-startup-hook))
 
+(provide 'tuanany-ui-dashboard)
 ;;; tuanany-ui-dashboard.el ends here
