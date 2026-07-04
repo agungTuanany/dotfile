@@ -38,9 +38,23 @@
 
 ;;;; Code:
 
+
 (use-package magit
   :ensure t
-  :commands (magit-status magit-get-current-branch))
+  :commands (magit-status magit-get-current-branch)
+
+  :init
+  (setq magit-display-buffer-function
+        #'display-buffer)
+
+  :config
+  (add-to-list
+   'display-buffer-alist
+   '("\\`magit:"
+     (display-buffer-in-side-window)
+     (side . right)
+     (slot . 0)
+     (window-width . 0.45))))
 
 (use-package magit-delta
   :after magit
