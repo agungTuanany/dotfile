@@ -51,6 +51,15 @@
 ;; Source: https://www.masteringemacs.org/article/how-to-get-started-tree-sitter
 ;; Emacs 29 support for tree-sitter built in.
 
+(dolist (dir '("tuanany-emacs-modules/core"
+               "tuanany-emacs-modules/ui"
+               "tuanany-emacs-modules/completion"
+               "tuanany-emacs-modules/helper"
+               "tuanany-emacs-modules/tools"
+               "tuanany-emacs-modules/languages"))
+  (add-to-list 'load-path
+               (locate-user-emacs-file dir)))
+
 ;; Add custom tree-sitter grammar path
 (setq treesit-extra-load-path `(,(concat user-emacs-directory "etc/var/tree-sitter-dist/")
                                 ,(concat user-emacs-directory "etc/tree-sitter")))
@@ -101,7 +110,7 @@
    )
 
   ;; kill the buffer without asking a live process attached to it
-   (setq kill-buffer-query-functions
+  (setq kill-buffer-query-functions
         (remq 'process-kill-buffer-query-function
               kill-buffer-query-functions))
 
@@ -224,7 +233,7 @@
 
   ;;; Buffer/Minibuffer
   (confirm-nonexistent-file-or-buffer   nil)
-  (delete-by-moving-to-trash            not noninteractive)
+  (delete-by-moving-to-trash            nil noninteractive)
   (enable-recursive-minibuffers         t)
   (inhibit-startup-echo-area-message    t)
   (initial-buffer-choice                t)          ;; open *scratch* buffer
@@ -284,18 +293,18 @@
 
   ;;; ibuffer
   (ibuffer-formats
-      '((mark modified read-only locked
-              " " (name 55 55 :left :elide)
-              " " (size 8 -1 :right)
-              " " (mode 18 18 :left :elide) " " filename-and-process)
-        (mark " " (name 16 -1) " " filename)))
+   '((mark modified read-only locked
+           " " (name 55 55 :left :elide)
+           " " (size 8 -1 :right)
+           " " (mode 18 18 :left :elide) " " filename-and-process)
+     (mark " " (name 16 -1) " " filename)))
 
   ;;; flyspell
-(flyspell-issue-welcome-flag nil)
+  (flyspell-issue-welcome-flag nil)
 
-;; Improves flyspell performance by preventing messages from being displayed for
-;; each word when checking the entire buffer.
-(flyspell-issue-message-flag nil)
+  ;; Improves flyspell performance by preventing messages from being displayed for
+  ;; each word when checking the entire buffer.
+  (flyspell-issue-message-flag nil)
 
   ;; ================================================
   ;;; LOAD EARLY PACKAGES AND HOOKS
@@ -307,7 +316,7 @@
   (prog-mode-hook  . electric-indent-local-mode)
   (before-save     . tuanany--untabify-before-save)
 
-   ;; After everything is loaded, configure modes and keybindings
+  ;; After everything is loaded, configure modes and keybindings
   ;;
   :config
   ;; simply toggle of customizable variables
@@ -387,76 +396,6 @@
                   dashboard-mode-hook))
     (add-hook mode(lambda () (display-line-numbers-mode -1))))
 
-  (dolist (tuanany-module-path '("tuanany-emacs-modules" "tuanany-lisp"))
-    (add-to-list 'load-path
-                 (locate-user-emacs-file tuanany-module-path)))
-
-  (defvar tuanany-addons '(
-                           ;; ==== CORE ====
-                           tuanany-core-package
-                           ;; ==== UI ====
-                           tuanany-ui-dashboard
-                           tuanany-ui-doom-modeline
-                           tuanany-ui-time
-                           tuanany-ui
-                           ;; ==== COMPLETION ====
-                           tuanany-completion-cape
-                           tuanany-completion-consult
-                           tuanany-completion-corfu
-                           tuanany-completion-custom
-                           tuanany-completion-embark-consult
-                           tuanany-completion-embark
-                           tuanany-completion-marginalia
-                           tuanany-completion-orderless
-                           tuanany-completion-yasnippet
-                           tuanany-completion-vertico
-                           ;; ==== HELPER ====
-                           tuanany-helper-dumb-jump
-                           tuanany-helper-flycheck
-                           tuanany-helper-goto-last-change
-                           ;; tuanany-helper-helpful
-                           tuanany-helper-highlight-indentation
-                           tuanany-helper-iedit
-                           tuanany-helper-ispell
-                           tuanany-helper-minibuffer
-                           tuanany-helper-outline-indent
-                           tuanany-helper-pdf-tools
-                           tuanany-helper-epub
-                           tuanany-helper-whitespace
-                           tuanany-helper-multiple-cursors
-                           ;; tuanany-helper-shrface
-                           ;; ==== TOOLS ====
-                           ;; tuanany-tools-evil
-                           ;; tuanany-tools-eww
-                           tuanany-tools-magit
-                           tuanany-tools-org-mode
-                           tuanany-tools-proced
-                           tuanany-tools-projectile
-                           tuanany-tools-shell
-                           tuanany-tools-skewer
-                           tuanany-tools-tree-sitter
-                           ;; tuanany-tools-browse-url
-                           ;; tuanany-tools-impatient-mode
-                           ;; tuanany-tools-prog-mode
-                           ;; ==== LANGUAGES ====
-                           tuanany-lang-clojure-mode
-                           tuanany-lang-js2-mode
-                           tuanany-lang-racket-mode
-                           tuanany-lang-web-mode
-                           tuanany-lang-yaml-mode
-                           tuanany-lang-ruby-mode
-                           ))
-
-  (dolist (file tuanany-addons)
-    (condition-case err
-        (progn
-          (message "Loading %s..." file)
-          (require file)
-          (message "Loaded %s ✓" file))
-      (error
-       (message "FAILED loading %s" file)
-       (signal (car err) (cdr err)))))
-
   ;; Enable these
   (dolist (c '(narrow-to-gion narrow-to-page upcase-region downcase-region))
     (put c 'disabled nil))
@@ -480,15 +419,15 @@
         (when (fboundp 'whitespace-cleanup)  ; Additional cleanup if available
           (whitespace-cleanup)))))
 
-   (defun tuanany-toggle-fold ()
-      "Toggle fold all lines larger than indentation on current line"
-      (interactive)
-      (let ((col 1))
-        (save-excursion
-          (back-to-indentation)
-          (setq col (+ 1 (current-column)))
-          (set-selective-display
-           (if selective-display nil (or col 1))))))
+  (defun tuanany-toggle-fold ()
+    "Toggle fold all lines larger than indentation on current line"
+    (interactive)
+    (let ((col 1))
+      (save-excursion
+        (back-to-indentation)
+        (setq col (+ 1 (current-column)))
+        (set-selective-display
+         (if selective-display nil (or col 1))))))
 
   :custom-face
   (cursor ((t (:background "light goldenrod" :foreground "black"))))
@@ -499,5 +438,12 @@
   ;; (marginalia-documentation ((t (:inherit nil :foreground "LemonChiffon4" :weight normal))))
 
   ) ;; END EMACS-PACKAGE
+
+(require 'tuanany-core)
+(require 'tuanany-ui)
+(require 'tuanany-completion)
+(require 'tuanany-helper)
+(require 'tuanany-tools)
+(require 'tuanany-languages)
 
 ;;; init.el ends here
