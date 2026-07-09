@@ -1,15 +1,14 @@
-;;;; tuanany-helper-goto-last-change.el --- dumb jump -*- lexical-binding: t -*-
+;;;; tuanany-helper-goto-last-change.el --- goto-last-change -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2021-2026 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
-;; Package-Requires: ((emacs "^25.1"))
 ;; Created: 2026
+
+;; Package-Requires: ((emacs "^25.1"))
 ;; Version: 0.1.0
 ;; Keywords: jump, last change
-
-;;;; Package-Requires:
 
 ;;;; License:
 ;; This file is not part of GNU Emacs.
@@ -26,7 +25,8 @@
 ;; this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ;;;; Commentary:
-;; A basic 'go to' functionalit that work really well. No need for LSP any more.
+;; A basic 'go to' functionality that work really well. No need for LSP any more.
+;; Move point through buffer-undo-list positions.
 
 ;; https://stackoverflow.com/a/10091330/217812
 ;;
@@ -40,18 +40,11 @@
 
 ;;;; Code:
 
-;; (use-package goto-last-change
-;;   :ensure t
-;;   :defer t
-
-;;   :bind
-;;   (("C-x C-/" 'goto-last-change)
-;;    ("C-x /" 'goto-last-change)))
-
 (use-package goto-last-change
   :ensure t
   :bind (("C-x C-/" . goto-last-change)
          ("C-x /"   . goto-last-change)))  ; Alternative binding
 
 (provide 'tuanany-helper-goto-last-change)
+
 ;;; tuanany-helper-goto-last-change.el ends here

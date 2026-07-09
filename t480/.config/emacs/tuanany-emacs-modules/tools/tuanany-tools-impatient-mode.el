@@ -4,12 +4,11 @@
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
-;; Package-Requires: ((emacs "^25.1"))
-;; Created: 2023
+;; Created: 2025
+
+;; Package-Requires: (emacs "^25.1)"
 ;; Version: 0.1.0
 ;; Keywords: HTML+CSS live preview
-
-;;;; Package-Requires:
 
 ;;;; License:
 ;; This file is not part of GNU Emacs.
@@ -26,6 +25,8 @@
 ;; this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ;;;; Commentary:
+;; HTML render as yo type
+
 ;; https://stackoverflow.com/a/10091330/217812
 ;;
 ;; In summary,

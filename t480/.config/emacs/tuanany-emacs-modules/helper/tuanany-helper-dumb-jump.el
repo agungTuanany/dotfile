@@ -4,12 +4,11 @@
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
+;; Created: 2026
+
 ;; Package-Requires: ((emacs "^25.1"))
-;; Created: 2023
 ;; Version: 0.1.0
 ;; Keywords: jump, function definition, help
-
-;;;; Package-Requires:
 
 ;;;; License:
 ;; This file is not part of GNU Emacs.
@@ -26,7 +25,7 @@
 ;; this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ;;;; Commentary:
-;; A basic 'go to' functionalit that work really well. No need for LSP any more.
+;; Jump to definition for 60+ languages without configuration.
 
 ;; https://stackoverflow.com/a/10091330/217812
 ;;

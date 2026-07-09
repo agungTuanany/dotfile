@@ -4,8 +4,9 @@
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
-;; Package-Requires: ((emacs "^25.1"))
 ;; Created: 2023
+
+;; Package-Requires: (emacs "^25.1)"
 ;; Version: 0.1.0
 ;; Keywords: emacs, vim
 
@@ -27,6 +28,8 @@
 ;; this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ;;;; Commentary:
+;; Major mode for interacting with an inferior shell.
+
 ;; https://stackoverflow.com/a/10091330/217812
 ;;
 ;; In summary,

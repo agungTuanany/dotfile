@@ -4,12 +4,11 @@
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
+;; Created: 2026
+
 ;; Package-Requires: ((emacs "^25.1"))
-;; Created: 2023
 ;; Version: 0.1.0
 ;; Keywords: helpful, shr, eww
-
-;;;; Package-Requires:
 
 ;;;; License:
 ;; This file is not part of GNU Emacs.
@@ -26,6 +25,8 @@
 ;; this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ;;;; Commentary:
+;; Extend shr/eww with org features and analysis capability
+
 ;; https://stackoverflow.com/a/10091330/217812
 ;;
 ;; In summary,

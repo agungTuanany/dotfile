@@ -4,10 +4,11 @@
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
-;; Package-Requires: ((emacs "^25.1"))
 ;; Created: 2023
+
+;; Package-Requires: (emacs "^25.1)"
 ;; Version: 0.1.0
-;; Keywords: live-sever
+;; Keywords: live-server, Live browser JavaScript, CSS, and HTML interaction.
 
 ;;;; Package-Requires:
 

@@ -1,15 +1,15 @@
 ;;;; tuanany-tools-org-mode.el --- org-mode -*- lexical-binding: t -*-
+;;;; tuanany-tools-magit.el --- magit -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2021-2026 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
-;; Package-Requires: ((emacs "^25.1"))
 ;; Created: 2023
+
+;; Package-Requires: (emacs "^25.1)"
 ;; Version: 0.1.0
 ;; Keywords: org-mode, note taking
-
-;;;; Package-Requires:
 
 ;;;; License:
 ;; This file is not part of GNU Emacs.

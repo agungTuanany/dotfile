@@ -2,14 +2,15 @@
 
 ;; Copyright (C) 2021-2026 Agung Tuanany
 
+;; Copyright (C) 2021-2026 Agung Tuanany
+
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
-;; Package-Requires: ((emacs "^25.1"))
-;; Created: 2023
-;; Version: 0.1.0
-;; Keywords: init file, early init file
+;; Created: Fri Dec 17 22:11:36 2021 +0700
 
-;;;; Package-Requires:
+;; Package-Requires: ((Emacs "25.1"))
+;; Version: 0.1.0
+;; Keywords: init file, key mapping, modular file, custom config.
 
 ;;;; License:
 ;; This file is not part of GNU Emacs.

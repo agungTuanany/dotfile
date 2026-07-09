@@ -1,15 +1,14 @@
-;;;; tuanany-helper-outline-indent.el --- whitespace -*- lexical-binding: t -*-
+;;;; tuanany-helper-outline-indent.el --- outline-indent -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2021-2026 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
-;; Package-Requires: ((emacs "^25.1"))
-;; Created: 2023
-;; Version: 0.1.0
-;; Keywords: Whitespace
+;; Created: 2026
 
-;;;; Package-Requires:
+;; Package-Requires: ((emacs "^25.1"))
+;; Version: 0.1.0
+;; Keywords: indentation
 
 ;;;; License:
 ;; This file is not part of GNU Emacs.
@@ -26,6 +25,8 @@
 ;; this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ;;;; Commentary:
+;; Folding text based on indentation (origami alternative).
+
 ;; https://stackoverflow.com/a/10091330/217812
 ;;
 ;; In summary,

@@ -4,12 +4,11 @@
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
-;; Package-Requires: ((emacs "^25.1"))
 ;; Created: 2023
+
+;; Package-Requires: (emacs "^25.1)"
 ;; Version: 0.1.0
 ;; Keywords: modeline
-
-;;;; Package-Requires:
 
 ;;;; License:
 ;; This file is not part of GNU Emacs.
@@ -26,6 +25,8 @@
 ;; this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ;;;; Commentary:
+;; A minimal and modern mode-line.
+
 ;; https://stackoverflow.com/a/10091330/217812
 ;;
 ;; In summary,
@@ -65,6 +66,13 @@
   (doom-modeline-total-line-number t)
   :init
   (doom-modeline-mode 1))
+
+(use-package doom-themes
+  :config
+  (setq-default doom-theme-enable-bold t
+                doom-theme-enable-italic t)
+  (load-theme 'doom-monokai-octagon t)
+  )
 
 (provide 'tuanany-ui-doom-modeline)
 ;;; tuanany-ui-doom-modeline.el ends here

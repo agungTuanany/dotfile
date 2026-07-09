@@ -4,11 +4,11 @@
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
-;; Package-Requires: ((emacs "^25.1"))
-;; Created: 2023
-;; Version: 0.1.0
-;; Keywords: multiple occurrences in the same way simultaneously
+;; Created: 2026
 
+;; Package-Requires: ((emacs "^25.1"))
+;; Version: 0.1.0
+;; Keywords: mini-buffer
 
 ;;;; License:
 ;; This file is not part of GNU Emacs.
@@ -25,6 +25,7 @@
 ;; this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ;;;; Commentary:
+;; editing for minibuffer fields
 ;; https://stackoverflow.com/a/10091330/217812
 ;;
 ;; In summary,

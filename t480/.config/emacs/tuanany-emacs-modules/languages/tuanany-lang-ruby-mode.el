@@ -1,15 +1,14 @@
-;;;; tuanany-lang-ruby-mode.el --- js2-mode Programming Languages Specified-*- lexical-binding: t -*-
+;;;; tuanany-lang-ruby-mode.el --- Ruby Programming Languages Specified-*- lexical-binding: t -*-
 
 ;; Copyright (C) 2021-2026 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
-;; Package-Requires: ((emacs "^25.1"))
 ;; Created: 2025
-;; Version: 0.1.0
-;; Keywords: ruby, programming language
 
-;;;; Package-Requires:
+;; Package-Requires: (emacs "^25.1")
+;; Version: 0.10.0
+;; Keywords: ruby, programming language
 
 ;;;; License:
 ;; This file is not part of GNU Emacs.

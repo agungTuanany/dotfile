@@ -1,14 +1,14 @@
 ;;; tuanany-helper-ispell.el --- Spell checking configuration -*- lexical-binding: t; -*-
+
 ;; Copyright (C) 2021-2026 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
-;; Package-Requires: ((emacs "^25.1"))
-;; Created: 2023
-;; Version: 0.1.0
-;; Keywords: multiple occurrences in the same way simultaneously
+;; Created: 2026
 
-;;;; Package-Requires:
+;; Package-Requires: ((emacs "^25.1"))
+;; Version: 0.1.0
+;; Keywords: spelling
 
 ;;;; License:
 ;; This file is not part of GNU Emacs.

@@ -1,16 +1,14 @@
-;;;; tuanany-tools-evil.el --- evil -*- lexical-binding: t -*-
+;;;; tuanany-tools-evil.el --- Evil Mode -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2021-2026 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
-;; Package-Requires: ((emacs "^25.1"))
-;; Created: 2023
+;; Created: 2025
+
+;; Package-Requires: (emacs "^25.1")
 ;; Version: 0.1.0
 ;; Keywords: emacs, vim
-
-;;;; Version: 0.1.0
-;;;; Package-Requires:
 
 ;;;; License:
 ;; This file is not part of GNU Emacs.
@@ -27,6 +25,8 @@
 ;; this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ;;;; Commentary:
+;; Extensible vi layer
+
 ;; https://stackoverflow.com/a/10091330/217812
 ;;
 ;; In summary,

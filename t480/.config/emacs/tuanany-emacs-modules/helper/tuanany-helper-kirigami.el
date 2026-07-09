@@ -1,15 +1,14 @@
-;;;; tuanany-helper-kirigami-indent.el --- whitespace -*- lexical-binding: t -*-
+;;; tuanany-helper-kirigami.el --- Structural editing with kirigami -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2021-2026 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
-;; Package-Requires: ((emacs "^25.1"))
 ;; Created: 2026
+
+;; Package-Requires: ((emacs "^25.1"))
 ;; Version: 0.1.0
 ;; Keywords: Whitespace
-
-;;;; Package-Requires:
 
 ;;;; License:
 ;; This file is not part of GNU Emacs.
@@ -37,9 +36,6 @@
 ;; fully customize and configure a package to suit your needs.
 
 ;;;; Code:
-
-;;; tuanany-helper-kirigami.el --- Structural editing with kirigami -*- lexical-binding: t; -*-
-
 (use-package kirigami
   :ensure t
 
@@ -57,9 +53,9 @@
    ("C-c z r"   .   kirigami-open-folds)      ; Open all folds
    ("C-c z c"   .   kirigami-close-fold)      ; Close fold at point
    ("C-c z m"   .   kirigami-close-folds)     ; Close all folds
-   ("C-c z <tab>" . kirigami-toggle-fold))  ; Toggle fold at point
+   ("C-c z <tab>" . kirigami-toggle-fold))    ; Toggle fold at point
 
-    )
+  )
 
 ;;;; -------------------------
 ;;;; Org-mode Integration

@@ -5,12 +5,11 @@
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
+;; Created: Fri Dec 17 22:11:36 2021 +0700
+
 ;; Package-Requires: ((Emacs "25.1"))
-;; Created: 2023
 ;; Version: 0.1.0
 ;; Keywords: init file, key mapping, modular file, custom config.
-
-;;;; Package-Requires: ((Emacs "29.1"))
 
 ;;;; License: GPL-3.0-or-later
 

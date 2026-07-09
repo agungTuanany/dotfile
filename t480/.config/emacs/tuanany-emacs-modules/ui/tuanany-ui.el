@@ -1,15 +1,14 @@
-;;;; tuanany-ui.el --- UI -*- lexical-binding: t -*-
+;;;; tuanany-ui.el --- UI interface -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2021-2026 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
-;; Package-Requires: ((emacs "^25.1"))
 ;; Created: 2023
-;; Version: 0.1.0
-;; Keywords: global ui,
 
-;;;; Package-Requires:
+;; Package-Requires: (emacs "^25.1)"
+;; Version: 0.1.0
+;; Keywords: interface, global UI,
 
 ;;;; License:
 ;; This file is not part of GNU Emacs.
@@ -26,6 +25,7 @@
 ;; this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ;;;; Commentary:
+;; interface for UI
 ;; https://stackoverflow.com/a/10091330/217812
 ;;
 ;; In summary,
@@ -40,19 +40,10 @@
 
 (require 'tuanany-ui-dashboard)
 (require 'tuanany-ui-doom-modeline)
+(require 'tuanany-ui-paredit)
+(require 'tuanany-ui-rainbow-delimeters)
 (require 'tuanany-ui-time)
 
-
-
-(use-package doom-themes
-  :config
-  (setq-default doom-theme-enable-bold t
-                doom-theme-enable-italic t)
-  (load-theme 'doom-monokai-octagon t)
-  )
-
-(use-package rainbow-delimiters
-  :hook (prog-mode . rainbow-delimiters-mode))
 
 (use-package which-key
   :ensure t
@@ -65,15 +56,10 @@
   (which-key-idle-delay 0.5)
   )
 
-(use-package paredit
-  :hook
-  ((racket-mode . paredit-mode)
-   (racket-repl-mode . paredit-mode))
-  (clojure-mode . paredit-mode))
-
 ;; (face-attribute 'default :height)
 ;; (set-face-attribute 'default nil :height 100)  ;; 140 = 14pt
 (set-face-attribute 'default nil :font "Source Code Pro" :height 140)
 
 (provide 'tuanany-ui)
+
 ;;; tuanany-ui.el ends here

@@ -1,15 +1,14 @@
-;;;; tuanany-lang-clojure-mode.el --- Programming Languages Specified-*- lexical-binding: t -*-
+;;;; tuanany-lang-clojure-mode.el --- Clojure Languages Specified-*- lexical-binding: t -*-
 
 ;; Copyright (C) 2021-2026 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
-;; Package-Requires: ((emacs "^25.1") (clojure-mode "5.13") (cider "1.6") (pareidt "26"))
 ;; Created: 2025
+
+;; Package-Requires: ((emacs "^25.1") (clojure-mode "5.13") (cider "1.6") (pareidt "26"))
 ;; Version: 0.2.0
 ;; Keywords: clojure, programming language
-
-;;;; Package-Requires:
 
 ;;;; License:
 ;; This file is not part of GNU Emacs.

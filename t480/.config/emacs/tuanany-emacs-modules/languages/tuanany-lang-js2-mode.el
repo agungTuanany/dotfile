@@ -1,15 +1,14 @@
-;;;; tuanany-lang-js2-mode.el --- js2-mode Programming Languages Specified-*- lexical-binding: t -*-
+;;;; tuanany-lang-js2-mode.el --- JavaScript Programming Languages Specified-*- lexical-binding: t -*-
 
 ;; Copyright (C) 2021-2026 Agung Tuanany
 
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
-;; Package-Requires: ((emacs "^25.1"))
-;; Created: 2023
-;; Version: 0.1.0
-;; Keywords: javascript, programming language
+;; Created: 2025
 
-;;;; Package-Requires:
+;; Package-Requires: (emacs "^25.1")
+;; Version: 0.2.0
+;; Keywords: JavaScript, programming language
 
 ;;;; License:
 ;; This file is not part of GNU Emacs.
