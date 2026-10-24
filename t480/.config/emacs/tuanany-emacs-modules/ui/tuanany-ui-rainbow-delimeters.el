@@ -1,4 +1,4 @@
- ;;; tuanany-ui-rainbow-delimeters.el -- rainbow-delimiters -*- lexical-binding: t -*-
+;;; tuanany-ui-rainbow-delimeters.el -- rainbow-delimiters  -*- lexical-binding: nil -*-
 
 ;; Copyright (C) 2021-2026 Agung Tuanany
 

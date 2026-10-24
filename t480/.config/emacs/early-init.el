@@ -2,8 +2,6 @@
 
 ;; Copyright (C) 2021-2026 Agung Tuanany
 
-;; Copyright (C) 2021-2026 Agung Tuanany
-
 ;; Author: Agung Tuanany <agung.tuanany@gmail.com>
 ;; URL: http://github.com/agungTuanany/dotfile
 ;; Created: Fri Dec 17 22:11:36 2021 +0700
@@ -28,49 +26,43 @@
 
 ;;;; Commentary:
 
+;; early-init.el is prepares Emacs,
+
+;; - one require 'package
+;; - one place defining archives
+;; - no package-initialize
+
 ;;;; Code:
 
-;; Backup of `gc-cons-threshold' and `gc-cons-percentage' before startup.
-(defvar minimal-emacs--backup-gc-cons-threshold gc-cons-threshold)
-(defvar minimal-emacs--backup-gc-cons-percentage gc-cons-percentage)
-
-;; Temporarily increase the garbage collection threshold. These changes help
-;; shave off about half a second of startup time.
-;; https://akrl.sdf.org/#orgc15a10d
-;; (setq garbage-collection-messages t)
+;; Faster startup
 (setq gc-cons-threshold most-positive-fixnum
       gc-cons-percentage 0.5)
 
-;; Same idea as above for the 'vc-handled-backends'.
-(setq vc-handled-backends nil)
 (setq package-enable-at-startup nil)
+(setq vc-handled-nbackends nil)
 
 (add-hook 'emacs-startup-hook
-          (lambda ()
-            (setq gc-cons-threshold (* 1024 1024 10)
-                  gc-cons-percentage 0.2)))
+	  (lambda ()
+	    (setq gc-cons-threshold (* 16 1024 1024)
+		  gc-cons-percentage 0.1)))
 
-;;;; PACKAGES
-;; Presetup package sources
+;;;; Package bootstrap
 (require 'package)
+
+(setopt
+ package-archives
+ '(("gnu"   . "https://elpa.gnu.org/packages/")
+   ("melpa" . "https://melpa.org/packages/")
+   ;; ("org"   . "https://orgmode.org/elpa/") ;;  Org ELPA is discontinued, will close before Org 96.
+   )
+
+
+ package-archive-priorities
+ '(("gnu"   . 1)
+   ("melpa" . 2)
+   ("org"   . 3))
+
+;; Disable automate package initialization
+ package-enable-at-startup nil)
+
 (add-hook 'package-menu-mode-hook #'hl-line-mode)
-
-(setq package-archives '(("gnu-elpa" . "https://elpa.gnu.org/packages/")
-                         ("melpa" . "https://melpa.org/packages/")
-                         ("org" . "https://orgmode.org/elpa/")))
-
-;; Highest number gets priority (what is not mentioned has priority 0)
-(setq package-archive-priorities
-      '(("gnu-elpa" . 1)
-        ("melpa" . 2)
-        ("org" . 3)))
-
-;; Initialize package system but don't activate packages yet
-(setq package-enable-at-startup nil)
-(package-initialize)
-
-;; Configure use-package (built-in)
-(eval-when-compile
-  (require 'use-package))
-(setq use-package-always-ensure t)
-;;; early-init.el ends here

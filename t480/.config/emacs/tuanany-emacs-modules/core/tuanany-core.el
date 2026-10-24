@@ -38,8 +38,15 @@
 ;; fully customize and configure a package to suit your needs.
 
 ;;;; Code:
+;; Note: the structure files, is matter. do not sort the lines alphabetically.
 
 (require 'tuanany-core-package)
+(require 'tuanany-core-startup)
+(require 'tuanany-core-ui)
+(require 'tuanany-core-editing)
+(require 'tuanany-core-system)
+
+;; suggestion
 
 (provide 'tuanany-core)
 

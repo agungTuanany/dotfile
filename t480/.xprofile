@@ -3,7 +3,7 @@
 # ============================================
 # ThinkPad T480 + ThinkVision T32p-30
 # Author           : Agung Tuanany
-# Last Modified    : Sat Jun  6 07:02:29 AM WIB 2026
+# Last Modified    : Thu Oct 22 02:43:10 PM WIB 2026
 # ============================================
 
 # Give X time to enumerate devices
@@ -29,12 +29,18 @@ export XCURSOR_SIZE=24
 export XCURSOR_THEME=Adwaita
 
 
-#
+
 if xrandr | grep -q "^DP1 connected"; then
     xrandr \
-        --output eDP1 --auto \
-        --output DP1 --mode 3840x2160 --rate 60 --right-of eDP1
+	--output eDP1 --auto \
+	--output DP1 --mode 3840x2160 --rate 60 --right-of eDP1
 fi
+
+# if xrandr | grep -q "^DP1 connected"; then
+#     xrandr \
+#	--output eDP1 --mode 1920x1080 --primary \
+#	--output DP2 --mode 3840x2160 --rate 60 --right-of eDP1
+# fi
 
 #
 # Disable TrackPoint
@@ -55,10 +61,10 @@ fi
 #
 if xinput list | grep -q "Synaptics TM3276-022"; then
     xinput set-prop "Synaptics TM3276-022" \
-        "libinput Tapping Enabled" 1
+	"libinput Tapping Enabled" 1
 
     xinput set-prop "Synaptics TM3276-022" \
-        "libinput Disable While Typing Enabled" 1
+	"libinput Disable While Typing Enabled" 1
 fi
 
 #
