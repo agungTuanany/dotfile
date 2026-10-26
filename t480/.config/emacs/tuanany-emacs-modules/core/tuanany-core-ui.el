@@ -40,69 +40,172 @@
 ;;;; Code:
 ;; Note: the structure files, is matter. do not sort the lines alphabetically.
 
-
 ;;; Three categories to config in core-ui
 ;; display
 ;; faces
 ;; window
 
+;;;; Display
 
-;;;; Frame and window appearance
+;;; Frame appearance window appearance
+
 ;; Hide unnecessary UI elements.
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (tooltip-mode -1)
 
-;; Set frame appearance.
+;; Set frame appearance - opacity configuration
 (set-frame-parameter nil 'alpha-background 90)
 (add-to-list 'default-frame-alist '(alpha-background . 90))
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+;; Configure fringe width
 (add-to-list 'default-frame-alist '(left-fringe . 6))
 (add-to-list 'default-frame-alist '(right-fringe . 6))
 
-;;;; Font
-;; Source Code Pro, 14 pt.
+;; Prevent implied frame resizing
+(setopt frame-inhibit-implied-resize t)
+
+
+;;; Fonts
+
+;; Source Code Pro, 15 pt.
 (add-to-list 'default-frame-alist
-         '(font . "Source Code Pro-14"))
+         '(font . "Source Code Pro-15"))
 
 (set-face-attribute 'default nil
             :family "Source Code Pro"
             :height 140)
 
-;;;; Display
-(setopt display-line-numbers-type    'relative)
-(setopt display-line-numbers-width   3)
-(setopt display-line-numbers-widen   t)
+
+;;; Line numbers
+
+;; Globally enable relative line numbers.
+(setopt
+ display-line-numbers-type    'relative
+ display-line-numbers-width   3
+ display-line-numbers-widen   t)
 
 (global-display-line-numbers-mode 1)
 
+;; Disable line numbers in special-purpose modes.
+(dolist (mode '(custom-mode-hook
+                Info-mode-hook
+                lisp-interaction-mode-hook
+                ibuffer-mode-hook
+                compilation-mode-hook
+                dired-mode-hook
+                eshell-mode-hook
+                help-mode-hook
+                magit-mode-hook
+                markdown-mode-hook
+                org-mode-hook
+                shell-mode-hook
+                term-mode-hook
+                text-mode-hook
+                helpful-mode-hook
+                messages-buffer-mode-hook))
+  (add-hook mode
+            (lambda ()
+              (display-line-numbers-mode -1))))
+
+
 ;;; Cursors
+
 ;; cursor-type
-;; x-stretch-cursor
+(setopt cursor-type 'hollow
+        x-stretch-cursor t)
+
+;; Disable cursor blinking
+;; (blink-cursor-mode -1)
 
 
-;;; Windows
-;; split-width-threshold
-;; split-height-threshold
-;; display-buffer-alist
-;; window-sides-slots
+;;; Ui feedback
+
+(setopt echo-keystrokes 0.1
+        visible-bell nil
+        truncate-string-ellipsis "...")
+
+;; Highlight the current line globally
+;; (global-hl-line-mode 1)
+
+;; Keep the current line highlighted consistently.
+(setopt hl-line-sticky-flag nil
+        global-hl-line-sticky-flag nil)
 
 
-;;; Theme-independent faces
-;; cursor
-;; line-number-current-line
-;; font-lock-comment-face
-;; whitespace-tab
+;;;; Faces
+
+;;; Cursor face
+
+(set-face-attribute 'cursor nil
+                    :background "light goldenrod"
+                    :foreground "black")
+
+;; Line-number face
+
+(set-face-attribute 'line-number-current-line nil
+                    :inherit 'default
+                    :foreground "#CFC0C5"
+                    :slant 'normal
+                    :weight 'regular)
+
+;; Programming comment
+;; (set-face-attribute 'font-lock-comment-face nil
+;;                     :foreground "dim gray"
+;;                     :slant 'italic)
+
+
+;;; Whitespace
+
+;; Customize tab higlighting
+(with-eval-after-load 'whitespace
+  (set-face-attribute 'whitespace-tab nil
+                      :foreground "#636363"))
+
+
+;;; Web mode
+
+;; This face is defined by web-mode when that package is loaded.
+(with-eval-after-load 'web-mode
+  (set-face-attribute 'web-mode-current-element-highglight-face 'nil
+                      :foreground "#ffffff"
+                      :underline "gold"))
+
+
+;;;; Windows
+
+;;; Window layout
+
+;; Set thresholds for automatic window splitting.
+(setopt
+ split-width-threshold 170
+ split-height-threshold 80)
+
+;; Reverse slots for side windows
+(setopt window-sides-slots '(3 0 3 1))
 
 
 ;;; Scrolling
-;; scroll-margin
-;; scroll-step
-;; scroll-conservatively
-;;; Fringe
-;; fringe-mode
-;; indicate-buffer-boundaries
+
+(setopt scroll-margin 0
+        scroll-step 1
+        scroll-conservatively 100)
+
+
+;;; Fringe and buffer boundaries
+
+;; Keep fringe indicator visible at buffer boundaries.
+(setopt indicate-buffer-boundaries 'left)
+
+;;; Window display rules
+
+;; Add display-buffer rule here when needed
+;; Example:
+(setopt display-buffer-alist
+        '(( "\\*Help\\*" display-buffer-same-window)))
+
 
 (provide 'tuanany-core-ui)
 
