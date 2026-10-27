@@ -37,8 +37,17 @@
 ;; fully customize and configure a package to suit your needs.
 
 ;;;; Code:
+;; Categories:
+;;  - Text editing,
+;;  - indentation,
+;;  - navigation,
+;;  - buffers,
+;;  - folding, and
+;;  - keybindings
 
-;;;; Editing behavior
+
+;;;; Text and indentation
+
 (setopt
  indent-tabs-mode nil
  tab-width                         4             ;; tabs are evil
@@ -46,9 +55,25 @@
  fill-column                       80
  require-final-newline             t
  narrow-to-defun-include-comments  t
- x-stretch-cursor                  t             ;; Make cursor stretch to cover wider characters
- x-underline-at-descent-line       t)
+ x-underline-at-descent-line       t
+ backward-delete-char-untabify-method 'untabify)
 
+;; Prefer wrapped lines over truncated lines by default
+(setq-default truncate-lines nil)
+
+
+;;;; Parenthesis matching
+
+(setopt
+ show-paren-delay 0.1
+ show-paren-when-point-inside-paren t
+ show-paren-when-point-in-periphery t
+ show-paren-style 'expression)
+
+(show-paren-mode 1)
+
+
+;;;; Editing behavior
 
 ;; Indentation and paired delimiters
 (electric-indent-mode 1)
@@ -57,42 +82,49 @@
 ;; Replace selected text when typing
 (delete-selection-mode 1)
 
-;; Prefer wrapped lines over truncated lines by default
-(setq-default truncate-lines nil)
+;; Configure deletion and kill-ring behavior here.
+;; kill-ring-max
+;; kill-do-not-save-duplicates
+
+;; Configure undo limits here.
+;; undo-limit
+;; undo-strong-limit
+;; undo-outer-limit
+
+;;;; Subword navigation
+
+;; Treat CamelCase words as separate subwords
+;; NOTE: It's make emacs read-only-mode!!
+;; (global-subword-mode 1)
 
 
-;;;; Navigation
-(setopt
- scroll-conservatively             100
- backward-delete-char-untabify-method 'untabify)
+;;;; Navigation and search
+
+(setopt switch-to-buffer-obey-display-action t)
+
+;; Configure these only if needed.
+;; switch-to-buffer-in-dedicated-window
+;; outline-blank-line
+;; search-invisible
+;; imenu-max-item-length
 
 
-;;;; Frame and window behavior
-(setopt
- frame-inhibit-implied-resize    t       ;; Fonts independent from any resized frame
- split-width-threshold           170     ;; Prefer Vertical splits
- split-height-threshold          80
- window-sides-slots              '(3 0 3 1))
+;;;; Buffer management
 
-
-;;; Parent Matching
-(setopt
- show-paren-delay               0.1
- show-paren-when-point-inside-paren   t
- show-paren-when-point-in-periphery   t
- show-paren-style 'expression)
-
-(show-paren-mode 1)
+;; ibuffer-formats
+;; kill-buffer-query-functions
+;; uniquify-buffer-name-style
 
 
 ;;;; Abbrev
-;; Configure abbrev-mode separately when needed
 
-
-;;;; Ispell and Flyspell
+;; Configure abbrev-mode separately when needed.
 
 ;; In Emacs 30 and newer, disable Ispell completion to avoid annotation errors
 ;; when no `ispell' dictionary is set.
+
+
+;;;; Ispell and Flyspell
 
 ;; Ispell
 (setopt
@@ -108,25 +140,31 @@
 ;; each word when checking the entire buffer.
 (setopt flyspell-issue-message-flag nil)
 
+;; Enable Flyspell in Language or text modules where appropriate.
 
-;;;; Subword navigation
 
-;; Treat CamelCase words as separate subwords
-;; NOTE: It's make emacs read-only-mode!!
-;; (global-subword-mode 1)
+;;;; Interactive evaluation
 
-;;;; Folding
+;; eval-expression-print-length
+;; eval-expression-print-level
 
-;; Enable code folding in programming buffers
+
+;;; Folding
+
 (add-hook 'prog-mode-hook #'hs-minor-mode)
 
+;; Enable outline-indent-minor-mode in relevant model when needed
+;; outline-indent-minor-mode
+
+;; Define tuanany-toggle-fold here if you want a custom folding command
+;; tuanany-toggle-fold
 
 ;;;; Whitespace
+
 ;; Configure whitespace visualization, but do not enable it globally
 (setopt
  whitespace-style
  '(face tabs trailing spaces space-before-tab))
-
 
 ;;;; Before-save cleanup
 
@@ -138,6 +176,27 @@
 
 (add-hook 'before-save-hook
           #'tuanany--cleanup-buffer-before-save)
+
+
+;;;; Folding
+
+;; Enable code folding in programming buffers
+(add-hook 'prog-mode-hook #'hs-minor-mode)
+
+
+;;;; Global keybindings
+
+;; Remove default bindings.
+(keymap-global-unset "C-x C-c")
+(keymap-global-unset "C-x C-o")
+
+;; Set custom bindings.
+(keymap-global-set "C-c f"       #'find-name-dired)
+(keymap-global-set "C-x C-c C-c" #'save-buffers-kill-emacs)
+(keymap-global-set "C-x C-o"     #'other-window)
+(keymap-global-set "C-x M-f"     #'recentf-open-files)
+(keymap-global-set "C-x C-b"     #'ibuffer)
+
 
 (provide 'tuanany-core-editing)
 
