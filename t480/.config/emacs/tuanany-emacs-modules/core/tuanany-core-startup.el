@@ -39,6 +39,51 @@
 
 ;;;; Code:
 ;; Note: the structure files, is matter. do not sort the lines alphabetically.
+;; Categories
+;; - Startup behavior,
+;; - performance,
+;; - garbage collection,and
+;; - persistent state.
+
+
+;;;; Startup and performance
+(setopt inhibit-compacting-font-caches t)
+
+(setopt load-prefer-newer t)
+
+;;;; Startup screen
+
+;; Suppress the default startup screen
+(setopt inhibit-startup-screen t)
+
+;; Start with an empty *scratch* buffer
+(setopt initial-scratch-message "")
+
+;; Suppress the startup echo-area message for the current user
+(setopt inhibit-startup-echo-area-message user-login-name)
+
+;; Leave initial-buffer-choice at its default so startup packages,
+;; such as Dashboard, can manage the initial display.
+
+
+;;;; Garbage collection
+
+;; A higher threshold can reduce pauses cause by garbage collection
+;; during startup. The post-startup value are reasonable starting
+;; points, not universal performance optimization
+
+;; Reduce garbage collection during startup
+(setq gc-cons-threshold (* 64 1024 1024)
+      gc-cons-percentage 0.6)
+
+(defun tuanany--restore-gc-after-startup ()
+  "Restore normal garbage-collection settings after startup."
+  (setq gc-cons-threshold (* 16 1024 1024)
+        gc-cons-percentage 0.1))
+
+;; Restore normal values after startup
+(add-hook 'emacs-startup-hook #'tuanany--restore-gc-after-startup)
+
 
 ;;;; Persistent state directory
 
@@ -48,67 +93,31 @@
 
 (make-directory tuanany/etc-directory t)
 
-;;;; Recent files
-;; recentf-mode
-(use-package recentf
-  :ensure nil
-  :custom
-  (recentf-save-file
-   (expand-file-name "recentf" tuanany/etc-directory))
-  :init
-  (recentf-mode 1))
+;;; Recent files
 
-;;;; Minibuffer history
-;; savehist-mode
-(use-package savehist
-  :ensure nil
-  :custom
-  (savehist-file
-   (expand-file-name "savehist" tuanany/etc-directory))
-  :init
-  (savehist-mode 1))
+;; Store recent-file history in the state directory.
+(setopt recentf-save-file
+        (expand-filename "recentf" tuanany/etc-directory))
 
-;;;; Last editing position
-;; save-place-mode
+(recentf-mode 1)
 
-(use-package saveplace
-  :ensure nil
-  :custom
-  (save-place-file
-   (expand-file-name "saveplace" tuanany/etc-directory))
-  :init
-  (save-place-mode 1))
+;;; Command history
 
-;; (make-directory
-;;  (expand-file-name "backups/" tuanany/etc-directory))
+;; Store minibuffer command history in the state directory.
+(setopt savehist-file
+        (expand-file-name "savehist" tuanany/etc-directory))
 
-;;;; Garbage collection
-;; A higher threshold can reduce pauses cause by garbage collection
-;; during startup. The post-startup value are reasonable starting
-;; points, not universal performance optimization
+(savehist-mode 1)
 
-;; Reduce garbage collection during startup
-(setq gc-cons-threshold (* 64 1024 1024)
-      gc-cons-percentage 0.6)
 
-;; Restore normal values after startup
-(add-hook 'emacs-startup-hook
-      (lambda ()
-        (setq gc-cons-threshold (* 64 1024 1024)
-          gc-cons-percentage 0.1)))
+;;; Position history
 
-;;;; native-comp
-;; useful distinct with:
-;; 'native-comp is the native compilation subsystem.
-;; 'native-comp-asnyc-report-warnings-errors, controls how asynchronous native-compilation warning are reported
-;; 'native-comp-asyc is related internals can Vary by emacs version and build
+;; Remember the last visited position in files.
+(setopt save-place-file
+        (expand-file-name "saveplace" tuanany/etc-directory))
 
-;; startup screen
-(setopt inhibit-startup-screen t)
-(setopt initial-scratch-message "")
+(save-place-mode 1)
 
-;; after-init-hook
-;; emacs-startup-hook
 
 (provide 'tuanany-core-startup)
 
