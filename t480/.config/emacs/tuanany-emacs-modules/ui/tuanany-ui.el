@@ -44,22 +44,6 @@
 (require 'tuanany-ui-rainbow-delimeters)
 (require 'tuanany-ui-time)
 
-
-(use-package which-key
-  :ensure t
-  :init (which-key-mode)
-  :diminish which-key-mode
-  :hook
-  ((prog-mode . which-function-mode)
-   (after-init . which-key-mode))
-  :custom
-  (which-key-idle-delay 0.5)
-  )
-
-;; (face-attribute 'default :height)
-;; (set-face-attribute 'default nil :height 100)  ;; 140 = 14pt
-(set-face-attribute 'default nil :font "Source Code Pro" :height 140)
-
 (provide 'tuanany-ui)
 
 ;;; tuanany-ui.el ends here

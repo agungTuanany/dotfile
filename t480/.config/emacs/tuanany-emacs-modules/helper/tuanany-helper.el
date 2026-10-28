@@ -51,6 +51,7 @@
 (require 'tuanany-helper-outline-indent)
 (require 'tuanany-helper-pdf-tools)
 (require 'tuanany-helper-whitespace)
+(require 'tuanany-helper-which-key)
 ;; (require 'tuanany-helper-helpful)
 
 (provide 'tuanany-helper)

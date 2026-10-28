@@ -45,7 +45,7 @@
 ;; faces
 ;; window
 
-;;;; Display
+;;;; === DISPLAY ===
 
 ;;; Frame appearance window appearance
 
@@ -66,6 +66,8 @@
 
 ;; Prevent implied frame resizing
 (setopt frame-inhibit-implied-resize t)
+
+(toggle-frame-maximized)                  ;; Always use all screen for emacs
 
 
 ;;; Fonts
@@ -135,7 +137,7 @@
         global-hl-line-sticky-flag nil)
 
 
-;;;; Faces
+;;;; === FACES ===
 
 ;;; Cursor face
 
@@ -174,7 +176,7 @@
                       :underline "gold"))
 
 
-;;;; Windows
+;;;; === WINDOWS ===
 
 ;;; Window layout
 
@@ -195,6 +197,7 @@
 
 
 ;;; Fringe and buffer boundaries
+(set-fringe-mode 6)                       ;; Give some breating room for symbols
 
 ;; Keep fringe indicator visible at buffer boundaries.
 (setopt indicate-buffer-boundaries 'left)

@@ -93,8 +93,13 @@
 
 
 ;;;; no-littering
-(use-package no-littering
-  :ensure t)
+(use-package no-littering :ensure t)
+
+
+
+;; Optional package managers
+;; (use-package quelpa :ensure t)
+;; (use-package quelpa-use-package :ensure t)
 
 
 (provide 'tuanany-core-package)

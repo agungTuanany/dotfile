@@ -177,13 +177,6 @@
 (add-hook 'before-save-hook
           #'tuanany--cleanup-buffer-before-save)
 
-
-;;;; Folding
-
-;; Enable code folding in programming buffers
-(add-hook 'prog-mode-hook #'hs-minor-mode)
-
-
 ;;;; Global keybindings
 
 ;; Remove default bindings.
