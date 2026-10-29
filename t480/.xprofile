@@ -32,14 +32,14 @@ export XCURSOR_THEME=Adwaita
 
 if xrandr | grep -q "^DP1 connected"; then
     xrandr \
-	--output eDP1 --auto \
-	--output DP1 --mode 3840x2160 --rate 60 --right-of eDP1
+    --output eDP1 --auto \
+    --output DP1 --mode 3840x2160 --rate 60 --right-of eDP1
 fi
 
 # if xrandr | grep -q "^DP1 connected"; then
 #     xrandr \
-#	--output eDP1 --mode 1920x1080 --primary \
-#	--output DP2 --mode 3840x2160 --rate 60 --right-of eDP1
+#   --output eDP1 --mode 1920x1080 --primary \
+#   --output DP2 --mode 3840x2160 --rate 60 --right-of eDP1
 # fi
 
 #
@@ -61,11 +61,16 @@ fi
 #
 if xinput list | grep -q "Synaptics TM3276-022"; then
     xinput set-prop "Synaptics TM3276-022" \
-	"libinput Tapping Enabled" 1
+    "libinput Tapping Enabled" 1
 
     xinput set-prop "Synaptics TM3276-022" \
-	"libinput Disable While Typing Enabled" 1
+    "libinput Disable While Typing Enabled" 1
 fi
+
+# Turn off displays after 20 minutes of inactivity
+xset s 1200 1200
+xset +dpms
+xset dpms 0 0 1200
 
 #
 # Additional palm protection
